@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { SECTORS } from '../data/sectors';
 import { SERVICES } from '../data/services';
-import { PROJECTS, Project } from '../data/projects';
 import { COMPANY_STATS, LIFECYCLE_STAGES } from '../data/company';
 import { ServiceCard } from '../components/ServiceCard';
-import { ProjectCard } from '../components/ProjectCard';
 import { ProjectVideoModal } from '../components/ProjectVideoModal';
-import { ProjectDetailsModal } from '../components/ProjectDetailsModal';
 import { ArrowRight, ShieldCheck, Award, Building2, Compass, CheckCircle2, Play, ChevronRight, FileText } from 'lucide-react';
 import nhaiLogo from '../images/partners/nhai.jpg';
 import morthLogo from '../images/partners/morth.svg';
@@ -16,6 +13,10 @@ import adbLogo from '../images/partners/adb.svg';
 import ddaLogo from '../images/partners/dda.png';
 import mmrdaLogo from '../images/partners/mmrda.png';
 import nitiAayogLogo from '../images/partners/niti-aayog.svg';
+import indiaRoadsHero from '../images/hero/india-roads.jpg';
+import mumbaiSkylineHero from '../images/hero/mumbai-skyline.jpg';
+import windEnergyHero from '../images/hero/wind-energy.jpg';
+import metroRailHero from '../images/hero/metro-rail.jpg';
 
 const PARTNER_LOGOS = [
   { name: 'NHAI', logo: nhaiLogo },
@@ -29,25 +30,28 @@ const PARTNER_LOGOS = [
 
 export const Home: React.FC = () => {
   const [activeVideo, setActiveVideo] = useState<{ url: string; title: string } | null>(null);
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [activeSectorIndex, setActiveSectorIndex] = useState(0);
+  const sectorCardRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+  const ctaSectionRef = useRef<HTMLElement | null>(null);
+  const lifecycleSectionRef = useRef<HTMLElement | null>(null);
 
   const backgroundImages = [
     {
-      url: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=2000&q=85",
+      url: indiaRoadsHero,
       caption: "Highways & Expressways"
     },
     {
-      url: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=2000&q=85",
-      caption: "Mass Rapid Transit & Metros"
-    },
-    {
-      url: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2000&q=85",
+      url: mumbaiSkylineHero,
       caption: "Smart Cities & Urban Planning"
     },
     {
-      url: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=2000&q=85",
+      url: windEnergyHero,
       caption: "Energy Grids & Power Infrastructure"
+    },
+    {
+      url: metroRailHero,
+      caption: "Mass Rapid Transit & Metros"
     }
   ];
 
@@ -58,8 +62,55 @@ export const Home: React.FC = () => {
     return () => clearInterval(interval);
   }, [backgroundImages.length]);
 
+  useEffect(() => {
+    const ctaSection = ctaSectionRef.current;
+    if (!ctaSection || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          ctaSection.classList.add('is-visible');
+          observer.unobserve(ctaSection);
+        }
+      },
+      { threshold: 0.25 },
+    );
+
+    observer.observe(ctaSection);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const lifecycleSection = lifecycleSectionRef.current;
+    if (!lifecycleSection || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          lifecycleSection.classList.add('is-visible');
+          observer.unobserve(lifecycleSection);
+        }
+      },
+      { threshold: 0.18 },
+    );
+
+    observer.observe(lifecycleSection);
+    return () => observer.disconnect();
+  }, []);
+
   const handleOpenVideo = (url: string, title: string) => {
     setActiveVideo({ url, title });
+  };
+
+  const selectSector = (index: number) => {
+    setActiveSectorIndex(index);
+    requestAnimationFrame(() => {
+      sectorCardRefs.current[index]?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'nearest',
+      });
+    });
   };
 
   return (
@@ -79,8 +130,7 @@ export const Home: React.FC = () => {
               <img 
                 src={img.url} 
                 alt={img.caption}
-                className="w-full h-full object-cover transform scale-105 group-hover:scale-110 transition-transform duration-700 ease-out"
-                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover object-center transform scale-105 group-hover:scale-110 transition-transform duration-700 ease-out"
               />
             </div>
           ))}
@@ -237,54 +287,64 @@ export const Home: React.FC = () => {
             </Link>
           </div>
 
-          <div className="sector-stack" aria-label="Specialized infrastructure sectors">
+          <div className="sector-showcase" aria-label="Specialized infrastructure sectors">
             {SECTORS.map((sector, index) => (
-              <div
+              <Link
                 key={sector.id}
-                className="sector-stack__stage"
-                style={{ zIndex: index + 1 }}
+                ref={(element) => { sectorCardRefs.current[index] = element; }}
+                to={`/sectors/${sector.slug}`}
+                onClick={(event) => {
+                  if (activeSectorIndex !== index) {
+                    event.preventDefault();
+                    selectSector(index);
+                  }
+                }}
+                className={`sector-showcase__card group ${
+                  activeSectorIndex === index ? 'is-active' : ''
+                }`}
+                aria-current={activeSectorIndex === index ? 'true' : undefined}
+                aria-label={
+                  activeSectorIndex === index
+                    ? `Open ${sector.title} details`
+                    : `Show ${sector.title}`
+                }
               >
-                <Link
-                  to={`/sectors/${sector.slug}`}
-                  className="sector-stack__card group"
-                >
-                  <img
-                    src={sector.image}
-                    alt={sector.title}
-                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    referrerPolicy="no-referrer"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#071A2D] via-[#0D1B2A]/40 to-[#0D1B2A]/10" />
+                <img
+                  src={sector.image}
+                  alt={sector.title}
+                  className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#071A2D] via-[#0D1B2A]/40 to-[#0D1B2A]/10" />
 
-                  <div className="relative flex h-full flex-col justify-between p-7 sm:p-10 lg:p-14">
-                    <div className="flex items-start justify-between gap-6">
-                      <span className="bg-[#F2834C] px-3 py-1.5 text-[10px] font-mono tracking-widest text-white">
-                        INFRASTRUCTURE SECTOR
-                      </span>
-                      <span className="text-4xl font-serif text-white/50 sm:text-6xl">{String(index + 1).padStart(2, '0')}</span>
-                    </div>
+                <div className="relative flex h-full flex-col justify-between p-7 sm:p-10 lg:p-14">
+                  <div className="flex items-start justify-between gap-6">
+                    <span className="sector-showcase__tag bg-[#F2834C] px-3 py-1.5 text-[10px] font-mono tracking-widest text-white">
+                      INFRASTRUCTURE SECTOR
+                    </span>
+                    <span className="text-4xl font-serif text-white/50 sm:text-6xl">{String(index + 1).padStart(2, '0')}</span>
+                  </div>
 
-                    <div className="max-w-3xl">
-                      <h3 className="text-3xl font-serif leading-tight text-white sm:text-4xl lg:text-5xl">{sector.title}</h3>
-                      <p className="mt-4 max-w-2xl text-sm leading-relaxed text-white/80 sm:text-base">{sector.shortDesc}</p>
-                      <div className="mt-7 inline-flex items-center gap-2 text-xs font-mono font-bold tracking-wider text-[#F2834C]">
-                        <span>EXPLORE EXPERTISE</span>
-                        <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-2" />
-                      </div>
+                  <div className="sector-showcase__content max-w-3xl">
+                    <h3 className="text-3xl font-serif leading-tight text-white sm:text-4xl lg:text-5xl">{sector.title}</h3>
+                    <p className="mt-4 max-w-2xl text-sm leading-relaxed text-white/80 sm:text-base">{sector.shortDesc}</p>
+                    <div className="mt-7 inline-flex items-center gap-2 text-xs font-mono font-bold tracking-wider text-[#F2834C]">
+                      <span>EXPLORE EXPERTISE</span>
+                      <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-2" />
                     </div>
                   </div>
-                </Link>
-              </div>
+                </div>
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
       {/* CONCEPT TO COMMISSIONING LIFECYCLE */}
-      <section className="py-20 bg-[#0D1B2A] text-white relative overflow-hidden">
+      <section ref={lifecycleSectionRef} className="lifecycle-showcase py-20 bg-[#0D1B2A] text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(#A49150_1px,transparent_1px)] [background-size:24px_24px] opacity-10"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="lifecycle-showcase__header text-center max-w-3xl mx-auto mb-16">
             <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">END-TO-END CAPABILITY</span>
             <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white mt-1">From Concept to Commissioning</h2>
             <p className="text-white/70 text-sm mt-3 leading-relaxed">
@@ -294,7 +354,7 @@ export const Home: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {LIFECYCLE_STAGES.map((stage, idx) => (
-              <div key={idx} className="bg-[#071A2D] border border-[#A49150]/30 p-8 flex flex-col gap-4 relative group hover:border-[#F2834C] transition-colors">
+              <div key={idx} className="lifecycle-showcase__card bg-[#071A2D] border border-[#A49150]/30 p-8 flex flex-col gap-4 relative group hover:border-[#F2834C] transition-colors">
                 <div className="text-3xl font-mono font-bold text-[#F2834C]">{stage.step}</div>
                 <h3 className="text-xl font-serif text-white">{stage.title}</h3>
                 <p className="text-xs text-white/70 leading-relaxed">{stage.description}</p>
@@ -306,7 +366,7 @@ export const Home: React.FC = () => {
       </section>
 
       {/* FEATURED SERVICES */}
-      <section className="py-20 bg-white">
+      <section className="service-scroll-section py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
             <div>
@@ -322,57 +382,37 @@ export const Home: React.FC = () => {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {SERVICES.slice(0, 6).map((service) => (
-              <ServiceCard key={service.id} service={service} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FEATURED PROJECTS WITH VIDEO MODAL */}
-      <section className="py-20 bg-[#0D1B2A] text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
-            <div>
-              <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">PORTFOLIO SPOTLIGHT</span>
-              <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white mt-1">Featured Infrastructure Projects</h2>
-            </div>
-            <Link 
-              to="/projects" 
-              className="mt-4 md:mt-0 inline-flex items-center gap-2 text-xs font-mono font-bold text-[#F2834C] hover:underline uppercase tracking-wider"
-            >
-              <span>View Project Explorer</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {PROJECTS.slice(0, 3).map((project) => (
-              <ProjectCard 
-                key={project.id} 
-                project={project} 
-                onOpenVideo={handleOpenVideo} 
-                onOpenDetails={(project) => setSelectedProject(project)}
-              />
+          <div className="service-scroll-stack" aria-label="Consultancy and engineering services">
+            {SERVICES.slice(0, 6).map((service, index) => (
+              <div
+                key={service.id}
+                className="service-scroll-stage"
+                style={{ zIndex: index + 1 }}
+              >
+                <div className="service-scroll-card-shell">
+                  <ServiceCard service={service} />
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
       {/* CTA BANNER */}
-      <section className="py-16 bg-[#F2834C] text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
-          <div className="flex flex-col gap-2 max-w-2xl">
-            <span className="text-xs font-mono tracking-widest uppercase opacity-90">PARTNER WITH ALMONDZ</span>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold">Ready to Engineer Your Next Mega Infrastructure Project?</h2>
-            <p className="text-sm opacity-90">Get in touch with our expert directors, structural engineers, and financial advisors today.</p>
+      <section ref={ctaSectionRef} className="cta-showcase py-16 text-white">
+        <div className="cta-showcase__orb cta-showcase__orb--one" aria-hidden="true" />
+        <div className="cta-showcase__orb cta-showcase__orb--two" aria-hidden="true" />
+        <div className="cta-showcase__inner max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
+          <div className="cta-showcase__copy flex flex-col gap-2 max-w-2xl">
+            <span className="cta-showcase__eyebrow text-xs font-mono tracking-widest uppercase opacity-90">PARTNER WITH ALMONDZ</span>
+            <h2 className="cta-showcase__title text-3xl sm:text-4xl font-serif font-bold">Ready to Engineer Your Next Mega Infrastructure Project?</h2>
+            <p className="cta-showcase__description text-sm opacity-90">Get in touch with our expert directors, structural engineers, and financial advisors today.</p>
           </div>
           <Link
             to="/contact"
-            className="bg-[#0D1B2A] hover:bg-[#071A2D] text-white px-8 py-4 text-xs font-mono font-bold tracking-widest uppercase transition-all shadow-xl rounded-none shrink-0"
+            className="cta-showcase__button group shrink-0"
           >
-            CONTACT OUR EXPERTS
+            <span>CONTACT OUR EXPERTS</span>
           </Link>
         </div>
       </section>
@@ -383,14 +423,6 @@ export const Home: React.FC = () => {
         onClose={() => setActiveVideo(null)}
         videoUrl={activeVideo?.url}
         title={activeVideo?.title || ""}
-      />
-
-      {/* PROJECT DETAILS MODAL */}
-      <ProjectDetailsModal
-        isOpen={!!selectedProject}
-        onClose={() => setSelectedProject(null)}
-        project={selectedProject}
-        onOpenVideo={handleOpenVideo}
       />
 
     </div>
