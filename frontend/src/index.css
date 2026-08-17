@@ -1,6 +1,10 @@
 @import "tailwindcss";
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     font-family: 'Hanken Grotesk', sans-serif;
   }
@@ -32,6 +36,153 @@
   border-color: #F2834C;
 }
 
+.partner-marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+.partner-marquee__track {
+  display: flex;
+  width: max-content;
+  animation: partner-marquee-scroll 38s linear infinite;
+}
+
+.partner-marquee:hover .partner-marquee__track {
+  animation-play-state: paused;
+}
+
+.partner-marquee__item {
+  width: 240px;
+  height: 112px;
+  flex: 0 0 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 28px;
+  border-right: 1px solid rgba(164, 145, 80, 0.18);
+  background: linear-gradient(135deg, rgba(253, 249, 237, 0.75), rgba(255, 255, 255, 0.98));
+  transition: background-color 200ms ease, transform 200ms ease;
+}
+
+.partner-marquee__item:hover {
+  background: #fdf9ed;
+  transform: translateY(-3px);
+}
+
+.partner-marquee__logo {
+  width: 100%;
+  max-width: 168px;
+  max-height: 62px;
+  object-fit: contain;
+  filter: grayscale(1) contrast(0.9);
+  opacity: 0.78;
+  transition: filter 200ms ease, opacity 200ms ease;
+}
+
+.partner-marquee__item:hover .partner-marquee__logo {
+  filter: grayscale(0);
+  opacity: 1;
+}
+
+@keyframes partner-marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .partner-marquee__track { animation: none; }
+}
+
+.sector-stack {
+  position: relative;
+}
+
+.sector-stack__stage {
+  position: sticky;
+  top: 104px;
+  min-height: 112vh;
+  padding-bottom: 16vh;
+}
+
+/* The final card does not need another full scroll stage after it. */
+.sector-stack__stage:last-child {
+  min-height: 74vh;
+  padding-bottom: 2vh;
+}
+
+.sector-stack__card {
+  position: relative;
+  display: block;
+  height: min(68vh, 650px);
+  min-height: 440px;
+  overflow: hidden;
+  border: 1px solid rgba(164, 145, 80, 0.45);
+  box-shadow: 0 -16px 36px rgba(13, 27, 42, 0.16), 0 20px 36px rgba(13, 27, 42, 0.20);
+  isolation: isolate;
+  transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 400ms ease;
+}
+
+.sector-stack__card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 -16px 36px rgba(13, 27, 42, 0.16), 0 26px 48px rgba(13, 27, 42, 0.28);
+}
+
+/* Scroll-linked reveals enhance modern browsers without changing the fallback layout. */
+@supports (animation-timeline: view()) {
+  main section :is(h1, h2) {
+    animation: scroll-text-reveal 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-timeline: view();
+    animation-range: entry 8% cover 32%;
+  }
+
+  main section p {
+    animation: scroll-copy-reveal 800ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-timeline: view();
+    animation-range: entry 10% cover 35%;
+  }
+
+  main section .group:not(.sector-stack__card) {
+    animation: scroll-card-reveal 950ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-timeline: view();
+    animation-range: entry 4% cover 24%;
+  }
+}
+
+@keyframes scroll-text-reveal {
+  from { opacity: 0; transform: translateY(30px); letter-spacing: 0.035em; }
+  to { opacity: 1; transform: translateY(0); letter-spacing: normal; }
+}
+
+@keyframes scroll-copy-reveal {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scroll-card-reveal {
+  from { opacity: 0; transform: translateY(38px) scale(0.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (max-width: 640px) {
+  .sector-stack__stage {
+    top: 84px;
+    min-height: 92vh;
+    padding-bottom: 12vh;
+  }
+
+  .sector-stack__stage:last-child {
+    min-height: 66vh;
+    padding-bottom: 2vh;
+  }
+
+  .sector-stack__card {
+    height: 62vh;
+    min-height: 390px;
+  }
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
@@ -47,3 +198,8 @@
   background: #F2834C;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .partner-marquee__track,
+  main section :is(h1, h2, p, .group) { animation: none; }
+}

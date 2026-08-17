@@ -94,7 +94,7 @@ export const SectorDetail: React.FC = () => {
 
             {/* Sidebar Metrics */}
             <div className="lg:col-span-4 flex flex-col gap-6">
-              <div className="bg-[#0D1B2A] text-white border border-[#A49150]/40 p-6 shadow-xl">
+              {sector.metrics.length > 0 && <div className="bg-[#0D1B2A] text-white border border-[#A49150]/40 p-6 shadow-xl">
                 <span className="text-xs font-mono tracking-widest text-[#F2834C]">SECTOR IMPACT</span>
                 <h4 className="text-xl font-serif font-bold mt-1 mb-6">Key Metrics</h4>
                 <div className="flex flex-col gap-5">
@@ -105,7 +105,7 @@ export const SectorDetail: React.FC = () => {
                     </div>
                   ))}
                 </div>
-              </div>
+              </div>}
 
               <div className="bg-white border border-[#A49150]/30 p-6 shadow-sm flex flex-col gap-4">
                 <h4 className="text-lg font-serif font-bold text-[#0D1B2A]">Need Sector Consultation?</h4>

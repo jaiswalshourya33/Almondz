@@ -3,13 +3,29 @@ import { Link } from 'react-router-dom';
 import { SECTORS } from '../data/sectors';
 import { SERVICES } from '../data/services';
 import { PROJECTS, Project } from '../data/projects';
-import { COMPANY_STATS, ECOSYSTEM_PARTNERS, LIFECYCLE_STAGES } from '../data/company';
-import { SectorCard } from '../components/SectorCard';
+import { COMPANY_STATS, LIFECYCLE_STAGES } from '../data/company';
 import { ServiceCard } from '../components/ServiceCard';
 import { ProjectCard } from '../components/ProjectCard';
 import { ProjectVideoModal } from '../components/ProjectVideoModal';
 import { ProjectDetailsModal } from '../components/ProjectDetailsModal';
 import { ArrowRight, ShieldCheck, Award, Building2, Compass, CheckCircle2, Play, ChevronRight, FileText } from 'lucide-react';
+import nhaiLogo from '../images/partners/nhai.jpg';
+import morthLogo from '../images/partners/morth.svg';
+import worldBankLogo from '../images/partners/world-bank.svg';
+import adbLogo from '../images/partners/adb.svg';
+import ddaLogo from '../images/partners/dda.png';
+import mmrdaLogo from '../images/partners/mmrda.png';
+import nitiAayogLogo from '../images/partners/niti-aayog.svg';
+
+const PARTNER_LOGOS = [
+  { name: 'NHAI', logo: nhaiLogo },
+  { name: 'MoRTH', logo: morthLogo },
+  { name: 'World Bank', logo: worldBankLogo },
+  { name: 'Asian Development Bank', logo: adbLogo },
+  { name: 'Delhi Development Authority', logo: ddaLogo },
+  { name: 'MMRDA', logo: mmrdaLogo },
+  { name: 'NITI Aayog', logo: nitiAayogLogo }
+];
 
 export const Home: React.FC = () => {
   const [activeVideo, setActiveVideo] = useState<{ url: string; title: string } | null>(null);
@@ -186,17 +202,18 @@ export const Home: React.FC = () => {
       </section>
 
       {/* ECOSYSTEM PARTNERS / ACCREDITATIONS */}
-      <section className="py-12 bg-white border-b border-gray-200">
+      <section className="py-12 bg-white border-b border-gray-200 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <span className="text-xs font-mono tracking-widest text-[#A49150] uppercase">TRUSTED INSTITUTIONAL PARTNER</span>
             <h2 className="text-2xl font-serif font-bold text-[#0D1B2A] mt-1">Empanelled With Premier Government Bodies & Multilateral Agencies</h2>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-4">
-            {ECOSYSTEM_PARTNERS.map((partner, idx) => (
-              <div key={idx} className="bg-[#fdf9ed] border border-[#A49150]/30 p-4 text-center flex flex-col items-center justify-center hover:border-[#F2834C] transition-colors">
-                <span className="font-serif font-bold text-[#0D1B2A] text-sm tracking-wider">{partner}</span>
-                <span className="text-[10px] font-mono text-[#A49150] mt-1">Accredited Partner</span>
+        </div>
+        <div className="partner-marquee" aria-label="Trusted institutional partners">
+          <div className="partner-marquee__track">
+            {[...PARTNER_LOGOS, ...PARTNER_LOGOS].map((partner, idx) => (
+              <div key={`${partner.name}-${idx}`} className="partner-marquee__item" aria-label={partner.name}>
+                <img src={partner.logo} alt={partner.name} className="partner-marquee__logo" />
               </div>
             ))}
           </div>
@@ -215,14 +232,49 @@ export const Home: React.FC = () => {
               to="/sectors" 
               className="mt-4 md:mt-0 inline-flex items-center gap-2 text-xs font-mono font-bold text-[#0D1B2A] hover:text-[#F2834C] transition-colors uppercase tracking-wider"
             >
-              <span>View All 11 Sectors</span>
+              <span>View All {SECTORS.length} Sectors</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {SECTORS.slice(0, 6).map((sector) => (
-              <SectorCard key={sector.id} sector={sector} />
+          <div className="sector-stack" aria-label="Specialized infrastructure sectors">
+            {SECTORS.map((sector, index) => (
+              <div
+                key={sector.id}
+                className="sector-stack__stage"
+                style={{ zIndex: index + 1 }}
+              >
+                <Link
+                  to={`/sectors/${sector.slug}`}
+                  className="sector-stack__card group"
+                >
+                  <img
+                    src={sector.image}
+                    alt={sector.title}
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#071A2D] via-[#0D1B2A]/40 to-[#0D1B2A]/10" />
+
+                  <div className="relative flex h-full flex-col justify-between p-7 sm:p-10 lg:p-14">
+                    <div className="flex items-start justify-between gap-6">
+                      <span className="bg-[#F2834C] px-3 py-1.5 text-[10px] font-mono tracking-widest text-white">
+                        INFRASTRUCTURE SECTOR
+                      </span>
+                      <span className="text-4xl font-serif text-white/50 sm:text-6xl">{String(index + 1).padStart(2, '0')}</span>
+                    </div>
+
+                    <div className="max-w-3xl">
+                      <h3 className="text-3xl font-serif leading-tight text-white sm:text-4xl lg:text-5xl">{sector.title}</h3>
+                      <p className="mt-4 max-w-2xl text-sm leading-relaxed text-white/80 sm:text-base">{sector.shortDesc}</p>
+                      <div className="mt-7 inline-flex items-center gap-2 text-xs font-mono font-bold tracking-wider text-[#F2834C]">
+                        <span>EXPLORE EXPERTISE</span>
+                        <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-2" />
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </div>
             ))}
           </div>
         </div>

@@ -59,11 +59,11 @@ export const ServicesPage: React.FC = () => {
       {/* Scrolling Ticker / Highlights */}
       <div className="bg-[#0D1B2A] text-white/90 border-b border-[#A49150]/20 py-3 overflow-hidden whitespace-nowrap">
         <div className="inline-flex gap-12 animate-marquee text-xs font-mono tracking-wider">
-          <span className="flex items-center gap-2"><Sparkles className="w-4 h-4 text-[#F2834C]" /> 11+ Specialized Engineering Divisions</span>
+          <span className="flex items-center gap-2"><Sparkles className="w-4 h-4 text-[#F2834C]" /> Specialised Infrastructure Consultancy Services</span>
           <span className="text-[#F2834C]">•</span>
           <span className="flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-[#F2834C]" /> ISO 9001:2015 Certified Quality Management</span>
           <span className="text-[#F2834C]">•</span>
-          <span className="flex items-center gap-2"><Layers className="w-4 h-4 text-[#F2834C]" /> Over $40B+ Infrastructure Portfolio Reviewed</span>
+          <span className="flex items-center gap-2"><Layers className="w-4 h-4 text-[#F2834C]" /> Technical, financial and transaction advisory expertise</span>
           <span className="text-[#F2834C]">•</span>
           <span className="flex items-center gap-2"><Sparkles className="w-4 h-4 text-[#F2834C]" /> Multidisciplinary Expert Panels</span>
         </div>

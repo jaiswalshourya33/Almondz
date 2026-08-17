@@ -67,7 +67,7 @@ export const Navbar: React.FC = () => {
                   { name: "Overview", path: "/about" },
                   { name: "Mission & Vision", path: "/about/mission-vision" },
                   { name: "Leadership & Directors", path: "/about/leadership" },
-                  { name: "Clients & Partners", path: "/about/clients" },
+                  { name: "Management Team Members", path: "/about/management-team" },
                   { name: "Certifications & Empanelments", path: "/about/certifications" },
                   { name: "Careers", path: "/about/careers" },
                 ].map((item, idx) => (
@@ -241,7 +241,7 @@ export const Navbar: React.FC = () => {
                   <Link to="/about" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80 py-1.5">Overview</Link>
                   <Link to="/about/mission-vision" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80 py-1.5">Mission & Vision</Link>
                   <Link to="/about/leadership" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80 py-1.5">Leadership & Directors</Link>
-                  <Link to="/about/clients" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80 py-1.5">Clients & Partners</Link>
+                  <Link to="/about/management-team" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80 py-1.5">Management Team Members</Link>
                   <Link to="/about/certifications" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80 py-1.5">Certifications & Empanelments</Link>
                   <Link to="/about/careers" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80 py-1.5">Careers</Link>
                 </div>

@@ -9,9 +9,9 @@ export const SectorsPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col gap-4 max-w-3xl">
             <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">INFRASTRUCTURE EXPERTISE</span>
-            <h1 className="text-4xl sm:text-5xl font-serif font-bold">All Specialized Sectors (011)</h1>
+            <h1 className="text-4xl sm:text-5xl font-serif font-bold">All Specialized Sectors ({String(SECTORS.length).padStart(3, '0')})</h1>
             <p className="text-white/80 text-base leading-relaxed">
-              Explore our multidisciplinary consultancy domains spanning smart cities, highways, water grids, railways, energy, and financial advisory.
+              Explore AGICL's specialised infrastructure consultancy domains.
             </p>
           </div>
         </div>
