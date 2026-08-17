@@ -1,5 +1,5 @@
 import ablImage from '../images/abl.jpg';
-import sudhakar from '../images/sudhakar.jpg';
+import sudhakar from '../images/Sudhakar.jpg';
 import vijai from '../images/vijai.jpg';
 import sinha from '../images/sinha_(1).jpg';
 import sankha from '../images/Sankha-das-Gupta.jpg';
