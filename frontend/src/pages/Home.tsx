@@ -35,6 +35,7 @@ export const Home: React.FC = () => {
   const sectorCardRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const ctaSectionRef = useRef<HTMLElement | null>(null);
   const lifecycleSectionRef = useRef<HTMLElement | null>(null);
+  const lifecycleHeaderRef = useRef<HTMLDivElement | null>(null);
 
   const backgroundImages = [
     {
@@ -82,19 +83,22 @@ export const Home: React.FC = () => {
 
   useEffect(() => {
     const lifecycleSection = lifecycleSectionRef.current;
-    if (!lifecycleSection || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const lifecycleHeader = lifecycleHeaderRef.current;
+    if (!lifecycleSection || !lifecycleHeader || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           lifecycleSection.classList.add('is-visible');
-          observer.unobserve(lifecycleSection);
+          observer.unobserve(lifecycleHeader);
         }
       },
-      { threshold: 0.05 },
+      // Observe the heading rather than the whole section. The section is tall,
+      // so observing it made the reveal complete before the heading was visible.
+      { threshold: 0.15, rootMargin: '0px 0px -8% 0px' },
     );
 
-    observer.observe(lifecycleSection);
+    observer.observe(lifecycleHeader);
     return () => observer.disconnect();
   }, []);
 
@@ -344,7 +348,7 @@ export const Home: React.FC = () => {
       <section ref={lifecycleSectionRef} className="lifecycle-showcase py-20 bg-[#0D1B2A] text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(#A49150_1px,transparent_1px)] [background-size:24px_24px] opacity-10"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="lifecycle-showcase__header text-center max-w-3xl mx-auto mb-16">
+          <div ref={lifecycleHeaderRef} className="lifecycle-showcase__header text-center max-w-3xl mx-auto mb-16">
             <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">END-TO-END CAPABILITY</span>
             <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white mt-1">From Concept to Commissioning</h2>
             <p className="text-white/70 text-sm mt-3 leading-relaxed">
