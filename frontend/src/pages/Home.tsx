@@ -73,7 +73,7 @@ export const Home: React.FC = () => {
           observer.unobserve(ctaSection);
         }
       },
-      { threshold: 0.25 },
+      { threshold: 0.08 },
     );
 
     observer.observe(ctaSection);
@@ -91,7 +91,7 @@ export const Home: React.FC = () => {
           observer.unobserve(lifecycleSection);
         }
       },
-      { threshold: 0.18 },
+      { threshold: 0.05 },
     );
 
     observer.observe(lifecycleSection);
@@ -159,7 +159,7 @@ export const Home: React.FC = () => {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
-            <div className="lg:col-span-8 flex flex-col gap-6">
+            <div className="hero-entry lg:col-span-8 flex flex-col gap-6">
               <div className="inline-flex items-center gap-2 bg-[#F2834C]/20 border border-[#F2834C]/50 px-3.5 py-1.5 w-fit">
                 <span className="w-2 h-2 rounded-full bg-[#F2834C] animate-ping"></span>
                 <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">ISO 9001:2015 CERTIFIED INFRASTRUCTURE CONSULTANT</span>
@@ -202,7 +202,7 @@ export const Home: React.FC = () => {
             </div>
 
             {/* Hero Quick Metrics Panel */}
-            <div className="lg:col-span-4 bg-[#071A2D]/90 border border-[#A49150]/40 p-6 sm:p-8 backdrop-blur-md shadow-2xl flex flex-col gap-6">
+            <div className="hero-summary-entry lg:col-span-4 bg-[#071A2D]/90 border border-[#A49150]/40 p-6 sm:p-8 backdrop-blur-md shadow-2xl flex flex-col gap-6">
               <div className="border-b border-white/10 pb-4">
                 <span className="text-xs font-mono tracking-widest text-[#A49150]">AT A GLANCE</span>
                 <h3 className="text-xl font-serif text-white mt-1">Institutional Excellence</h3>

@@ -16,6 +16,25 @@
   }
 }
 
+/* A calm, staggered welcome for the homepage hero copy. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-entry > *,
+  .hero-summary-entry {
+    animation: hero-entry-reveal 1.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .hero-entry > :nth-child(1) { animation-delay: 120ms; }
+  .hero-entry > :nth-child(2) { animation-delay: 340ms; }
+  .hero-entry > :nth-child(3) { animation-delay: 620ms; }
+  .hero-entry > :nth-child(4) { animation-delay: 860ms; }
+  .hero-summary-entry { animation-delay: 700ms; }
+}
+
+@keyframes hero-entry-reveal {
+  from { opacity: 0; transform: translateY(32px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .bg-navy {
   background-color: #0D1B2A;
 }
@@ -229,8 +248,10 @@
 }
 
 .service-scroll-stage:last-child {
-  min-height: 76vh;
-  padding-bottom: 3vh;
+  /* Keep a short exit runway after the final card so the following CTA
+     enters gradually and its scroll-triggered reveal can play. */
+  min-height: 100vh;
+  padding-bottom: 24vh;
 }
 
 .service-scroll-card-shell {
@@ -341,21 +362,26 @@
 @media (prefers-reduced-motion: no-preference) {
   .cta-showcase__eyebrow,
   .cta-showcase__title,
-  .cta-showcase__description {
+  .cta-showcase__description,
+  .cta-showcase__button {
     opacity: 0;
     transform: translateY(42px);
   }
 
   .cta-showcase.is-visible .cta-showcase__eyebrow {
-    animation: cta-scroll-reveal 800ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation: cta-scroll-reveal 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   }
 
   .cta-showcase.is-visible .cta-showcase__title {
-    animation: cta-scroll-reveal 1.15s 140ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation: cta-scroll-reveal 2s 260ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
   }
 
   .cta-showcase.is-visible .cta-showcase__description {
-    animation: cta-scroll-reveal 950ms 320ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation: cta-scroll-reveal 1.6s 600ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .cta-showcase.is-visible .cta-showcase__button {
+    animation: cta-scroll-reveal 1.5s 480ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
   }
 
   .lifecycle-showcase__header > *,
@@ -365,27 +391,27 @@
   }
 
   .lifecycle-showcase.is-visible .lifecycle-showcase__header > * {
-    animation: lifecycle-copy-reveal 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation: lifecycle-copy-reveal 1.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   }
 
   .lifecycle-showcase.is-visible .lifecycle-showcase__header > :nth-child(2) {
-    animation-delay: 130ms;
+    animation-delay: 220ms;
   }
 
   .lifecycle-showcase.is-visible .lifecycle-showcase__header > :nth-child(3) {
-    animation-delay: 280ms;
+    animation-delay: 500ms;
   }
 
   .lifecycle-showcase.is-visible .lifecycle-showcase__card {
-    animation: lifecycle-card-reveal 850ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation: lifecycle-card-reveal 1.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   }
 
-  .lifecycle-showcase.is-visible .lifecycle-showcase__card:nth-child(1) { animation-delay: 180ms; }
-  .lifecycle-showcase.is-visible .lifecycle-showcase__card:nth-child(2) { animation-delay: 280ms; }
-  .lifecycle-showcase.is-visible .lifecycle-showcase__card:nth-child(3) { animation-delay: 380ms; }
-  .lifecycle-showcase.is-visible .lifecycle-showcase__card:nth-child(4) { animation-delay: 480ms; }
-  .lifecycle-showcase.is-visible .lifecycle-showcase__card:nth-child(5) { animation-delay: 580ms; }
-  .lifecycle-showcase.is-visible .lifecycle-showcase__card:nth-child(6) { animation-delay: 680ms; }
+  .lifecycle-showcase.is-visible .lifecycle-showcase__card:nth-child(1) { animation-delay: 160ms; }
+  .lifecycle-showcase.is-visible .lifecycle-showcase__card:nth-child(2) { animation-delay: 360ms; }
+  .lifecycle-showcase.is-visible .lifecycle-showcase__card:nth-child(3) { animation-delay: 560ms; }
+  .lifecycle-showcase.is-visible .lifecycle-showcase__card:nth-child(4) { animation-delay: 760ms; }
+  .lifecycle-showcase.is-visible .lifecycle-showcase__card:nth-child(5) { animation-delay: 960ms; }
+  .lifecycle-showcase.is-visible .lifecycle-showcase__card:nth-child(6) { animation-delay: 1160ms; }
 }
 
 @keyframes lifecycle-copy-reveal {
@@ -532,7 +558,7 @@
     animation-range: entry 10% cover 35%;
   }
 
-  main section .group:not(.sector-stack__card) {
+  main section .group:not(.sector-stack__card):not(.lifecycle-showcase__card) {
     animation: scroll-card-reveal 950ms cubic-bezier(0.22, 1, 0.36, 1) both;
     animation-timeline: view();
     animation-range: entry 4% cover 24%;
@@ -578,7 +604,8 @@
   }
 
   .service-scroll-stage:last-child {
-    min-height: 68vh;
+    min-height: 92vh;
+    padding-bottom: 18vh;
   }
 
   .service-scroll-card-shell {
@@ -663,6 +690,8 @@
   .cta-showcase__title,
   .cta-showcase__description,
   .cta-showcase__button,
+  .hero-entry > *,
+  .hero-summary-entry,
   .lifecycle-showcase__header > *,
   .lifecycle-showcase__card { scroll-behavior: auto; transition: none; animation: none; }
 }
