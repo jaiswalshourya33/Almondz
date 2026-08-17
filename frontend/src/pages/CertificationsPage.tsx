@@ -14,12 +14,12 @@ export const CertificationsPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#fdf9ed] pt-24">
+    <div className="about-dropdown-page flex flex-col min-h-screen bg-[#fdf9ed] pt-24">
       {/* Hero Header */}
       <section className="bg-[#0D1B2A] text-white py-16 sm:py-20 border-b border-[#A49150]/30 relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(#A49150_1px,transparent_1px)] [background-size:24px_24px] opacity-10"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="flex flex-col gap-4 max-w-3xl">
+          <div className="about-dropdown-banner-copy flex flex-col gap-4 max-w-3xl">
             <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">QUALITY ASSURANCE & ACCREDITATIONS</span>
             <h1 className="text-4xl sm:text-5xl font-serif font-bold tracking-tight">Certifications & Institutional Empanelments</h1>
             <p className="text-white/80 text-base leading-relaxed">
@@ -41,7 +41,7 @@ export const CertificationsPage: React.FC = () => {
       )}
 
       {/* CERTIFICATIONS SECTION */}
-      <section className="py-20">
+      <section className="about-dropdown-content py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-[#A49150]/20">
             <div>

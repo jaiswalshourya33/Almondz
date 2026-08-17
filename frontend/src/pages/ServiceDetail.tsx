@@ -36,7 +36,7 @@ export const ServiceDetail: React.FC = () => {
   const relatedServices = SERVICES.filter(s => s.slug !== slug).slice(0, 3);
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#fdf9ed] pt-24">
+    <div className="dropdown-content-page flex flex-col min-h-screen bg-[#fdf9ed] pt-24">
       {/* Toast Notification */}
       {downloadSuccess && (
         <div className="fixed bottom-8 right-8 z-50 bg-[#0D1B2A] text-white px-6 py-4 border border-[#F2834C] shadow-2xl flex items-center gap-3 animate-fade-in rounded-md">
@@ -67,7 +67,7 @@ export const ServiceDetail: React.FC = () => {
             <span>BACK TO ALL SERVICES</span>
           </Link>
 
-          <div className="max-w-4xl flex flex-col gap-4">
+          <div className="dropdown-banner-copy max-w-4xl flex flex-col gap-4">
             <div className="flex items-center gap-3 flex-wrap">
               <span className="text-[10px] font-mono tracking-widest text-[#F2834C] uppercase bg-[#F2834C]/10 px-3 py-1 rounded border border-[#F2834C]/30 font-bold">
                 ISO 9001:2015 CERTIFIED PRACTICE
@@ -105,7 +105,7 @@ export const ServiceDetail: React.FC = () => {
       </section>
 
       {/* Main Content Area */}
-      <section className="py-20">
+      <section className="dropdown-scroll-content py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Navigation Tabs */}

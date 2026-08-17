@@ -55,6 +55,166 @@
   border-color: #F2834C;
 }
 
+/* A restrained dot texture for the About and Leadership page backgrounds. */
+.about-overview-page,
+.leadership-page,
+.about-dropdown-page,
+.dropdown-content-page {
+  background-image:
+    radial-gradient(circle, rgba(164, 145, 80, 0.36) 1px, transparent 1.4px),
+    radial-gradient(circle, rgba(242, 131, 76, 0.18) 1px, transparent 1.4px);
+  background-position: 0 0, 14px 14px;
+  background-size: 28px 28px;
+}
+
+/* Director portrait cards respond to the pointer without affecting page layout. */
+.leadership-profile-card {
+  --leader-tilt-x: 0deg;
+  --leader-tilt-y: 0deg;
+  --leader-shift-x: 0px;
+  --leader-shift-y: 0px;
+  transform: perspective(1100px) rotateX(var(--leader-tilt-x)) rotateY(var(--leader-tilt-y)) translate3d(var(--leader-shift-x), var(--leader-shift-y), 0);
+  transform-style: preserve-3d;
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), border-color 220ms ease, box-shadow 220ms ease;
+  will-change: transform;
+}
+
+@media (hover: hover) {
+  .leadership-profile-card:hover {
+    border-color: #F2834C;
+    box-shadow: 0 28px 56px rgba(13, 27, 42, 0.3);
+  }
+
+  .leadership-profile-photo img {
+    transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .leadership-profile-photo:hover img {
+    transform: scale(1.045);
+  }
+}
+
+/* About-page heritage entrance and pointer-responsive image card. */
+@media (prefers-reduced-motion: no-preference) {
+  .dropdown-banner-copy > *,
+  .about-dropdown-banner-copy > * {
+    animation: about-banner-enter 1.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .dropdown-banner-copy > :nth-child(1),
+  .about-dropdown-banner-copy > :nth-child(1) { animation-delay: 100ms; }
+  .dropdown-banner-copy > :nth-child(2),
+  .about-dropdown-banner-copy > :nth-child(2) { animation-delay: 300ms; }
+  .dropdown-banner-copy > :nth-child(3),
+  .about-dropdown-banner-copy > :nth-child(3) { animation-delay: 620ms; }
+
+  .leadership-banner-copy > * {
+    animation: about-banner-enter 1.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .leadership-banner-copy > :nth-child(1) { animation-delay: 100ms; }
+  .leadership-banner-copy > :nth-child(2) { animation-delay: 300ms; }
+  .leadership-banner-copy > :nth-child(3) { animation-delay: 620ms; }
+
+  .leadership-roster .leadership-profile-card {
+    opacity: 0;
+    transform: perspective(1100px) rotateX(var(--leader-tilt-x)) rotateY(var(--leader-tilt-y)) translate3d(var(--leader-shift-x), var(--leader-shift-y), 0) translateY(48px) scale(0.98);
+  }
+
+  .leadership-roster.is-visible .leadership-profile-card {
+    animation: leadership-card-reveal 1.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .leadership-roster.is-visible .leadership-profile-card:nth-child(1) { animation-delay: 100ms; }
+  .leadership-roster.is-visible .leadership-profile-card:nth-child(2) { animation-delay: 260ms; }
+  .leadership-roster.is-visible .leadership-profile-card:nth-child(3) { animation-delay: 420ms; }
+  .leadership-roster.is-visible .leadership-profile-card:nth-child(4) { animation-delay: 580ms; }
+  .leadership-roster.is-visible .leadership-profile-card:nth-child(5) { animation-delay: 740ms; }
+  .leadership-roster.is-visible .leadership-profile-card:nth-child(6) { animation-delay: 900ms; }
+  .leadership-roster.is-visible .leadership-profile-card:nth-child(7) { animation-delay: 1060ms; }
+  .leadership-roster.is-visible .leadership-profile-card:nth-child(8) { animation-delay: 1220ms; }
+
+  .about-banner-copy > * {
+    animation: about-banner-enter 1.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .about-banner-copy > :nth-child(1) { animation-delay: 100ms; }
+  .about-banner-copy > :nth-child(2) { animation-delay: 300ms; }
+  .about-banner-copy > :nth-child(3) { animation-delay: 620ms; }
+
+  .about-heritage-copy {
+    animation: about-copy-enter 1.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .about-image-entry {
+    animation: about-image-enter 1.7s 180ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  .dropdown-scroll-content > .max-w-7xl,
+  .about-dropdown-content > .max-w-7xl {
+    animation: about-scroll-content-reveal 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-timeline: view();
+    animation-range: entry 4% cover 42%;
+  }
+}
+
+.about-image-card {
+  --about-tilt-x: 0deg;
+  --about-tilt-y: 0deg;
+  --about-shift-x: 0px;
+  --about-shift-y: 0px;
+  transform: perspective(1100px) rotateX(var(--about-tilt-x)) rotateY(var(--about-tilt-y)) translate3d(var(--about-shift-x), var(--about-shift-y), 0);
+  transform-style: preserve-3d;
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 220ms ease;
+  will-change: transform;
+}
+
+@media (hover: hover) {
+  .about-image-card:hover {
+    box-shadow: 0 28px 56px rgba(13, 27, 42, 0.24);
+  }
+
+  .about-image-card > img {
+    transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .about-image-card:hover > img {
+    transform: scale(1.025);
+  }
+
+  .about-image-card > div {
+    transform: translate3d(var(--about-shift-x), var(--about-shift-y), 32px);
+    transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+
+@keyframes about-copy-enter {
+  from { opacity: 0; transform: translateX(-52px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes about-banner-enter {
+  from { opacity: 0; transform: translateY(32px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes about-scroll-content-reveal {
+  from { opacity: 0; transform: translateY(42px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes leadership-card-reveal {
+  from { opacity: 0; transform: perspective(1100px) rotateX(var(--leader-tilt-x)) rotateY(var(--leader-tilt-y)) translate3d(var(--leader-shift-x), var(--leader-shift-y), 0) translateY(48px) scale(0.98); }
+  to { opacity: 1; transform: perspective(1100px) rotateX(var(--leader-tilt-x)) rotateY(var(--leader-tilt-y)) translate3d(var(--leader-shift-x), var(--leader-shift-y), 0) translateY(0) scale(1); }
+}
+
+@keyframes about-image-enter {
+  from { opacity: 0; transform: translateX(52px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
 .partner-marquee {
   position: relative;
   width: 100%;

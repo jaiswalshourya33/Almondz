@@ -1,15 +1,39 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { COMPANY_STATS } from '../data/company';
 import { ShieldCheck, Award, Building2, ArrowRight, CheckCircle2 } from 'lucide-react';
+import heritageImage from '../images/about-heritage.jpg';
 
 export const AboutOverview: React.FC = () => {
+  const imageCardRef = useRef<HTMLDivElement>(null);
+
+  const handleImagePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType === 'touch' || !imageCardRef.current) return;
+
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const pointerX = (event.clientX - bounds.left) / bounds.width - 0.5;
+    const pointerY = (event.clientY - bounds.top) / bounds.height - 0.5;
+
+    imageCardRef.current.style.setProperty('--about-tilt-x', `${pointerY * -7}deg`);
+    imageCardRef.current.style.setProperty('--about-tilt-y', `${pointerX * 7}deg`);
+    imageCardRef.current.style.setProperty('--about-shift-x', `${pointerX * 10}px`);
+    imageCardRef.current.style.setProperty('--about-shift-y', `${pointerY * 10}px`);
+  };
+
+  const resetImageCard = () => {
+    if (!imageCardRef.current) return;
+    imageCardRef.current.style.setProperty('--about-tilt-x', '0deg');
+    imageCardRef.current.style.setProperty('--about-tilt-y', '0deg');
+    imageCardRef.current.style.setProperty('--about-shift-x', '0px');
+    imageCardRef.current.style.setProperty('--about-shift-y', '0px');
+  };
+
   return (
-    <div className="flex flex-col min-h-screen bg-[#fdf9ed] pt-24">
+    <div className="about-overview-page flex flex-col min-h-screen bg-[#fdf9ed] pt-24">
       {/* Header Banner */}
       <section className="bg-[#0D1B2A] text-white py-16 border-b border-[#A49150]/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col gap-4 max-w-3xl">
+          <div className="about-banner-copy flex flex-col gap-4 max-w-3xl">
             <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">ABOUT ALMONDZ GLOBAL INFRA</span>
             <h1 className="text-4xl sm:text-5xl font-serif font-bold">Engineering Excellence & Institutional Trust</h1>
             <p className="text-white/80 text-base leading-relaxed">
@@ -24,7 +48,7 @@ export const AboutOverview: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
-            <div className="lg:col-span-6 flex flex-col gap-6">
+            <div className="about-heritage-copy lg:col-span-6 flex flex-col gap-6">
               <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">OUR HERITAGE</span>
               <h2 className="text-3xl font-serif font-bold text-[#0D1B2A]">A Legacy of Precision, Integrity, and Nation-Building</h2>
               <p className="text-sm text-[#1c1c15]/80 leading-relaxed">
@@ -46,13 +70,17 @@ export const AboutOverview: React.FC = () => {
               </div>
             </div>
 
-            <div className="lg:col-span-6">
-              <div className="relative">
+            <div className="about-image-entry lg:col-span-6">
+              <div
+                ref={imageCardRef}
+                className="about-image-card relative"
+                onPointerMove={handleImagePointerMove}
+                onPointerLeave={resetImageCard}
+              >
                 <img 
-                  src="https://images.unsplash.com/photo-1541888946425-d0fbb18f02f8?auto=format&fit=crop&w=1000&q=80" 
-                  alt="Almondz Engineers on site"
+                  src={heritageImage}
+                  alt="Metro infrastructure project"
                   className="w-full h-[450px] object-cover border-4 border-[#0D1B2A] shadow-2xl"
-                  referrerPolicy="no-referrer"
                 />
                 <div className="absolute -bottom-6 -left-6 bg-[#0D1B2A] text-white p-6 border border-[#A49150]/40 shadow-xl max-w-xs">
                   <div className="text-xl font-serif font-bold text-[#F2834C]">100% Commitment</div>

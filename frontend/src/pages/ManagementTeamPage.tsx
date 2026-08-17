@@ -38,12 +38,12 @@ export const ManagementTeamPage: React.FC = () => {
   }, [selectedDepartment, searchQuery]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#fdf9ed] pt-24">
+    <div className="about-dropdown-page flex flex-col min-h-screen bg-[#fdf9ed] pt-24">
       {/* Header Banner */}
       <section className="bg-[#0D1B2A] text-white py-16 border-b border-[#A49150]/30 relative overflow-hidden">
         <div className="absolute right-0 top-0 w-96 h-96 bg-[#F2834C]/5 rounded-full blur-3xl pointer-events-none"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="flex flex-col gap-4 max-w-3xl">
+          <div className="about-dropdown-banner-copy flex flex-col gap-4 max-w-3xl">
             <div className="inline-flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[#F2834C]"></span>
               <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">EXECUTIVE LEADERSHIP & GOVERNANCE</span>
@@ -81,7 +81,7 @@ export const ManagementTeamPage: React.FC = () => {
       </section>
 
       {/* Main Roster Section */}
-      <section className="py-16">
+      <section className="about-dropdown-content py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Controls: Search & Department Tabs */}

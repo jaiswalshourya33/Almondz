@@ -56,13 +56,17 @@ export const Navbar: React.FC = () => {
             onMouseEnter={() => setActiveDropdown('about')}
             onMouseLeave={closeDropdowns}
           >
-            <button className="flex items-center gap-1.5 text-sm font-medium tracking-wide text-white/90 hover:text-[#F2834C] transition-colors py-1 group">
+            <button
+              type="button"
+              onClick={() => setActiveDropdown('about')}
+              className="flex items-center gap-1.5 text-sm font-medium tracking-wide text-white/90 hover:text-[#F2834C] transition-colors py-1 group"
+            >
               ABOUT
               <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === 'about' ? 'rotate-180 text-[#F2834C]' : ''}`} />
             </button>
 
             {activeDropdown === 'about' && (
-              <div className="absolute top-full left-0 w-72 bg-[#0D1B2A] border border-[#A49150]/30 shadow-2xl py-3 px-1 mt-1 z-50 animate-fade-in">
+              <div className="absolute top-full left-0 w-72 bg-[#0D1B2A] border border-[#A49150]/30 shadow-2xl py-3 px-1 z-50 animate-fade-in">
                 {[
                   { name: "Overview", path: "/about" },
                   { name: "Mission & Vision", path: "/about/mission-vision" },
@@ -90,13 +94,17 @@ export const Navbar: React.FC = () => {
             onMouseEnter={() => setActiveDropdown('sectors')}
             onMouseLeave={closeDropdowns}
           >
-            <Link to="/sectors" className="flex items-center gap-1.5 text-sm font-medium tracking-wide text-white/90 hover:text-[#F2834C] transition-colors py-1">
+            <button
+              type="button"
+              onClick={() => setActiveDropdown('sectors')}
+              className="flex items-center gap-1.5 text-sm font-medium tracking-wide text-white/90 hover:text-[#F2834C] transition-colors py-1"
+            >
               SECTORS
               <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === 'sectors' ? 'rotate-180 text-[#F2834C]' : ''}`} />
-            </Link>
+            </button>
 
             {activeDropdown === 'sectors' && (
-              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[850px] bg-[#0D1B2A] border border-[#A49150]/30 shadow-2xl p-6 mt-1 z-50 grid grid-cols-2 gap-4 animate-fade-in">
+              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[850px] bg-[#0D1B2A] border border-[#A49150]/30 shadow-2xl p-6 z-50 grid grid-cols-2 gap-4 animate-fade-in">
                 <div className="col-span-2 pb-2 border-b border-white/10 flex justify-between items-center">
                   <span className="text-xs font-mono tracking-widest text-[#F2834C]">SPECIALIZED INFRASTRUCTURE DOMAINS (011)</span>
                   <Link to="/sectors" onClick={closeDropdowns} className="text-xs font-mono text-white/70 hover:text-white flex items-center gap-1">
@@ -129,13 +137,17 @@ export const Navbar: React.FC = () => {
             onMouseEnter={() => setActiveDropdown('services')}
             onMouseLeave={closeDropdowns}
           >
-            <Link to="/services" className="flex items-center gap-1.5 text-sm font-medium tracking-wide text-white/90 hover:text-[#F2834C] transition-colors py-1">
+            <button
+              type="button"
+              onClick={() => setActiveDropdown('services')}
+              className="flex items-center gap-1.5 text-sm font-medium tracking-wide text-white/90 hover:text-[#F2834C] transition-colors py-1"
+            >
               SERVICES
               <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === 'services' ? 'rotate-180 text-[#F2834C]' : ''}`} />
-            </Link>
+            </button>
 
             {activeDropdown === 'services' && (
-              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[850px] bg-[#0D1B2A] border border-[#A49150]/30 shadow-2xl p-6 mt-1 z-50 grid grid-cols-2 gap-3 animate-fade-in">
+              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[850px] bg-[#0D1B2A] border border-[#A49150]/30 shadow-2xl p-6 z-50 grid grid-cols-2 gap-3 animate-fade-in">
                 <div className="col-span-2 pb-2 border-b border-white/10 flex justify-between items-center">
                   <span className="text-xs font-mono tracking-widest text-[#F2834C]">END-TO-END CONSULTANCY SERVICES</span>
                   <Link to="/services" onClick={closeDropdowns} className="text-xs font-mono text-white/70 hover:text-white flex items-center gap-1">
@@ -167,13 +179,17 @@ export const Navbar: React.FC = () => {
             onMouseEnter={() => setActiveDropdown('projects')}
             onMouseLeave={closeDropdowns}
           >
-            <Link to="/projects" className="flex items-center gap-1.5 text-sm font-medium tracking-wide text-white/90 hover:text-[#F2834C] transition-colors py-1">
+            <button
+              type="button"
+              onClick={() => setActiveDropdown('projects')}
+              className="flex items-center gap-1.5 text-sm font-medium tracking-wide text-white/90 hover:text-[#F2834C] transition-colors py-1"
+            >
               PROJECTS
               <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === 'projects' ? 'rotate-180 text-[#F2834C]' : ''}`} />
-            </Link>
+            </button>
 
             {activeDropdown === 'projects' && (
-              <div className="absolute top-full left-0 w-64 bg-[#0D1B2A] border border-[#A49150]/30 shadow-2xl py-3 px-1 mt-1 z-50 animate-fade-in">
+              <div className="absolute top-full left-0 w-64 bg-[#0D1B2A] border border-[#A49150]/30 shadow-2xl py-3 px-1 z-50 animate-fade-in">
                 {[
                   { name: "All Projects Explorer", path: "/projects" },
                   { name: "Recently Awarded", path: "/projects/recently-awarded" },

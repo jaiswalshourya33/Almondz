@@ -28,7 +28,7 @@ export const SectorDetail: React.FC = () => {
   const relatedProjects = PROJECTS.filter((p) => p.sectorSlug === sector.slug || p.sector.toLowerCase().includes(sector.title.toLowerCase().substring(0, 6)));
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#fdf9ed] pt-24">
+    <div className="dropdown-content-page flex flex-col min-h-screen bg-[#fdf9ed] pt-24">
       {/* Hero Banner */}
       <section className="relative py-20 bg-[#0D1B2A] text-white overflow-hidden border-b border-[#A49150]/30">
         <div className="absolute inset-0 z-0">
@@ -47,7 +47,7 @@ export const SectorDetail: React.FC = () => {
             <span>BACK TO ALL SECTORS</span>
           </Link>
 
-          <div className="max-w-3xl flex flex-col gap-4">
+          <div className="dropdown-banner-copy max-w-3xl flex flex-col gap-4">
             <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">DOMAINS // EXPERTISE</span>
             <h1 className="text-4xl sm:text-5xl font-serif font-bold text-white leading-tight">{sector.title}</h1>
             <p className="text-white/80 text-base leading-relaxed">{sector.description}</p>
@@ -56,7 +56,7 @@ export const SectorDetail: React.FC = () => {
       </section>
 
       {/* Services & Metrics */}
-      <section className="py-20">
+      <section className="dropdown-scroll-content py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             

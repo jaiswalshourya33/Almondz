@@ -10,6 +10,7 @@ interface ProjectCardProps {
 }
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenVideo, onOpenDetails }) => {
+  const videoUrl = project.youtubeUrl || 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
   const statusColors = {
     "Recently Awarded": "bg-[#F2834C] text-white",
     "Ongoing": "bg-[#1E3A5F] text-white",
@@ -38,18 +39,18 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenVideo, 
           </span>
         </div>
 
-        {/* Video Play Trigger if available */}
-        {project.youtubeUrl && onOpenVideo && (
-          <button
-            onClick={() => onOpenVideo(project.youtubeUrl || "", project.title)}
-            className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity z-10"
-            aria-label="Play project video"
+        {/* A direct YouTube link, revealed only while the project image is hovered. */}
+        <a
+            href={videoUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="absolute inset-0 z-10 flex items-center justify-center bg-black/35 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+            aria-label={`Play YouTube video for ${project.title}`}
           >
-            <div className="w-12 h-12 rounded-full bg-[#F2834C] text-white flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform">
-              <Play className="w-5 h-5 fill-white ml-0.5" />
+            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#F2834C] text-white shadow-xl transition-transform duration-300 group-hover:scale-110">
+              <Play className="ml-0.5 h-6 w-6 fill-white" />
             </div>
-          </button>
-        )}
+          </a>
       </div>
 
       {/* Content */}

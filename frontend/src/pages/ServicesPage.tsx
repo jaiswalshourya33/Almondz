@@ -15,7 +15,7 @@ export const ServicesPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#fdf9ed] pt-24">
+    <div className="dropdown-content-page flex flex-col min-h-screen bg-[#fdf9ed] pt-24">
       {/* Hero Header */}
       <section className="bg-[#0D1B2A] text-white py-20 relative overflow-hidden border-b border-[#A49150]/30">
         <div className="absolute inset-0 z-0 opacity-20">
@@ -30,7 +30,7 @@ export const ServicesPage: React.FC = () => {
         <div className="absolute inset-0 bg-[radial-gradient(#A49150_1px,transparent_1px)] [background-size:28px_28px] opacity-10 z-10"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
-          <div className="flex flex-col gap-4 max-w-3xl">
+          <div className="dropdown-banner-copy flex flex-col gap-4 max-w-3xl">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[#F2834C]"></span>
               <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">PROFESSIONAL MASTERY & CONSULTANCY</span>
@@ -70,7 +70,7 @@ export const ServicesPage: React.FC = () => {
       </div>
 
       {/* SERVICES SHOWCASE SECTION */}
-      <section className="py-20">
+      <section className="dropdown-scroll-content py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 pb-6 border-b border-[#A49150]/20 gap-6">
