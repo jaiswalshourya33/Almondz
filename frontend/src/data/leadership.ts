@@ -25,7 +25,7 @@ export const LEADERSHIP: Leader[] = [
   },
   {
     name: "SUDHAKAR SINGH",
-    title: "Whole Team Director",
+    title: "Whole Time Director",
     bio: "Mr. Sudhakar Singh is a B. Tech (Hons.) in Civil Engineering and having more than 35 years of experience in India and overseas in Civil Engineering/ Contract Management companies Roads/ Highways/ Smart Cities Projects of all magnitude. He has good managerial, Interpersonal Communications and teamwork skills. Presently, Mr. Sudhakar Singh is involved in Business Development/ Execution of Engineering services for Highways and Smart Cities. He has greatly contributed to building up the organization to its present level.",
     image: sudhakar,
     category: "Board of Directors"
@@ -53,21 +53,21 @@ export const LEADERSHIP: Leader[] = [
   },
   {
     name: "Shabad Singh Sobti",
-    title: "Whole Team Director",
+    title: "Whole Time Director",
     bio: "Mr. Shabad Singh Sobti, son of Mr. Navjeet Singh Sobti, belongs to the Promoter Group of the Company. He holds a Bachelor of Science (B.Sc.) degree from the University of Virginia, a reputed foreign university, reflecting a strong academic foundation and well-developed analytical skills. He has approximately six (6) years of professional experience, during which he has demonstrated sound managerial, strategic, and operational capabilities. His exposure to business operations and involvement in decision-making processes equip him well to discharge the responsibilities of a Whole-Time Director. His academic qualifications, coupled with hands-on professional experience, are expected to contribute meaningfully to the Company’s growth, corporate governance, and long-term strategic objectives.",
     image: shabad,
     category: "Board of Directors"
   },
   {
     name: "SANJEET KUMAR AHLAWAT",
-    title: "Whole Team Director",
+    title: "Whole Time Director",
     bio: "Mr. Sanjeet Kumar Ahlawat is Masters in Planning with specialization in Regional Planning from School of Planning and Architecture, New Delhi; Masters of Science in Geography from Kurukshetra University, Diploma in Geo-informatics. He is having more than 17 years of experience International Business Development in Urban & Regional Planning, Urban Infrastructure, Highways & Roads, Power, Agro and Allied Services, Environmental and Social sectoras well as project execution, coordination and management of projects in Infrastructure and Physical Planning, Tourism. He has travelled to Zambia, Nigeria, Senegal, Gambia, Gabon, Yemen, Nepal etc for execution of assignments and contract negotiation of the projects.",
     image: sanjeet,
     category: "Board of Directors"
   },
   {
     name: "Amitabh Sharan",
-    title: "Whole Team Director",
+    title: "Whole Time Director",
     bio: "Mr. Amitabh Sharan is a seasoned Geotechnical and Engineering Geology expert with over 29 years of experience in tunnels, hydropower, and infrastructure projects across India and neighbouring regions. He specializes in NATM tunnelling, geotechnical investigations, and landslide mitigation, and currently serves as the Founder & Managing Director of Excelling Geo & Engineering Consultant Pvt. Ltd and whole time Director AGICL.",
     image: amitabh,
     category: "Board of Directors"

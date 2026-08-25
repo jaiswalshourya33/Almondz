@@ -14,10 +14,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
       className="service-parallax-card group bg-white border border-[#A49150]/30 p-6 flex flex-col justify-between shadow-sm hover:shadow-xl hover:border-[#F2834C] transition-all duration-500"
     >
       <div className="service-card__body flex flex-col gap-4">
-        <div className="service-card__top flex justify-between items-start">
-          <div className="w-10 h-10 bg-[#0D1B2A] text-white flex items-center justify-center font-mono text-sm font-bold group-hover:bg-[#F2834C] transition-colors">
-            AZ
-          </div>
+        <div className="service-card__top flex justify-end items-start">
           <span className="text-[10px] font-mono font-bold tracking-widest text-[#0D1B2A] uppercase">
             CONSULTANCY
           </span>

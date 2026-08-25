@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Mail, MapPin, Phone, Send, CheckCircle2, Building2, Sparkles, ShieldCheck, Clock, ArrowRight, Globe } from 'lucide-react';
+import { Mail, MapPin, Phone, Send, CheckCircle2, Building2, Sparkles, ArrowRight } from 'lucide-react';
 
 export const ContactPage: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
   const [activeTab, setActiveTab] = useState<'headquarters' | 'regional' | 'leadership'>('headquarters');
   const [copiedField, setCopiedField] = useState<string | null>(null);
+  const [activeFormType, setActiveFormType] = useState<'inquiry' | 'vendor' | 'career'>('inquiry');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -12,6 +13,26 @@ export const ContactPage: React.FC = () => {
     organization: '',
     inquiryType: 'Independent Engineering',
     sector: 'Highways & Tunnels',
+    message: ''
+  });
+  const [vendorFormData, setVendorFormData] = useState({
+    companyName: '',
+    contactPerson: '',
+    email: '',
+    phone: '',
+    vendorCategory: 'Materials Supplier',
+    gstNumber: '',
+    yearsInOperation: '',
+    message: ''
+  });
+  const [careerFormData, setCareerFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    position: '',
+    experience: '',
+    portfolio: '',
+    resumeFileName: '',
     message: ''
   });
 
@@ -26,11 +47,39 @@ export const ContactPage: React.FC = () => {
     setSubmitted(true);
   };
 
+  const handleVendorSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitted(true);
+  };
+
+  const handleCareerSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitted(true);
+  };
+
+  const selectFormType = (type: 'inquiry' | 'vendor' | 'career') => {
+    setActiveFormType(type);
+    setSubmitted(false);
+  };
+
+  const handleReset = () => {
+    setSubmitted(false);
+    if (activeFormType === 'inquiry') {
+      setFormData({ name: '', email: '', phone: '', organization: '', inquiryType: 'Independent Engineering', sector: 'Highways & Tunnels', message: '' });
+    } else if (activeFormType === 'vendor') {
+      setVendorFormData({ companyName: '', contactPerson: '', email: '', phone: '', vendorCategory: 'Materials Supplier', gstNumber: '', yearsInOperation: '', message: '' });
+    } else {
+      setCareerFormData({ name: '', email: '', phone: '', position: '', experience: '', portfolio: '', resumeFileName: '', message: '' });
+    }
+  };
+
   const regionalOffices = [
-    { city: "Mumbai (Western Region)", address: "Maker Chambers III, Nariman Point, Mumbai - 400021", phone: "+91 (22) 2282-1200", email: "mumbai@almondzglobalinfra.com" },
-    { city: "Bengaluru (Southern Region)", address: "Prestige Meridian, MG Road, Bengaluru - 560001", phone: "+91 (80) 4123-5600", email: "bengaluru@almondzglobalinfra.com" },
-    { city: "Hyderabad (Telangana Cell)", address: "Cyber Towers, HITECH City, Hyderabad - 500081", phone: "+91 (40) 2311-8900", email: "hyderabad@almondzglobalinfra.com" },
-    { city: "Kolkata (Eastern Region)", address: "Camac Square, Park Street, Kolkata - 700016", phone: "+91 (33) 2287-4500", email: "kolkata@almondzglobalinfra.com" },
+    { city: "Chennai", address: "51, Second Floor, CC Dhoni Arcade, No 5, Malaganthapuram 3rd Street, Jameen Pallavam, Chennai 43", phone: "+91-9443349796" },
+    { city: "Jharkhand", address: "Plot no-25, Lohanchal Colony Biada, Bokaro steel city, Jharkhand -827012", phone: "+91-654-2255190" },
+    { city: "Kerala", address: "Thiruvathira, KRA 47 TC 17/1676 (1), Kattu Road, Poojapura Thiruvanthapuram -695012", phone: "+91-471-2355630" },
+    { city: "Mumbai", address: "Plot no - A-6, Sector-6 Near St. Joseph School, New Panvel East-410206", phone: "+91-22-2745320" },
+    { city: "Rohtak", address: "R/O 134/29, Near Sagar Villa, Northern Bypass, Rohtak (Haryana) - 124001", phone: "+91-12-6227972" },
+    { city: "Varanasi", address: "House no -195 Sanjay Nagar Paharia, Near Happy Model School Varanasi -221007", phone: "" },
   ];
 
   return (
@@ -57,7 +106,6 @@ export const ContactPage: React.FC = () => {
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-[#0D1B2A] via-[#0D1B2A]/90 to-[#071A2D]/80 z-10"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(#A49150_1px,transparent_1px)] [background-size:28px_28px] opacity-10 z-10"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
           <div className="flex flex-col gap-4 max-w-3xl">
@@ -100,7 +148,7 @@ export const ContactPage: React.FC = () => {
                     activeTab === 'regional' ? 'bg-[#F2834C] text-white shadow' : 'text-white/70 hover:text-white'
                   }`}
                 >
-                  Regional Hubs
+                  Project Offices
                 </button>
                 <button
                   onClick={() => setActiveTab('leadership')}
@@ -108,7 +156,7 @@ export const ContactPage: React.FC = () => {
                     activeTab === 'leadership' ? 'bg-[#F2834C] text-white shadow' : 'text-white/70 hover:text-white'
                   }`}
                 >
-                  Governance
+                  Regional Office
                 </button>
               </div>
 
@@ -129,29 +177,29 @@ export const ContactPage: React.FC = () => {
                   </div>
 
                   <div className="space-y-4">
-                    <div 
-                      onClick={() => handleCopy("Plot No. 16, F Block, NH-8, Aerocity, New Delhi - 110037, India", "HQ Address")}
+                    <div
+                      onClick={() => handleCopy("F-33/3 Okhla Industrial Area, Phase-II, New Delhi-110020, INDIA", "HQ Address")}
                       className="flex items-start gap-3.5 p-3.5 bg-white/5 hover:bg-white/10 rounded-md border border-white/10 cursor-pointer transition-colors group/item"
                     >
                       <MapPin className="w-5 h-5 text-[#F2834C] shrink-0 mt-0.5 group-hover/item:scale-110 transition-transform" />
                       <div className="flex-1 text-xs font-mono">
                         <span className="text-white/60 block text-[10px] uppercase">Registered Address</span>
-                        <span className="text-white">Plot No. 16, F Block, NH-8, Aerocity, New Delhi - 110037, India</span>
+                        <span className="text-white">F-33/3 Okhla Industrial Area, Phase-II, New Delhi-110020, INDIA</span>
                       </div>
                     </div>
 
-                    <div 
-                      onClick={() => handleCopy("+91 (11) 4350-0700", "Phone Number")}
+                    <div
+                      onClick={() => handleCopy("+91-11-43500700, +91-11-43500734", "Phone Number")}
                       className="flex items-center gap-3.5 p-3.5 bg-white/5 hover:bg-white/10 rounded-md border border-white/10 cursor-pointer transition-colors group/item"
                     >
                       <Phone className="w-5 h-5 text-[#F2834C] shrink-0 group-hover/item:scale-110 transition-transform" />
                       <div className="flex-1 text-xs font-mono">
                         <span className="text-white/60 block text-[10px] uppercase">Corporate Exchange</span>
-                        <span className="text-white">+91 (11) 4350-0700 / 0800</span>
+                        <span className="text-white">+91-11-43500700, +91-11-43500734</span>
                       </div>
                     </div>
 
-                    <div 
+                    <div
                       onClick={() => handleCopy("contact@almondzglobalinfra.com", "Email Address")}
                       className="flex items-center gap-3.5 p-3.5 bg-white/5 hover:bg-white/10 rounded-md border border-white/10 cursor-pointer transition-colors group/item"
                     >
@@ -161,30 +209,17 @@ export const ContactPage: React.FC = () => {
                         <span className="text-white">contact@almondzglobalinfra.com</span>
                       </div>
                     </div>
-
-                    <div className="flex items-center gap-3.5 p-3.5 bg-white/5 rounded-md border border-white/10">
-                      <Clock className="w-5 h-5 text-[#F2834C] shrink-0" />
-                      <div className="flex-1 text-xs font-mono">
-                        <span className="text-white/60 block text-[10px] uppercase">Business Hours</span>
-                        <span className="text-white">Monday – Friday: 09:30 AM – 06:30 PM IST</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="pt-2 text-[11px] font-mono text-[#F2834C] flex items-center justify-between">
-                    <span>Click any field to copy</span>
-                    <Globe className="w-4 h-4 animate-spin duration-3000" />
                   </div>
                 </div>
               )}
 
-              {/* Regional Hubs Tab Content */}
+              {/* Project Offices Tab Content */}
               {activeTab === 'regional' && (
                 <div className="flex flex-col gap-4 animate-fade-in">
                   {regionalOffices.map((office, idx) => (
-                    <div 
+                    <div
                       key={idx}
-                      onClick={() => handleCopy(`${office.city} - ${office.address}, Phone: ${office.phone}`, office.city)}
+                      onClick={() => handleCopy(office.phone ? `${office.city} - ${office.address}, Phone: ${office.phone}` : `${office.city} - ${office.address}`, office.city)}
                       className="bg-white p-5 rounded-lg border border-[#A49150]/30 shadow-sm hover:border-[#F2834C] hover:shadow-md transition-all duration-300 cursor-pointer group"
                     >
                       <div className="flex items-center justify-between mb-2">
@@ -204,31 +239,42 @@ export const ContactPage: React.FC = () => {
                 </div>
               )}
 
-              {/* Governance & Investor Relations Tab Content */}
+              {/* Regional Office Tab Content */}
               {activeTab === 'leadership' && (
-                <div className="bg-white p-8 rounded-lg border border-[#A49150]/30 shadow-sm animate-fade-in space-y-6">
-                  <div className="flex items-center gap-3 border-b border-gray-100 pb-4">
-                    <div className="w-10 h-10 bg-[#0D1B2A] text-[#F2834C] flex items-center justify-center rounded-md">
-                      <ShieldCheck className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <span className="text-[10px] font-mono text-[#F2834C] uppercase tracking-widest font-bold">COMPLIANCE & IR</span>
-                      <h3 className="text-lg font-serif font-bold text-[#0D1B2A]">Secretarial Directorate</h3>
+                <div className="bg-[#0D1B2A] text-white p-8 rounded-lg border border-[#A49150]/40 shadow-xl flex flex-col gap-6 animate-fade-in group hover:border-[#F2834C] transition-all duration-500">
+                  <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-[#F2834C]/20 text-[#F2834C] flex items-center justify-center rounded-md border border-[#F2834C]/30">
+                        <Building2 className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <span className="text-[10px] font-mono text-[#F2834C] uppercase tracking-widest font-bold">REGIONAL OFFICE</span>
+                        <h3 className="text-xl font-serif font-bold text-white">Mumbai, India</h3>
+                      </div>
                     </div>
                   </div>
 
-                  <p className="text-xs text-[#1c1c15]/80 leading-relaxed font-light">
-                    For institutional investor queries, regulatory filings, BSE/NSE disclosures, and board secretariat correspondence:
-                  </p>
-
-                  <div className="space-y-3">
-                    <div className="p-3.5 bg-[#fdf9ed] rounded-md border border-[#A49150]/30">
-                      <span className="text-[10px] font-mono text-gray-500 uppercase block">Compliance Officer</span>
-                      <span className="text-xs font-bold text-[#0D1B2A]">cs@almondzglobalinfra.com</span>
+                  <div className="space-y-4">
+                    <div
+                      onClick={() => handleCopy("Level 5, Grande Palladium, 175, CST Road, Off BKC, Kalina, Santacruz (East) Mumbai - 400 098, Maharashtra", "Mumbai Regional Office Address")}
+                      className="flex items-start gap-3.5 p-3.5 bg-white/5 hover:bg-white/10 rounded-md border border-white/10 cursor-pointer transition-colors group/item"
+                    >
+                      <MapPin className="w-5 h-5 text-[#F2834C] shrink-0 mt-0.5 group-hover/item:scale-110 transition-transform" />
+                      <div className="flex-1 text-xs font-mono">
+                        <span className="text-white/60 block text-[10px] uppercase">Registered Address</span>
+                        <span className="text-white">Level 5, Grande Palladium, 175, CST Road, Off BKC, Kalina, Santacruz (East) Mumbai - 400 098, Maharashtra</span>
+                      </div>
                     </div>
-                    <div className="p-3.5 bg-[#fdf9ed] rounded-md border border-[#A49150]/30">
-                      <span className="text-[10px] font-mono text-gray-500 uppercase block">Investor Relations Desk</span>
-                      <span className="text-xs font-bold text-[#0D1B2A]">investors@almondzglobalinfra.com</span>
+
+                    <div
+                      onClick={() => handleCopy("+91-22-66437600, +91-22-67526699", "Phone Number")}
+                      className="flex items-center gap-3.5 p-3.5 bg-white/5 hover:bg-white/10 rounded-md border border-white/10 cursor-pointer transition-colors group/item"
+                    >
+                      <Phone className="w-5 h-5 text-[#F2834C] shrink-0 group-hover/item:scale-110 transition-transform" />
+                      <div className="flex-1 text-xs font-mono">
+                        <span className="text-white/60 block text-[10px] uppercase">Corporate Exchange</span>
+                        <span className="text-white">+91-22-66437600, +91-22-67526699</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -251,6 +297,37 @@ export const ContactPage: React.FC = () => {
             <div className="lg:col-span-7 bg-white border border-[#A49150]/30 p-8 sm:p-12 shadow-xl rounded-lg relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-[#F2834C]/5 rounded-bl-full pointer-events-none"></div>
 
+              {/* Form Type Selector Pills */}
+              <div className="flex bg-transparent p-1.5 rounded-lg border border-[#A49150]/30 shadow-sm mb-8 relative">
+                <button
+                  type="button"
+                  onClick={() => selectFormType('inquiry')}
+                  className={`flex-1 py-2.5 px-3 text-xs font-mono font-bold uppercase transition-all rounded-md ${
+                    activeFormType === 'inquiry' ? 'bg-[#F2834C] text-white shadow' : 'text-[#0D1B2A]/70 hover:bg-[#F2834C]/10 hover:text-[#F2834C]'
+                  }`}
+                >
+                  Inquiry
+                </button>
+                <button
+                  type="button"
+                  onClick={() => selectFormType('vendor')}
+                  className={`flex-1 py-2.5 px-3 text-xs font-mono font-bold uppercase transition-all rounded-md ${
+                    activeFormType === 'vendor' ? 'bg-[#F2834C] text-white shadow' : 'text-[#0D1B2A]/70 hover:bg-[#F2834C]/10 hover:text-[#F2834C]'
+                  }`}
+                >
+                  Vendor
+                </button>
+                <button
+                  type="button"
+                  onClick={() => selectFormType('career')}
+                  className={`flex-1 py-2.5 px-3 text-xs font-mono font-bold uppercase transition-all rounded-md ${
+                    activeFormType === 'career' ? 'bg-[#F2834C] text-white shadow' : 'text-[#0D1B2A]/70 hover:bg-[#F2834C]/10 hover:text-[#F2834C]'
+                  }`}
+                >
+                  Career
+                </button>
+              </div>
+
               {submitted ? (
                 <div className="py-20 text-center flex flex-col items-center gap-6 animate-fade-in">
                   <div className="w-20 h-20 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center shadow-inner">
@@ -258,22 +335,41 @@ export const ContactPage: React.FC = () => {
                   </div>
                   <div className="space-y-2">
                     <span className="text-xs font-mono text-[#F2834C] uppercase tracking-widest font-bold">TRANSMISSION SUCCESSFUL</span>
-                    <h3 className="text-3xl font-serif font-bold text-[#0D1B2A]">Consultancy Dossier Dispatched</h3>
-                    <p className="text-xs sm:text-sm text-gray-600 max-w-md mx-auto leading-relaxed font-light">
-                      Thank you, <strong className="text-[#0D1B2A]">{formData.name}</strong>. Our principal infrastructure practice director for <strong className="text-[#0D1B2A]">{formData.sector}</strong> has been assigned to your mandate. Expect a secure briefing within 24 hours.
-                    </p>
+                    {activeFormType === 'inquiry' && (
+                      <>
+                        <h3 className="text-3xl font-serif font-bold text-[#0D1B2A]">Consultancy Dossier Dispatched</h3>
+                        <p className="text-xs sm:text-sm text-gray-600 max-w-md mx-auto leading-relaxed font-light">
+                          Thank you, <strong className="text-[#0D1B2A]">{formData.name}</strong>. Our principal infrastructure practice director for <strong className="text-[#0D1B2A]">{formData.sector}</strong> has been assigned to your mandate. Expect a secure briefing within 24 hours.
+                        </p>
+                      </>
+                    )}
+                    {activeFormType === 'vendor' && (
+                      <>
+                        <h3 className="text-3xl font-serif font-bold text-[#0D1B2A]">Vendor Registration Received</h3>
+                        <p className="text-xs sm:text-sm text-gray-600 max-w-md mx-auto leading-relaxed font-light">
+                          Thank you, <strong className="text-[#0D1B2A]">{vendorFormData.contactPerson || vendorFormData.companyName}</strong>. Our procurement team will review your submission and reach out if there is an empanelment fit.
+                        </p>
+                      </>
+                    )}
+                    {activeFormType === 'career' && (
+                      <>
+                        <h3 className="text-3xl font-serif font-bold text-[#0D1B2A]">Application Received</h3>
+                        <p className="text-xs sm:text-sm text-gray-600 max-w-md mx-auto leading-relaxed font-light">
+                          Thank you, <strong className="text-[#0D1B2A]">{careerFormData.name}</strong>. Our HR team will review your application for <strong className="text-[#0D1B2A]">{careerFormData.position || 'the role'}</strong> and contact you if shortlisted.
+                        </p>
+                      </>
+                    )}
                   </div>
                   <button
-                    onClick={() => { 
-                      setSubmitted(false); 
-                      setFormData({ name: '', email: '', phone: '', organization: '', inquiryType: 'Independent Engineering', sector: 'Highways & Tunnels', message: '' }); 
-                    }}
+                    onClick={handleReset}
                     className="mt-4 bg-[#0D1B2A] hover:bg-[#F2834C] text-white px-8 py-3.5 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-md hover:shadow-lg rounded-md"
                   >
-                    Submit Another Inquiry
+                    {activeFormType === 'inquiry' && 'Submit Another Inquiry'}
+                    {activeFormType === 'vendor' && 'Submit Another Registration'}
+                    {activeFormType === 'career' && 'Submit Another Application'}
                   </button>
                 </div>
-              ) : (
+              ) : activeFormType === 'inquiry' ? (
                 <form onSubmit={handleSubmit} className="flex flex-col gap-6">
                   <div>
                     <span className="text-[10px] font-mono tracking-widest text-[#F2834C] uppercase font-bold">SECURE SUBMISSION</span>
@@ -387,6 +483,253 @@ export const ContactPage: React.FC = () => {
                   >
                     <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     <span>TRANSMIT CONSULTANCY BRIEFING</span>
+                    <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 -ml-2 group-hover:ml-0 transition-all" />
+                  </button>
+
+                  <div className="flex items-center justify-center gap-6 text-[10px] font-mono text-gray-500 pt-2 border-t border-gray-100">
+                    <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-[#F2834C]" /> 256-bit Encrypted</span>
+                    <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-[#F2834C]" /> ISO 9001 Audited</span>
+                    <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-[#F2834C]" /> 24hr SLA</span>
+                  </div>
+                </form>
+              ) : activeFormType === 'vendor' ? (
+                <form onSubmit={handleVendorSubmit} className="flex flex-col gap-6">
+                  <div>
+                    <span className="text-[10px] font-mono tracking-widest text-[#F2834C] uppercase font-bold">VENDOR ONBOARDING</span>
+                    <h3 className="text-2xl sm:text-3xl font-serif font-bold text-[#0D1B2A] mt-1">Register as a Vendor</h3>
+                    <p className="text-xs text-[#1c1c15]/70 mt-1">Share your company details for empanelment consideration in our supplier and contractor network.</p>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div className="flex flex-col gap-2">
+                      <label className="text-xs font-mono font-bold text-[#0D1B2A] uppercase">Company Name *</label>
+                      <input
+                        type="text"
+                        required
+                        value={vendorFormData.companyName}
+                        onChange={(e) => setVendorFormData({ ...vendorFormData, companyName: e.target.value })}
+                        placeholder="Registered business name"
+                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#0D1B2A] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <label className="text-xs font-mono font-bold text-[#0D1B2A] uppercase">Contact Person *</label>
+                      <input
+                        type="text"
+                        required
+                        value={vendorFormData.contactPerson}
+                        onChange={(e) => setVendorFormData({ ...vendorFormData, contactPerson: e.target.value })}
+                        placeholder="Authorized representative"
+                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#0D1B2A] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div className="flex flex-col gap-2">
+                      <label className="text-xs font-mono font-bold text-[#0D1B2A] uppercase">Business Email *</label>
+                      <input
+                        type="email"
+                        required
+                        value={vendorFormData.email}
+                        onChange={(e) => setVendorFormData({ ...vendorFormData, email: e.target.value })}
+                        placeholder="name@company.com"
+                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#0D1B2A] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <label className="text-xs font-mono font-bold text-[#0D1B2A] uppercase">Phone Number *</label>
+                      <input
+                        type="tel"
+                        required
+                        value={vendorFormData.phone}
+                        onChange={(e) => setVendorFormData({ ...vendorFormData, phone: e.target.value })}
+                        placeholder="+91 98765 43210"
+                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#0D1B2A] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div className="flex flex-col gap-2">
+                      <label className="text-xs font-mono font-bold text-[#0D1B2A] uppercase">Vendor Category *</label>
+                      <select
+                        value={vendorFormData.vendorCategory}
+                        onChange={(e) => setVendorFormData({ ...vendorFormData, vendorCategory: e.target.value })}
+                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#0D1B2A] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors cursor-pointer"
+                      >
+                        <option>Materials Supplier</option>
+                        <option>Equipment & Machinery</option>
+                        <option>Subcontractor</option>
+                        <option>Professional Services</option>
+                        <option>Logistics & Transport</option>
+                        <option>Other</option>
+                      </select>
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <label className="text-xs font-mono font-bold text-[#0D1B2A] uppercase">GST / Registration Number</label>
+                      <input
+                        type="text"
+                        value={vendorFormData.gstNumber}
+                        onChange={(e) => setVendorFormData({ ...vendorFormData, gstNumber: e.target.value })}
+                        placeholder="22AAAAA0000A1Z5"
+                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#0D1B2A] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <label className="text-xs font-mono font-bold text-[#0D1B2A] uppercase">Years in Operation</label>
+                    <input
+                      type="text"
+                      value={vendorFormData.yearsInOperation}
+                      onChange={(e) => setVendorFormData({ ...vendorFormData, yearsInOperation: e.target.value })}
+                      placeholder="e.g. 8 years"
+                      className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#0D1B2A] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors"
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <label className="text-xs font-mono font-bold text-[#0D1B2A] uppercase">Proposal / Capability Summary *</label>
+                    <textarea
+                      required
+                      rows={5}
+                      value={vendorFormData.message}
+                      onChange={(e) => setVendorFormData({ ...vendorFormData, message: e.target.value })}
+                      placeholder="Describe your products, services, capacity, and past projects..."
+                      className="bg-[#fdf9ed] border border-[#A49150]/30 p-4 text-xs text-[#0D1B2A] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors"
+                    ></textarea>
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="group bg-[#F2834C] hover:bg-[#d9723f] text-white py-4 px-6 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 active:translate-y-0 flex items-center justify-center gap-3 rounded-md"
+                  >
+                    <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    <span>SUBMIT VENDOR REGISTRATION</span>
+                    <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 -ml-2 group-hover:ml-0 transition-all" />
+                  </button>
+
+                  <div className="flex items-center justify-center gap-6 text-[10px] font-mono text-gray-500 pt-2 border-t border-gray-100">
+                    <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-[#F2834C]" /> 256-bit Encrypted</span>
+                    <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-[#F2834C]" /> ISO 9001 Audited</span>
+                    <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-[#F2834C]" /> 24hr SLA</span>
+                  </div>
+                </form>
+              ) : (
+                <form onSubmit={handleCareerSubmit} className="flex flex-col gap-6">
+                  <div>
+                    <span className="text-[10px] font-mono tracking-widest text-[#F2834C] uppercase font-bold">JOIN OUR TEAM</span>
+                    <h3 className="text-2xl sm:text-3xl font-serif font-bold text-[#0D1B2A] mt-1">Submit Your Application</h3>
+                    <p className="text-xs text-[#1c1c15]/70 mt-1">Share your details and resume for consideration against current and upcoming openings.</p>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div className="flex flex-col gap-2">
+                      <label className="text-xs font-mono font-bold text-[#0D1B2A] uppercase">Full Name *</label>
+                      <input
+                        type="text"
+                        required
+                        value={careerFormData.name}
+                        onChange={(e) => setCareerFormData({ ...careerFormData, name: e.target.value })}
+                        placeholder="Your full name"
+                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#0D1B2A] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <label className="text-xs font-mono font-bold text-[#0D1B2A] uppercase">Email Address *</label>
+                      <input
+                        type="email"
+                        required
+                        value={careerFormData.email}
+                        onChange={(e) => setCareerFormData({ ...careerFormData, email: e.target.value })}
+                        placeholder="name@example.com"
+                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#0D1B2A] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div className="flex flex-col gap-2">
+                      <label className="text-xs font-mono font-bold text-[#0D1B2A] uppercase">Phone Number *</label>
+                      <input
+                        type="tel"
+                        required
+                        value={careerFormData.phone}
+                        onChange={(e) => setCareerFormData({ ...careerFormData, phone: e.target.value })}
+                        placeholder="+91 98765 43210"
+                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#0D1B2A] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <label className="text-xs font-mono font-bold text-[#0D1B2A] uppercase">Position Applied For *</label>
+                      <input
+                        type="text"
+                        required
+                        value={careerFormData.position}
+                        onChange={(e) => setCareerFormData({ ...careerFormData, position: e.target.value })}
+                        placeholder="e.g. Structural Engineer"
+                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#0D1B2A] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div className="flex flex-col gap-2">
+                      <label className="text-xs font-mono font-bold text-[#0D1B2A] uppercase">Years of Experience</label>
+                      <select
+                        value={careerFormData.experience}
+                        onChange={(e) => setCareerFormData({ ...careerFormData, experience: e.target.value })}
+                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#0D1B2A] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors cursor-pointer"
+                      >
+                        <option value="">Select range</option>
+                        <option>Fresher (0-1 years)</option>
+                        <option>1-3 years</option>
+                        <option>3-5 years</option>
+                        <option>5-10 years</option>
+                        <option>10+ years</option>
+                      </select>
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <label className="text-xs font-mono font-bold text-[#0D1B2A] uppercase">LinkedIn / Portfolio URL</label>
+                      <input
+                        type="url"
+                        value={careerFormData.portfolio}
+                        onChange={(e) => setCareerFormData({ ...careerFormData, portfolio: e.target.value })}
+                        placeholder="https://linkedin.com/in/..."
+                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#0D1B2A] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <label className="text-xs font-mono font-bold text-[#0D1B2A] uppercase">Resume / CV *</label>
+                    <input
+                      type="file"
+                      required
+                      accept=".pdf,.doc,.docx"
+                      onChange={(e) => setCareerFormData({ ...careerFormData, resumeFileName: e.target.files?.[0]?.name || '' })}
+                      className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#0D1B2A] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors cursor-pointer file:mr-4 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-[10px] file:font-mono file:font-bold file:uppercase file:bg-[#0D1B2A] file:text-white hover:file:bg-[#F2834C] file:cursor-pointer"
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <label className="text-xs font-mono font-bold text-[#0D1B2A] uppercase">Cover Letter / Message</label>
+                    <textarea
+                      rows={5}
+                      value={careerFormData.message}
+                      onChange={(e) => setCareerFormData({ ...careerFormData, message: e.target.value })}
+                      placeholder="Tell us why you'd be a good fit for this role..."
+                      className="bg-[#fdf9ed] border border-[#A49150]/30 p-4 text-xs text-[#0D1B2A] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors"
+                    ></textarea>
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="group bg-[#F2834C] hover:bg-[#d9723f] text-white py-4 px-6 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 active:translate-y-0 flex items-center justify-center gap-3 rounded-md"
+                  >
+                    <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    <span>SUBMIT APPLICATION</span>
                     <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 -ml-2 group-hover:ml-0 transition-all" />
                   </button>
 

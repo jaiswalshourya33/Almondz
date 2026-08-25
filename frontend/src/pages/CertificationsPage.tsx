@@ -1,23 +1,14 @@
 import React, { useState } from 'react';
 import { CERTIFICATIONS, EMPANELMENTS, Certification } from '../data/certifications';
-import { Award, ShieldCheck, CheckCircle2, FileText, Download, Eye, X, ExternalLink, Building2, Check } from 'lucide-react';
+import { Award, ShieldCheck, Eye, X, Building2 } from 'lucide-react';
 
 export const CertificationsPage: React.FC = () => {
   const [selectedCert, setSelectedCert] = useState<Certification | null>(null);
-  const [downloadSuccess, setDownloadSuccess] = useState<string | null>(null);
-
-  const handleDownload = (certTitle: string) => {
-    setDownloadSuccess(certTitle);
-    setTimeout(() => {
-      setDownloadSuccess(null);
-    }, 3000);
-  };
 
   return (
     <div className="about-dropdown-page flex flex-col min-h-screen bg-[#fdf9ed] pt-24">
       {/* Hero Header */}
       <section className="bg-[#0D1B2A] text-white py-16 sm:py-20 border-b border-[#A49150]/30 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(#A49150_1px,transparent_1px)] [background-size:24px_24px] opacity-10"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="about-dropdown-banner-copy flex flex-col gap-4 max-w-3xl">
             <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">QUALITY ASSURANCE & ACCREDITATIONS</span>
@@ -28,17 +19,6 @@ export const CertificationsPage: React.FC = () => {
           </div>
         </div>
       </section>
-
-      {/* Download Alert Toast */}
-      {downloadSuccess && (
-        <div className="fixed bottom-8 right-8 z-50 bg-[#0D1B2A] text-white px-6 py-4 border border-[#F2834C] shadow-2xl flex items-center gap-3 animate-fade-in rounded-md">
-          <CheckCircle2 className="w-5 h-5 text-[#F2834C]" />
-          <div>
-            <p className="text-xs font-mono font-bold">DOCUMENT DOWNLOAD INITIATED</p>
-            <p className="text-xs text-white/80">{downloadSuccess} official PDF is downloading...</p>
-          </div>
-        </div>
-      )}
 
       {/* CERTIFICATIONS SECTION */}
       <section className="about-dropdown-content py-20">
@@ -55,39 +35,29 @@ export const CertificationsPage: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {CERTIFICATIONS.map((cert, idx) => (
-              <div 
-                key={idx} 
-                className="bg-white border border-[#A49150]/30 p-8 shadow-sm flex flex-col justify-between hover:border-[#F2834C] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group rounded-md"
+              <div
+                key={idx}
+                className="bg-white border border-[#A49150]/30 p-6 shadow-sm flex flex-col justify-between hover:border-[#F2834C] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group rounded-md"
               >
                 <div className="flex flex-col gap-4">
-                  <div className="flex items-center justify-between">
-                    <div className="w-12 h-12 bg-[#0D1B2A] text-[#F2834C] flex items-center justify-center rounded-md group-hover:bg-[#F2834C] group-hover:text-white transition-colors">
-                      <Award className="w-6 h-6" />
-                    </div>
-                    <span className="text-[10px] font-mono bg-[#A49150]/10 text-[#0D1B2A] px-2.5 py-1 rounded border border-[#A49150]/20 font-bold">
-                      {cert.year}
-                    </span>
+                  <div className="w-full aspect-[4/3] bg-[#fdf9ed] border border-[#A49150]/20 rounded-md overflow-hidden flex items-center justify-center">
+                    <img
+                      src={cert.image}
+                      alt={cert.title}
+                      referrerPolicy="no-referrer"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
                   </div>
-                  <div className="text-xs font-mono text-[#A49150] tracking-wider uppercase">{cert.issuer}</div>
-                  <h3 className="text-xl font-serif font-bold text-[#0D1B2A] group-hover:text-[#F2834C] transition-colors">{cert.title}</h3>
-                  <p className="text-xs text-[#1c1c15]/70 leading-relaxed">{cert.description}</p>
+                  <h3 className="text-lg font-serif font-bold text-[#0D1B2A] group-hover:text-[#F2834C] transition-colors leading-snug">{cert.title}</h3>
                 </div>
 
-                <div className="pt-6 mt-6 border-t border-gray-100 flex items-center gap-3">
+                <div className="pt-6 mt-6 border-t border-gray-100">
                   <button
                     onClick={() => setSelectedCert(cert)}
-                    className="flex-1 bg-[#0D1B2A] hover:bg-[#1a2f45] text-white py-2.5 px-4 text-xs font-mono font-bold tracking-wider uppercase transition-all duration-300 flex items-center justify-center gap-2 rounded-md shadow hover:shadow-md"
+                    className="w-full bg-[#0D1B2A] hover:bg-[#1a2f45] text-white py-2.5 px-4 text-xs font-mono font-bold tracking-wider uppercase transition-all duration-300 flex items-center justify-center gap-2 rounded-md shadow hover:shadow-md"
                   >
                     <Eye className="w-3.5 h-3.5 text-[#F2834C]" />
                     <span>View Certificate</span>
-                  </button>
-                  <button
-                    onClick={() => handleDownload(cert.title)}
-                    className="p-2.5 bg-[#fdf9ed] hover:bg-[#A49150]/20 text-[#0D1B2A] border border-[#A49150]/30 transition-all duration-300 rounded-md hover:border-[#0D1B2A]"
-                    title="Download PDF"
-                    aria-label={`Download ${cert.title}`}
-                  >
-                    <Download className="w-4 h-4" />
                   </button>
                 </div>
               </div>
@@ -138,7 +108,7 @@ export const CertificationsPage: React.FC = () => {
       {/* CERTIFICATE VIEW MODAL */}
       {selectedCert && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fade-in">
-          <div className="bg-white border border-[#A49150] w-full max-w-2xl p-8 shadow-2xl relative rounded-md flex flex-col gap-6">
+          <div className="bg-white border border-[#A49150] w-full max-w-3xl max-h-[90vh] overflow-y-auto p-8 shadow-2xl relative rounded-md flex flex-col gap-6">
             <button
               onClick={() => setSelectedCert(null)}
               className="absolute top-4 right-4 p-2 text-gray-500 hover:text-[#0D1B2A] bg-gray-100 hover:bg-gray-200 transition-colors rounded-md"
@@ -157,49 +127,26 @@ export const CertificationsPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Certificate Visual Preview Box */}
-            <div className="bg-[#fdf9ed] border-2 border-dashed border-[#A49150]/40 p-8 text-center flex flex-col items-center justify-center gap-4 rounded-md relative overflow-hidden">
-              <div className="absolute inset-0 bg-[radial-gradient(#A49150_1px,transparent_1px)] [background-size:16px_16px] opacity-5"></div>
-              
-              <div className="w-16 h-16 rounded-full bg-[#0D1B2A] text-[#A49150] flex items-center justify-center shadow-inner border-2 border-[#A49150]">
-                <ShieldCheck className="w-8 h-8 text-[#F2834C]" />
-              </div>
-
-              <div className="space-y-1">
-                <p className="text-[10px] font-mono uppercase tracking-widest text-gray-500">CERTIFICATE OF CONFORMANCE</p>
-                <h4 className="text-xl font-serif font-bold text-[#0D1B2A]">{selectedCert.title}</h4>
-                <p className="text-xs font-mono text-[#A49150]">Issued by: {selectedCert.issuer}</p>
-                <p className="text-xs text-[#1c1c15]/70 max-w-md mx-auto mt-2">{selectedCert.description}</p>
-              </div>
-
-              <div className="w-full grid grid-cols-2 gap-4 mt-4 pt-4 border-t border-[#A49150]/20 text-left text-xs font-mono">
-                <div>
-                  <span className="text-gray-500 block">VALIDITY PERIOD:</span>
-                  <span className="font-bold text-[#0D1B2A]">{selectedCert.year}</span>
-                </div>
-                <div>
-                  <span className="text-gray-500 block">VERIFICATION CODE:</span>
-                  <span className="font-bold text-[#0D1B2A]">AGIC-ISO-{Math.floor(100000 + Math.random() * 900000)}</span>
-                </div>
-              </div>
+            {/* Original Certificate Image — a fixed-height preview box (not tied to
+                the image's own resolution) so every certificate previews at the
+                same, standard size. object-contain scales the image down (or up)
+                to fit fully within the box with no cropping; shrink-0 stops the
+                flex-column modal from squeezing this box smaller than h-[65vh]. */}
+            <div className="bg-[#fdf9ed] border border-[#A49150]/30 rounded-md overflow-hidden flex items-center justify-center shrink-0 h-[65vh]">
+              <img
+                src={selectedCert.image}
+                alt={selectedCert.title}
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-contain"
+              />
             </div>
 
-            <div className="flex items-center justify-end gap-3 pt-4 border-t border-gray-100">
+            <div className="flex items-center justify-end pt-4 border-t border-gray-100">
               <button
                 onClick={() => setSelectedCert(null)}
                 className="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 text-[#0D1B2A] text-xs font-mono font-bold tracking-wider uppercase transition-colors rounded-md"
               >
                 Close Preview
-              </button>
-              <button
-                onClick={() => {
-                  handleDownload(selectedCert.title);
-                  setSelectedCert(null);
-                }}
-                className="px-6 py-2.5 bg-[#F2834C] hover:bg-[#d9723f] text-white text-xs font-mono font-bold tracking-wider uppercase transition-all shadow-md hover:shadow-lg flex items-center gap-2 rounded-md"
-              >
-                <Download className="w-4 h-4" />
-                <span>Download Official PDF</span>
               </button>
             </div>
           </div>

@@ -1,18 +1,24 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: 'Segoe UI', sans-serif;
+  --font-serif: 'Segoe UI', sans-serif;
+  --font-mono: 'Segoe UI', sans-serif;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
   }
 
   body {
-    font-family: 'Hanken Grotesk', sans-serif;
+    font-family: 'Hanken Grotesk', 'Segoe UI', sans-serif;
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Source Serif 4', serif;
+    font-family: 'Source Serif 4', 'Segoe UI', sans-serif;
   }
   code, pre, .font-mono {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'JetBrains Mono', 'Segoe UI', sans-serif;
   }
 }
 
@@ -55,17 +61,8 @@
   border-color: #F2834C;
 }
 
-/* A restrained dot texture for the About and Leadership page backgrounds. */
-.about-overview-page,
-.leadership-page,
-.about-dropdown-page,
-.dropdown-content-page {
-  background-image:
-    radial-gradient(circle, rgba(164, 145, 80, 0.36) 1px, transparent 1.4px),
-    radial-gradient(circle, rgba(242, 131, 76, 0.18) 1px, transparent 1.4px);
-  background-position: 0 0, 14px 14px;
-  background-size: 28px 28px;
-}
+/* About/Leadership pages keep their plain soft-dusty cream background
+   (set via bg-[#fdf9ed] on each page's root element) — no dot texture. */
 
 /* Director portrait cards respond to the pointer without affecting page layout. */
 .leadership-profile-card {
@@ -379,16 +376,17 @@
 .service-parallax-card:hover .service-card__methodology { transform: translateY(3px); }
 .service-parallax-card:hover .service-card__footer { transform: translateY(4px); }
 
-/* One-card-at-a-time service sequence with a light, on-brand dotted backdrop. */
+/* One-card-at-a-time service sequence. The background photo (india-roads.jpg)
+   is set inline in Home.tsx as a single image on the section itself, layered
+   under a dark overlay so it stays muted and the white service cards remain
+   the visual focus. */
 .service-scroll-section {
   position: relative;
   overflow: clip;
-  background-color: #fdf9ed;
-  background-image:
-    radial-gradient(circle, rgba(164, 145, 80, 0.33) 1px, transparent 1.5px),
-    radial-gradient(circle, rgba(242, 131, 76, 0.15) 1px, transparent 1.5px);
-  background-position: 0 0, 14px 14px;
-  background-size: 28px 28px;
+  background-color: #0D1B2A;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .service-scroll-stack {
@@ -422,7 +420,13 @@
 }
 
 .service-scroll-card-shell .service-parallax-card {
-  min-height: min(62vh, 520px);
+  /* A fixed height (not min-height): every stacked card must be exactly
+     the same size, or a shorter card sitting on top (e.g. one with fewer
+     deliverables) leaves the taller card stacked behind it peeking out
+     at the bottom edge. .service-parallax-card already clips overflow,
+     so any card whose content doesn't fit is clipped rather than growing
+     taller and breaking that guarantee. */
+  height: min(62vh, 520px);
 }
 
 /* Homepage contact call-to-action. */
@@ -489,7 +493,7 @@
   border-radius: 999px;
   background: #0D1B2A;
   color: #fff;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'JetBrains Mono', 'Segoe UI', sans-serif;
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -566,12 +570,15 @@
     animation: lifecycle-card-reveal 1.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   }
 
-  .lifecycle-showcase.is-visible .lifecycle-showcase__card:nth-child(1) { animation-delay: 160ms; }
-  .lifecycle-showcase.is-visible .lifecycle-showcase__card:nth-child(2) { animation-delay: 360ms; }
-  .lifecycle-showcase.is-visible .lifecycle-showcase__card:nth-child(3) { animation-delay: 560ms; }
-  .lifecycle-showcase.is-visible .lifecycle-showcase__card:nth-child(4) { animation-delay: 760ms; }
-  .lifecycle-showcase.is-visible .lifecycle-showcase__card:nth-child(5) { animation-delay: 960ms; }
-  .lifecycle-showcase.is-visible .lifecycle-showcase__card:nth-child(6) { animation-delay: 1160ms; }
+  /* nth-of-type (not nth-child): the roadmap connector <svg> is a
+     non-.lifecycle-showcase__card sibling ahead of the cards, so nth-child
+     would miscount them. */
+  .lifecycle-showcase.is-visible .lifecycle-showcase__card:nth-of-type(1) { animation-delay: 160ms; }
+  .lifecycle-showcase.is-visible .lifecycle-showcase__card:nth-of-type(2) { animation-delay: 360ms; }
+  .lifecycle-showcase.is-visible .lifecycle-showcase__card:nth-of-type(3) { animation-delay: 560ms; }
+  .lifecycle-showcase.is-visible .lifecycle-showcase__card:nth-of-type(4) { animation-delay: 760ms; }
+  .lifecycle-showcase.is-visible .lifecycle-showcase__card:nth-of-type(5) { animation-delay: 960ms; }
+  .lifecycle-showcase.is-visible .lifecycle-showcase__card:nth-of-type(6) { animation-delay: 1160ms; }
 }
 
 @keyframes lifecycle-copy-reveal {
@@ -582,6 +589,59 @@
 @keyframes lifecycle-card-reveal {
   from { opacity: 0; transform: translateY(52px) scale(0.98); }
   to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Zigzag roadmap presentation for the lifecycle stage cards: cards alternate
+   left/right down the page, each tilted slightly, with a numbered node badge
+   overlapping the top edge and a dashed SVG line (drawn in Home.tsx from the
+   measured node positions) connecting each node to the next.
+   The persistent tilt uses the standalone `rotate`/`translate` properties
+   (not `transform`) so it composes with the entrance animation above
+   instead of being clobbered by its forwards-filled `transform`. On hover the
+   card straightens and shifts slightly toward center. */
+.lifecycle-showcase__card {
+  overflow: visible;
+  transition: translate 320ms cubic-bezier(0.22, 1, 0.36, 1), rotate 320ms cubic-bezier(0.22, 1, 0.36, 1), border-color 300ms ease, box-shadow 320ms ease;
+}
+
+.lifecycle-showcase__card:hover {
+  translate: 0 -6px;
+  rotate: 0deg;
+  box-shadow: 0 22px 44px rgba(0, 0, 0, 0.35);
+}
+
+@media (min-width: 1024px) {
+  .lifecycle-showcase__card:nth-of-type(odd) {
+    rotate: -1.5deg;
+  }
+
+  .lifecycle-showcase__card:nth-of-type(even) {
+    rotate: 1.5deg;
+  }
+
+  .lifecycle-showcase__card:nth-of-type(odd):hover {
+    translate: 10px -6px;
+  }
+
+  .lifecycle-showcase__card:nth-of-type(even):hover {
+    translate: -10px -6px;
+  }
+}
+
+.lifecycle-showcase__node {
+  position: absolute;
+  top: -22px;
+  left: 32px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: #0D1B2A;
+  border: 2px solid #F2834C;
+  box-shadow: 0 8px 18px rgba(7, 26, 45, 0.45);
+  z-index: 2;
 }
 
 @supports (animation-timeline: view()) {
@@ -773,7 +833,7 @@
   }
 
   .service-scroll-card-shell .service-parallax-card {
-    min-height: 500px;
+    height: 500px;
   }
 
   .cta-showcase__inner {

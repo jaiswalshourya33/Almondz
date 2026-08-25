@@ -27,7 +27,6 @@ export const ServicesPage: React.FC = () => {
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-[#0D1B2A] via-[#0D1B2A]/90 to-[#071A2D]/80 z-10"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(#A49150_1px,transparent_1px)] [background-size:28px_28px] opacity-10 z-10"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
           <div className="dropdown-banner-copy flex flex-col gap-4 max-w-3xl">

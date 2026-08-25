@@ -58,7 +58,6 @@ export const ServiceDetail: React.FC = () => {
             referrerPolicy="no-referrer"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[#0D1B2A] via-[#0D1B2A]/90 to-[#071A2D]/80"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(#A49150_1px,transparent_1px)] [background-size:28px_28px] opacity-10"></div>
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

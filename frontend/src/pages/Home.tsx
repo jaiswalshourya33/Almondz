@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { SECTORS } from '../data/sectors';
 import { SERVICES } from '../data/services';
@@ -33,9 +33,13 @@ export const Home: React.FC = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [activeSectorIndex, setActiveSectorIndex] = useState(0);
   const sectorCardRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+  const sectorTrackRef = useRef<HTMLDivElement | null>(null);
   const ctaSectionRef = useRef<HTMLElement | null>(null);
   const lifecycleSectionRef = useRef<HTMLElement | null>(null);
   const lifecycleHeaderRef = useRef<HTMLDivElement | null>(null);
+  const lifecycleTrackRef = useRef<HTMLDivElement | null>(null);
+  const lifecycleNodeRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [lifecycleConnectors, setLifecycleConnectors] = useState<{ x1: number; y1: number; x2: number; y2: number }[]>([]);
 
   const backgroundImages = [
     {
@@ -102,6 +106,33 @@ export const Home: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
+  useLayoutEffect(() => {
+    const computeLifecycleConnectors = () => {
+      const track = lifecycleTrackRef.current;
+      if (!track) return;
+      const trackRect = track.getBoundingClientRect();
+      const centers = lifecycleNodeRefs.current.map((node) => {
+        if (!node) return null;
+        const rect = node.getBoundingClientRect();
+        return {
+          x: rect.left + rect.width / 2 - trackRect.left,
+          y: rect.top + rect.height / 2 - trackRect.top,
+        };
+      });
+      const segments: { x1: number; y1: number; x2: number; y2: number }[] = [];
+      for (let i = 0; i < centers.length - 1; i++) {
+        const a = centers[i];
+        const b = centers[i + 1];
+        if (a && b) segments.push({ x1: a.x, y1: a.y, x2: b.x, y2: b.y });
+      }
+      setLifecycleConnectors(segments);
+    };
+
+    computeLifecycleConnectors();
+    window.addEventListener('resize', computeLifecycleConnectors);
+    return () => window.removeEventListener('resize', computeLifecycleConnectors);
+  }, []);
+
   const handleOpenVideo = (url: string, title: string) => {
     setActiveVideo({ url, title });
   };
@@ -116,6 +147,28 @@ export const Home: React.FC = () => {
       });
     });
   };
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const interval = setInterval(() => {
+      const nextIndex = (activeSectorIndex + 1) % SECTORS.length;
+      setActiveSectorIndex(nextIndex);
+      // Scroll only the horizontal card track, not the page, so the
+      // auto-advance never fights the user scrolling the page down.
+      requestAnimationFrame(() => {
+        const track = sectorTrackRef.current;
+        const card = sectorCardRefs.current[nextIndex];
+        if (!track || !card) return;
+        const targetLeft = card.offsetLeft - (track.clientWidth - card.offsetWidth) / 2;
+        track.scrollTo({
+          left: Math.max(0, targetLeft),
+          behavior: 'smooth',
+        });
+      });
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [activeSectorIndex]);
 
   return (
     <div className="flex flex-col min-h-screen bg-[#fdf9ed]">
@@ -139,7 +192,6 @@ export const Home: React.FC = () => {
             </div>
           ))}
           <div className="absolute inset-0 bg-gradient-to-r from-[#0D1B2A]/70 via-[#0D1B2A]/45 to-[#071A2D]/30 z-20"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(#A49150_1px,transparent_1px)] [background-size:32px_32px] opacity-10 z-20"></div>
 
           {/* Slideshow indicators / caption badge */}
           <div className="absolute bottom-6 right-6 z-30 hidden sm:flex items-center gap-2 bg-black/40 backdrop-blur-md px-4 py-2 border border-white/20 rounded-md">
@@ -164,11 +216,6 @@ export const Home: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
             <div className="hero-entry lg:col-span-8 flex flex-col gap-6">
-              <div className="inline-flex items-center gap-2 bg-[#F2834C]/20 border border-[#F2834C]/50 px-3.5 py-1.5 w-fit">
-                <span className="w-2 h-2 rounded-full bg-[#F2834C] animate-ping"></span>
-                <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">ISO 9001:2015 CERTIFIED INFRASTRUCTURE CONSULTANT</span>
-              </div>
-
               <h1 className="text-3xl sm:text-5xl lg:text-6xl font-sans font-normal tracking-tight text-white/95 leading-[1.2]">
                 Engineering the <span className="text-[#F2834C] font-serif italic font-medium">Infrastructure</span> That Moves India Forward.
               </h1>
@@ -291,7 +338,7 @@ export const Home: React.FC = () => {
             </Link>
           </div>
 
-          <div className="sector-showcase" aria-label="Specialized infrastructure sectors">
+          <div ref={sectorTrackRef} className="sector-showcase" aria-label="Specialized infrastructure sectors">
             {SECTORS.map((sector, index) => (
               <Link
                 key={sector.id}
@@ -346,7 +393,6 @@ export const Home: React.FC = () => {
 
       {/* CONCEPT TO COMMISSIONING LIFECYCLE */}
       <section ref={lifecycleSectionRef} className="lifecycle-showcase py-20 bg-[#0D1B2A] text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(#A49150_1px,transparent_1px)] [background-size:24px_24px] opacity-10"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div ref={lifecycleHeaderRef} className="lifecycle-showcase__header text-center max-w-3xl mx-auto mb-16">
             <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">END-TO-END CAPABILITY</span>
@@ -356,10 +402,34 @@ export const Home: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div ref={lifecycleTrackRef} className="lifecycle-showcase__grid relative flex flex-col gap-16 max-w-xl mx-auto lg:max-w-3xl lg:gap-8">
+            <svg className="absolute inset-0 hidden h-full w-full lg:block" style={{ zIndex: 0 }} aria-hidden="true">
+              {lifecycleConnectors.map((seg, i) => (
+                <line
+                  key={i}
+                  x1={seg.x1}
+                  y1={seg.y1}
+                  x2={seg.x2}
+                  y2={seg.y2}
+                  stroke="rgba(164, 145, 80, 0.55)"
+                  strokeWidth="2"
+                  strokeDasharray="7 7"
+                />
+              ))}
+            </svg>
             {LIFECYCLE_STAGES.map((stage, idx) => (
-              <div key={idx} className="lifecycle-showcase__card bg-[#071A2D] border border-[#A49150]/30 p-8 flex flex-col gap-4 relative group hover:border-[#F2834C] transition-colors">
-                <div className="text-3xl font-mono font-bold text-[#F2834C]">{stage.step}</div>
+              <div
+                key={idx}
+                className={`lifecycle-showcase__card relative z-10 w-full bg-[#071A2D] border border-[#A49150]/30 p-8 pt-10 flex flex-col gap-4 group hover:border-[#F2834C] transition-colors lg:w-[300px] ${
+                  idx % 2 === 0 ? 'lg:self-start' : 'lg:self-end'
+                }`}
+              >
+                <div
+                  ref={(element) => { lifecycleNodeRefs.current[idx] = element; }}
+                  className="lifecycle-showcase__node text-lg font-mono font-bold text-[#F2834C]"
+                >
+                  {stage.step}
+                </div>
                 <h3 className="text-xl font-serif text-white">{stage.title}</h3>
                 <p className="text-xs text-white/70 leading-relaxed">{stage.description}</p>
                 <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#F2834C] to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
@@ -370,16 +440,21 @@ export const Home: React.FC = () => {
       </section>
 
       {/* FEATURED SERVICES */}
-      <section className="service-scroll-section py-20">
+      <section
+        className="service-scroll-section py-20"
+        style={{
+          backgroundImage: `linear-gradient(rgba(13, 27, 42, 0.55), rgba(13, 27, 42, 0.55)), url(${indiaRoadsHero})`,
+        }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
             <div>
-              <span className="text-xs font-mono tracking-widest text-[#A49150] uppercase">PROFESSIONAL MASTERY</span>
-              <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#0D1B2A] mt-1">Consultancy & Engineering Services</h2>
+              <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">PROFESSIONAL MASTERY</span>
+              <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white mt-1">Consultancy & Engineering Services</h2>
             </div>
-            <Link 
-              to="/services" 
-              className="mt-4 md:mt-0 inline-flex items-center gap-2 text-xs font-mono font-bold text-[#0D1B2A] hover:text-[#F2834C] transition-colors uppercase tracking-wider"
+            <Link
+              to="/services"
+              className="mt-4 md:mt-0 inline-flex items-center gap-2 text-xs font-mono font-bold text-white hover:text-[#F2834C] transition-colors uppercase tracking-wider"
             >
               <span>Explore All Services</span>
               <ArrowRight className="w-4 h-4" />
