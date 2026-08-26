@@ -24,12 +24,14 @@ export const CERTIFICATIONS: Certification[] = [
   { title: "ISO 27001", image: "https://almondzglobalinfra.com/media/media/1847632286_ISO-27001-2022.jpg" },
 ];
 
+// A short teaser of AGICL's empanelments — see the full, categorized list
+// (Central/State Bodies, Banks) on the dedicated Empanelments & Clients page.
 export const EMPANELMENTS = [
-  { name: "NHAI", desc: "National Highways Authority of India — Empanelled Independent Engineer" },
-  { name: "MoRTH", desc: "Ministry of Road Transport and Highways — Approved Consultancy Partner" },
-  { name: "World Bank", desc: "Registered Institutional Consultant for Multilateral Infrastructure Projects" },
-  { name: "Asian Development Bank (ADB)", desc: "Empanelled Infrastructure Advisory & Supervision Partner" },
-  { name: "DDA", desc: "Delhi Development Authority — Urban Planning & Engineering Consultant" },
-  { name: "MMRDA", desc: "Mumbai Metropolitan Region Development Authority — Transport & Metro Consultant" },
-  { name: "NITI Aayog", desc: "Strategic Advisory Partner for National Infrastructure Pipeline (NIP)" }
+  { name: "NHAI", desc: "National Highways Authority of India — Financial Consultant / Drone Aerial Survey" },
+  { name: "MoRTH", desc: "Ministry of Road Transport and Highways — Empanelled Consultancy Partner" },
+  { name: "World Bank", desc: "Registered Consultant for World Bank-Funded Infrastructure Projects" },
+  { name: "Asian Development Bank (ADB)", desc: "Empanelled Consultant for ADB-Funded Urban Infrastructure Projects" },
+  { name: "SIDBI", desc: "Small Industrial Development Bank of India — Techno-Economic Viability (TEV) Empanelment" },
+  { name: "Indian Banks' Association (IBA)", desc: "Empanelled Agency for Specialised Monitoring (ASM) for NPA Resolution" },
+  { name: "NaBFID", desc: "National Bank for Financing Infrastructure and Development — LIE & TEV Empanelment" }
 ];

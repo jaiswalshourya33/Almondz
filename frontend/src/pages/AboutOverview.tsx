@@ -37,7 +37,7 @@ export const AboutOverview: React.FC = () => {
             <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">ABOUT ALMONDZ GLOBAL INFRA</span>
             <h1 className="text-4xl sm:text-5xl font-serif font-bold">Engineering Excellence & Institutional Trust</h1>
             <p className="text-white/80 text-base leading-relaxed">
-              Almondz Global Infra-Consultant Limited is an ISO 9001:2015 certified public limited consultancy powerhouse dedicated to shaping resilient national infrastructure.
+              Almondz Global Infra Consultant Limited (AGICL) is a premier infrastructure consultancy and Public Limited Company, a subsidiary of the publicly listed Almondz Global Securities Limited (AGSL). The firm holds ISO 9001:2015, ISO/IEC 27001:2022, ISO 45001:2018, ISO 14001:2015, and CMMI Level 3 certifications, with an NABL-accredited laboratory certified to ISO/IEC 17025:2017 standards.
             </p>
           </div>
         </div>
@@ -52,19 +52,35 @@ export const AboutOverview: React.FC = () => {
               <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">OUR HERITAGE</span>
               <h2 className="text-3xl font-serif font-bold text-[#0D1B2A]">A Legacy of Precision, Integrity, and Nation-Building</h2>
               <p className="text-sm text-[#1c1c15]/80 leading-relaxed">
-                Founded with a vision to bridge the gap between complex engineering design and robust financial viability, Almondz has successfully delivered over 50+ major infrastructure projects and maintains more than 100+ active engagements across India and abroad.
+                Founded in 2013, Almondz Global Infra Consultant Limited has over a decade of experience in infrastructure consultancy, backed by the larger Almondz Group's legacy since 1994. AGICL has successfully delivered over 50+ major infrastructure projects and maintains more than 100+ active engagements across India and abroad.
               </p>
               <p className="text-sm text-[#1c1c15]/80 leading-relaxed">
                 Our multidisciplinary teams comprise seasoned civil engineers, geotechnical experts, urban planners, financial analysts, and environmental scientists who work in synergy to deliver turnkey consultancy from concept to commissioning.
               </p>
 
-              <div className="grid grid-cols-2 gap-4 pt-4 border-t border-[#A49150]/30">
+              <div className="grid grid-cols-3 gap-4 pt-4 border-t border-[#A49150]/30">
                 <div>
-                  <div className="text-2xl font-serif font-bold text-[#0D1B2A]">ISO 9001:2015</div>
+                  <div className="text-xl font-serif font-bold text-[#0D1B2A]">₹500Cr+</div>
+                  <div className="text-xs font-mono text-[#1c1c15]/60 mt-1">Active Order Book</div>
+                </div>
+                <div>
+                  <div className="text-xl font-serif font-bold text-[#F2834C]">500+</div>
+                  <div className="text-xs font-mono text-[#1c1c15]/60 mt-1">Employees</div>
+                </div>
+                <div>
+                  <div className="text-xl font-serif font-bold text-[#0D1B2A]">BBB-</div>
+                  <div className="text-xs font-mono text-[#1c1c15]/60 mt-1">CARE Rating</div>
+                </div>
+                <div>
+                  <div className="text-xl font-serif font-bold text-[#0D1B2A]">ISO 9001:2015</div>
                   <div className="text-xs font-mono text-[#1c1c15]/60 mt-1">Certified Quality System</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-serif font-bold text-[#F2834C]">30+ Empanelments</div>
+                  <div className="text-xl font-serif font-bold text-[#0D1B2A]">CMMI Level 3</div>
+                  <div className="text-xs font-mono text-[#1c1c15]/60 mt-1">Process Maturity</div>
+                </div>
+                <div>
+                  <div className="text-xl font-serif font-bold text-[#F2834C]">30+ Empanelments</div>
                   <div className="text-xs font-mono text-[#1c1c15]/60 mt-1">Government & Multilateral</div>
                 </div>
               </div>

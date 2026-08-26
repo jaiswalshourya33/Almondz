@@ -26,20 +26,24 @@ export const MissionVision: React.FC = () => {
               </div>
               <h2 className="text-2xl font-serif font-bold text-[#0D1B2A]">Our Mission</h2>
               <p className="text-sm text-[#1c1c15]/80 leading-relaxed">
-                To deliver world-class infrastructure consultancy, engineering design, and financial advisory solutions that ensure technical integrity, economic viability, and environmental sustainability across every project we undertake.
+                To deliver excellence in infrastructure consultancy, engineering and technology through innovation, domain expertise and client-centric execution. Almondz creates long-term value with efficient, transparent and sustainable solutions across transportation, water, urban infrastructure, disaster resilience and digital transformation — building strong partnerships with governments, institutions and private enterprises, always to the highest standards of integrity, quality and operational excellence.
               </p>
               <ul className="flex flex-col gap-3 pt-4 border-t border-gray-100">
                 <li className="flex items-center gap-3 text-xs text-[#1c1c15]/80">
                   <CheckCircle2 className="w-4 h-4 text-[#F2834C] shrink-0" />
-                  <span>Uncompromising adherence to international engineering standards</span>
+                  <span>Technically excellent & innovative solutions</span>
                 </li>
                 <li className="flex items-center gap-3 text-xs text-[#1c1c15]/80">
                   <CheckCircle2 className="w-4 h-4 text-[#F2834C] shrink-0" />
-                  <span>Prudent financial modeling for optimal return on investment</span>
+                  <span>Covers Management, Engineering, Financial & Legal domains</span>
                 </li>
                 <li className="flex items-center gap-3 text-xs text-[#1c1c15]/80">
                   <CheckCircle2 className="w-4 h-4 text-[#F2834C] shrink-0" />
-                  <span>Transparent project management and milestone certification</span>
+                  <span>Serving infrastructure sectors with precision & integrity</span>
+                </li>
+                <li className="flex items-center gap-3 text-xs text-[#1c1c15]/80">
+                  <CheckCircle2 className="w-4 h-4 text-[#F2834C] shrink-0" />
+                  <span>Client-first approach on every engagement</span>
                 </li>
               </ul>
             </div>
@@ -50,20 +54,24 @@ export const MissionVision: React.FC = () => {
               </div>
               <h2 className="text-2xl font-serif font-bold text-[#0D1B2A]">Our Vision</h2>
               <p className="text-sm text-[#1c1c15]/80 leading-relaxed">
-                To be the most trusted and preferred infrastructure consultancy partner in India and emerging global markets, recognized for pioneering smart urban solutions, high-speed transit corridors, and green energy ecosystems.
+                To emerge as a globally respected, technology-driven infrastructure consultancy — enabling sustainable growth through innovative engineering, digital transformation and integrated advisory. Almondz envisions building resilient, future-ready infrastructure ecosystems that advance economic development, urban modernisation, environmental sustainability and quality of life across communities in India and beyond.
               </p>
               <ul className="flex flex-col gap-3 pt-4 border-t border-gray-100">
                 <li className="flex items-center gap-3 text-xs text-[#1c1c15]/80">
                   <CheckCircle2 className="w-4 h-4 text-[#F2834C] shrink-0" />
-                  <span>Pioneering sustainable and carbon-neutral infrastructure</span>
+                  <span>Premier domestic player in design, engineering & consulting of international standards</span>
                 </li>
                 <li className="flex items-center gap-3 text-xs text-[#1c1c15]/80">
                   <CheckCircle2 className="w-4 h-4 text-[#F2834C] shrink-0" />
-                  <span>Empowering regional economic development through robust connectivity</span>
+                  <span>Deliver extraordinary results for clients</span>
                 </li>
                 <li className="flex items-center gap-3 text-xs text-[#1c1c15]/80">
                   <CheckCircle2 className="w-4 h-4 text-[#F2834C] shrink-0" />
-                  <span>Cultivating a culture of continuous engineering innovation</span>
+                  <span>Build rewarding careers for our people</span>
+                </li>
+                <li className="flex items-center gap-3 text-xs text-[#1c1c15]/80">
+                  <CheckCircle2 className="w-4 h-4 text-[#F2834C] shrink-0" />
+                  <span>Earn fair returns on value created</span>
                 </li>
               </ul>
             </div>

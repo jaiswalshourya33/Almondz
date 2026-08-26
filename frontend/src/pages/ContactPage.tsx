@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Mail, MapPin, Phone, Send, CheckCircle2, Building2, Sparkles, ArrowRight } from 'lucide-react';
+import { SECTORS } from '../data/sectors';
 
 export const ContactPage: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
@@ -12,7 +13,7 @@ export const ContactPage: React.FC = () => {
     phone: '',
     organization: '',
     inquiryType: 'Independent Engineering',
-    sector: 'Highways & Tunnels',
+    sector: SECTORS[0].title,
     message: ''
   });
   const [vendorFormData, setVendorFormData] = useState({
@@ -65,7 +66,7 @@ export const ContactPage: React.FC = () => {
   const handleReset = () => {
     setSubmitted(false);
     if (activeFormType === 'inquiry') {
-      setFormData({ name: '', email: '', phone: '', organization: '', inquiryType: 'Independent Engineering', sector: 'Highways & Tunnels', message: '' });
+      setFormData({ name: '', email: '', phone: '', organization: '', inquiryType: 'Independent Engineering', sector: SECTORS[0].title, message: '' });
     } else if (activeFormType === 'vendor') {
       setVendorFormData({ companyName: '', contactPerson: '', email: '', phone: '', vendorCategory: 'Materials Supplier', gstNumber: '', yearsInOperation: '', message: '' });
     } else {
@@ -80,6 +81,12 @@ export const ContactPage: React.FC = () => {
     { city: "Mumbai", address: "Plot no - A-6, Sector-6 Near St. Joseph School, New Panvel East-410206", phone: "+91-22-2745320" },
     { city: "Rohtak", address: "R/O 134/29, Near Sagar Villa, Northern Bypass, Rohtak (Haryana) - 124001", phone: "+91-12-6227972" },
     { city: "Varanasi", address: "House no -195 Sanjay Nagar Paharia, Near Happy Model School Varanasi -221007", phone: "" },
+  ];
+
+  const corporateOffices = [
+    { city: "Mumbai", address: "Level 5, Grande Palladium, 175, CST Road, Off BKC, Kalina, Santacruz (East), Mumbai - 400 098, Maharashtra, INDIA", phone: "+91-22-66437600, +91-22-67526699" },
+    { city: "Chennai", address: "IInd & IIIrd Floor, Plot No. 6, Bhuwaneswari Nagar, Gowriwakkam, Chennai - 600 073, INDIA", phone: "" },
+    { city: "Kolkata", address: "Prasad Chambers, B Block, 2nd Floor, 10A, Shakespeare Sarani, Kolkata - 700 071, INDIA", phone: "" },
   ];
 
   return (
@@ -156,7 +163,7 @@ export const ContactPage: React.FC = () => {
                     activeTab === 'leadership' ? 'bg-[#F2834C] text-white shadow' : 'text-white/70 hover:text-white'
                   }`}
                 >
-                  Regional Office
+                  Corporate Offices
                 </button>
               </div>
 
@@ -239,44 +246,53 @@ export const ContactPage: React.FC = () => {
                 </div>
               )}
 
-              {/* Regional Office Tab Content */}
+              {/* Corporate Offices Tab Content */}
               {activeTab === 'leadership' && (
-                <div className="bg-[#0D1B2A] text-white p-8 rounded-lg border border-[#A49150]/40 shadow-xl flex flex-col gap-6 animate-fade-in group hover:border-[#F2834C] transition-all duration-500">
-                  <div className="flex items-center justify-between border-b border-white/10 pb-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-[#F2834C]/20 text-[#F2834C] flex items-center justify-center rounded-md border border-[#F2834C]/30">
-                        <Building2 className="w-5 h-5" />
-                      </div>
-                      <div>
-                        <span className="text-[10px] font-mono text-[#F2834C] uppercase tracking-widest font-bold">REGIONAL OFFICE</span>
-                        <h3 className="text-xl font-serif font-bold text-white">Mumbai, India</h3>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
+                <div className="flex flex-col gap-4 animate-fade-in">
+                  {corporateOffices.map((office, idx) => (
                     <div
-                      onClick={() => handleCopy("Level 5, Grande Palladium, 175, CST Road, Off BKC, Kalina, Santacruz (East) Mumbai - 400 098, Maharashtra", "Mumbai Regional Office Address")}
-                      className="flex items-start gap-3.5 p-3.5 bg-white/5 hover:bg-white/10 rounded-md border border-white/10 cursor-pointer transition-colors group/item"
+                      key={idx}
+                      className="bg-[#0D1B2A] text-white p-8 rounded-lg border border-[#A49150]/40 shadow-xl flex flex-col gap-6 group hover:border-[#F2834C] transition-all duration-500"
                     >
-                      <MapPin className="w-5 h-5 text-[#F2834C] shrink-0 mt-0.5 group-hover/item:scale-110 transition-transform" />
-                      <div className="flex-1 text-xs font-mono">
-                        <span className="text-white/60 block text-[10px] uppercase">Registered Address</span>
-                        <span className="text-white">Level 5, Grande Palladium, 175, CST Road, Off BKC, Kalina, Santacruz (East) Mumbai - 400 098, Maharashtra</span>
+                      <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-[#F2834C]/20 text-[#F2834C] flex items-center justify-center rounded-md border border-[#F2834C]/30">
+                            <Building2 className="w-5 h-5" />
+                          </div>
+                          <div>
+                            <span className="text-[10px] font-mono text-[#F2834C] uppercase tracking-widest font-bold">CORPORATE OFFICE</span>
+                            <h3 className="text-xl font-serif font-bold text-white">{office.city}, India</h3>
+                          </div>
+                        </div>
                       </div>
-                    </div>
 
-                    <div
-                      onClick={() => handleCopy("+91-22-66437600, +91-22-67526699", "Phone Number")}
-                      className="flex items-center gap-3.5 p-3.5 bg-white/5 hover:bg-white/10 rounded-md border border-white/10 cursor-pointer transition-colors group/item"
-                    >
-                      <Phone className="w-5 h-5 text-[#F2834C] shrink-0 group-hover/item:scale-110 transition-transform" />
-                      <div className="flex-1 text-xs font-mono">
-                        <span className="text-white/60 block text-[10px] uppercase">Corporate Exchange</span>
-                        <span className="text-white">+91-22-66437600, +91-22-67526699</span>
+                      <div className="space-y-4">
+                        <div
+                          onClick={() => handleCopy(office.address, `${office.city} Corporate Office Address`)}
+                          className="flex items-start gap-3.5 p-3.5 bg-white/5 hover:bg-white/10 rounded-md border border-white/10 cursor-pointer transition-colors group/item"
+                        >
+                          <MapPin className="w-5 h-5 text-[#F2834C] shrink-0 mt-0.5 group-hover/item:scale-110 transition-transform" />
+                          <div className="flex-1 text-xs font-mono">
+                            <span className="text-white/60 block text-[10px] uppercase">Registered Address</span>
+                            <span className="text-white">{office.address}</span>
+                          </div>
+                        </div>
+
+                        {office.phone && (
+                          <div
+                            onClick={() => handleCopy(office.phone, "Phone Number")}
+                            className="flex items-center gap-3.5 p-3.5 bg-white/5 hover:bg-white/10 rounded-md border border-white/10 cursor-pointer transition-colors group/item"
+                          >
+                            <Phone className="w-5 h-5 text-[#F2834C] shrink-0 group-hover/item:scale-110 transition-transform" />
+                            <div className="flex-1 text-xs font-mono">
+                              <span className="text-white/60 block text-[10px] uppercase">Corporate Exchange</span>
+                              <span className="text-white">{office.phone}</span>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
-                  </div>
+                  ))}
                 </div>
               )}
 
@@ -453,15 +469,9 @@ export const ContactPage: React.FC = () => {
                       onChange={(e) => setFormData({ ...formData, sector: e.target.value })}
                       className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#0D1B2A] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors cursor-pointer"
                     >
-                      <option>Smart Cities & Urban Infrastructure</option>
-                      <option>Roads, Bridges, Highways & Tunnels</option>
-                      <option>Water & Waste Water</option>
-                      <option>Railways & Metro Rail</option>
-                      <option>Energy & Power</option>
-                      <option>Ports & Logistics</option>
-                      <option>Airport & Aviation</option>
-                      <option>Financial & Transaction Advisory</option>
-                      <option>SIT (Ropeways & Tourism)</option>
+                      {SECTORS.map((sector) => (
+                        <option key={sector.id}>{sector.title}</option>
+                      ))}
                     </select>
                   </div>
 

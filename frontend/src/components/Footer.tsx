@@ -13,12 +13,12 @@ export const Footer: React.FC = () => {
           <div className="lg:col-span-2 flex flex-col gap-6">
             <Logo light={true} />
             <p className="text-white/70 text-sm leading-relaxed max-w-sm">
-              Almondz Global Infra-Consultant Limited is an ISO 9001:2015 certified public limited company providing integrated infrastructure consultancy, engineering and advisory solutions from concept to commissioning.
+              Almondz Global Infra Consultant Limited is an ISO 9001:2015, ISO/IEC 27001:2022, ISO 45001:2018, ISO 14001:2015 and CMMI Level 3 certified public limited company providing integrated infrastructure consultancy, engineering and advisory solutions from concept to commissioning.
             </p>
             <div className="flex flex-col gap-2 text-xs font-mono text-white/60">
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-[#F2834C] shrink-0 mt-0.5" />
-                <span>Corporate Office: Plot No. 16, F Block, NH-8, Aerocity, New Delhi - 110037</span>
+                <span>Registered & Corporate Office: F-33/3, Okhla Industrial Area, Phase-II, New Delhi-110020, INDIA</span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-[#F2834C] shrink-0" />
@@ -44,6 +44,7 @@ export const Footer: React.FC = () => {
               <li><Link to="/about/leadership" className="text-white/80 hover:text-white transition-colors">Leadership & Board</Link></li>
               <li><Link to="/about/management-team" className="text-white/80 hover:text-white transition-colors">Management Team Members</Link></li>
               <li><Link to="/about/certifications" className="text-white/80 hover:text-white transition-colors">Certifications</Link></li>
+              <li><Link to="/about/clients" className="text-white/80 hover:text-white transition-colors">Empanelments & Clients</Link></li>
               <li><Link to="/about/careers" className="text-white/80 hover:text-white transition-colors">Careers</Link></li>
             </ul>
           </div>
@@ -79,7 +80,7 @@ export const Footer: React.FC = () => {
               </div>
             </form>
             <div className="mt-2 text-[11px] font-mono text-white/50">
-              ISO 9001:2015 CERTIFIED PUBLIC COMPANY
+              ISO 9001:2015 · ISO 27001 · ISO 45001 · ISO 14001 · CMMI LEVEL 3
             </div>
           </div>
 

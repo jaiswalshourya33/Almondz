@@ -216,6 +216,7 @@ export const Home: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
             <div className="hero-entry lg:col-span-8 flex flex-col gap-6">
+              <span className="text-xs sm:text-sm font-mono tracking-widest text-[#F2834C] uppercase">Infrastructure Advisory Services at Single Point</span>
               <h1 className="text-3xl sm:text-5xl lg:text-6xl font-sans font-normal tracking-tight text-white/95 leading-[1.2]">
                 Engineering the <span className="text-[#F2834C] font-serif italic font-medium">Infrastructure</span> That Moves India Forward.
               </h1>
@@ -259,24 +260,36 @@ export const Home: React.FC = () => {
                 <h3 className="text-xl font-serif text-white mt-1">Institutional Excellence</h3>
               </div>
 
-              <div className="grid grid-cols-1 gap-5">
+              <div className="grid grid-cols-2 gap-5">
                 <div>
-                  <div className="text-3xl font-serif font-bold text-[#F2834C]">50+</div>
-                  <div className="text-xs text-white/70 font-mono mt-1">Completed Infrastructure Projects</div>
+                  <div className="text-2xl font-serif font-bold text-[#F2834C]">₹500Cr+</div>
+                  <div className="text-xs text-white/70 font-mono mt-1">Active Order Book</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-serif font-bold text-white">100+</div>
-                  <div className="text-xs text-white/70 font-mono mt-1">Ongoing Engagements & Audits</div>
+                  <div className="text-2xl font-serif font-bold text-white">500+</div>
+                  <div className="text-xs text-white/70 font-mono mt-1">Employees</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-serif font-bold text-[#A49150]">30+</div>
-                  <div className="text-xs text-white/70 font-mono mt-1">Government Empanelments & Accreditations</div>
+                  <div className="text-2xl font-serif font-bold text-[#A49150]">BBB-</div>
+                  <div className="text-xs text-white/70 font-mono mt-1">CARE Rating</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-serif font-bold text-[#F2834C]">50+</div>
+                  <div className="text-xs text-white/70 font-mono mt-1">Completed Projects</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-serif font-bold text-white">100+</div>
+                  <div className="text-xs text-white/70 font-mono mt-1">Ongoing Engagements</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-serif font-bold text-[#A49150]">30+</div>
+                  <div className="text-xs text-white/70 font-mono mt-1">Empanelments</div>
                 </div>
               </div>
 
               <div className="pt-2 border-t border-white/10 flex items-center justify-between text-xs font-mono text-white/60">
-                <span>PUBLIC LIMITED</span>
-                <span className="text-[#F2834C]">BSE / NSE LISTED</span>
+                <span>PUBLIC LIMITED COMPANY</span>
+                <span className="text-[#F2834C]">SUBSIDIARY OF AGSL (LISTED)</span>
               </div>
             </div>
 

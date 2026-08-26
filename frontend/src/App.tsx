@@ -37,7 +37,7 @@ export default function App() {
             <Route path="/about/mission-vision" element={<MissionVision />} />
             <Route path="/about/leadership" element={<LeadershipPage />} />
             <Route path="/about/management-team" element={<ManagementTeamPage />} />
-            <Route path="/about/clients" element={<ManagementTeamPage />} />
+            <Route path="/about/clients" element={<ClientsPartnersPage />} />
             <Route path="/about/certifications" element={<CertificationsPage />} />
             <Route path="/about/careers" element={<CareersPage />} />
             <Route path="/sectors" element={<SectorsPage />} />

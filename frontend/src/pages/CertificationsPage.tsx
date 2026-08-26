@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { CERTIFICATIONS, EMPANELMENTS, Certification } from '../data/certifications';
-import { Award, ShieldCheck, Eye, X, Building2 } from 'lucide-react';
+import { Award, ShieldCheck, Eye, X, Building2, ArrowRight } from 'lucide-react';
 
 export const CertificationsPage: React.FC = () => {
   const [selectedCert, setSelectedCert] = useState<Certification | null>(null);
@@ -73,7 +74,7 @@ export const CertificationsPage: React.FC = () => {
             <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">GOVERNMENT & MULTILATERAL RECOGNITION</span>
             <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#0D1B2A] mt-2">Institutional Empanelments</h2>
             <p className="text-xs sm:text-sm text-[#1c1c15]/70 mt-3 leading-relaxed">
-              Almondz Global Infra-Consultant Limited is officially empanelled as an independent engineer, technical advisor, and design consultant with premier national and international authorities.
+              Almondz Global Infra-Consultant Limited is officially empanelled as an independent engineer, technical advisor, and design consultant with premier national and international authorities — spanning central government bodies, state governments and development authorities, and national scheduled banks.
             </p>
           </div>
 
@@ -101,6 +102,16 @@ export const CertificationsPage: React.FC = () => {
                 </div>
               </div>
             ))}
+          </div>
+
+          <div className="text-center mt-10">
+            <Link
+              to="/about/clients"
+              className="inline-flex items-center gap-2 bg-[#0D1B2A] hover:bg-[#1a2f45] text-white px-6 py-3 text-xs font-mono font-bold tracking-wider uppercase transition-colors rounded-md"
+            >
+              View All Empanelments & Clients
+              <ArrowRight className="w-3.5 h-3.5 text-[#F2834C]" />
+            </Link>
           </div>
         </div>
       </section>

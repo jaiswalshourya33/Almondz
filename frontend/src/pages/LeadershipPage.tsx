@@ -82,6 +82,7 @@ export const LeadershipPage: React.FC = () => {
                   </span>
                   <h3 className="mt-5 text-2xl font-serif font-bold leading-tight text-white">{leader.name}</h3>
                   <p className="mt-1 text-xs font-mono font-bold text-[#F2834C]">{leader.title}</p>
+                  <p className="mt-1 text-[10px] font-mono uppercase tracking-widest text-white/50">Experience: {leader.experience}</p>
                 </div>
 
                 <button
@@ -136,6 +137,7 @@ export const LeadershipPage: React.FC = () => {
                 <span className="text-[10px] font-mono tracking-widest text-[#F2834C]">{selectedLeader.category}</span>
                 <h2 id="leader-profile-title" className="mt-2 text-2xl font-serif font-bold text-[#0D1B2A]">{selectedLeader.name}</h2>
                 <p className="mt-1 text-xs font-mono font-bold text-[#F2834C]">{selectedLeader.title}</p>
+                <p className="mt-1 text-[10px] font-mono uppercase tracking-widest text-[#1c1c15]/50">Experience: {selectedLeader.experience}</p>
               </div>
               <button
                 type="button"
