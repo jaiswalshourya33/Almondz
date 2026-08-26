@@ -15,12 +15,12 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
     >
       <div className="service-card__body flex flex-col gap-4">
         <div className="service-card__top flex justify-end items-start">
-          <span className="text-[10px] font-mono font-bold tracking-widest text-[#0D1B2A] uppercase">
+          <span className="text-[10px] font-mono font-bold tracking-widest text-[#16283D] uppercase">
             CONSULTANCY
           </span>
         </div>
 
-        <h3 className="service-card__title text-lg font-serif text-[#0D1B2A] group-hover:text-[#F2834C] transition-colors leading-snug">
+        <h3 className="service-card__title text-lg font-serif text-[#16283D] group-hover:text-[#F2834C] transition-colors leading-snug">
           {service.title}
         </h3>
 
@@ -29,7 +29,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
         </p>
 
         <div className="service-card__list pt-4 border-t border-[#A49150]/20">
-          <span className="text-[10px] font-mono font-bold tracking-widest text-[#0D1B2A] uppercase">Key deliverables</span>
+          <span className="text-[10px] font-mono font-bold tracking-widest text-[#16283D] uppercase">Key deliverables</span>
           <ul className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
             {service.deliverables.map((item, idx) => (
               <li key={idx} className="flex items-start gap-2 text-xs text-[#1c1c15]">
@@ -41,13 +41,13 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
         </div>
 
         <div className="service-card__methodology border-l-2 border-[#F2834C] bg-[#fdf9ed] px-3 py-2.5">
-          <span className="block text-[10px] font-mono font-bold tracking-widest text-[#0D1B2A] uppercase">Delivery approach</span>
+          <span className="block text-[10px] font-mono font-bold tracking-widest text-[#16283D] uppercase">Delivery approach</span>
           <p className="mt-1 text-xs leading-relaxed text-[#1c1c15]">{service.methodology}</p>
         </div>
       </div>
 
       <div className="service-card__footer pt-6 mt-4 border-t border-gray-100 flex items-center justify-between">
-        <span className="text-xs font-mono font-bold text-[#0D1B2A] group-hover:text-[#F2834C] transition-colors">
+        <span className="text-xs font-mono font-bold text-[#16283D] group-hover:text-[#F2834C] transition-colors">
           VIEW CAPABILITIES
         </span>
         <ArrowRight className="w-4 h-4 text-[#F2834C] group-hover:translate-x-1 transition-transform" />

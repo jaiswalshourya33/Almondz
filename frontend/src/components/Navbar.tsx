@@ -30,8 +30,8 @@ export const Navbar: React.FC = () => {
     <header 
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
         isScrolled 
-          ? 'bg-[#0D1B2A]/95 backdrop-blur-md shadow-lg py-3.5 border-b border-white/10' 
-          : 'bg-gradient-to-b from-[#0D1B2A]/90 via-[#0D1B2A]/50 to-transparent py-5'
+          ? 'bg-[#16283D] shadow-lg py-3.5 border-b border-white/10'
+          : 'bg-gradient-to-b from-[#16283D]/90 via-[#16283D]/50 to-transparent py-5'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
@@ -66,14 +66,13 @@ export const Navbar: React.FC = () => {
             </button>
 
             {activeDropdown === 'about' && (
-              <div className="absolute top-full left-0 w-72 bg-[#0D1B2A] border border-[#A49150]/30 shadow-2xl py-3 px-1 z-50 animate-fade-in">
+              <div className="absolute top-full left-0 w-72 bg-[#16283D] border border-[#A49150]/30 shadow-2xl py-3 px-1 z-50 animate-fade-in">
                 {[
                   { name: "Overview", path: "/about" },
                   { name: "Mission & Vision", path: "/about/mission-vision" },
                   { name: "Leadership & Directors", path: "/about/leadership" },
                   { name: "Management Team Members", path: "/about/management-team" },
                   { name: "Certifications & Empanelments", path: "/about/certifications" },
-                  { name: "Empanelments & Clients", path: "/about/clients" },
                   { name: "Careers", path: "/about/careers" },
                 ].map((item, idx) => (
                   <Link
@@ -105,7 +104,7 @@ export const Navbar: React.FC = () => {
             </button>
 
             {activeDropdown === 'sectors' && (
-              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[850px] bg-[#0D1B2A] border border-[#A49150]/30 shadow-2xl p-6 z-50 grid grid-cols-2 gap-4 animate-fade-in">
+              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[850px] bg-[#16283D] border border-[#A49150]/30 shadow-2xl p-6 z-50 grid grid-cols-2 gap-4 animate-fade-in">
                 <div className="col-span-2 pb-2 border-b border-white/10 flex justify-between items-center">
                   <span className="text-xs font-mono tracking-widest text-[#F2834C]">SPECIALIZED INFRASTRUCTURE DOMAINS (011)</span>
                   <Link to="/sectors" onClick={closeDropdowns} className="text-xs font-mono text-white/70 hover:text-white flex items-center gap-1">
@@ -148,7 +147,7 @@ export const Navbar: React.FC = () => {
             </button>
 
             {activeDropdown === 'services' && (
-              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[850px] bg-[#0D1B2A] border border-[#A49150]/30 shadow-2xl p-6 z-50 grid grid-cols-2 gap-3 animate-fade-in">
+              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[850px] bg-[#16283D] border border-[#A49150]/30 shadow-2xl p-6 z-50 grid grid-cols-2 gap-3 animate-fade-in">
                 <div className="col-span-2 pb-2 border-b border-white/10 flex justify-between items-center">
                   <span className="text-xs font-mono tracking-widest text-[#F2834C]">END-TO-END CONSULTANCY SERVICES</span>
                   <Link to="/services" onClick={closeDropdowns} className="text-xs font-mono text-white/70 hover:text-white flex items-center gap-1">
@@ -174,41 +173,14 @@ export const Navbar: React.FC = () => {
             )}
           </div>
 
-          {/* PROJECTS Dropdown */}
-          <div 
-            className="relative"
-            onMouseEnter={() => setActiveDropdown('projects')}
-            onMouseLeave={closeDropdowns}
+          <Link
+            to="/projects"
+            onClick={closeDropdowns}
+            className="text-sm font-medium tracking-wide text-white/90 hover:text-[#F2834C] transition-colors py-1 relative group"
           >
-            <button
-              type="button"
-              onClick={() => setActiveDropdown('projects')}
-              className="flex items-center gap-1.5 text-sm font-medium tracking-wide text-white/90 hover:text-[#F2834C] transition-colors py-1"
-            >
-              PROJECTS
-              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === 'projects' ? 'rotate-180 text-[#F2834C]' : ''}`} />
-            </button>
-
-            {activeDropdown === 'projects' && (
-              <div className="absolute top-full left-0 w-64 bg-[#0D1B2A] border border-[#A49150]/30 shadow-2xl py-3 px-1 z-50 animate-fade-in">
-                {[
-                  { name: "All Projects Explorer", path: "/projects" },
-                  { name: "Recently Awarded", path: "/projects/recently-awarded" },
-                  { name: "Ongoing Projects", path: "/projects/ongoing" },
-                  { name: "Completed Projects", path: "/projects/completed" },
-                ].map((item, idx) => (
-                  <Link
-                    key={idx}
-                    to={item.path}
-                    onClick={closeDropdowns}
-                    className="block px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/10 transition-colors border-l-2 border-transparent hover:border-[#F2834C]"
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
+            PROJECTS
+            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#F2834C] transition-all duration-300 group-hover:w-full"></span>
+          </Link>
         </nav>
 
         {/* CTA Button */}
@@ -234,7 +206,7 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 right-0 bg-[#0D1B2A] border-b border-[#A49150]/30 shadow-2xl px-6 py-6 max-h-[85vh] overflow-y-auto animate-fade-in z-50">
+        <div className="lg:hidden absolute top-full left-0 right-0 bg-[#16283D] border-b border-[#A49150]/30 shadow-2xl px-6 py-6 max-h-[85vh] overflow-y-auto animate-fade-in z-50">
           <div className="flex flex-col gap-4">
             <Link 
               to="/" 
@@ -260,7 +232,6 @@ export const Navbar: React.FC = () => {
                   <Link to="/about/leadership" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80 py-1.5">Leadership & Directors</Link>
                   <Link to="/about/management-team" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80 py-1.5">Management Team Members</Link>
                   <Link to="/about/certifications" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80 py-1.5">Certifications & Empanelments</Link>
-                  <Link to="/about/clients" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80 py-1.5">Empanelments & Clients</Link>
                   <Link to="/about/careers" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80 py-1.5">Careers</Link>
                 </div>
               )}
@@ -308,24 +279,13 @@ export const Navbar: React.FC = () => {
               )}
             </div>
 
-            {/* Projects Mobile */}
-            <div>
-              <button 
-                onClick={() => setMobileSubmenu(mobileSubmenu === 'projects' ? null : 'projects')}
-                className="flex items-center justify-between w-full text-base font-medium text-white hover:text-[#F2834C] py-2 border-b border-white/10"
-              >
-                <span>Projects</span>
-                <ChevronDown className={`w-4 h-4 transition-transform ${mobileSubmenu === 'projects' ? 'rotate-180' : ''}`} />
-              </button>
-              {mobileSubmenu === 'projects' && (
-                <div className="pl-4 py-2 flex flex-col gap-2 bg-[#071A2D] mt-1">
-                  <Link to="/projects" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80 py-1">All Projects Explorer</Link>
-                  <Link to="/projects/recently-awarded" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80 py-1">Recently Awarded</Link>
-                  <Link to="/projects/ongoing" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80 py-1">Ongoing Projects</Link>
-                  <Link to="/projects/completed" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80 py-1">Completed Projects</Link>
-                </div>
-              )}
-            </div>
+            <Link
+              to="/projects"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-base font-medium text-white hover:text-[#F2834C] py-2 border-b border-white/10"
+            >
+              Projects
+            </Link>
 
             <Link 
               to="/contact" 

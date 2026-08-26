@@ -26,7 +26,7 @@ export interface ManagementMember {
 // available in-house yet — never substitute a stock/stand-in photo for a real,
 // named person.
 const avatarPlaceholder = (name: string) =>
-  `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=0D1B2A&color=F2834C&size=256&bold=true`;
+  `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=16283D&color=F2834C&size=256&bold=true`;
 
 const COMPANY_EMAIL = "contact@almondzglobalinfra.com";
 

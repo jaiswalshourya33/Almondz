@@ -42,11 +42,11 @@
 }
 
 .bg-navy {
-  background-color: #0D1B2A;
+  background-color: #16283D;
 }
 
 .text-navy {
-  color: #0D1B2A;
+  color: #16283D;
 }
 
 .bg-orange-brand {
@@ -139,13 +139,56 @@
   .about-banner-copy > :nth-child(2) { animation-delay: 300ms; }
   .about-banner-copy > :nth-child(3) { animation-delay: 620ms; }
 
+  /* Hidden until the heritage section actually scrolls into view (see
+     .about-heritage-section.is-visible below) — these were previously
+     playing unconditionally on mount, finishing before the user ever
+     scrolled far enough to see them. */
   .about-heritage-copy {
+    opacity: 0;
+    transform: translateX(-52px);
+  }
+
+  .about-heritage-section.is-visible .about-heritage-copy {
     animation: about-copy-enter 1.7s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   .about-image-entry {
+    opacity: 0;
+    transform: translateX(52px);
+  }
+
+  .about-heritage-section.is-visible .about-image-entry {
     animation: about-image-enter 1.7s 180ms cubic-bezier(0.22, 1, 0.36, 1) both;
   }
+
+  /* "Corporate Governance & Leadership" sub-nav section: heading first,
+     then the three cards below reveal one by one, well after the cards
+     row has actually scrolled into view (see subNavCardsRef in
+     AboutOverview.tsx) — long, clearly-visible delays between each. */
+  .about-subnav-header > * {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  .about-subnav-card {
+    opacity: 0;
+    transform: translateY(40px) scale(0.98);
+  }
+
+  .about-subnav-section.is-visible .about-subnav-header > * {
+    animation: about-banner-enter 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .about-subnav-section.is-visible .about-subnav-header > :nth-child(1) { animation-delay: 80ms; }
+  .about-subnav-section.is-visible .about-subnav-header > :nth-child(2) { animation-delay: 250ms; }
+
+  .about-subnav-section.is-visible .about-subnav-card {
+    animation: scroll-card-reveal 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .about-subnav-section.is-visible .about-subnav-card:nth-child(1) { animation-delay: 450ms; }
+  .about-subnav-section.is-visible .about-subnav-card:nth-child(2) { animation-delay: 700ms; }
+  .about-subnav-section.is-visible .about-subnav-card:nth-child(3) { animation-delay: 950ms; }
 }
 
 @supports (animation-timeline: view()) {
@@ -260,6 +303,53 @@
 .partner-marquee__item:hover .partner-marquee__logo {
   filter: grayscale(0);
   opacity: 1;
+}
+
+/* Sector delivered-figure variant of the marquee item — same scroll track as
+   the logo items, but plain text (no card box: no background, no border,
+   no hover lift), sized for three lines of text instead of a single image. */
+.partner-marquee__item--figure {
+  width: 300px;
+  flex: 0 0 300px;
+  height: 132px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 6px;
+  text-align: left;
+  padding: 20px 24px;
+  border-right: none;
+  background: none;
+}
+
+.partner-marquee__item--figure:hover {
+  background: none;
+  transform: none;
+}
+
+.partner-marquee__figure-sector {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #A49150;
+}
+
+.partner-marquee__figure-value {
+  font-family: var(--font-serif);
+  font-size: 26px;
+  font-weight: 700;
+  color: #16283D;
+  line-height: 1.1;
+}
+
+.partner-marquee__figure-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgba(28, 28, 21, 0.6);
 }
 
 /* Click-driven sector gallery: one feature card with a visible stack of previews. */
@@ -383,10 +473,11 @@
 .service-scroll-section {
   position: relative;
   overflow: clip;
-  background-color: #0D1B2A;
+  background-color: #16283D;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .service-scroll-stack {
@@ -491,7 +582,7 @@
   padding: 17px 28px;
   border: 1px solid rgba(255, 255, 255, 0.38);
   border-radius: 999px;
-  background: #0D1B2A;
+  background: #16283D;
   color: #fff;
   font-family: 'JetBrains Mono', 'Segoe UI', sans-serif;
   font-size: 0.75rem;
@@ -548,8 +639,7 @@
     animation: cta-scroll-reveal 1.5s 480ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
   }
 
-  .lifecycle-showcase__header > *,
-  .lifecycle-showcase__card {
+  .lifecycle-showcase__header > * {
     opacity: 0;
     transform: translateY(34px);
   }
@@ -565,20 +655,6 @@
   .lifecycle-showcase.is-visible .lifecycle-showcase__header > :nth-child(3) {
     animation-delay: 500ms;
   }
-
-  .lifecycle-showcase.is-visible .lifecycle-showcase__card {
-    animation: lifecycle-card-reveal 1.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  }
-
-  /* nth-of-type (not nth-child): the roadmap connector <svg> is a
-     non-.lifecycle-showcase__card sibling ahead of the cards, so nth-child
-     would miscount them. */
-  .lifecycle-showcase.is-visible .lifecycle-showcase__card:nth-of-type(1) { animation-delay: 160ms; }
-  .lifecycle-showcase.is-visible .lifecycle-showcase__card:nth-of-type(2) { animation-delay: 360ms; }
-  .lifecycle-showcase.is-visible .lifecycle-showcase__card:nth-of-type(3) { animation-delay: 560ms; }
-  .lifecycle-showcase.is-visible .lifecycle-showcase__card:nth-of-type(4) { animation-delay: 760ms; }
-  .lifecycle-showcase.is-visible .lifecycle-showcase__card:nth-of-type(5) { animation-delay: 960ms; }
-  .lifecycle-showcase.is-visible .lifecycle-showcase__card:nth-of-type(6) { animation-delay: 1160ms; }
 }
 
 @keyframes lifecycle-copy-reveal {
@@ -586,28 +662,62 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes lifecycle-card-reveal {
-  from { opacity: 0; transform: translateY(52px) scale(0.98); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+@keyframes connector-dash-flow {
+  from {
+    stroke-dashoffset: 28;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.lifecycle-active-connector {
+  animation: connector-dash-flow 1.2s linear infinite;
 }
 
 /* Zigzag roadmap presentation for the lifecycle stage cards: cards alternate
    left/right down the page, each tilted slightly, with a numbered node badge
    overlapping the top edge and a dashed SVG line (drawn in Home.tsx from the
    measured node positions) connecting each node to the next.
-   The persistent tilt uses the standalone `rotate`/`translate` properties
-   (not `transform`) so it composes with the entrance animation above
-   instead of being clobbered by its forwards-filled `transform`. On hover the
-   card straightens and shifts slightly toward center. */
+   Cards slide in smoothly from their respective side on scroll down. */
 .lifecycle-showcase__card {
   overflow: visible;
-  transition: translate 320ms cubic-bezier(0.22, 1, 0.36, 1), rotate 320ms cubic-bezier(0.22, 1, 0.36, 1), border-color 300ms ease, box-shadow 320ms ease;
+  opacity: 0;
+  will-change: transform, opacity;
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              translate 320ms cubic-bezier(0.22, 1, 0.36, 1),
+              rotate 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Odd cards (1, 3, 5) come from the LEFT side */
+.lifecycle-showcase__card.card-odd {
+  transform: translateX(-60px) translateY(12px);
+}
+
+/* Even cards (2, 4, 6) come from the RIGHT side */
+.lifecycle-showcase__card.card-even {
+  transform: translateX(60px) translateY(12px);
+}
+
+/* Revealed state as user scrolls down */
+.lifecycle-showcase__card.is-card-visible {
+  opacity: 1;
+  transform: translateX(0) translateY(0);
+}
+
+@media (max-width: 1023px) {
+  .lifecycle-showcase__card.card-odd {
+    transform: translateX(-35px) translateY(12px);
+  }
+  .lifecycle-showcase__card.card-even {
+    transform: translateX(35px) translateY(12px);
+  }
 }
 
 .lifecycle-showcase__card:hover {
   translate: 0 -6px;
   rotate: 0deg;
-  box-shadow: 0 22px 44px rgba(0, 0, 0, 0.35);
 }
 
 @media (min-width: 1024px) {
@@ -638,10 +748,20 @@
   align-items: center;
   justify-content: center;
   border-radius: 9999px;
-  background: #0D1B2A;
+  background: #16283D;
   border: 2px solid #F2834C;
-  box-shadow: 0 8px 18px rgba(7, 26, 45, 0.45);
+  color: #F2834C;
   z-index: 2;
+  box-shadow: none;
+  transition: transform 0.3s ease;
+}
+
+.lifecycle-showcase__node.is-node-active {
+  background: #16283D;
+  color: #F2834C;
+  border-color: #F2834C;
+  box-shadow: none;
+  transform: scale(1.05);
 }
 
 @supports (animation-timeline: view()) {
@@ -653,7 +773,10 @@
 }
 
 @keyframes service-card-slide-up {
-  from { opacity: 0; transform: translateY(90px) scale(0.97); }
+  /* opacity stays at 1 throughout (no fade-in): the incoming card's opaque
+     white background must fully cover the previous card as it slides up,
+     not become see-through and let both cards' text blend together. */
+  from { opacity: 1; transform: translateY(90px) scale(0.97); }
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
@@ -778,10 +901,17 @@
     animation-range: entry 10% cover 35%;
   }
 
-  main section .group:not(.sector-stack__card):not(.lifecycle-showcase__card) {
+  main section .group:not(.sector-stack__card):not(.lifecycle-showcase__card):not(.about-subnav-card) {
     animation: scroll-card-reveal 950ms cubic-bezier(0.22, 1, 0.36, 1) both;
     animation-timeline: view();
     animation-range: entry 4% cover 24%;
+  }
+
+  /* The sub-nav heading uses its own custom staggered timing below —
+     exclude it from the generic h1/h2 scroll reveal above so the two
+     don't fight over animation-name/duration/delay. */
+  .about-subnav-header > h2 {
+    animation: none;
   }
 }
 

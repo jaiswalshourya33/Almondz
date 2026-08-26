@@ -51,7 +51,7 @@ export const LeadershipPage: React.FC = () => {
   return (
     <div className="leadership-page flex flex-col min-h-screen bg-[#fdf9ed] pt-24">
       {/* Header Banner */}
-      <section className="bg-[#0D1B2A] text-white py-16 border-b border-[#A49150]/30 relative overflow-hidden">
+      <section className="bg-[#16283D] text-white py-16 border-b border-[#A49150]/30 relative overflow-hidden">
         <div className="absolute right-0 top-0 w-96 h-96 bg-[#F2834C]/5 rounded-full blur-3xl pointer-events-none"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="leadership-banner-copy flex flex-col gap-4 max-w-3xl">
@@ -74,7 +74,7 @@ export const LeadershipPage: React.FC = () => {
             {LEADERSHIP.map((leader, idx) => (
               <article
                 key={idx} 
-                className="leadership-profile-card bg-[#0D1B2A] border border-[#A49150]/30 overflow-hidden shadow-lg flex flex-col"
+                className="leadership-profile-card bg-[#16283D] border border-[#A49150]/30 overflow-hidden shadow-lg flex flex-col"
               >
                 <div className="px-6 pt-6 text-center">
                   <span className="inline-flex border border-[#A49150]/30 px-3 py-1 text-[10px] font-mono uppercase tracking-wider text-[#F2834C]">
@@ -99,7 +99,7 @@ export const LeadershipPage: React.FC = () => {
                     className="h-full w-full object-contain p-3"
                     referrerPolicy="no-referrer"
                   />
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#0D1B2A] via-[#0D1B2A]/30 to-transparent px-5 pb-5 pt-12">
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#16283D] via-[#16283D]/30 to-transparent px-5 pb-5 pt-12">
                     <span className="text-[10px] font-mono uppercase tracking-widest text-white/80">Click photo to read profile</span>
                   </div>
                 </button>
@@ -135,14 +135,14 @@ export const LeadershipPage: React.FC = () => {
             <div className="flex items-start justify-between gap-6 border-b border-[#A49150]/25 pb-5">
               <div>
                 <span className="text-[10px] font-mono tracking-widest text-[#F2834C]">{selectedLeader.category}</span>
-                <h2 id="leader-profile-title" className="mt-2 text-2xl font-serif font-bold text-[#0D1B2A]">{selectedLeader.name}</h2>
+                <h2 id="leader-profile-title" className="mt-2 text-2xl font-serif font-bold text-[#16283D]">{selectedLeader.name}</h2>
                 <p className="mt-1 text-xs font-mono font-bold text-[#F2834C]">{selectedLeader.title}</p>
                 <p className="mt-1 text-[10px] font-mono uppercase tracking-widest text-[#1c1c15]/50">Experience: {selectedLeader.experience}</p>
               </div>
               <button
                 type="button"
                 onClick={() => setSelectedLeader(null)}
-                className="flex h-9 w-9 shrink-0 items-center justify-center border border-[#A49150]/30 text-[#0D1B2A] transition-colors hover:border-[#F2834C] hover:text-[#F2834C]"
+                className="flex h-9 w-9 shrink-0 items-center justify-center border border-[#A49150]/30 text-[#16283D] transition-colors hover:border-[#F2834C] hover:text-[#F2834C]"
                 aria-label="Close profile"
               >
                 <X className="h-4 w-4" />

@@ -40,7 +40,7 @@ export const ManagementTeamPage: React.FC = () => {
   return (
     <div className="about-dropdown-page flex flex-col min-h-screen bg-[#fdf9ed] pt-24">
       {/* Header Banner */}
-      <section className="bg-[#0D1B2A] text-white py-16 border-b border-[#A49150]/30 relative overflow-hidden">
+      <section className="bg-[#16283D] text-white py-16 border-b border-[#A49150]/30 relative overflow-hidden">
         <div className="absolute right-0 top-0 w-96 h-96 bg-[#F2834C]/5 rounded-full blur-3xl pointer-events-none"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="about-dropdown-banner-copy flex flex-col gap-4 max-w-3xl">
@@ -94,8 +94,8 @@ export const ManagementTeamPage: React.FC = () => {
                   onClick={() => setSelectedDepartment(dept)}
                   className={`px-4 py-2 text-xs font-mono transition-all duration-200 border ${
                     selectedDepartment === dept
-                      ? 'bg-[#0D1B2A] text-white border-[#0D1B2A] shadow-md'
-                      : 'bg-white text-[#0D1B2A] border-[#A49150]/30 hover:border-[#F2834C] hover:bg-[#F2834C]/5'
+                      ? 'bg-[#16283D] text-white border-[#16283D] shadow-md'
+                      : 'bg-white text-[#16283D] border-[#A49150]/30 hover:border-[#F2834C] hover:bg-[#F2834C]/5'
                   }`}
                 >
                   {dept}
@@ -111,7 +111,7 @@ export const ManagementTeamPage: React.FC = () => {
                 placeholder="Search by name, role, or skill..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-9 pr-4 py-2 bg-white border border-[#A49150]/30 text-xs text-[#0D1B2A] focus:outline-none focus:border-[#F2834C] transition-colors"
+                className="w-full pl-9 pr-4 py-2 bg-white border border-[#A49150]/30 text-xs text-[#16283D] focus:outline-none focus:border-[#F2834C] transition-colors"
               />
               {searchQuery && (
                 <button 
@@ -141,9 +141,9 @@ export const ManagementTeamPage: React.FC = () => {
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         referrerPolicy="no-referrer"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#0D1B2A] via-transparent to-transparent opacity-80"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#16283D] via-transparent to-transparent opacity-80"></div>
                       
-                      <div className="absolute top-4 left-4 bg-[#0D1B2A]/90 backdrop-blur-sm border border-[#A49150]/30 text-[#F2834C] text-[10px] font-mono px-3 py-1 uppercase tracking-wider">
+                      <div className="absolute top-4 left-4 bg-[#16283D]/90 backdrop-blur-sm border border-[#A49150]/30 text-[#F2834C] text-[10px] font-mono px-3 py-1 uppercase tracking-wider">
                         {member.department ?? 'Management'}
                       </div>
 
@@ -172,7 +172,7 @@ export const ManagementTeamPage: React.FC = () => {
                       {/* Competencies Chips */}
                       <div className="flex flex-wrap gap-1.5 pt-2 border-t border-gray-100">
                         {(member.competencies ?? []).slice(0, 3).map((comp, idx) => (
-                          <span key={idx} className="text-[10px] font-mono bg-[#fdf9ed] border border-[#A49150]/20 text-[#0D1B2A] px-2 py-0.5">
+                          <span key={idx} className="text-[10px] font-mono bg-[#fdf9ed] border border-[#A49150]/20 text-[#16283D] px-2 py-0.5">
                             {comp}
                           </span>
                         ))}
@@ -189,7 +189,7 @@ export const ManagementTeamPage: React.FC = () => {
                   <div className="px-6 py-4 bg-[#fdf9ed]/60 border-t border-[#A49150]/20 flex items-center justify-between">
                     <button
                       onClick={() => setActiveModalMember(member)}
-                      className="inline-flex items-center gap-1 text-xs font-mono font-semibold text-[#0D1B2A] hover:text-[#F2834C] transition-colors"
+                      className="inline-flex items-center gap-1 text-xs font-mono font-semibold text-[#16283D] hover:text-[#F2834C] transition-colors"
                     >
                       <span>View Detailed Profile</span>
                       <ChevronRight className="w-3.5 h-3.5" />
@@ -197,7 +197,7 @@ export const ManagementTeamPage: React.FC = () => {
 
                     <a
                       href={`mailto:${member.email}`}
-                      className="w-8 h-8 rounded-none bg-[#0D1B2A] text-white flex items-center justify-center hover:bg-[#F2834C] transition-colors"
+                      className="w-8 h-8 rounded-none bg-[#16283D] text-white flex items-center justify-center hover:bg-[#F2834C] transition-colors"
                       title={`Email ${member.name}`}
                     >
                       <Mail className="w-3.5 h-3.5" />
@@ -209,13 +209,13 @@ export const ManagementTeamPage: React.FC = () => {
           ) : (
             <div className="text-center py-20 bg-white border border-[#A49150]/30 p-8">
               <Users className="w-12 h-12 text-[#A49150] mx-auto mb-4 opacity-50" />
-              <h3 className="text-lg font-serif font-bold text-[#0D1B2A]">No management team members found</h3>
+              <h3 className="text-lg font-serif font-bold text-[#16283D]">No management team members found</h3>
               <p className="text-xs text-gray-500 mt-1 max-w-md mx-auto">
                 No team members match your current filter or search criteria. Try clearing search filters.
               </p>
               <button
                 onClick={() => { setSelectedDepartment('All'); setSearchQuery(''); }}
-                className="mt-4 px-4 py-2 bg-[#0D1B2A] text-white text-xs font-mono hover:bg-[#F2834C] transition-colors"
+                className="mt-4 px-4 py-2 bg-[#16283D] text-white text-xs font-mono hover:bg-[#F2834C] transition-colors"
               >
                 Reset Filters
               </button>
@@ -225,7 +225,7 @@ export const ManagementTeamPage: React.FC = () => {
       </section>
 
       {/* Governance Philosophy Section */}
-      <section className="py-20 bg-[#0D1B2A] text-white border-t border-[#A49150]/30">
+      <section className="py-20 bg-[#16283D] text-white border-t border-[#A49150]/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">EXECUTIVE GOVERNANCE</span>
@@ -276,7 +276,7 @@ export const ManagementTeamPage: React.FC = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fade-in">
           <div className="bg-white border border-[#A49150]/40 max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative">
             {/* Modal Header */}
-            <div className="bg-[#0D1B2A] text-white p-6 relative">
+            <div className="bg-[#16283D] text-white p-6 relative">
               <button 
                 onClick={() => setActiveModalMember(null)}
                 className="absolute top-4 right-4 text-white/70 hover:text-white bg-white/10 p-1.5 transition-colors"
@@ -305,7 +305,7 @@ export const ManagementTeamPage: React.FC = () => {
             {/* Modal Body */}
             <div className="p-6 flex flex-col gap-6">
               <div>
-                <h4 className="text-xs font-mono font-bold text-[#0D1B2A] uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                <h4 className="text-xs font-mono font-bold text-[#16283D] uppercase tracking-wider mb-2 flex items-center gap-1.5">
                   <GraduationCap className="w-4 h-4 text-[#F2834C]" />
                   Educational Credentials & Experience
                 </h4>
@@ -315,7 +315,7 @@ export const ManagementTeamPage: React.FC = () => {
               </div>
 
               <div>
-                <h4 className="text-xs font-mono font-bold text-[#0D1B2A] uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                <h4 className="text-xs font-mono font-bold text-[#16283D] uppercase tracking-wider mb-2 flex items-center gap-1.5">
                   <Briefcase className="w-4 h-4 text-[#F2834C]" />
                   Professional Background
                 </h4>
@@ -325,7 +325,7 @@ export const ManagementTeamPage: React.FC = () => {
               </div>
 
               <div>
-                <h4 className="text-xs font-mono font-bold text-[#0D1B2A] uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                <h4 className="text-xs font-mono font-bold text-[#16283D] uppercase tracking-wider mb-2 flex items-center gap-1.5">
                   <Award className="w-4 h-4 text-[#F2834C]" />
                   Key Projects Supervised
                 </h4>
@@ -340,12 +340,12 @@ export const ManagementTeamPage: React.FC = () => {
               </div>
 
               <div>
-                <h4 className="text-xs font-mono font-bold text-[#0D1B2A] uppercase tracking-wider mb-2">
+                <h4 className="text-xs font-mono font-bold text-[#16283D] uppercase tracking-wider mb-2">
                   Core Technical Competencies
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   {(activeModalMember.competencies ?? []).map((comp, idx) => (
-                    <span key={idx} className="text-xs font-mono bg-[#0D1B2A] text-white px-2.5 py-1">
+                    <span key={idx} className="text-xs font-mono bg-[#16283D] text-white px-2.5 py-1">
                       {comp}
                     </span>
                   ))}
@@ -357,7 +357,7 @@ export const ManagementTeamPage: React.FC = () => {
             <div className="p-4 bg-gray-50 border-t border-gray-200 flex justify-between items-center">
               <a
                 href={`mailto:${activeModalMember.email}`}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-[#0D1B2A] text-white text-xs font-mono hover:bg-[#F2834C] transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-[#16283D] text-white text-xs font-mono hover:bg-[#F2834C] transition-colors"
               >
                 <Mail className="w-3.5 h-3.5" />
                 <span>Contact {activeModalMember.name.split(' ')[0]}</span>

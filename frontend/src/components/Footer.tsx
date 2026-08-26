@@ -5,7 +5,7 @@ import { ArrowRight, Linkedin, Youtube, Mail, MapPin, Phone } from 'lucide-react
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="bg-[#0D1B2A] text-white pt-16 pb-12 border-t border-[#A49150]/30">
+    <footer className="bg-[#16283D] text-white pt-16 pb-12 border-t border-[#A49150]/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-16 border-b border-white/10">
           
@@ -44,7 +44,6 @@ export const Footer: React.FC = () => {
               <li><Link to="/about/leadership" className="text-white/80 hover:text-white transition-colors">Leadership & Board</Link></li>
               <li><Link to="/about/management-team" className="text-white/80 hover:text-white transition-colors">Management Team Members</Link></li>
               <li><Link to="/about/certifications" className="text-white/80 hover:text-white transition-colors">Certifications</Link></li>
-              <li><Link to="/about/clients" className="text-white/80 hover:text-white transition-colors">Empanelments & Clients</Link></li>
               <li><Link to="/about/careers" className="text-white/80 hover:text-white transition-colors">Careers</Link></li>
             </ul>
           </div>

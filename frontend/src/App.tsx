@@ -12,7 +12,6 @@ import { Home } from './pages/Home';
 import { AboutOverview } from './pages/AboutOverview';
 import { MissionVision } from './pages/MissionVision';
 import { LeadershipPage } from './pages/LeadershipPage';
-import { ClientsPartnersPage } from './pages/ClientsPartnersPage';
 import { ManagementTeamPage } from './pages/ManagementTeamPage';
 import { CertificationsPage } from './pages/CertificationsPage';
 import { CareersPage } from './pages/CareersPage';
@@ -37,7 +36,6 @@ export default function App() {
             <Route path="/about/mission-vision" element={<MissionVision />} />
             <Route path="/about/leadership" element={<LeadershipPage />} />
             <Route path="/about/management-team" element={<ManagementTeamPage />} />
-            <Route path="/about/clients" element={<ClientsPartnersPage />} />
             <Route path="/about/certifications" element={<CertificationsPage />} />
             <Route path="/about/careers" element={<CareersPage />} />
             <Route path="/sectors" element={<SectorsPage />} />

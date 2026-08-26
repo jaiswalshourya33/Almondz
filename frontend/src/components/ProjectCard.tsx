@@ -1,16 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Project } from '../data/projects';
-import { MapPin, Play, ArrowRight } from 'lucide-react';
+import { MapPin, ArrowRight } from 'lucide-react';
 
 interface ProjectCardProps {
   project: Project;
-  onOpenVideo?: (url: string, title: string) => void;
   onOpenDetails?: (project: Project) => void;
 }
 
-export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenVideo, onOpenDetails }) => {
-  const videoUrl = project.youtubeUrl || 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenDetails }) => {
   const statusColors = {
     "Recently Awarded": "bg-[#F2834C] text-white",
     "Ongoing": "bg-[#1E3A5F] text-white",
@@ -18,7 +16,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenVideo, 
   };
 
   return (
-    <div className="group bg-[#0D1B2A] border border-[#A49150]/30 overflow-hidden flex flex-col justify-between shadow-lg hover:border-[#F2834C] transition-all duration-300">
+    <div className="group bg-[#16283D] border border-[#A49150]/30 overflow-hidden flex flex-col justify-between shadow-lg hover:border-[#F2834C] transition-all duration-300">
       {/* Image & Header */}
       <div className="relative aspect-[16/10] overflow-hidden bg-black">
         <img 
@@ -27,7 +25,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenVideo, 
           className="w-full h-full object-cover opacity-95 group-hover:scale-105 group-hover:opacity-100 transition-all duration-700"
           referrerPolicy="no-referrer"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0D1B2A] via-transparent to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#16283D] via-transparent to-transparent"></div>
 
         {/* Badges */}
         <div className="absolute top-4 left-4 right-4 flex justify-between items-center z-10">
@@ -38,19 +36,6 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenVideo, 
             {project.sector}
           </span>
         </div>
-
-        {/* A direct YouTube link, revealed only while the project image is hovered. */}
-        <a
-            href={videoUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="absolute inset-0 z-10 flex items-center justify-center bg-black/35 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-            aria-label={`Play YouTube video for ${project.title}`}
-          >
-            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#F2834C] text-white shadow-xl transition-transform duration-300 group-hover:scale-110">
-              <Play className="ml-0.5 h-6 w-6 fill-white" />
-            </div>
-          </a>
       </div>
 
       {/* Content */}

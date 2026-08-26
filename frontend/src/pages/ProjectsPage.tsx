@@ -31,7 +31,7 @@ export const ProjectsPage: React.FC = () => {
   return (
     <div className="dropdown-content-page flex flex-col min-h-screen bg-[#fdf9ed] pt-24">
       {/* Hero */}
-      <section className="bg-[#0D1B2A] text-white py-16 border-b border-[#A49150]/30">
+      <section className="bg-[#16283D] text-white py-16 border-b border-[#A49150]/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="dropdown-banner-copy flex flex-col gap-4 max-w-3xl">
             <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">PORTFOLIO EXPLORER</span>
@@ -55,8 +55,8 @@ export const ProjectsPage: React.FC = () => {
                 onClick={() => setSelectedStatus(status)}
                 className={`px-4 py-2.5 text-xs font-mono font-bold uppercase transition-all duration-300 rounded-md shadow-sm hover:shadow ${
                   selectedStatus === status 
-                    ? 'bg-[#0D1B2A] text-white border border-[#0D1B2A] shadow-md -translate-y-0.5' 
-                    : 'bg-[#fdf9ed] text-[#0D1B2A] border border-[#A49150]/30 hover:border-[#F2834C] hover:bg-[#A49150]/10 hover:-translate-y-0.5 active:translate-y-0'
+                    ? 'bg-[#16283D] text-white border border-[#16283D] shadow-md -translate-y-0.5' 
+                    : 'bg-[#fdf9ed] text-[#16283D] border border-[#A49150]/30 hover:border-[#F2834C] hover:bg-[#A49150]/10 hover:-translate-y-0.5 active:translate-y-0'
                 }`}
               >
                 {status}
@@ -72,7 +72,7 @@ export const ProjectsPage: React.FC = () => {
               placeholder="Search projects, client, location..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-[#fdf9ed] border border-[#A49150]/30 pl-10 pr-4 py-2 text-xs text-[#0D1B2A] placeholder-gray-500 focus:outline-none focus:border-[#F2834C] rounded-md"
+              className="w-full bg-[#fdf9ed] border border-[#A49150]/30 pl-10 pr-4 py-2 text-xs text-[#16283D] placeholder-gray-500 focus:outline-none focus:border-[#F2834C] rounded-md"
             />
           </div>
 
@@ -84,7 +84,7 @@ export const ProjectsPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {filteredProjects.length === 0 ? (
             <div className="text-center py-20 bg-white border border-[#A49150]/30 rounded-lg">
-              <h3 className="text-xl font-serif text-[#0D1B2A]">No projects found matching your criteria.</h3>
+              <h3 className="text-xl font-serif text-[#16283D]">No projects found matching your criteria.</h3>
               <p className="text-xs text-gray-500 mt-2">Try adjusting your filter or search query.</p>
               <button 
                 onClick={() => { setSelectedStatus('All'); setSelectedSector('All'); setSearchQuery(''); }}
@@ -96,10 +96,9 @@ export const ProjectsPage: React.FC = () => {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredProjects.map((proj) => (
-                <ProjectCard 
-                  key={proj.id} 
-                  project={proj} 
-                  onOpenVideo={(url, title) => setActiveVideo({ url, title })} 
+                <ProjectCard
+                  key={proj.id}
+                  project={proj}
                   onOpenDetails={(project) => setSelectedProject(project)}
                 />
               ))}

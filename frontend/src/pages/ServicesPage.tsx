@@ -17,7 +17,7 @@ export const ServicesPage: React.FC = () => {
   return (
     <div className="dropdown-content-page flex flex-col min-h-screen bg-[#fdf9ed] pt-24">
       {/* Hero Header */}
-      <section className="bg-[#0D1B2A] text-white py-20 relative overflow-hidden border-b border-[#A49150]/30">
+      <section className="bg-[#16283D] text-white py-20 relative overflow-hidden border-b border-[#A49150]/30">
         <div className="absolute inset-0 z-0 opacity-20">
           <img 
             src="https://images.unsplash.com/photo-1541888946425-d0fbb18f02f8?auto=format&fit=crop&w=2000&q=85" 
@@ -26,7 +26,7 @@ export const ServicesPage: React.FC = () => {
             referrerPolicy="no-referrer"
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0D1B2A] via-[#0D1B2A]/90 to-[#071A2D]/80 z-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#16283D] via-[#16283D]/90 to-[#071A2D]/80 z-10"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
           <div className="dropdown-banner-copy flex flex-col gap-4 max-w-3xl">
@@ -46,7 +46,7 @@ export const ServicesPage: React.FC = () => {
 
       {/* Download Toast Notification */}
       {downloadNotice && (
-        <div className="fixed bottom-8 right-8 z-50 bg-[#0D1B2A] text-white px-6 py-4 border border-[#F2834C] shadow-2xl flex items-center gap-3 animate-fade-in rounded-md">
+        <div className="fixed bottom-8 right-8 z-50 bg-[#16283D] text-white px-6 py-4 border border-[#F2834C] shadow-2xl flex items-center gap-3 animate-fade-in rounded-md">
           <CheckCircle2 className="w-5 h-5 text-[#F2834C]" />
           <div>
             <p className="text-xs font-mono font-bold">SERVICE BROCHURE DOWNLOADED</p>
@@ -56,7 +56,7 @@ export const ServicesPage: React.FC = () => {
       )}
 
       {/* Scrolling Ticker / Highlights */}
-      <div className="bg-[#0D1B2A] text-white/90 border-b border-[#A49150]/20 py-3 overflow-hidden whitespace-nowrap">
+      <div className="bg-[#16283D] text-white/90 border-b border-[#A49150]/20 py-3 overflow-hidden whitespace-nowrap">
         <div className="inline-flex gap-12 animate-marquee text-xs font-mono tracking-wider">
           <span className="flex items-center gap-2"><Sparkles className="w-4 h-4 text-[#F2834C]" /> Specialised Infrastructure Consultancy Services</span>
           <span className="text-[#F2834C]">•</span>
@@ -75,7 +75,7 @@ export const ServicesPage: React.FC = () => {
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 pb-6 border-b border-[#A49150]/20 gap-6">
             <div>
               <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">CORE CAPABILITIES</span>
-              <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#0D1B2A] mt-1">Our Professional Divisions</h2>
+              <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#16283D] mt-1">Our Professional Divisions</h2>
             </div>
             <p className="text-xs sm:text-sm text-[#1c1c15]/70 max-w-md">
               Hover over cards to preview core deliverables. Click any service to inspect comprehensive methodologies and download official service briefs.
@@ -89,17 +89,17 @@ export const ServicesPage: React.FC = () => {
                 className="bg-white border border-[#A49150]/30 rounded-md overflow-hidden shadow-sm hover:shadow-2xl hover:border-[#F2834C] transition-all duration-500 flex flex-col justify-between group hover:-translate-y-1.5"
               >
                 {/* Image & Overlay Banner */}
-                <div className="relative h-56 overflow-hidden bg-[#0D1B2A]">
+                <div className="relative h-56 overflow-hidden bg-[#16283D]">
                   <img 
                     src={service.image} 
                     alt={service.title}
                     className="w-full h-full object-cover transform scale-100 group-hover:scale-110 transition-transform duration-700 ease-out opacity-90 group-hover:opacity-100"
                     referrerPolicy="no-referrer"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0D1B2A] via-[#0D1B2A]/40 to-transparent opacity-80 group-hover:opacity-60 transition-opacity"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#16283D] via-[#16283D]/40 to-transparent opacity-80 group-hover:opacity-60 transition-opacity"></div>
                   
                   <div className="absolute top-4 left-4 z-10">
-                    <span className="text-[10px] font-mono bg-[#0D1B2A]/80 backdrop-blur-md text-[#F2834C] border border-[#A49150]/40 px-3 py-1 rounded font-bold uppercase tracking-widest">
+                    <span className="text-[10px] font-mono bg-[#16283D]/80 backdrop-blur-md text-[#F2834C] border border-[#A49150]/40 px-3 py-1 rounded font-bold uppercase tracking-widest">
                       Division #{index + 1 < 10 ? `0${index + 1}` : index + 1}
                     </span>
                   </div>
@@ -133,14 +133,14 @@ export const ServicesPage: React.FC = () => {
                   <div className="pt-4 border-t border-gray-100 flex items-center gap-3">
                     <button
                       onClick={() => setSelectedService(service)}
-                      className="flex-1 bg-[#0D1B2A] hover:bg-[#1a2f45] text-white py-2.5 px-4 text-xs font-mono font-bold tracking-wider uppercase transition-all duration-300 flex items-center justify-center gap-2 rounded-md shadow hover:shadow-md group-hover:bg-[#F2834C]"
+                      className="flex-1 bg-[#16283D] hover:bg-[#1a2f45] text-white py-2.5 px-4 text-xs font-mono font-bold tracking-wider uppercase transition-all duration-300 flex items-center justify-center gap-2 rounded-md shadow hover:shadow-md group-hover:bg-[#F2834C]"
                     >
                       <Eye className="w-3.5 h-3.5 text-[#F2834C] group-hover:text-white transition-colors" />
                       <span>View Details</span>
                     </button>
                     <button
                       onClick={() => handleDownloadBrochure(service.title)}
-                      className="p-2.5 bg-[#fdf9ed] hover:bg-[#A49150]/20 text-[#0D1B2A] border border-[#A49150]/30 transition-all duration-300 rounded-md hover:border-[#0D1B2A]"
+                      className="p-2.5 bg-[#fdf9ed] hover:bg-[#A49150]/20 text-[#16283D] border border-[#A49150]/30 transition-all duration-300 rounded-md hover:border-[#16283D]"
                       title="Download PDF Brief"
                       aria-label="Download PDF Brief"
                     >
@@ -161,22 +161,22 @@ export const ServicesPage: React.FC = () => {
           <div className="bg-white border border-[#A49150] w-full max-w-3xl max-h-[90vh] overflow-y-auto p-8 shadow-2xl relative rounded-md flex flex-col gap-6">
             <button
               onClick={() => setSelectedService(null)}
-              className="absolute top-4 right-4 p-2 text-gray-500 hover:text-[#0D1B2A] bg-gray-100 hover:bg-gray-200 transition-colors rounded-md z-10"
+              className="absolute top-4 right-4 p-2 text-gray-500 hover:text-[#16283D] bg-gray-100 hover:bg-gray-200 transition-colors rounded-md z-10"
               aria-label="Close modal"
             >
               <X className="w-5 h-5" />
             </button>
 
             {/* Modal Header Image */}
-            <div className="relative h-72 rounded-lg overflow-hidden bg-[#0D1B2A] border border-[#A49150]/30 shadow-md">
+            <div className="relative h-72 rounded-lg overflow-hidden bg-[#16283D] border border-[#A49150]/30 shadow-md">
               <img 
                 src={selectedService.image} 
                 alt={selectedService.title}
                 className="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-500"
                 referrerPolicy="no-referrer"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0D1B2A] via-[#0D1B2A]/30 to-transparent"></div>
-              <div className="absolute top-4 right-4 z-10 bg-[#0D1B2A]/90 backdrop-blur-md px-3 py-1.5 rounded border border-[#A49150]/40 text-[10px] font-mono text-[#F2834C] uppercase tracking-widest font-bold">
+              <div className="absolute inset-0 bg-gradient-to-t from-[#16283D] via-[#16283D]/30 to-transparent"></div>
+              <div className="absolute top-4 right-4 z-10 bg-[#16283D]/90 backdrop-blur-md px-3 py-1.5 rounded border border-[#A49150]/40 text-[10px] font-mono text-[#F2834C] uppercase tracking-widest font-bold">
                 ISO 9001:2015 Verified
               </div>
               <div className="absolute bottom-6 left-6 right-6">
@@ -204,7 +204,7 @@ export const ServicesPage: React.FC = () => {
 
               {/* Methodology & Execution Framework */}
               <div>
-                <h4 className="text-xs font-mono tracking-wider text-[#0D1B2A] uppercase font-bold mb-2 flex items-center gap-2">
+                <h4 className="text-xs font-mono tracking-wider text-[#16283D] uppercase font-bold mb-2 flex items-center gap-2">
                   <ShieldCheck className="w-4 h-4 text-[#A49150]" />
                   Methodology & Execution Framework
                 </h4>
@@ -223,7 +223,7 @@ export const ServicesPage: React.FC = () => {
                   {selectedService.deliverables.map((del, dIdx) => (
                     <div key={dIdx} className="flex items-start gap-3 bg-white p-3.5 rounded-lg border border-[#A49150]/20 shadow-sm hover:border-[#F2834C] transition-colors">
                       <CheckCircle2 className="w-4 h-4 text-[#F2834C] shrink-0 mt-0.5" />
-                      <span className="text-xs font-medium text-[#0D1B2A]">{del}</span>
+                      <span className="text-xs font-medium text-[#16283D]">{del}</span>
                     </div>
                   ))}
                 </div>
@@ -231,17 +231,17 @@ export const ServicesPage: React.FC = () => {
 
               {/* Quality & Assurance Meta */}
               <div className="grid grid-cols-3 gap-4 pt-4 border-t border-gray-100 text-center">
-                <div className="bg-[#0D1B2A]/5 p-3 rounded-lg border border-[#A49150]/20">
+                <div className="bg-[#16283D]/5 p-3 rounded-lg border border-[#A49150]/20">
                   <span className="text-[10px] font-mono text-gray-500 uppercase block">Standard</span>
-                  <span className="text-xs font-bold text-[#0D1B2A] font-mono">ISO Certified</span>
+                  <span className="text-xs font-bold text-[#16283D] font-mono">ISO Certified</span>
                 </div>
-                <div className="bg-[#0D1B2A]/5 p-3 rounded-lg border border-[#A49150]/20">
+                <div className="bg-[#16283D]/5 p-3 rounded-lg border border-[#A49150]/20">
                   <span className="text-[10px] font-mono text-gray-500 uppercase block">Expertise</span>
-                  <span className="text-xs font-bold text-[#0D1B2A] font-mono">Tier-1 Engineers</span>
+                  <span className="text-xs font-bold text-[#16283D] font-mono">Tier-1 Engineers</span>
                 </div>
-                <div className="bg-[#0D1B2A]/5 p-3 rounded-lg border border-[#A49150]/20">
+                <div className="bg-[#16283D]/5 p-3 rounded-lg border border-[#A49150]/20">
                   <span className="text-[10px] font-mono text-gray-500 uppercase block">Turnaround</span>
-                  <span className="text-xs font-bold text-[#0D1B2A] font-mono">Milestone Driven</span>
+                  <span className="text-xs font-bold text-[#16283D] font-mono">Milestone Driven</span>
                 </div>
               </div>
             </div>
@@ -250,7 +250,7 @@ export const ServicesPage: React.FC = () => {
             <div className="flex items-center justify-end gap-3 pt-6 border-t border-gray-100">
               <button
                 onClick={() => setSelectedService(null)}
-                className="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 text-[#0D1B2A] text-xs font-mono font-bold tracking-wider uppercase transition-colors rounded-md"
+                className="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 text-[#16283D] text-xs font-mono font-bold tracking-wider uppercase transition-colors rounded-md"
               >
                 Close Dossier
               </button>

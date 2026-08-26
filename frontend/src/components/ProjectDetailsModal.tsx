@@ -44,7 +44,7 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
       <div className="relative w-full max-w-4xl max-h-[90vh] bg-white border border-[#A49150]/40 shadow-2xl overflow-y-auto z-10 rounded-lg flex flex-col">
         
         {/* Modal Header Bar */}
-        <div className="sticky top-0 z-20 bg-[#0D1B2A] text-white px-6 py-4 flex items-center justify-between border-b border-[#A49150]/30 shadow-md">
+        <div className="sticky top-0 z-20 bg-[#16283D] text-white px-6 py-4 flex items-center justify-between border-b border-[#A49150]/30 shadow-md">
           <div className="flex items-center gap-3">
             <span className={`text-[10px] font-mono tracking-wider px-2.5 py-1 uppercase ${statusColors[project.status]}`}>
               {project.status}
@@ -70,16 +70,16 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
             className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700"
             referrerPolicy="no-referrer"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0D1B2A] via-[#0D1B2A]/40 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#16283D] via-[#16283D]/40 to-transparent"></div>
 
           {/* Video Play Overlay */}
           {project.youtubeUrl && (
             <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/50 transition-colors">
               <button
                 onClick={() => onOpenVideo(project.youtubeUrl || "", project.title)}
-                className="group/btn flex items-center gap-3 bg-[#0D1B2A]/90 hover:bg-[#F2834C] text-white px-6 py-3.5 border border-[#A49150]/40 transition-all duration-300 shadow-2xl rounded-md transform hover:scale-105"
+                className="group/btn flex items-center gap-3 bg-[#16283D]/90 hover:bg-[#F2834C] text-white px-6 py-3.5 border border-[#A49150]/40 transition-all duration-300 shadow-2xl rounded-md transform hover:scale-105"
               >
-                <div className="w-10 h-10 rounded-full bg-[#F2834C] group-hover/btn:bg-white text-white group-hover/btn:text-[#0D1B2A] flex items-center justify-center transition-colors">
+                <div className="w-10 h-10 rounded-full bg-[#F2834C] group-hover/btn:bg-white text-white group-hover/btn:text-[#16283D] flex items-center justify-center transition-colors">
                   <Play className="w-4 h-4 fill-current ml-0.5" />
                 </div>
                 <div className="text-left">
@@ -108,15 +108,15 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="bg-white p-4 rounded-md border border-[#A49150]/20 shadow-sm">
               <span className="text-[10px] font-mono text-gray-500 uppercase block mb-1">Client / Authority</span>
-              <span className="text-xs font-bold text-[#0D1B2A] font-serif">{project.client}</span>
+              <span className="text-xs font-bold text-[#16283D] font-serif">{project.client}</span>
             </div>
             <div className="bg-white p-4 rounded-md border border-[#A49150]/20 shadow-sm">
               <span className="text-[10px] font-mono text-gray-500 uppercase block mb-1">Assigned Role</span>
-              <span className="text-xs font-bold text-[#0D1B2A] font-serif">{project.role}</span>
+              <span className="text-xs font-bold text-[#16283D] font-serif">{project.role}</span>
             </div>
             <div className="bg-white p-4 rounded-md border border-[#A49150]/20 shadow-sm">
               <span className="text-[10px] font-mono text-gray-500 uppercase block mb-1">Project Sector</span>
-              <span className="text-xs font-bold text-[#0D1B2A] font-serif">{project.sector}</span>
+              <span className="text-xs font-bold text-[#16283D] font-serif">{project.sector}</span>
             </div>
           </div>
 
@@ -132,7 +132,7 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
           </div>
 
           {/* Quantifiable Impact */}
-          <div className="bg-[#0D1B2A] text-white p-6 sm:p-8 rounded-lg border border-[#A49150]/40 shadow-md space-y-3">
+          <div className="bg-[#16283D] text-white p-6 sm:p-8 rounded-lg border border-[#A49150]/40 shadow-md space-y-3">
             <h3 className="text-xs font-mono font-bold text-[#F2834C] uppercase tracking-wider flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-[#F2834C]" />
               Strategic Economic & Social Impact
@@ -144,7 +144,7 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
 
           {/* Services Provided */}
           <div className="space-y-4">
-            <h3 className="text-xs font-mono font-bold text-[#0D1B2A] uppercase tracking-wider flex items-center gap-2">
+            <h3 className="text-xs font-mono font-bold text-[#16283D] uppercase tracking-wider flex items-center gap-2">
               <FileText className="w-4 h-4 text-[#F2834C]" />
               Engineering Services & Deliverables Provided
             </h3>
@@ -152,7 +152,7 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
               {project.servicesProvided.map((service, sIdx) => (
                 <div key={sIdx} className="flex items-start gap-3 bg-white p-3.5 rounded-md border border-[#A49150]/20 shadow-sm">
                   <CheckCircle2 className="w-4 h-4 text-[#F2834C] shrink-0 mt-0.5" />
-                  <span className="text-xs font-medium text-[#0D1B2A]">{service}</span>
+                  <span className="text-xs font-medium text-[#16283D]">{service}</span>
                 </div>
               ))}
             </div>
@@ -167,7 +167,7 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
           </span>
           <button
             onClick={onClose}
-            className="px-6 py-2.5 bg-[#0D1B2A] hover:bg-[#F2834C] text-white text-xs font-mono font-bold tracking-wider uppercase transition-colors rounded-md shadow"
+            className="px-6 py-2.5 bg-[#16283D] hover:bg-[#F2834C] text-white text-xs font-mono font-bold tracking-wider uppercase transition-colors rounded-md shadow"
           >
             Close Dossier
           </button>

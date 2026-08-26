@@ -5,28 +5,30 @@ import { SERVICES } from '../data/services';
 import { COMPANY_STATS, LIFECYCLE_STAGES } from '../data/company';
 import { ServiceCard } from '../components/ServiceCard';
 import { ProjectVideoModal } from '../components/ProjectVideoModal';
-import { ArrowRight, ShieldCheck, Award, Building2, Compass, CheckCircle2, Play, ChevronRight, FileText } from 'lucide-react';
-import nhaiLogo from '../images/partners/nhai.jpg';
-import morthLogo from '../images/partners/morth.svg';
-import worldBankLogo from '../images/partners/world-bank.svg';
-import adbLogo from '../images/partners/adb.svg';
-import ddaLogo from '../images/partners/dda.png';
-import mmrdaLogo from '../images/partners/mmrda.png';
-import nitiAayogLogo from '../images/partners/niti-aayog.svg';
+import { CountUpValue } from '../components/CountUpValue';
+import { ArrowRight, ShieldCheck, Award, Building2, Compass, CheckCircle2, Play, ChevronRight, FileText, PenTool, TrendingUp } from 'lucide-react';
 import indiaRoadsHero from '../images/hero/india-roads.jpg';
 import mumbaiSkylineHero from '../images/hero/mumbai-skyline.jpg';
 import windEnergyHero from '../images/hero/wind-energy.jpg';
 import metroRailHero from '../images/hero/metro-rail.jpg';
 
-const PARTNER_LOGOS = [
-  { name: 'NHAI', logo: nhaiLogo },
-  { name: 'MoRTH', logo: morthLogo },
-  { name: 'World Bank', logo: worldBankLogo },
-  { name: 'Asian Development Bank', logo: adbLogo },
-  { name: 'Delhi Development Authority', logo: ddaLogo },
-  { name: 'MMRDA', logo: mmrdaLogo },
-  { name: 'NITI Aayog', logo: nitiAayogLogo }
+// Headline figures for each sector, sourced directly from AGICL_Corporate_Profile.md
+// (Section 4, "Notable Projects by Sector") and AGICL_Brochure_Final.md (Section 4,
+// "Diverse Sector Presence & Service Capabilities") — one real, quoted figure per
+// sector. Mining Sector, Environment Sector and IT Consulting are omitted here since
+// neither reference document states a quantified figure for them.
+const SECTOR_FIGURES = [
+  { sector: "Roads, Bridges, Highways & Tunnels", value: "₹73,000 Cr+", label: "Delivered Project Portfolio" },
+  { sector: "Urban Infrastructure", value: "18,200+ sq. km", label: "Urban Areas Planned Across 13+ Cities" },
+  { sector: "Renewable Energy", value: "₹5,193 Cr", label: "Largest Renewable Energy Assignment (ASM)" },
+  { sector: "Railways & Metro Rail", value: "₹10,500 Cr+", label: "Total Railways Project Value" },
+  { sector: "Water & Irrigation", value: "₹16,019 Cr+", label: "Total Water Sector Project Value" },
+  { sector: "Sewerage & Solid Waste", value: "8", label: "District WASH PMUs Established (Tripura)" },
+  { sector: "Tourism Infrastructure", value: "₹1,863 Cr", label: "PPP Transaction Advisory — Heritage Development" }
 ];
+
+// One icon per lifecycle stage, matched by index to LIFECYCLE_STAGES.
+const LIFECYCLE_ICONS = [Compass, FileText, PenTool, TrendingUp, Building2, CheckCircle2];
 
 export const Home: React.FC = () => {
   const [activeVideo, setActiveVideo] = useState<{ url: string; title: string } | null>(null);
@@ -35,11 +37,21 @@ export const Home: React.FC = () => {
   const sectorCardRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const sectorTrackRef = useRef<HTMLDivElement | null>(null);
   const ctaSectionRef = useRef<HTMLElement | null>(null);
+  const sectorFiguresSectionRef = useRef<HTMLElement | null>(null);
+  const [sectorFiguresStarted, setSectorFiguresStarted] = useState(false);
   const lifecycleSectionRef = useRef<HTMLElement | null>(null);
   const lifecycleHeaderRef = useRef<HTMLDivElement | null>(null);
   const lifecycleTrackRef = useRef<HTMLDivElement | null>(null);
   const lifecycleNodeRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const [lifecycleConnectors, setLifecycleConnectors] = useState<{ x1: number; y1: number; x2: number; y2: number }[]>([]);
+  const cardElementRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [visibleCards, setVisibleCards] = useState<boolean[]>([]);
+  const [segmentProgress, setSegmentProgress] = useState<number[]>([]);
+  const [lifecycleConnectors, setLifecycleConnectors] = useState<
+    { x1: number; y1: number; x2: number; y2: number; absY1: number; absY2: number }[]
+  >([]);
+  const connectorDetailsRef = useRef<
+    { x1: number; y1: number; x2: number; y2: number; absY1: number; absY2: number }[]
+  >([]);
 
   const backgroundImages = [
     {
@@ -86,6 +98,29 @@ export const Home: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    const sectorFiguresSection = sectorFiguresSectionRef.current;
+    if (!sectorFiguresSection) return;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setSectorFiguresStarted(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setSectorFiguresStarted(true);
+          observer.unobserve(sectorFiguresSection);
+        }
+      },
+      { threshold: 0.9 },
+    );
+
+    observer.observe(sectorFiguresSection);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
     const lifecycleSection = lifecycleSectionRef.current;
     const lifecycleHeader = lifecycleHeaderRef.current;
     if (!lifecycleSection || !lifecycleHeader || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -97,8 +132,6 @@ export const Home: React.FC = () => {
           observer.unobserve(lifecycleHeader);
         }
       },
-      // Observe the heading rather than the whole section. The section is tall,
-      // so observing it made the reveal complete before the heading was visible.
       { threshold: 0.15, rootMargin: '0px 0px -8% 0px' },
     );
 
@@ -106,32 +139,137 @@ export const Home: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
+  const nodeCentersRef = useRef<{ x: number; y: number; absY: number }[]>([]);
+
   useLayoutEffect(() => {
     const computeLifecycleConnectors = () => {
       const track = lifecycleTrackRef.current;
       if (!track) return;
       const trackRect = track.getBoundingClientRect();
-      const centers = lifecycleNodeRefs.current.map((node) => {
-        if (!node) return null;
-        const rect = node.getBoundingClientRect();
-        return {
-          x: rect.left + rect.width / 2 - trackRect.left,
-          y: rect.top + rect.height / 2 - trackRect.top,
-        };
-      });
-      const segments: { x1: number; y1: number; x2: number; y2: number }[] = [];
-      for (let i = 0; i < centers.length - 1; i++) {
-        const a = centers[i];
-        const b = centers[i + 1];
-        if (a && b) segments.push({ x1: a.x, y1: a.y, x2: b.x, y2: b.y });
+      const scrollY = window.scrollY;
+      const trackAbsTop = trackRect.top + scrollY;
+
+      const nodeCenters: { x: number; y: number; absY: number }[] = [];
+
+      for (let i = 0; i < LIFECYCLE_STAGES.length; i++) {
+        const card = cardElementRefs.current[i];
+        if (card) {
+          const nodeX = card.offsetLeft + 54;
+          const nodeY = card.offsetTop;
+          nodeCenters.push({
+            x: nodeX,
+            y: nodeY,
+            absY: trackAbsTop + nodeY,
+          });
+        }
       }
+
+      const segments: { x1: number; y1: number; x2: number; y2: number; absY1: number; absY2: number }[] = [];
+
+      for (let i = 0; i < nodeCenters.length - 1; i++) {
+        const a = nodeCenters[i];
+        const b = nodeCenters[i + 1];
+        segments.push({
+          x1: a.x,
+          y1: a.y,
+          x2: b.x,
+          y2: b.y,
+          absY1: a.absY,
+          absY2: b.absY,
+        });
+      }
+
       setLifecycleConnectors(segments);
+      connectorDetailsRef.current = segments;
+      nodeCentersRef.current = nodeCenters;
     };
 
     computeLifecycleConnectors();
     window.addEventListener('resize', computeLifecycleConnectors);
     return () => window.removeEventListener('resize', computeLifecycleConnectors);
   }, []);
+
+  const targetSegmentProgress = useRef<number[]>([]);
+  const currentSegmentProgress = useRef<number[]>([]);
+
+  useEffect(() => {
+    let animationFrameId: number;
+
+    const updateScrollTargets = () => {
+      const scrollY = window.scrollY;
+      const viewportHeight = window.innerHeight;
+      const focalY = scrollY + viewportHeight * 0.65;
+
+      const nodes = nodeCentersRef.current;
+      const segments = connectorDetailsRef.current;
+
+      if (nodes.length > 0) {
+        const newVisibleCards = nodes.map((node, idx) => {
+          if (idx === 0) {
+            return focalY >= node.absY - 120;
+          }
+          return focalY >= node.absY - 30;
+        });
+
+        setVisibleCards((prev) => {
+          const updated = [...prev];
+          let changed = false;
+          newVisibleCards.forEach((isVisible, idx) => {
+            if (isVisible && !updated[idx]) {
+              updated[idx] = true;
+              changed = true;
+            }
+          });
+          return changed ? updated : prev;
+        });
+      }
+
+      if (segments.length > 0) {
+        targetSegmentProgress.current = segments.map((seg) => {
+          const startY = seg.absY1;
+          const endY = seg.absY2;
+          if (focalY <= startY) return 0;
+          if (focalY >= endY) return 1;
+          return (focalY - startY) / (endY - startY);
+        });
+      }
+    };
+
+    const tick = () => {
+      const targets = targetSegmentProgress.current;
+      if (targets.length > 0) {
+        let changed = false;
+        const current = [...(currentSegmentProgress.current.length ? currentSegmentProgress.current : targets.map(() => 0))];
+
+        const next = targets.map((target, i) => {
+          const curr = current[i] || 0;
+          const diff = target - curr;
+          if (Math.abs(diff) < 0.001) {
+            return target;
+          }
+          changed = true;
+          return curr + diff * 0.12;
+        });
+
+        if (changed) {
+          currentSegmentProgress.current = next;
+          setSegmentProgress(next);
+        }
+      }
+      animationFrameId = requestAnimationFrame(tick);
+    };
+
+    updateScrollTargets();
+    window.addEventListener('scroll', updateScrollTargets, { passive: true });
+    window.addEventListener('resize', updateScrollTargets, { passive: true });
+    animationFrameId = requestAnimationFrame(tick);
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      window.removeEventListener('scroll', updateScrollTargets);
+      window.removeEventListener('resize', updateScrollTargets);
+    };
+  }, [lifecycleConnectors]);
 
   const handleOpenVideo = (url: string, title: string) => {
     setActiveVideo({ url, title });
@@ -174,7 +312,7 @@ export const Home: React.FC = () => {
     <div className="flex flex-col min-h-screen bg-[#fdf9ed]">
       
       {/* HERO SECTION */}
-      <section className="relative group min-h-[92vh] flex items-center justify-center bg-[#0D1B2A] text-white overflow-hidden pt-24 pb-16">
+      <section className="relative group min-h-[92vh] flex items-center justify-center bg-[#16283D] text-white overflow-hidden pt-24 pb-16">
         {/* Background Slideshow */}
         <div className="absolute inset-0 z-0">
           {backgroundImages.map((img, idx) => (
@@ -191,7 +329,7 @@ export const Home: React.FC = () => {
               />
             </div>
           ))}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0D1B2A]/70 via-[#0D1B2A]/45 to-[#071A2D]/30 z-20"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#16283D]/70 via-[#16283D]/45 to-[#071A2D]/30 z-20"></div>
 
           {/* Slideshow indicators / caption badge */}
           <div className="absolute bottom-6 right-6 z-30 hidden sm:flex items-center gap-2 bg-black/40 backdrop-blur-md px-4 py-2 border border-white/20 rounded-md">
@@ -218,7 +356,7 @@ export const Home: React.FC = () => {
             <div className="hero-entry lg:col-span-8 flex flex-col gap-6">
               <span className="text-xs sm:text-sm font-mono tracking-widest text-[#F2834C] uppercase">Infrastructure Advisory Services at Single Point</span>
               <h1 className="text-3xl sm:text-5xl lg:text-6xl font-sans font-normal tracking-tight text-white/95 leading-[1.2]">
-                Engineering the <span className="text-[#F2834C] font-serif italic font-medium">Infrastructure</span> That Moves India Forward.
+                Building Future Ready <span className="text-[#F2834C] font-serif italic font-medium">Infrastructure</span>, Building a Legacy.
               </h1>
 
               <p className="text-base sm:text-lg text-white/80 max-w-2xl leading-relaxed font-light mt-3">
@@ -319,15 +457,17 @@ export const Home: React.FC = () => {
       <section className="py-12 bg-white border-b border-gray-200 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
-            <span className="text-xs font-mono tracking-widest text-[#A49150] uppercase">TRUSTED INSTITUTIONAL PARTNER</span>
-            <h2 className="text-2xl font-serif font-bold text-[#0D1B2A] mt-1">Empanelled With Premier Government Bodies & Multilateral Agencies</h2>
+            <span className="text-xs font-mono tracking-widest text-[#A49150] uppercase">TRACK RECORD BY SECTOR</span>
+            <h2 className="text-2xl font-serif font-bold text-[#16283D] mt-1">Delivered Value Across India's Infrastructure Sectors</h2>
           </div>
         </div>
-        <div className="partner-marquee" aria-label="Trusted institutional partners">
+        <div ref={sectorFiguresSectionRef} className="partner-marquee" aria-label="Sector-wise delivered project figures">
           <div className="partner-marquee__track">
-            {[...PARTNER_LOGOS, ...PARTNER_LOGOS].map((partner, idx) => (
-              <div key={`${partner.name}-${idx}`} className="partner-marquee__item" aria-label={partner.name}>
-                <img src={partner.logo} alt={partner.name} className="partner-marquee__logo" />
+            {[...SECTOR_FIGURES, ...SECTOR_FIGURES].map((figure, idx) => (
+              <div key={`${figure.sector}-${idx}`} className="partner-marquee__item partner-marquee__item--figure" aria-label={`${figure.sector}: ${figure.value} ${figure.label}`}>
+                <span className="partner-marquee__figure-sector">{figure.sector}</span>
+                <CountUpValue value={figure.value} start={sectorFiguresStarted} className="partner-marquee__figure-value" />
+                <span className="partner-marquee__figure-label">{figure.label}</span>
               </div>
             ))}
           </div>
@@ -340,11 +480,11 @@ export const Home: React.FC = () => {
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
             <div>
               <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">OUR DOMAINS</span>
-              <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#0D1B2A] mt-1">Specialized Infrastructure Sectors</h2>
+              <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#16283D] mt-1">Specialized Infrastructure Sectors</h2>
             </div>
             <Link 
               to="/sectors" 
-              className="mt-4 md:mt-0 inline-flex items-center gap-2 text-xs font-mono font-bold text-[#0D1B2A] hover:text-[#F2834C] transition-colors uppercase tracking-wider"
+              className="mt-4 md:mt-0 inline-flex items-center gap-2 text-xs font-mono font-bold text-[#16283D] hover:text-[#F2834C] transition-colors uppercase tracking-wider"
             >
               <span>View All {SECTORS.length} Sectors</span>
               <ArrowRight className="w-4 h-4" />
@@ -379,7 +519,7 @@ export const Home: React.FC = () => {
                   className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                   referrerPolicy="no-referrer"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#071A2D] via-[#0D1B2A]/40 to-[#0D1B2A]/10" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#071A2D] via-[#16283D]/40 to-[#16283D]/10" />
 
                 <div className="relative flex h-full flex-col justify-between p-7 sm:p-10 lg:p-14">
                   <div className="flex items-start justify-between gap-6">
@@ -405,7 +545,7 @@ export const Home: React.FC = () => {
       </section>
 
       {/* CONCEPT TO COMMISSIONING LIFECYCLE */}
-      <section ref={lifecycleSectionRef} className="lifecycle-showcase py-20 bg-[#0D1B2A] text-white relative overflow-hidden">
+      <section ref={lifecycleSectionRef} className="lifecycle-showcase py-20 bg-[#1a2f45] text-white relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div ref={lifecycleHeaderRef} className="lifecycle-showcase__header text-center max-w-3xl mx-auto mb-16">
             <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">END-TO-END CAPABILITY</span>
@@ -415,39 +555,116 @@ export const Home: React.FC = () => {
             </p>
           </div>
 
-          <div ref={lifecycleTrackRef} className="lifecycle-showcase__grid relative flex flex-col gap-16 max-w-xl mx-auto lg:max-w-3xl lg:gap-8">
+          <div ref={lifecycleTrackRef} className="lifecycle-showcase__grid relative flex flex-col gap-16 max-w-xl mx-auto lg:max-w-6xl lg:gap-16">
             <svg className="absolute inset-0 hidden h-full w-full lg:block" style={{ zIndex: 0 }} aria-hidden="true">
+              <defs>
+                <filter id="line-super-glow" x="-50%" y="-50%" width="200%" height="200%">
+                  <feGaussianBlur stdDeviation="4" result="blur1" />
+                  <feGaussianBlur stdDeviation="9" result="blur2" />
+                  <feMerge>
+                    <feMergeNode in="blur2" />
+                    <feMergeNode in="blur1" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+
+              {/* Base inactive dashed line showing dim dashes */}
               {lifecycleConnectors.map((seg, i) => (
                 <line
-                  key={i}
+                  key={`base-${i}`}
                   x1={seg.x1}
                   y1={seg.y1}
                   x2={seg.x2}
                   y2={seg.y2}
-                  stroke="rgba(164, 145, 80, 0.55)"
-                  strokeWidth="2"
-                  strokeDasharray="7 7"
+                  stroke="rgba(164, 145, 80, 0.25)"
+                  strokeWidth="2.5"
+                  strokeDasharray="8 8"
                 />
               ))}
+
+              {/* Highlighted active dashed line that lights up dashes one after another as user scrolls */}
+              {lifecycleConnectors.map((seg, i) => {
+                const progress = segmentProgress[i] || 0;
+                if (progress <= 0) return null;
+
+                const activeX2 = seg.x1 + (seg.x2 - seg.x1) * progress;
+                const activeY2 = seg.y1 + (seg.y2 - seg.y1) * progress;
+
+                return (
+                  <g key={`active-${i}`}>
+                    {/* Vibrant Neon Glow on the dashed line */}
+                    <line
+                      x1={seg.x1}
+                      y1={seg.y1}
+                      x2={activeX2}
+                      y2={activeY2}
+                      stroke="#F2834C"
+                      strokeWidth="7"
+                      strokeOpacity="0.75"
+                      strokeDasharray="8 8"
+                      strokeLinecap="round"
+                      filter="url(#line-super-glow)"
+                    />
+                    {/* Core bright dashes turning hot orange-white one by one */}
+                    <line
+                      x1={seg.x1}
+                      y1={seg.y1}
+                      x2={activeX2}
+                      y2={activeY2}
+                      stroke="#FFF2EB"
+                      strokeWidth="3.5"
+                      strokeDasharray="8 8"
+                      strokeLinecap="round"
+                    />
+                    {/* Glowing tip indicator on current actively glowing dash */}
+                    {progress > 0 && progress < 1 && (
+                      <circle
+                        cx={activeX2}
+                        cy={activeY2}
+                        r="4.5"
+                        fill="#FFFFFF"
+                        stroke="#F2834C"
+                        strokeWidth="2.5"
+                        style={{ filter: 'drop-shadow(0 0 10px #F2834C) drop-shadow(0 0 18px #F2834C)' }}
+                      />
+                    )}
+                  </g>
+                );
+              })}
             </svg>
-            {LIFECYCLE_STAGES.map((stage, idx) => (
-              <div
-                key={idx}
-                className={`lifecycle-showcase__card relative z-10 w-full bg-[#071A2D] border border-[#A49150]/30 p-8 pt-10 flex flex-col gap-4 group hover:border-[#F2834C] transition-colors lg:w-[300px] ${
-                  idx % 2 === 0 ? 'lg:self-start' : 'lg:self-end'
-                }`}
-              >
+            {LIFECYCLE_STAGES.map((stage, idx) => {
+              const isVisible = visibleCards[idx];
+              const isNodeActive = isVisible || (idx > 0 && (segmentProgress[idx - 1] || 0) > 0.1);
+              const StageIcon = LIFECYCLE_ICONS[idx];
+
+              return (
                 <div
-                  ref={(element) => { lifecycleNodeRefs.current[idx] = element; }}
-                  className="lifecycle-showcase__node text-lg font-mono font-bold text-[#F2834C]"
+                  key={idx}
+                  ref={(element) => { cardElementRefs.current[idx] = element; }}
+                  className={`lifecycle-showcase__card relative z-10 w-full bg-white rounded-2xl shadow-xl p-3 group transition-colors lg:w-[340px] ${
+                    idx % 2 === 0 ? 'lg:self-start card-odd' : 'lg:self-end card-even'
+                  } ${isVisible ? 'is-card-visible' : ''}`}
                 >
-                  {stage.step}
+                  <div
+                    ref={(element) => { lifecycleNodeRefs.current[idx] = element; }}
+                    className={`lifecycle-showcase__node text-lg font-mono font-bold ${
+                      isNodeActive ? 'is-node-active' : ''
+                    }`}
+                  >
+                    {stage.step}
+                  </div>
+                  <div className="rounded-xl bg-[#f8fafc] p-6 pt-8 flex flex-col gap-3">
+                    <div className="w-10 h-10 rounded-full bg-white shadow-sm border border-black/5 flex items-center justify-center text-[#16283D]">
+                      <StageIcon className="w-[18px] h-[18px]" />
+                    </div>
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#F2834C]">{stage.category}</span>
+                    <h3 className="text-xl font-serif font-bold text-[#16283D]">{stage.title}</h3>
+                    <p className="text-xs text-gray-500 leading-relaxed">{stage.description}</p>
+                  </div>
                 </div>
-                <h3 className="text-xl font-serif text-white">{stage.title}</h3>
-                <p className="text-xs text-white/70 leading-relaxed">{stage.description}</p>
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#F2834C] to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
