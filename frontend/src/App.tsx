@@ -18,7 +18,6 @@ import { CareersPage } from './pages/CareersPage';
 import { SectorsPage } from './pages/SectorsPage';
 import { SectorDetail } from './pages/SectorDetail';
 import { ServicesPage } from './pages/ServicesPage';
-import { ServiceDetail } from './pages/ServiceDetail';
 import { ProjectsPage } from './pages/ProjectsPage';
 import { ContactPage } from './pages/ContactPage';
 import { NotFoundPage } from './pages/NotFoundPage';
@@ -41,7 +40,6 @@ export default function App() {
             <Route path="/sectors" element={<SectorsPage />} />
             <Route path="/sectors/:slug" element={<SectorDetail />} />
             <Route path="/services" element={<ServicesPage />} />
-            <Route path="/services/:slug" element={<ServiceDetail />} />
             <Route path="/projects" element={<ProjectsPage />} />
             <Route path="/projects/:filter" element={<ProjectsPage />} />
             <Route path="/contact" element={<ContactPage />} />

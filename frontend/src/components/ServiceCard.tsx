@@ -10,7 +10,7 @@ interface ServiceCardProps {
 export const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
   return (
     <Link 
-      to={`/services/${service.slug}`}
+      to={`/services?service=${service.slug}`}
       className="service-parallax-card group bg-white border border-[#A49150]/30 p-6 flex flex-col justify-between shadow-sm hover:shadow-xl hover:border-[#F2834C] transition-all duration-500"
     >
       <div className="service-card__body flex flex-col gap-4">

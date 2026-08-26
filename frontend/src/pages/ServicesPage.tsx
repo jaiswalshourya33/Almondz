@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { SERVICES, Service } from '../data/services';
-import { Wrench, CheckCircle2, ArrowRight, Eye, X, Download, ShieldCheck, Layers, FileText, Sparkles } from 'lucide-react';
+import { Wrench, CheckCircle2, Eye, X, Download, ShieldCheck, Layers, FileText, Sparkles } from 'lucide-react';
 
 export const ServicesPage: React.FC = () => {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [activeTab, setActiveTab] = useState<string>('all');
   const [downloadNotice, setDownloadNotice] = useState<string | null>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const handleDownloadBrochure = (title: string) => {
     setDownloadNotice(title);
@@ -13,6 +15,33 @@ export const ServicesPage: React.FC = () => {
       setDownloadNotice(null);
     }, 3500);
   };
+
+  // Navbar dropdown / homepage cards link here with ?service=<slug> instead of
+  // a separate per-service page — scroll to that card and open its dialog.
+  useEffect(() => {
+    const slug = searchParams.get('service');
+    if (!slug) return;
+    const target = SERVICES.find((srv) => srv.slug === slug);
+    if (!target) return;
+    const cardEl = document.getElementById(`service-card-${slug}`);
+    cardEl?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setSelectedService(target);
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.delete('service');
+      return next;
+    }, { replace: true });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
+
+  useEffect(() => {
+    if (!selectedService) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [selectedService]);
 
   return (
     <div className="dropdown-content-page flex flex-col min-h-screen bg-[#fdf9ed] pt-24">
@@ -72,21 +101,17 @@ export const ServicesPage: React.FC = () => {
       <section className="dropdown-scroll-content py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 pb-6 border-b border-[#A49150]/20 gap-6">
-            <div>
-              <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">CORE CAPABILITIES</span>
-              <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#16283D] mt-1">Our Professional Divisions</h2>
-            </div>
-            <p className="text-xs sm:text-sm text-[#1c1c15]/70 max-w-md">
-              Hover over cards to preview core deliverables. Click any service to inspect comprehensive methodologies and download official service briefs.
-            </p>
+          <div className="mb-16 pb-6 border-b border-[#A49150]/20">
+            <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">CORE CAPABILITIES</span>
+            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#16283D] mt-1">Our Professional Divisions</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {SERVICES.map((service, index) => (
-              <div 
+              <div
                 key={service.id}
-                className="bg-white border border-[#A49150]/30 rounded-md overflow-hidden shadow-sm hover:shadow-2xl hover:border-[#F2834C] transition-all duration-500 flex flex-col justify-between group hover:-translate-y-1.5"
+                id={`service-card-${service.slug}`}
+                className="bg-white border border-[#A49150]/30 rounded-md overflow-hidden shadow-sm hover:shadow-2xl hover:border-[#F2834C] transition-all duration-500 flex flex-col justify-between group hover:-translate-y-1.5 scroll-mt-28"
               >
                 {/* Image & Overlay Banner */}
                 <div className="relative h-56 overflow-hidden bg-[#16283D]">
@@ -117,18 +142,6 @@ export const ServicesPage: React.FC = () => {
                     {service.shortDesc}
                   </p>
 
-                  <div className="space-y-2 pt-4 border-t border-gray-100">
-                    <span className="text-[10px] font-mono tracking-wider text-[#A49150] uppercase block font-bold">Key Deliverables Preview:</span>
-                    <ul className="space-y-1.5">
-                      {service.deliverables.slice(0, 2).map((del, dIdx) => (
-                        <li key={dIdx} className="text-xs text-[#1c1c15]/80 flex items-center gap-2">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-[#F2834C] shrink-0" />
-                          <span className="truncate">{del}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
                   {/* Actions */}
                   <div className="pt-4 border-t border-gray-100 flex items-center gap-3">
                     <button
@@ -157,113 +170,134 @@ export const ServicesPage: React.FC = () => {
 
       {/* DETAILED SERVICE MODAL */}
       {selectedService && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md animate-fade-in">
-          <div className="bg-white border border-[#A49150] w-full max-w-3xl max-h-[90vh] overflow-y-auto p-8 shadow-2xl relative rounded-md flex flex-col gap-6">
+        <div key={selectedService.id} className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-[#16283D]/70 backdrop-blur-sm animate-fade-in">
+          <div className="bg-white w-full max-w-6xl md:h-[85vh] max-h-[92vh] rounded-3xl shadow-2xl relative flex flex-col md:flex-row overflow-hidden">
             <button
               onClick={() => setSelectedService(null)}
-              className="absolute top-4 right-4 p-2 text-gray-500 hover:text-[#16283D] bg-gray-100 hover:bg-gray-200 transition-colors rounded-md z-10"
+              className="absolute top-5 right-5 z-20 p-2.5 bg-white/95 hover:bg-white text-[#16283D] rounded-full shadow-lg transition-colors"
               aria-label="Close modal"
             >
               <X className="w-5 h-5" />
             </button>
 
-            {/* Modal Header Image */}
-            <div className="relative h-72 rounded-lg overflow-hidden bg-[#16283D] border border-[#A49150]/30 shadow-md">
-              <img 
-                src={selectedService.image} 
+            {/* Left: thumbnail image, slides in from the left on open */}
+            <div className="service-modal-image-panel relative w-full h-56 md:h-full md:w-[42%] shrink-0 overflow-hidden">
+              <img
+                src={selectedService.image}
                 alt={selectedService.title}
-                className="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-500"
+                className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#16283D] via-[#16283D]/30 to-transparent"></div>
-              <div className="absolute top-4 right-4 z-10 bg-[#16283D]/90 backdrop-blur-md px-3 py-1.5 rounded border border-[#A49150]/40 text-[10px] font-mono text-[#F2834C] uppercase tracking-widest font-bold">
-                ISO 9001:2015 Verified
-              </div>
-              <div className="absolute bottom-6 left-6 right-6">
-                <span className="text-[10px] font-mono text-[#F2834C] tracking-widest uppercase bg-black/60 px-3 py-1 rounded border border-[#A49150]/30 font-bold inline-block mb-2">
-                  TECHNICAL SERVICE DOSSIER
-                </span>
-                <h3 className="text-2xl sm:text-3xl font-serif font-bold text-white leading-tight drop-shadow-md">
-                  {selectedService.title}
-                </h3>
-              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#16283D]/60 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-[#16283D]/15"></div>
             </div>
 
-            {/* Content & Rich Details */}
-            <div className="space-y-6">
-              {/* Executive Summary */}
-              <div className="bg-[#fdf9ed] p-5 border border-[#A49150]/30 rounded-lg">
-                <h4 className="text-xs font-mono tracking-wider text-[#F2834C] uppercase font-bold mb-2 flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-[#F2834C]" />
-                  Executive Summary & Scope
-                </h4>
-                <p className="text-sm text-[#1c1c15]/90 leading-relaxed font-light">
-                  {selectedService.description}
-                </p>
-              </div>
+            {/* Right: content, slides in from the right on open */}
+            <div className="flex-1 min-h-0 flex flex-col">
+              <div className="service-modal-content-panel flex-1 overflow-y-auto p-6 sm:p-10 flex flex-col gap-7">
+                <div>
+                  <span className="inline-flex w-fit items-center gap-1.5 text-xs font-medium text-[#F2834C] bg-[#F2834C]/10 border border-[#F2834C]/20 px-3 py-1.5 rounded-full mb-3">
+                    <Wrench className="w-3.5 h-3.5" />
+                    Service
+                  </span>
+                  <h3 className="text-2xl sm:text-3xl font-serif font-bold text-[#16283D] leading-tight">
+                    {selectedService.title}
+                  </h3>
+                  <p className="text-[#1c1c15]/70 text-sm sm:text-base mt-2 leading-relaxed">
+                    {selectedService.shortDesc}
+                  </p>
+                </div>
 
-              {/* Methodology & Execution Framework */}
-              <div>
-                <h4 className="text-xs font-mono tracking-wider text-[#16283D] uppercase font-bold mb-2 flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-[#A49150]" />
-                  Methodology & Execution Framework
-                </h4>
-                <p className="text-xs sm:text-sm text-[#1c1c15]/80 leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200">
-                  {selectedService.methodology}
-                </p>
-              </div>
-
-              {/* Deliverables */}
-              <div>
-                <h4 className="text-xs font-mono tracking-wider text-[#A49150] uppercase font-bold mb-3 flex items-center gap-2">
-                  <FileText className="w-4 h-4 text-[#F2834C]" />
-                  Complete Deliverables & Reports
-                </h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {selectedService.deliverables.map((del, dIdx) => (
-                    <div key={dIdx} className="flex items-start gap-3 bg-white p-3.5 rounded-lg border border-[#A49150]/20 shadow-sm hover:border-[#F2834C] transition-colors">
-                      <CheckCircle2 className="w-4 h-4 text-[#F2834C] shrink-0 mt-0.5" />
-                      <span className="text-xs font-medium text-[#16283D]">{del}</span>
+                {/* Highlights */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="flex items-center gap-3 bg-[#fdf9ed] rounded-2xl p-4 border border-[#A49150]/15">
+                    <div className="w-10 h-10 rounded-xl bg-[#F2834C]/10 flex items-center justify-center shrink-0">
+                      <ShieldCheck className="w-5 h-5 text-[#F2834C]" />
                     </div>
-                  ))}
+                    <div>
+                      <p className="text-[11px] text-[#1c1c15]/50">Standard</p>
+                      <p className="text-sm font-semibold text-[#16283D]">ISO Certified</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 bg-[#fdf9ed] rounded-2xl p-4 border border-[#A49150]/15">
+                    <div className="w-10 h-10 rounded-xl bg-[#16283D]/8 flex items-center justify-center shrink-0">
+                      <Layers className="w-5 h-5 text-[#16283D]" />
+                    </div>
+                    <div>
+                      <p className="text-[11px] text-[#1c1c15]/50">Expertise</p>
+                      <p className="text-sm font-semibold text-[#16283D]">Tier-1 Engineers</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 bg-[#fdf9ed] rounded-2xl p-4 border border-[#A49150]/15">
+                    <div className="w-10 h-10 rounded-xl bg-[#A49150]/15 flex items-center justify-center shrink-0">
+                      <Sparkles className="w-5 h-5 text-[#A49150]" />
+                    </div>
+                    <div>
+                      <p className="text-[11px] text-[#1c1c15]/50">Turnaround</p>
+                      <p className="text-sm font-semibold text-[#16283D]">Milestone Driven</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Scope of Work */}
+                <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
+                  <div className="flex items-center gap-2.5 mb-3">
+                    <div className="w-8 h-8 rounded-lg bg-[#F2834C]/10 flex items-center justify-center">
+                      <Sparkles className="w-4 h-4 text-[#F2834C]" />
+                    </div>
+                    <h4 className="text-sm font-semibold text-[#16283D]">Scope of Work</h4>
+                  </div>
+                  <p className="text-sm text-[#1c1c15]/70 leading-relaxed">{selectedService.description}</p>
+                </div>
+
+                {/* Methodology */}
+                <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
+                  <div className="flex items-center gap-2.5 mb-3">
+                    <div className="w-8 h-8 rounded-lg bg-[#16283D]/8 flex items-center justify-center">
+                      <ShieldCheck className="w-4 h-4 text-[#16283D]" />
+                    </div>
+                    <h4 className="text-sm font-semibold text-[#16283D]">How We Deliver It</h4>
+                  </div>
+                  <p className="text-sm text-[#1c1c15]/70 leading-relaxed">{selectedService.methodology}</p>
+                </div>
+
+                {/* Deliverables */}
+                <div>
+                  <div className="flex items-center gap-2.5 mb-4">
+                    <div className="w-8 h-8 rounded-lg bg-[#A49150]/15 flex items-center justify-center">
+                      <FileText className="w-4 h-4 text-[#A49150]" />
+                    </div>
+                    <h4 className="text-sm font-semibold text-[#16283D]">What You Get</h4>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {selectedService.deliverables.map((del, dIdx) => (
+                      <div key={dIdx} className="flex items-center gap-3 bg-[#fdf9ed] rounded-xl p-3.5 border border-[#A49150]/15 hover:border-[#F2834C]/40 transition-colors">
+                        <CheckCircle2 className="w-4 h-4 text-[#F2834C] shrink-0" />
+                        <span className="text-sm text-[#16283D]">{del}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
 
-              {/* Quality & Assurance Meta */}
-              <div className="grid grid-cols-3 gap-4 pt-4 border-t border-gray-100 text-center">
-                <div className="bg-[#16283D]/5 p-3 rounded-lg border border-[#A49150]/20">
-                  <span className="text-[10px] font-mono text-gray-500 uppercase block">Standard</span>
-                  <span className="text-xs font-bold text-[#16283D] font-mono">ISO Certified</span>
-                </div>
-                <div className="bg-[#16283D]/5 p-3 rounded-lg border border-[#A49150]/20">
-                  <span className="text-[10px] font-mono text-gray-500 uppercase block">Expertise</span>
-                  <span className="text-xs font-bold text-[#16283D] font-mono">Tier-1 Engineers</span>
-                </div>
-                <div className="bg-[#16283D]/5 p-3 rounded-lg border border-[#A49150]/20">
-                  <span className="text-[10px] font-mono text-gray-500 uppercase block">Turnaround</span>
-                  <span className="text-xs font-bold text-[#16283D] font-mono">Milestone Driven</span>
-                </div>
+              {/* Footer Buttons */}
+              <div className="flex items-center justify-end gap-3 px-6 sm:px-10 py-5 border-t border-gray-100 bg-[#fdf9ed]/50 shrink-0">
+                <button
+                  onClick={() => setSelectedService(null)}
+                  className="px-5 py-2.5 text-sm font-medium text-[#16283D] hover:bg-gray-100 rounded-full transition-colors"
+                >
+                  Close
+                </button>
+                <button
+                  onClick={() => {
+                    handleDownloadBrochure(selectedService.title);
+                    setSelectedService(null);
+                  }}
+                  className="px-6 py-2.5 bg-[#F2834C] hover:bg-[#d9723f] text-white text-sm font-semibold rounded-full shadow-md hover:shadow-lg flex items-center gap-2 transition-all hover:-translate-y-0.5 active:translate-y-0"
+                >
+                  <Download className="w-4 h-4" />
+                  <span>Download Service Brief</span>
+                </button>
               </div>
-            </div>
-
-            {/* Footer Buttons */}
-            <div className="flex items-center justify-end gap-3 pt-6 border-t border-gray-100">
-              <button
-                onClick={() => setSelectedService(null)}
-                className="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 text-[#16283D] text-xs font-mono font-bold tracking-wider uppercase transition-colors rounded-md"
-              >
-                Close Dossier
-              </button>
-              <button
-                onClick={() => {
-                  handleDownloadBrochure(selectedService.title);
-                  setSelectedService(null);
-                }}
-                className="px-6 py-2.5 bg-[#F2834C] hover:bg-[#d9723f] text-white text-xs font-mono font-bold tracking-wider uppercase transition-all shadow-md hover:shadow-lg flex items-center gap-2 rounded-md"
-              >
-                <Download className="w-4 h-4" />
-                <span>Download Service Brief PDF</span>
-              </button>
             </div>
           </div>
         </div>

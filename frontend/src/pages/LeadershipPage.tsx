@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { LEADERSHIP, Leader } from '../data/leadership';
-import { Mail, X } from 'lucide-react';
+import { Mail, X, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export const LeadershipPage: React.FC = () => {
   const [selectedLeader, setSelectedLeader] = useState<Leader | null>(null);
   const rosterSectionRef = useRef<HTMLElement | null>(null);
+  const trackRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const rosterSection = rosterSectionRef.current;
@@ -23,6 +24,23 @@ export const LeadershipPage: React.FC = () => {
     observer.observe(rosterSection);
     return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    if (!selectedLeader) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [selectedLeader]);
+
+  const slideRoster = (direction: 1 | -1) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const card = track.querySelector<HTMLElement>('.leadership-profile-card');
+    const step = card ? card.getBoundingClientRect().width + 24 : 300;
+    track.scrollBy({ left: step * direction, behavior: 'smooth' });
+  };
 
   const moveCardToPointer = (event: React.PointerEvent<HTMLButtonElement>) => {
     if (event.pointerType === 'touch') return;
@@ -67,88 +85,145 @@ export const LeadershipPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Leadership Roster Section */}
+      {/* Leadership Roster Section — horizontal slideshow */}
       <section ref={rosterSectionRef} className="leadership-roster py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {LEADERSHIP.map((leader, idx) => (
-              <article
-                key={idx} 
-                className="leadership-profile-card bg-[#16283D] border border-[#A49150]/30 overflow-hidden shadow-lg flex flex-col"
-              >
-                <div className="px-6 pt-6 text-center">
-                  <span className="inline-flex border border-[#A49150]/30 px-3 py-1 text-[10px] font-mono uppercase tracking-wider text-[#F2834C]">
-                    {leader.category}
-                  </span>
-                  <h3 className="mt-5 text-2xl font-serif font-bold leading-tight text-white">{leader.name}</h3>
-                  <p className="mt-1 text-xs font-mono font-bold text-[#F2834C]">{leader.title}</p>
-                  <p className="mt-1 text-[10px] font-mono uppercase tracking-widest text-white/50">Experience: {leader.experience}</p>
-                </div>
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => slideRoster(-1)}
+              aria-label="Previous leader"
+              className="hidden sm:flex absolute -left-5 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white border border-[#A49150]/30 shadow-lg items-center justify-center text-[#16283D] hover:bg-[#16283D] hover:text-white transition-colors"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
 
-                <button
-                  type="button"
-                  className="leadership-profile-photo relative mt-5 block h-[330px] w-full overflow-hidden bg-[#071A2D] text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F2834C]"
-                  onClick={() => setSelectedLeader(leader)}
-                  onPointerMove={moveCardToPointer}
-                  onPointerLeave={resetCardPosition}
-                  aria-label={`Read ${leader.name}'s profile`}
+            <div
+              ref={trackRef}
+              className="leadership-roster-track flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2"
+            >
+              {LEADERSHIP.map((leader, idx) => (
+                <article
+                  key={idx}
+                  className="leadership-profile-card group/card relative snap-start shrink-0 w-[260px] sm:w-[280px] bg-white rounded-2xl border border-[#A49150]/20 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col"
                 >
-                  <img 
-                    src={leader.image} 
-                    alt={leader.name}
-                    className="h-full w-full object-contain p-3"
-                    referrerPolicy="no-referrer"
-                  />
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#16283D] via-[#16283D]/30 to-transparent px-5 pb-5 pt-12">
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-white/80">Click photo to read profile</span>
-                  </div>
-                </button>
-
-                <div className="flex items-center justify-between border-t border-white/10 px-6 py-4">
-                  <span className="text-[10px] font-mono tracking-wider text-[#A49150]">ALMONDZ LEADERSHIP</span>
-                  <a 
-                    href="mailto:contact@almondzglobalinfra.com" 
-                    className="flex h-8 w-8 items-center justify-center bg-white/10 text-white transition-colors hover:bg-[#F2834C]" 
-                    aria-label={`Email ${leader.name}`}
+                  <button
+                    type="button"
+                    className="leadership-profile-photo group/photo relative block aspect-[4/5] w-full overflow-hidden bg-[#fdf9ed] text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F2834C]"
+                    onClick={() => setSelectedLeader(leader)}
+                    onPointerMove={moveCardToPointer}
+                    onPointerLeave={resetCardPosition}
+                    aria-label={`Read ${leader.name}'s profile`}
                   >
-                    <Mail className="w-3.5 h-3.5" />
-                  </a>
-                </div>
-              </article>
-            ))}
+                    <img
+                      src={leader.image}
+                      alt={leader.name}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover/photo:scale-105"
+                      referrerPolicy="no-referrer"
+                    />
+                  </button>
+
+                  <div className="p-5 flex flex-col gap-1.5">
+                    <span className="inline-flex w-fit items-center text-[10px] font-mono uppercase tracking-widest text-[#F2834C] bg-[#F2834C]/10 border border-[#F2834C]/20 px-2.5 py-1 rounded-full mb-1">
+                      {leader.category}
+                    </span>
+                    <h3 className="text-lg font-serif font-bold text-[#16283D] leading-snug">{leader.name}</h3>
+                    <p className="text-sm font-medium text-[#A49150]">{leader.title}</p>
+                    <p className="text-[11px] text-[#1c1c15]/50 mt-1">Experience: {leader.experience}</p>
+                  </div>
+
+                  {/* Hover overlay: rises to cover the entire card */}
+                  <button
+                    type="button"
+                    onClick={() => setSelectedLeader(leader)}
+                    aria-label={`Read ${leader.name}'s profile`}
+                    className="leadership-card-hover-overlay absolute inset-0 z-20 flex flex-col justify-center gap-2 bg-[#fdf9ed] p-6 text-left opacity-0 translate-y-8 pointer-events-none transition-all duration-500 ease-out group-hover/card:opacity-100 group-hover/card:translate-y-0 group-hover/card:pointer-events-auto"
+                  >
+                    <span className="inline-flex w-fit items-center text-[10px] font-mono uppercase tracking-widest text-[#F2834C] bg-[#F2834C]/10 border border-[#F2834C]/20 px-2.5 py-1 rounded-full mb-1">
+                      {leader.category}
+                    </span>
+                    <h3 className="text-xl font-serif font-bold text-[#16283D] leading-snug">{leader.name}</h3>
+                    <p className="text-sm font-medium text-[#A49150]">{leader.title}</p>
+                    <p className="text-[11px] text-[#1c1c15]/50">Experience: {leader.experience}</p>
+                    <span className="mt-4 inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-widest text-[#16283D] font-bold">
+                      View Profile
+                      <span aria-hidden="true">&rarr;</span>
+                    </span>
+                  </button>
+                </article>
+              ))}
+            </div>
+
+            <button
+              type="button"
+              onClick={() => slideRoster(1)}
+              aria-label="Next leader"
+              className="hidden sm:flex absolute -right-5 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white border border-[#A49150]/30 shadow-lg items-center justify-center text-[#16283D] hover:bg-[#16283D] hover:text-white transition-colors"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
           </div>
         </div>
       </section>
 
       {selectedLeader && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-[#071A2D]/80 p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[#16283D]/70 backdrop-blur-sm p-4 sm:p-10 animate-fade-in"
           role="dialog"
           aria-modal="true"
           aria-labelledby="leader-profile-title"
           onClick={() => setSelectedLeader(null)}
         >
           <div
-            className="max-h-[85vh] w-full max-w-2xl overflow-y-auto bg-white p-6 shadow-2xl sm:p-8"
+            key={selectedLeader.name}
+            className="leader-modal-panel w-full max-w-5xl max-h-[92vh] overflow-hidden bg-white rounded-3xl shadow-2xl relative flex flex-col sm:flex-row"
             onClick={(event) => event.stopPropagation()}
           >
-            <div className="flex items-start justify-between gap-6 border-b border-[#A49150]/25 pb-5">
-              <div>
-                <span className="text-[10px] font-mono tracking-widest text-[#F2834C]">{selectedLeader.category}</span>
-                <h2 id="leader-profile-title" className="mt-2 text-2xl font-serif font-bold text-[#16283D]">{selectedLeader.name}</h2>
-                <p className="mt-1 text-xs font-mono font-bold text-[#F2834C]">{selectedLeader.title}</p>
-                <p className="mt-1 text-[10px] font-mono uppercase tracking-widest text-[#1c1c15]/50">Experience: {selectedLeader.experience}</p>
-              </div>
-              <button
-                type="button"
-                onClick={() => setSelectedLeader(null)}
-                className="flex h-9 w-9 shrink-0 items-center justify-center border border-[#A49150]/30 text-[#16283D] transition-colors hover:border-[#F2834C] hover:text-[#F2834C]"
-                aria-label="Close profile"
-              >
-                <X className="h-4 w-4" />
-              </button>
+            <button
+              type="button"
+              onClick={() => setSelectedLeader(null)}
+              className="absolute top-5 right-5 z-20 p-2.5 bg-white/95 hover:bg-white text-[#16283D] rounded-full shadow-lg transition-colors"
+              aria-label="Close profile"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="relative w-full sm:w-[30%] h-48 sm:h-auto shrink-0 overflow-hidden bg-[#fdf9ed]">
+              <img
+                src={selectedLeader.image}
+                alt={selectedLeader.name}
+                className="h-full w-full object-cover"
+                referrerPolicy="no-referrer"
+              />
             </div>
-            <p className="mt-6 text-sm leading-relaxed text-[#1c1c15]/80">{selectedLeader.bio}</p>
+
+            <div className="leader-modal-content-panel flex-1 p-6 sm:p-8 flex flex-col gap-3">
+              <div>
+                <span className="inline-flex w-fit items-center text-[11px] font-mono uppercase tracking-widest text-[#F2834C] bg-[#F2834C]/10 border border-[#F2834C]/20 px-3 py-1.5 rounded-full mb-2.5">
+                  {selectedLeader.category}
+                </span>
+                <h2 id="leader-profile-title" className="text-2xl font-serif font-bold text-[#16283D] leading-tight">
+                  {selectedLeader.name}
+                </h2>
+                <p className="mt-1 text-sm font-semibold text-[#A49150]">{selectedLeader.title}</p>
+                <p className="mt-0.5 text-xs text-[#1c1c15]/50">Experience: {selectedLeader.experience}</p>
+              </div>
+
+              <p className="text-[13px] sm:text-sm leading-[1.6] text-[#1c1c15]/75 border-t border-gray-100 pt-3">
+                {selectedLeader.bio}
+              </p>
+
+              <div className="mt-auto pt-3 border-t border-gray-100 flex items-center justify-between">
+                <span className="text-[10px] font-mono tracking-wider text-[#A49150] uppercase">Almondz Leadership</span>
+                <a
+                  href="mailto:contact@almondzglobalinfra.com"
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-[#fdf9ed] border border-[#A49150]/20 text-[#16283D] transition-colors hover:bg-[#16283D] hover:text-white"
+                  aria-label={`Email ${selectedLeader.name}`}
+                >
+                  <Mail className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       )}

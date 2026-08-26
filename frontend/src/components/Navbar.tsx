@@ -157,7 +157,7 @@ export const Navbar: React.FC = () => {
                 {SERVICES.map((srv) => (
                   <Link
                     key={srv.id}
-                    to={`/services/${srv.slug}`}
+                    to={`/services?service=${srv.slug}`}
                     onClick={closeDropdowns}
                     className="p-2 rounded hover:bg-white/5 transition-colors group flex items-start gap-3"
                   >
@@ -271,7 +271,7 @@ export const Navbar: React.FC = () => {
                 <div className="pl-4 py-2 flex flex-col gap-2 bg-[#071A2D] mt-1 max-h-60 overflow-y-auto">
                   <Link to="/services" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium text-[#F2834C] py-1">View All Services</Link>
                   {SERVICES.map((srv) => (
-                    <Link key={srv.id} to={`/services/${srv.slug}`} onClick={() => setMobileMenuOpen(false)} className="text-xs text-white/80 py-1">
+                    <Link key={srv.id} to={`/services?service=${srv.slug}`} onClick={() => setMobileMenuOpen(false)} className="text-xs text-white/80 py-1">
                       {srv.title}
                     </Link>
                   ))}

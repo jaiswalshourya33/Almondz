@@ -1,6 +1,7 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { MANAGEMENT_TEAM, ManagementMember } from '../data/management';
-import { 
+import { CountUpValue } from '../components/CountUpValue';
+import {
   Users, 
   Award, 
   Mail, 
@@ -21,8 +22,33 @@ export const ManagementTeamPage: React.FC = () => {
   const [selectedDepartment, setSelectedDepartment] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [activeModalMember, setActiveModalMember] = useState<ManagementMember | null>(null);
+  const highlightsSectionRef = useRef<HTMLElement | null>(null);
+  const [highlightsStarted, setHighlightsStarted] = useState(false);
 
-  const departments = ['All', 'Executive Leadership', 'Engineering & Technical', 'Financial Advisory', 'Project Management', 'Environmental & ESG'];
+  useEffect(() => {
+    const highlightsSection = highlightsSectionRef.current;
+    if (!highlightsSection) return;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setHighlightsStarted(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setHighlightsStarted(true);
+          observer.unobserve(highlightsSection);
+        }
+      },
+      { threshold: 0.9 },
+    );
+
+    observer.observe(highlightsSection);
+    return () => observer.disconnect();
+  }, []);
+
+  const departments =['All', 'Executive Leadership', 'Engineering & Technical', 'Financial Advisory', 'Project Management', 'Environmental & ESG'];
 
   const filteredMembers = useMemo(() => {
     return MANAGEMENT_TEAM.filter(member => {
@@ -57,23 +83,23 @@ export const ManagementTeamPage: React.FC = () => {
       </section>
 
       {/* Highlights Bar */}
-      <section className="bg-[#071A2D] text-white py-8 border-b border-[#A49150]/20">
+      <section ref={highlightsSectionRef} className="bg-[#071A2D] text-white py-8 border-b border-[#A49150]/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-y md:divide-y-0 md:divide-x divide-white/10">
             <div className="p-3">
-              <div className="text-3xl sm:text-4xl font-serif font-bold text-[#F2834C]">200+</div>
+              <CountUpValue value="200+" start={highlightsStarted} className="text-3xl sm:text-4xl font-serif font-bold text-[#F2834C]" />
               <div className="text-xs font-mono text-white/70 mt-1 uppercase tracking-wider">Cumulative Experience (Years)</div>
             </div>
             <div className="p-3">
-              <div className="text-3xl sm:text-4xl font-serif font-bold text-white">5</div>
+              <CountUpValue value="5" start={highlightsStarted} className="text-3xl sm:text-4xl font-serif font-bold text-white" />
               <div className="text-xs font-mono text-white/70 mt-1 uppercase tracking-wider">Core Specialist Divisions</div>
             </div>
             <div className="p-3">
-              <div className="text-3xl sm:text-4xl font-serif font-bold text-[#A49150]">100+</div>
+              <CountUpValue value="100+" start={highlightsStarted} className="text-3xl sm:text-4xl font-serif font-bold text-[#A49150]" />
               <div className="text-xs font-mono text-white/70 mt-1 uppercase tracking-wider">Active Infrastructure Projects</div>
             </div>
             <div className="p-3">
-              <div className="text-3xl sm:text-4xl font-serif font-bold text-[#F2834C]">100%</div>
+              <CountUpValue value="100%" start={highlightsStarted} className="text-3xl sm:text-4xl font-serif font-bold text-[#F2834C]" />
               <div className="text-xs font-mono text-white/70 mt-1 uppercase tracking-wider">ISO Quality Governance</div>
             </div>
           </div>
@@ -148,7 +174,6 @@ export const ManagementTeamPage: React.FC = () => {
                       </div>
 
                       <div className="absolute bottom-4 left-4 right-4 text-white">
-                        <span className="text-[11px] font-mono text-[#A49150] block mb-0.5">{member.experienceYears}+ Years Industry Leadership</span>
                         <h3 className="text-xl font-serif font-bold leading-snug text-white group-hover:text-[#F2834C] transition-colors">
                           {member.name}
                         </h3>

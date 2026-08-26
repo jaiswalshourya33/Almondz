@@ -41,6 +41,76 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Service detail dialog: thumbnail slides in from the left, content
+   panel slides in from the right, slow and smooth — plays on every
+   mount since the modal is only rendered while a service is selected. */
+@media (prefers-reduced-motion: no-preference) {
+  .service-modal-image-panel {
+    animation: service-modal-image-enter 950ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .service-modal-content-panel > * {
+    opacity: 0;
+    transform: translateX(36px);
+    animation: service-modal-content-enter 950ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .service-modal-content-panel > :nth-child(1) { animation-delay: 200ms; }
+  .service-modal-content-panel > :nth-child(2) { animation-delay: 340ms; }
+  .service-modal-content-panel > :nth-child(3) { animation-delay: 480ms; }
+  .service-modal-content-panel > :nth-child(4) { animation-delay: 620ms; }
+  .service-modal-content-panel > :nth-child(5) { animation-delay: 760ms; }
+}
+
+@keyframes service-modal-image-enter {
+  from { opacity: 0; transform: translateX(-70px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes service-modal-content-enter {
+  from { opacity: 0; transform: translateX(36px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Leadership profile dialog: the card itself eases in with a gentle
+   scale + rise, then its text content fades/slides in in sequence. */
+@media (prefers-reduced-motion: no-preference) {
+  .leader-modal-panel {
+    animation: leader-modal-panel-enter 550ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .leader-modal-content-panel > * {
+    opacity: 0;
+    transform: translateY(22px);
+    animation: leader-modal-content-enter 950ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .leader-modal-content-panel > :nth-child(1) { animation-delay: 180ms; }
+  .leader-modal-content-panel > :nth-child(2) { animation-delay: 340ms; }
+  .leader-modal-content-panel > :nth-child(3) { animation-delay: 500ms; }
+}
+
+@keyframes leader-modal-content-enter {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes leader-modal-panel-enter {
+  from { opacity: 0; transform: scale(0.94) translateY(24px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Leadership roster slideshow: native scroll-snap carousel, scrollbar
+   hidden so the arrow buttons read as the only way to page it. */
+.leadership-roster-track {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.leadership-roster-track::-webkit-scrollbar {
+  display: none;
+}
+
 .bg-navy {
   background-color: #16283D;
 }
