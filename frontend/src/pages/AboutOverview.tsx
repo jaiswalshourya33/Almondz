@@ -101,7 +101,7 @@ export const AboutOverview: React.FC = () => {
                 Our multidisciplinary teams comprise seasoned civil engineers, geotechnical experts, urban planners, financial analysts, and environmental scientists who work in synergy to deliver turnkey consultancy from concept to commissioning.
               </p>
 
-              <div className="grid grid-cols-3 gap-4 pt-4 border-t border-[#A49150]/30">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4 border-t border-[#A49150]/30">
                 <div>
                   <div className="text-xl font-serif font-bold text-[#16283D]">₹500Cr+</div>
                   <div className="text-xs font-mono text-[#1c1c15]/60 mt-1">Active Order Book</div>

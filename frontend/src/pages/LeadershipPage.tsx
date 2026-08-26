@@ -197,7 +197,7 @@ export const LeadershipPage: React.FC = () => {
               />
             </div>
 
-            <div className="leader-modal-content-panel flex-1 p-6 sm:p-8 flex flex-col gap-3">
+            <div className="leader-modal-content-panel flex-1 min-h-0 overflow-y-auto p-6 sm:p-8 flex flex-col gap-3">
               <div>
                 <span className="inline-flex w-fit items-center text-[11px] font-mono uppercase tracking-widest text-[#F2834C] bg-[#F2834C]/10 border border-[#F2834C]/20 px-3 py-1.5 rounded-full mb-2.5">
                   {selectedLeader.category}

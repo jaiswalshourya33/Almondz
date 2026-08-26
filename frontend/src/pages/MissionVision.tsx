@@ -132,7 +132,7 @@ export const MissionVision: React.FC = () => {
             className="absolute left-0 top-24 bottom-8 flex items-center w-full max-w-xl sm:max-w-2xl px-4 sm:px-8 lg:px-12"
             style={{ opacity: missionOpacity, transform: `translateX(${missionTranslate}px)` }}
           >
-            <div className="mission-vision-card bg-white rounded-2xl shadow-xl p-7 sm:p-9 flex flex-col gap-3 h-[440px]">
+            <div className="mission-vision-card bg-white rounded-2xl shadow-xl p-5 sm:p-9 flex flex-col gap-3 h-[clamp(340px,58vh,440px)]">
               <h2 style={revealStyle(progress, MISSION_START + 0.1, 0.05)} className="text-2xl sm:text-3xl font-serif font-bold text-[#16283D]">Our Mission</h2>
               <p style={revealStyle(progress, MISSION_START + 0.13, 0.06)} className="text-xs sm:text-sm text-[#1c1c15]/70 leading-relaxed">
                 To deliver excellence in infrastructure consultancy, engineering and technology through innovation, domain expertise and client-centric execution. Almondz creates long-term value with efficient, transparent and sustainable solutions across transportation, water, urban infrastructure, disaster resilience and digital transformation — building strong partnerships with governments, institutions and private enterprises, always to the highest standards of integrity, quality and operational excellence.
@@ -156,7 +156,7 @@ export const MissionVision: React.FC = () => {
             className="absolute right-0 top-24 bottom-8 flex items-center justify-end w-full max-w-xl sm:max-w-2xl px-4 sm:px-8 lg:px-12 ml-auto"
             style={{ opacity: visionOpacity, transform: `translateX(${visionTranslate}px)` }}
           >
-            <div className="mission-vision-card bg-white rounded-2xl shadow-xl p-7 sm:p-9 flex flex-col gap-3 h-[440px]">
+            <div className="mission-vision-card bg-white rounded-2xl shadow-xl p-5 sm:p-9 flex flex-col gap-3 h-[clamp(340px,58vh,440px)]">
               <h2 style={revealStyle(progress, VISION_START + 0.1, 0.05)} className="text-2xl sm:text-3xl font-serif font-bold text-[#16283D]">Our Vision</h2>
               <p style={revealStyle(progress, VISION_START + 0.13, 0.06)} className="text-xs sm:text-sm text-[#1c1c15]/70 leading-relaxed">
                 To emerge as a globally respected, technology-driven infrastructure consultancy — enabling sustainable growth through innovative engineering, digital transformation and integrated advisory. Almondz envisions building resilient, future-ready infrastructure ecosystems that advance economic development, urban modernisation, environmental sustainability and quality of life across communities in India and beyond.

@@ -277,13 +277,18 @@ export const Home: React.FC = () => {
 
   const selectSector = (index: number) => {
     setActiveSectorIndex(index);
-    requestAnimationFrame(() => {
+    // The active card's flex-basis grows over a 700ms CSS transition, so its
+    // offsetWidth/offsetLeft are still mid-animation on the very next frame —
+    // measuring them that early under-shoots the scroll target and leaves the
+    // fully-expanded card partly off-screen. Wait for the transition to
+    // finish (700ms) before reading geometry and scrolling.
+    window.setTimeout(() => {
       sectorCardRefs.current[index]?.scrollIntoView({
         behavior: 'smooth',
         block: 'nearest',
         inline: 'nearest',
       });
-    });
+    }, 720);
   };
 
   useEffect(() => {
@@ -294,7 +299,9 @@ export const Home: React.FC = () => {
       setActiveSectorIndex(nextIndex);
       // Scroll only the horizontal card track, not the page, so the
       // auto-advance never fights the user scrolling the page down.
-      requestAnimationFrame(() => {
+      // See the comment in selectSector: wait for the card's own
+      // flex-basis transition to finish before measuring its final size.
+      window.setTimeout(() => {
         const track = sectorTrackRef.current;
         const card = sectorCardRefs.current[nextIndex];
         if (!track || !card) return;
@@ -303,7 +310,7 @@ export const Home: React.FC = () => {
           left: Math.max(0, targetLeft),
           behavior: 'smooth',
         });
-      });
+      }, 720);
     }, 2000);
     return () => clearInterval(interval);
   }, [activeSectorIndex]);

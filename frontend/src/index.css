@@ -453,9 +453,10 @@
 }
 
 .sector-showcase__card.is-active {
-  /* Reserve room for eight preview cards and eight gaps so the active card
-     always stays fully within the gallery at desktop widths. */
-  flex-basis: max(320px, calc(100% - 672px));
+  /* Reserve room for the other nine (SECTORS.length - 1) 72px preview cards
+     plus their nine 12px gaps, so the active card always stays fully within
+     the gallery at desktop widths. Update this if SECTORS.length changes. */
+  flex-basis: max(320px, calc(100% - 756px));
   border-color: rgba(242, 131, 76, 0.8);
   box-shadow: 0 22px 44px rgba(13, 27, 42, 0.25);
 }
@@ -783,6 +784,25 @@
   .lifecycle-showcase__card.card-even {
     transform: translateX(35px) translateY(12px);
   }
+
+  /* Below lg the dynamic SVG connector (drawn from measured node
+     positions, desktop-only zigzag layout) is hidden and cards stack in a
+     single full-width column instead — replace it with a simple static
+     dashed line behind the cards, connecting node badge to node badge,
+     so the roadmap still reads as a connected sequence on mobile/tablet. */
+  .lifecycle-showcase__grid::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 54px;
+    width: 2px;
+    background-image: linear-gradient(to bottom, rgba(164, 145, 80, 0.4) 0 8px, transparent 8px 16px);
+    background-size: 2px 16px;
+    background-repeat: repeat-y;
+    z-index: 0;
+    pointer-events: none;
+  }
 }
 
 .lifecycle-showcase__card:hover {
@@ -1067,8 +1087,8 @@
   }
 
   .sector-showcase__card.is-active {
-    /* Eight 56px previews plus eight 10px gaps. */
-    flex-basis: max(320px, calc(100% - 528px));
+    /* Nine 56px previews plus nine 10px gaps (SECTORS.length - 1). */
+    flex-basis: max(320px, calc(100% - 594px));
   }
 }
 

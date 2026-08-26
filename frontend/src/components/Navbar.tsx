@@ -24,6 +24,15 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [mobileMenuOpen]);
+
   const closeDropdowns = () => setActiveDropdown(null);
 
   return (
@@ -104,7 +113,7 @@ export const Navbar: React.FC = () => {
             </button>
 
             {activeDropdown === 'sectors' && (
-              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[850px] bg-[#16283D] border border-[#A49150]/30 shadow-2xl p-6 z-50 grid grid-cols-2 gap-4 animate-fade-in">
+              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[min(850px,90vw)] bg-[#16283D] border border-[#A49150]/30 shadow-2xl p-6 z-50 grid grid-cols-2 gap-4 animate-fade-in">
                 <div className="col-span-2 pb-2 border-b border-white/10 flex justify-between items-center">
                   <span className="text-xs font-mono tracking-widest text-[#F2834C]">SPECIALIZED INFRASTRUCTURE DOMAINS (011)</span>
                   <Link to="/sectors" onClick={closeDropdowns} className="text-xs font-mono text-white/70 hover:text-white flex items-center gap-1">
@@ -147,7 +156,7 @@ export const Navbar: React.FC = () => {
             </button>
 
             {activeDropdown === 'services' && (
-              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[850px] bg-[#16283D] border border-[#A49150]/30 shadow-2xl p-6 z-50 grid grid-cols-2 gap-3 animate-fade-in">
+              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[min(850px,90vw)] bg-[#16283D] border border-[#A49150]/30 shadow-2xl p-6 z-50 grid grid-cols-2 gap-3 animate-fade-in">
                 <div className="col-span-2 pb-2 border-b border-white/10 flex justify-between items-center">
                   <span className="text-xs font-mono tracking-widest text-[#F2834C]">END-TO-END CONSULTANCY SERVICES</span>
                   <Link to="/services" onClick={closeDropdowns} className="text-xs font-mono text-white/70 hover:text-white flex items-center gap-1">
