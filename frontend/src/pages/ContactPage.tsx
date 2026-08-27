@@ -115,8 +115,8 @@ export const ContactPage: React.FC = () => {
     <div className="flex flex-col min-h-screen bg-[#fdf9ed] pt-24">
       {/* Toast Notification */}
       {copiedField && (
-        <div className="fixed bottom-8 right-8 z-50 bg-[#16283D] text-white px-6 py-4 border border-[#F2834C] shadow-2xl flex items-center gap-3 animate-fade-in rounded-lg">
-          <CheckCircle2 className="w-5 h-5 text-[#F2834C]" />
+        <div className="fixed bottom-8 right-8 z-50 bg-[#16283D] text-white px-6 py-4 border border-[#A49150] shadow-2xl flex items-center gap-3 animate-fade-in rounded-lg">
+          <CheckCircle2 className="w-5 h-5 text-[#A49150]" />
           <div>
             <p className="text-xs font-mono font-bold">COPIED TO CLIPBOARD</p>
             <p className="text-xs text-white/80">{copiedField} copied successfully.</p>
@@ -167,7 +167,7 @@ export const ContactPage: React.FC = () => {
                 <button
                   onClick={() => setActiveTab('headquarters')}
                   className={`flex-1 py-2.5 px-3 text-xs font-mono font-bold uppercase transition-all rounded-md ${
-                    activeTab === 'headquarters' ? 'bg-[#F2834C] text-white shadow' : 'text-white/70 hover:text-white'
+                    activeTab === 'headquarters' ? 'bg-[#A49150] text-white shadow' : 'text-white/70 hover:text-white'
                   }`}
                 >
                   Headquarters
@@ -175,7 +175,7 @@ export const ContactPage: React.FC = () => {
                 <button
                   onClick={() => setActiveTab('regional')}
                   className={`flex-1 py-2.5 px-3 text-xs font-mono font-bold uppercase transition-all rounded-md ${
-                    activeTab === 'regional' ? 'bg-[#F2834C] text-white shadow' : 'text-white/70 hover:text-white'
+                    activeTab === 'regional' ? 'bg-[#A49150] text-white shadow' : 'text-white/70 hover:text-white'
                   }`}
                 >
                   Project Offices
@@ -183,7 +183,7 @@ export const ContactPage: React.FC = () => {
                 <button
                   onClick={() => setActiveTab('leadership')}
                   className={`flex-1 py-2.5 px-3 text-xs font-mono font-bold uppercase transition-all rounded-md ${
-                    activeTab === 'leadership' ? 'bg-[#F2834C] text-white shadow' : 'text-white/70 hover:text-white'
+                    activeTab === 'leadership' ? 'bg-[#A49150] text-white shadow' : 'text-white/70 hover:text-white'
                   }`}
                 >
                   Corporate Offices
@@ -192,14 +192,14 @@ export const ContactPage: React.FC = () => {
 
               {/* Headquarters Tab Content */}
               {activeTab === 'headquarters' && (
-                <div className="bg-[#16283D] text-white p-8 rounded-lg border border-[#A49150]/40 shadow-xl flex flex-col gap-6 animate-fade-in group hover:border-[#F2834C] transition-all duration-500">
+                <div className="bg-[#16283D] text-white p-8 rounded-lg border border-[#A49150]/40 shadow-xl flex flex-col gap-6 animate-fade-in group hover:border-[#A49150] transition-all duration-500">
                   <div className="flex items-center justify-between border-b border-white/10 pb-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-[#F2834C]/20 text-[#F2834C] flex items-center justify-center rounded-md border border-[#F2834C]/30">
+                      <div className="w-10 h-10 bg-[#A49150]/20 text-[#A49150] flex items-center justify-center rounded-md border border-[#A49150]/30">
                         <Building2 className="w-5 h-5" />
                       </div>
                       <div>
-                        <span className="text-[10px] font-mono text-[#F2834C] uppercase tracking-widest font-bold">CORPORATE HQ</span>
+                        <span className="text-[10px] font-mono text-[#A49150] uppercase tracking-widest font-bold">CORPORATE HQ</span>
                         <h3 className="text-xl font-serif font-bold text-white">New Delhi, India</h3>
                       </div>
                     </div>
@@ -211,7 +211,7 @@ export const ContactPage: React.FC = () => {
                       onClick={() => handleCopy("F-33/3 Okhla Industrial Area, Phase-II, New Delhi-110020, INDIA", "HQ Address")}
                       className="flex items-start gap-3.5 p-3.5 bg-white/5 hover:bg-white/10 rounded-md border border-white/10 cursor-pointer transition-colors group/item"
                     >
-                      <MapPin className="w-5 h-5 text-[#F2834C] shrink-0 mt-0.5 group-hover/item:scale-110 transition-transform" />
+                      <MapPin className="w-5 h-5 text-[#A49150] shrink-0 mt-0.5 group-hover/item:scale-110 transition-transform" />
                       <div className="flex-1 text-xs font-mono">
                         <span className="text-white/60 block text-[10px] uppercase">Registered Address</span>
                         <span className="text-white">F-33/3 Okhla Industrial Area, Phase-II, New Delhi-110020, INDIA</span>
@@ -222,7 +222,7 @@ export const ContactPage: React.FC = () => {
                       onClick={() => handleCopy("+91-11-43500700, +91-11-43500734", "Phone Number")}
                       className="flex items-center gap-3.5 p-3.5 bg-white/5 hover:bg-white/10 rounded-md border border-white/10 cursor-pointer transition-colors group/item"
                     >
-                      <Phone className="w-5 h-5 text-[#F2834C] shrink-0 group-hover/item:scale-110 transition-transform" />
+                      <Phone className="w-5 h-5 text-[#A49150] shrink-0 group-hover/item:scale-110 transition-transform" />
                       <div className="flex-1 text-xs font-mono">
                         <span className="text-white/60 block text-[10px] uppercase">Corporate Exchange</span>
                         <span className="text-white">+91-11-43500700, +91-11-43500734</span>
@@ -233,7 +233,7 @@ export const ContactPage: React.FC = () => {
                       onClick={() => handleCopy("contact@almondzglobalinfra.com", "Email Address")}
                       className="flex items-center gap-3.5 p-3.5 bg-white/5 hover:bg-white/10 rounded-md border border-white/10 cursor-pointer transition-colors group/item"
                     >
-                      <Mail className="w-5 h-5 text-[#F2834C] shrink-0 group-hover/item:scale-110 transition-transform" />
+                      <Mail className="w-5 h-5 text-[#A49150] shrink-0 group-hover/item:scale-110 transition-transform" />
                       <div className="flex-1 text-xs font-mono">
                         <span className="text-white/60 block text-[10px] uppercase">Official Email</span>
                         <span className="text-white">contact@almondzglobalinfra.com</span>
@@ -250,11 +250,11 @@ export const ContactPage: React.FC = () => {
                     <div
                       key={idx}
                       onClick={() => handleCopy(office.phone ? `${office.city} - ${office.address}, Phone: ${office.phone}` : `${office.city} - ${office.address}`, office.city)}
-                      className="bg-white p-5 rounded-lg border border-[#A49150]/30 shadow-sm hover:border-[#F2834C] hover:shadow-md transition-all duration-300 cursor-pointer group"
+                      className="bg-white p-5 rounded-lg border border-[#A49150]/30 shadow-sm hover:border-[#A49150] hover:shadow-md transition-all duration-300 cursor-pointer group"
                     >
                       <div className="flex items-center justify-between mb-2">
                         <h4 className="text-xs font-mono font-bold text-[#16283D] uppercase flex items-center gap-2">
-                          <MapPin className="w-4 h-4 text-[#F2834C] group-hover:scale-110 transition-transform" />
+                          <MapPin className="w-4 h-4 text-[#A49150] group-hover:scale-110 transition-transform" />
                           {office.city}
                         </h4>
                         <span className="text-[10px] font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Active Cell</span>
@@ -262,7 +262,7 @@ export const ContactPage: React.FC = () => {
                       <p className="text-xs text-[#1c1c15]/80 font-light mb-2">{office.address}</p>
                       <div className="flex items-center justify-between text-[11px] font-mono text-[#A49150] pt-2 border-t border-gray-100">
                         <span>{office.phone}</span>
-                        <span className="group-hover:text-[#F2834C] transition-colors">Click to copy →</span>
+                        <span className="group-hover:text-[#A49150] transition-colors">Click to copy →</span>
                       </div>
                     </div>
                   ))}
@@ -275,15 +275,15 @@ export const ContactPage: React.FC = () => {
                   {corporateOffices.map((office, idx) => (
                     <div
                       key={idx}
-                      className="bg-[#16283D] text-white p-8 rounded-lg border border-[#A49150]/40 shadow-xl flex flex-col gap-6 group hover:border-[#F2834C] transition-all duration-500"
+                      className="bg-[#16283D] text-white p-8 rounded-lg border border-[#A49150]/40 shadow-xl flex flex-col gap-6 group hover:border-[#A49150] transition-all duration-500"
                     >
                       <div className="flex items-center justify-between border-b border-white/10 pb-4">
                         <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 bg-[#F2834C]/20 text-[#F2834C] flex items-center justify-center rounded-md border border-[#F2834C]/30">
+                          <div className="w-10 h-10 bg-[#A49150]/20 text-[#A49150] flex items-center justify-center rounded-md border border-[#A49150]/30">
                             <Building2 className="w-5 h-5" />
                           </div>
                           <div>
-                            <span className="text-[10px] font-mono text-[#F2834C] uppercase tracking-widest font-bold">CORPORATE OFFICE</span>
+                            <span className="text-[10px] font-mono text-[#A49150] uppercase tracking-widest font-bold">CORPORATE OFFICE</span>
                             <h3 className="text-xl font-serif font-bold text-white">{office.city}, India</h3>
                           </div>
                         </div>
@@ -294,7 +294,7 @@ export const ContactPage: React.FC = () => {
                           onClick={() => handleCopy(office.address, `${office.city} Corporate Office Address`)}
                           className="flex items-start gap-3.5 p-3.5 bg-white/5 hover:bg-white/10 rounded-md border border-white/10 cursor-pointer transition-colors group/item"
                         >
-                          <MapPin className="w-5 h-5 text-[#F2834C] shrink-0 mt-0.5 group-hover/item:scale-110 transition-transform" />
+                          <MapPin className="w-5 h-5 text-[#A49150] shrink-0 mt-0.5 group-hover/item:scale-110 transition-transform" />
                           <div className="flex-1 text-xs font-mono">
                             <span className="text-white/60 block text-[10px] uppercase">Registered Address</span>
                             <span className="text-white">{office.address}</span>
@@ -306,7 +306,7 @@ export const ContactPage: React.FC = () => {
                             onClick={() => handleCopy(office.phone, "Phone Number")}
                             className="flex items-center gap-3.5 p-3.5 bg-white/5 hover:bg-white/10 rounded-md border border-white/10 cursor-pointer transition-colors group/item"
                           >
-                            <Phone className="w-5 h-5 text-[#F2834C] shrink-0 group-hover/item:scale-110 transition-transform" />
+                            <Phone className="w-5 h-5 text-[#A49150] shrink-0 group-hover/item:scale-110 transition-transform" />
                             <div className="flex-1 text-xs font-mono">
                               <span className="text-white/60 block text-[10px] uppercase">Corporate Exchange</span>
                               <span className="text-white">{office.phone}</span>
@@ -323,7 +323,7 @@ export const ContactPage: React.FC = () => {
 
             {/* Right Column: Interactive Inquiry Form */}
             <div className="lg:col-span-7 bg-white border border-[#A49150]/30 p-8 sm:p-12 shadow-xl rounded-lg relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#F2834C]/5 rounded-bl-full pointer-events-none"></div>
+              <div className="absolute top-0 right-0 w-32 h-32 bg-[#A49150]/5 rounded-bl-full pointer-events-none"></div>
 
               {/* Form Type Selector Pills */}
               <div className="flex bg-transparent p-1.5 rounded-lg border border-[#A49150]/30 shadow-sm mb-8 relative">
@@ -331,7 +331,7 @@ export const ContactPage: React.FC = () => {
                   type="button"
                   onClick={() => selectFormType('inquiry')}
                   className={`flex-1 py-2.5 px-3 text-xs font-mono font-bold uppercase transition-all rounded-md ${
-                    activeFormType === 'inquiry' ? 'bg-[#F2834C] text-white shadow' : 'text-[#16283D]/70 hover:bg-[#F2834C]/10 hover:text-[#F2834C]'
+                    activeFormType === 'inquiry' ? 'bg-[#A49150] text-white shadow' : 'text-[#16283D]/70 hover:bg-[#A49150]/10 hover:text-[#A49150]'
                   }`}
                 >
                   Inquiry
@@ -340,7 +340,7 @@ export const ContactPage: React.FC = () => {
                   type="button"
                   onClick={() => selectFormType('vendor')}
                   className={`flex-1 py-2.5 px-3 text-xs font-mono font-bold uppercase transition-all rounded-md ${
-                    activeFormType === 'vendor' ? 'bg-[#F2834C] text-white shadow' : 'text-[#16283D]/70 hover:bg-[#F2834C]/10 hover:text-[#F2834C]'
+                    activeFormType === 'vendor' ? 'bg-[#A49150] text-white shadow' : 'text-[#16283D]/70 hover:bg-[#A49150]/10 hover:text-[#A49150]'
                   }`}
                 >
                   Vendor
@@ -349,7 +349,7 @@ export const ContactPage: React.FC = () => {
                   type="button"
                   onClick={() => selectFormType('career')}
                   className={`flex-1 py-2.5 px-3 text-xs font-mono font-bold uppercase transition-all rounded-md ${
-                    activeFormType === 'career' ? 'bg-[#F2834C] text-white shadow' : 'text-[#16283D]/70 hover:bg-[#F2834C]/10 hover:text-[#F2834C]'
+                    activeFormType === 'career' ? 'bg-[#A49150] text-white shadow' : 'text-[#16283D]/70 hover:bg-[#A49150]/10 hover:text-[#A49150]'
                   }`}
                 >
                   Career
@@ -362,7 +362,7 @@ export const ContactPage: React.FC = () => {
                     <CheckCircle2 className="w-10 h-10" />
                   </div>
                   <div className="space-y-2">
-                    <span className="text-xs font-mono text-[#F2834C] uppercase tracking-widest font-bold">TRANSMISSION SUCCESSFUL</span>
+                    <span className="text-xs font-mono text-[#A49150] uppercase tracking-widest font-bold">TRANSMISSION SUCCESSFUL</span>
                     {activeFormType === 'inquiry' && (
                       <>
                         <h3 className="text-3xl font-serif font-bold text-[#16283D]">Consultancy Dossier Dispatched</h3>
@@ -390,7 +390,7 @@ export const ContactPage: React.FC = () => {
                   </div>
                   <button
                     onClick={handleReset}
-                    className="mt-4 bg-[#16283D] hover:bg-[#F2834C] text-white px-8 py-3.5 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-md hover:shadow-lg rounded-md"
+                    className="mt-4 bg-[#16283D] hover:bg-[#A49150] text-white px-8 py-3.5 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-md hover:shadow-lg rounded-md"
                   >
                     {activeFormType === 'inquiry' && 'Submit Another Inquiry'}
                     {activeFormType === 'vendor' && 'Submit Another Registration'}
@@ -400,7 +400,7 @@ export const ContactPage: React.FC = () => {
               ) : activeFormType === 'inquiry' ? (
                 <form onSubmit={handleSubmit} className="flex flex-col gap-6">
                   <div>
-                    <span className="text-[10px] font-mono tracking-widest text-[#F2834C] uppercase font-bold">SECURE SUBMISSION</span>
+                    <span className="text-[10px] font-mono tracking-widest text-[#A49150] uppercase font-bold">SECURE SUBMISSION</span>
                     <h3 className="text-2xl sm:text-3xl font-serif font-bold text-[#16283D] mt-1">Initiate Consultancy Inquiry</h3>
                     <p className="text-xs text-[#1c1c15]/70 mt-1">Complete the briefing details below for direct routing to our practice leads.</p>
                   </div>
@@ -417,7 +417,7 @@ export const ContactPage: React.FC = () => {
                           className={`py-2 px-3 text-[11px] font-mono font-bold uppercase transition-all rounded-md border ${
                             formData.inquiryType === type 
                               ? 'bg-[#16283D] text-white border-[#16283D] shadow' 
-                              : 'bg-[#fdf9ed] text-[#16283D] border-[#A49150]/30 hover:border-[#F2834C]'
+                              : 'bg-[#fdf9ed] text-[#16283D] border-[#A49150]/30 hover:border-[#A49150]'
                           }`}
                         >
                           {type}
@@ -435,7 +435,7 @@ export const ContactPage: React.FC = () => {
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         placeholder="Shri / Mr. / Dr. ..."
-                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors"
+                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#A49150] rounded-md transition-colors"
                       />
                     </div>
                     <div className="flex flex-col gap-2">
@@ -446,7 +446,7 @@ export const ContactPage: React.FC = () => {
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="name@organization.com"
-                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors"
+                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#A49150] rounded-md transition-colors"
                       />
                     </div>
                   </div>
@@ -459,7 +459,7 @@ export const ContactPage: React.FC = () => {
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         placeholder="+91 98765 43210"
-                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors"
+                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#A49150] rounded-md transition-colors"
                       />
                     </div>
                     <div className="flex flex-col gap-2">
@@ -469,7 +469,7 @@ export const ContactPage: React.FC = () => {
                         value={formData.organization}
                         onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
                         placeholder="NHAI / Bank / Private Concessionaire"
-                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors"
+                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#A49150] rounded-md transition-colors"
                       />
                     </div>
                   </div>
@@ -479,7 +479,7 @@ export const ContactPage: React.FC = () => {
                     <select
                       value={formData.sector}
                       onChange={(e) => setFormData({ ...formData, sector: e.target.value })}
-                      className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors cursor-pointer"
+                      className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#A49150] rounded-md transition-colors cursor-pointer"
                     >
                       {SECTORS.map((sector) => (
                         <option key={sector.id}>{sector.title}</option>
@@ -495,29 +495,24 @@ export const ContactPage: React.FC = () => {
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       placeholder="Please describe project capacity, estimated outlay, technical audit requirements, or financial appraisal scope..."
-                      className="bg-[#fdf9ed] border border-[#A49150]/30 p-4 text-xs text-[#16283D] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors"
+                      className="bg-[#fdf9ed] border border-[#A49150]/30 p-4 text-xs text-[#16283D] focus:outline-none focus:border-[#A49150] rounded-md transition-colors"
                     ></textarea>
                   </div>
 
                   <button
                     type="submit"
-                    className="group bg-[#F2834C] hover:bg-[#d9723f] text-white py-4 px-6 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 active:translate-y-0 flex items-center justify-center gap-3 rounded-md"
+                    className="group bg-[#A49150] hover:bg-[#8b7b44] text-white py-4 px-6 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 active:translate-y-0 flex items-center justify-center gap-3 rounded-md"
                   >
                     <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     <span>TRANSMIT CONSULTANCY BRIEFING</span>
                     <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 -ml-2 group-hover:ml-0 transition-all" />
                   </button>
 
-                  <div className="flex items-center justify-center gap-6 text-[10px] font-mono text-gray-500 pt-2 border-t border-gray-100">
-                    <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-[#F2834C]" /> 256-bit Encrypted</span>
-                    <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-[#F2834C]" /> ISO 9001 Audited</span>
-                    <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-[#F2834C]" /> 24hr SLA</span>
-                  </div>
                 </form>
               ) : activeFormType === 'vendor' ? (
                 <form onSubmit={handleVendorSubmit} className="flex flex-col gap-6">
                   <div>
-                    <span className="text-[10px] font-mono tracking-widest text-[#F2834C] uppercase font-bold">VENDOR ONBOARDING</span>
+                    <span className="text-[10px] font-mono tracking-widest text-[#A49150] uppercase font-bold">VENDOR ONBOARDING</span>
                     <h3 className="text-2xl sm:text-3xl font-serif font-bold text-[#16283D] mt-1">Register as a Vendor</h3>
                     <p className="text-xs text-[#1c1c15]/70 mt-1">Share your company details for empanelment consideration in our supplier and contractor network.</p>
                   </div>
@@ -531,7 +526,7 @@ export const ContactPage: React.FC = () => {
                         value={vendorFormData.companyName}
                         onChange={(e) => setVendorFormData({ ...vendorFormData, companyName: e.target.value })}
                         placeholder="Registered business name"
-                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors"
+                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#A49150] rounded-md transition-colors"
                       />
                     </div>
                     <div className="flex flex-col gap-2">
@@ -542,7 +537,7 @@ export const ContactPage: React.FC = () => {
                         value={vendorFormData.contactPerson}
                         onChange={(e) => setVendorFormData({ ...vendorFormData, contactPerson: e.target.value })}
                         placeholder="Authorized representative"
-                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors"
+                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#A49150] rounded-md transition-colors"
                       />
                     </div>
                   </div>
@@ -556,7 +551,7 @@ export const ContactPage: React.FC = () => {
                         value={vendorFormData.email}
                         onChange={(e) => setVendorFormData({ ...vendorFormData, email: e.target.value })}
                         placeholder="name@company.com"
-                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors"
+                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#A49150] rounded-md transition-colors"
                       />
                     </div>
                     <div className="flex flex-col gap-2">
@@ -567,7 +562,7 @@ export const ContactPage: React.FC = () => {
                         value={vendorFormData.phone}
                         onChange={(e) => setVendorFormData({ ...vendorFormData, phone: e.target.value })}
                         placeholder="+91 98765 43210"
-                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors"
+                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#A49150] rounded-md transition-colors"
                       />
                     </div>
                   </div>
@@ -578,7 +573,7 @@ export const ContactPage: React.FC = () => {
                       <select
                         value={vendorFormData.vendorCategory}
                         onChange={(e) => setVendorFormData({ ...vendorFormData, vendorCategory: e.target.value })}
-                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors cursor-pointer"
+                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#A49150] rounded-md transition-colors cursor-pointer"
                       >
                         <option>Materials Supplier</option>
                         <option>Equipment & Machinery</option>
@@ -595,7 +590,7 @@ export const ContactPage: React.FC = () => {
                         value={vendorFormData.gstNumber}
                         onChange={(e) => setVendorFormData({ ...vendorFormData, gstNumber: e.target.value })}
                         placeholder="22AAAAA0000A1Z5"
-                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors"
+                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#A49150] rounded-md transition-colors"
                       />
                     </div>
                   </div>
@@ -607,7 +602,7 @@ export const ContactPage: React.FC = () => {
                       value={vendorFormData.yearsInOperation}
                       onChange={(e) => setVendorFormData({ ...vendorFormData, yearsInOperation: e.target.value })}
                       placeholder="e.g. 8 years"
-                      className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors"
+                      className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#A49150] rounded-md transition-colors"
                     />
                   </div>
 
@@ -619,29 +614,24 @@ export const ContactPage: React.FC = () => {
                       value={vendorFormData.message}
                       onChange={(e) => setVendorFormData({ ...vendorFormData, message: e.target.value })}
                       placeholder="Describe your products, services, capacity, and past projects..."
-                      className="bg-[#fdf9ed] border border-[#A49150]/30 p-4 text-xs text-[#16283D] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors"
+                      className="bg-[#fdf9ed] border border-[#A49150]/30 p-4 text-xs text-[#16283D] focus:outline-none focus:border-[#A49150] rounded-md transition-colors"
                     ></textarea>
                   </div>
 
                   <button
                     type="submit"
-                    className="group bg-[#F2834C] hover:bg-[#d9723f] text-white py-4 px-6 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 active:translate-y-0 flex items-center justify-center gap-3 rounded-md"
+                    className="group bg-[#A49150] hover:bg-[#8b7b44] text-white py-4 px-6 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 active:translate-y-0 flex items-center justify-center gap-3 rounded-md"
                   >
                     <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     <span>SUBMIT VENDOR REGISTRATION</span>
                     <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 -ml-2 group-hover:ml-0 transition-all" />
                   </button>
 
-                  <div className="flex items-center justify-center gap-6 text-[10px] font-mono text-gray-500 pt-2 border-t border-gray-100">
-                    <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-[#F2834C]" /> 256-bit Encrypted</span>
-                    <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-[#F2834C]" /> ISO 9001 Audited</span>
-                    <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-[#F2834C]" /> 24hr SLA</span>
-                  </div>
                 </form>
               ) : (
                 <form onSubmit={handleCareerSubmit} className="flex flex-col gap-6">
                   <div>
-                    <span className="text-[10px] font-mono tracking-widest text-[#F2834C] uppercase font-bold">JOIN OUR TEAM</span>
+                    <span className="text-[10px] font-mono tracking-widest text-[#A49150] uppercase font-bold">JOIN OUR TEAM</span>
                     <h3 className="text-2xl sm:text-3xl font-serif font-bold text-[#16283D] mt-1">Submit Your Application</h3>
                     <p className="text-xs text-[#1c1c15]/70 mt-1">Share your details and resume for consideration against current and upcoming openings.</p>
                   </div>
@@ -655,7 +645,7 @@ export const ContactPage: React.FC = () => {
                         value={careerFormData.name}
                         onChange={(e) => setCareerFormData({ ...careerFormData, name: e.target.value })}
                         placeholder="Your full name"
-                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors"
+                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#A49150] rounded-md transition-colors"
                       />
                     </div>
                     <div className="flex flex-col gap-2">
@@ -666,7 +656,7 @@ export const ContactPage: React.FC = () => {
                         value={careerFormData.email}
                         onChange={(e) => setCareerFormData({ ...careerFormData, email: e.target.value })}
                         placeholder="name@example.com"
-                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors"
+                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#A49150] rounded-md transition-colors"
                       />
                     </div>
                   </div>
@@ -680,7 +670,7 @@ export const ContactPage: React.FC = () => {
                         value={careerFormData.phone}
                         onChange={(e) => setCareerFormData({ ...careerFormData, phone: e.target.value })}
                         placeholder="+91 98765 43210"
-                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors"
+                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#A49150] rounded-md transition-colors"
                       />
                     </div>
                     <div className="flex flex-col gap-2">
@@ -691,7 +681,7 @@ export const ContactPage: React.FC = () => {
                         value={careerFormData.position}
                         onChange={(e) => setCareerFormData({ ...careerFormData, position: e.target.value })}
                         placeholder="e.g. Structural Engineer"
-                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors"
+                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#A49150] rounded-md transition-colors"
                       />
                     </div>
                   </div>
@@ -702,7 +692,7 @@ export const ContactPage: React.FC = () => {
                       <select
                         value={careerFormData.experience}
                         onChange={(e) => setCareerFormData({ ...careerFormData, experience: e.target.value })}
-                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors cursor-pointer"
+                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#A49150] rounded-md transition-colors cursor-pointer"
                       >
                         <option value="">Select range</option>
                         <option>Fresher (0-1 years)</option>
@@ -719,7 +709,7 @@ export const ContactPage: React.FC = () => {
                         value={careerFormData.portfolio}
                         onChange={(e) => setCareerFormData({ ...careerFormData, portfolio: e.target.value })}
                         placeholder="https://linkedin.com/in/..."
-                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors"
+                        className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#A49150] rounded-md transition-colors"
                       />
                     </div>
                   </div>
@@ -731,7 +721,7 @@ export const ContactPage: React.FC = () => {
                       required
                       accept=".pdf,.doc,.docx"
                       onChange={(e) => setCareerFormData({ ...careerFormData, resumeFileName: e.target.files?.[0]?.name || '' })}
-                      className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors cursor-pointer file:mr-4 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-[10px] file:font-mono file:font-bold file:uppercase file:bg-[#16283D] file:text-white hover:file:bg-[#F2834C] file:cursor-pointer"
+                      className="bg-[#fdf9ed] border border-[#A49150]/30 px-4 py-3 text-xs text-[#16283D] focus:outline-none focus:border-[#A49150] rounded-md transition-colors cursor-pointer file:mr-4 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-[10px] file:font-mono file:font-bold file:uppercase file:bg-[#16283D] file:text-white hover:file:bg-[#A49150] file:cursor-pointer"
                     />
                   </div>
 
@@ -742,24 +732,19 @@ export const ContactPage: React.FC = () => {
                       value={careerFormData.message}
                       onChange={(e) => setCareerFormData({ ...careerFormData, message: e.target.value })}
                       placeholder="Tell us why you'd be a good fit for this role..."
-                      className="bg-[#fdf9ed] border border-[#A49150]/30 p-4 text-xs text-[#16283D] focus:outline-none focus:border-[#F2834C] rounded-md transition-colors"
+                      className="bg-[#fdf9ed] border border-[#A49150]/30 p-4 text-xs text-[#16283D] focus:outline-none focus:border-[#A49150] rounded-md transition-colors"
                     ></textarea>
                   </div>
 
                   <button
                     type="submit"
-                    className="group bg-[#F2834C] hover:bg-[#d9723f] text-white py-4 px-6 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 active:translate-y-0 flex items-center justify-center gap-3 rounded-md"
+                    className="group bg-[#A49150] hover:bg-[#8b7b44] text-white py-4 px-6 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 active:translate-y-0 flex items-center justify-center gap-3 rounded-md"
                   >
                     <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     <span>SUBMIT APPLICATION</span>
                     <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 -ml-2 group-hover:ml-0 transition-all" />
                   </button>
 
-                  <div className="flex items-center justify-center gap-6 text-[10px] font-mono text-gray-500 pt-2 border-t border-gray-100">
-                    <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-[#F2834C]" /> 256-bit Encrypted</span>
-                    <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-[#F2834C]" /> ISO 9001 Audited</span>
-                    <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-[#F2834C]" /> 24hr SLA</span>
-                  </div>
                 </form>
               )}
             </div>

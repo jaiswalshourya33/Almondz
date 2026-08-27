@@ -1,6 +1,6 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { LEADERSHIP, Leader } from '../data/leadership';
-import { Mail, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Mail, X, ChevronLeft, ChevronRight, Briefcase, Clock3, ArrowRight } from 'lucide-react';
 
 export const LeadershipPage: React.FC = () => {
   const [selectedLeader, setSelectedLeader] = useState<Leader | null>(null);
@@ -16,6 +16,22 @@ export const LeadershipPage: React.FC = () => {
       const rects = heading.getClientRects();
       const lastRect = rects[rects.length - 1];
       if (lastRect) setHeroLineWidth(lastRect.width);
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, []);
+
+  // The underline beneath each card's title (icon + "Whole Time Director"
+  // etc.) should swipe out to exactly that title's rendered width on hover,
+  // not a fixed arbitrary length — measure each card's title row once
+  // mounted and size its own underline to match.
+  useLayoutEffect(() => {
+    const measure = () => {
+      document.querySelectorAll<HTMLElement>('.director-title-row').forEach((row) => {
+        const line = row.parentElement?.querySelector<HTMLElement>('.director-title-line');
+        if (line) line.style.width = `${row.offsetWidth}px`;
+      });
     };
     measure();
     window.addEventListener('resize', measure);
@@ -125,7 +141,7 @@ export const LeadershipPage: React.FC = () => {
                 >
                   <button
                     type="button"
-                    className="leadership-profile-photo group/photo relative block aspect-[4/5] w-full overflow-hidden bg-[#fdf9ed] text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F2834C]"
+                    className="leadership-profile-photo group/photo relative block aspect-square w-full overflow-hidden bg-[#fdf9ed] text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F2834C]"
                     onClick={() => setSelectedLeader(leader)}
                     onPointerMove={moveCardToPointer}
                     onPointerLeave={resetCardPosition}
@@ -139,7 +155,7 @@ export const LeadershipPage: React.FC = () => {
                     />
                   </button>
 
-                  <div className="p-5 flex flex-col gap-1.5">
+                  <div className="p-4 flex flex-col gap-1">
                     <span className="inline-flex w-fit items-center text-[10px] font-mono uppercase tracking-widest text-[#F2834C] bg-[#F2834C]/10 border border-[#F2834C]/20 px-2.5 py-1 rounded-full mb-1">
                       {leader.category}
                     </span>
@@ -153,17 +169,28 @@ export const LeadershipPage: React.FC = () => {
                     type="button"
                     onClick={() => setSelectedLeader(leader)}
                     aria-label={`Read ${leader.name}'s profile`}
-                    className="leadership-card-hover-overlay absolute inset-0 z-20 flex flex-col justify-center gap-2 bg-[#fdf9ed] p-6 text-left opacity-0 translate-y-8 pointer-events-none transition-all duration-500 ease-out group-hover/card:opacity-100 group-hover/card:translate-y-0 group-hover/card:pointer-events-auto"
+                    className="leadership-card-hover-overlay absolute inset-0 z-20 flex flex-col justify-evenly bg-[#fdf9ed] p-6 text-left opacity-0 translate-y-8 pointer-events-none transition-all duration-500 ease-out group-hover/card:opacity-100 group-hover/card:translate-y-0 group-hover/card:pointer-events-auto"
                   >
                     <span className="inline-flex w-fit items-center text-[10px] font-mono uppercase tracking-widest text-[#F2834C] bg-[#F2834C]/10 border border-[#F2834C]/20 px-2.5 py-1 rounded-full mb-1">
                       {leader.category}
                     </span>
-                    <h3 className="text-xl font-serif font-bold text-[#16283D] leading-snug">{leader.name}</h3>
-                    <p className="text-sm font-medium text-[#A49150]">{leader.title}</p>
-                    <p className="text-[11px] text-[#1c1c15]/50">Experience: {leader.experience}</p>
-                    <span className="mt-4 inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-widest text-[#16283D] font-bold">
+                    <h3 className="text-2xl font-serif font-bold text-[#16283D] leading-snug">{leader.name}</h3>
+
+                    <div className="director-title-row flex items-center gap-2 mt-1 w-fit">
+                      <Briefcase className="w-3.5 h-3.5 text-[#A49150] shrink-0" />
+                      <p className="text-sm font-semibold text-[#A49150] uppercase tracking-wide">{leader.title}</p>
+                    </div>
+
+                    <div className="director-title-line h-px bg-[#A49150] origin-left scale-x-0 transition-transform duration-700 ease-out delay-300 group-hover/card:scale-x-100 my-2" style={{ width: '10rem' }}></div>
+
+                    <p className="inline-flex w-fit items-center gap-1.5 text-[11px] text-[#1c1c15]/55 font-medium">
+                      <Clock3 className="w-3.5 h-3.5 text-[#1c1c15]/35 shrink-0" />
+                      Experience: <span className="font-bold text-[#16283D]">{leader.experience}</span>
+                    </p>
+
+                    <span className="mt-4 inline-flex w-fit items-center gap-2 text-[10px] font-mono font-bold uppercase tracking-widest text-white bg-[#16283D] px-4 py-2 rounded-full transition-colors group-hover/card:bg-[#A49150]">
                       View Profile
-                      <span aria-hidden="true">&rarr;</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
                     </span>
                   </button>
                 </article>
@@ -210,7 +237,7 @@ export const LeadershipPage: React.FC = () => {
               <img
                 src={selectedLeader.image}
                 alt={selectedLeader.name}
-                className="h-full w-full object-cover"
+                className="h-full w-full object-contain"
                 referrerPolicy="no-referrer"
               />
             </div>

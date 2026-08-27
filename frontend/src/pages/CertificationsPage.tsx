@@ -45,10 +45,9 @@ export const CertificationsPage: React.FC = () => {
 
   const totalPages = Math.max(1, Math.ceil(CERTIFICATIONS.length / CERTS_PER_PAGE));
   const safePage = Math.min(currentPage, totalPages);
-  const paginatedCerts = CERTIFICATIONS.slice(
-    (safePage - 1) * CERTS_PER_PAGE,
-    safePage * CERTS_PER_PAGE,
-  );
+  const startIndex = (safePage - 1) * CERTS_PER_PAGE;
+  const endIndex = Math.min(startIndex + CERTS_PER_PAGE, CERTIFICATIONS.length);
+  const paginatedCerts = CERTIFICATIONS.slice(startIndex, endIndex);
 
   const goToPage = (page: number) => {
     const clamped = Math.min(Math.max(page, 1), totalPages);
@@ -114,45 +113,121 @@ export const CertificationsPage: React.FC = () => {
             ))}
           </div>
 
-          {/* Pagination — same styling/behavior as the Management Team page */}
+          {/* Cursor & Page-based Responsive Pagination — same styling/behavior as the Sector Detail page */}
           {totalPages > 1 && (
-            <div className="flex items-center justify-end gap-2 mt-12">
-              <button
-                type="button"
-                onClick={() => goToPage(safePage - 1)}
-                disabled={safePage === 1}
-                aria-label="Previous page"
-                className="w-8 h-8 rounded-full bg-white border border-[#A49150]/20 shadow-sm flex items-center justify-center text-[#16283D] transition-all duration-300 hover:bg-[#1E3A5F] hover:text-white hover:border-[#1E3A5F] hover:shadow-lg hover:shadow-[#1E3A5F]/25 hover:-translate-y-0.5 disabled:opacity-40 disabled:pointer-events-none disabled:hover:translate-y-0"
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
+            <div className="mt-12 pt-6 border-t border-gray-300/80">
+              {/* Mobile Pagination View (< sm) */}
+              <div className="flex sm:hidden flex-col items-center gap-3 w-full">
+                <div className="flex items-center justify-between w-full gap-2">
+                  <button
+                    type="button"
+                    onClick={() => goToPage(safePage - 1)}
+                    disabled={safePage === 1}
+                    className={`flex-1 py-2.5 px-3 text-xs font-semibold rounded-full flex items-center justify-center gap-1.5 border transition-all ${
+                      safePage === 1
+                        ? 'bg-gray-100 text-gray-300 border-gray-200 cursor-not-allowed'
+                        : 'bg-white text-gray-800 border-gray-300 active:bg-gray-100 shadow-2xs cursor-pointer'
+                    }`}
+                    aria-label="Previous page"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                    <span>Previous</span>
+                  </button>
 
-              {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((page) => (
-                <button
-                  type="button"
-                  key={page}
-                  onClick={() => goToPage(page)}
-                  aria-label={`Go to page ${page}`}
-                  aria-current={page === safePage ? 'page' : undefined}
-                  className={`w-8 h-8 rounded-full text-xs font-semibold transition-all duration-300 ${
-                    page === safePage
-                      ? 'bg-[#1E3A5F] text-white shadow-md shadow-[#1E3A5F]/30'
-                      : 'bg-white border border-[#A49150]/20 text-[#16283D] shadow-sm hover:bg-[#1E3A5F] hover:text-white hover:border-[#1E3A5F] hover:shadow-lg hover:shadow-[#1E3A5F]/25 hover:-translate-y-0.5'
-                  }`}
-                >
-                  {page}
-                </button>
-              ))}
+                  <div className="flex items-center gap-1 px-1">
+                    {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((page) => (
+                      <button
+                        key={page}
+                        type="button"
+                        onClick={() => goToPage(page)}
+                        className={`w-8 h-8 text-xs font-semibold rounded-full flex items-center justify-center transition-all cursor-pointer ${
+                          page === safePage
+                            ? 'bg-gray-900 text-white shadow-xs'
+                            : 'text-gray-700 bg-white border border-gray-200 active:bg-gray-100'
+                        }`}
+                      >
+                        {page}
+                      </button>
+                    ))}
+                  </div>
 
-              <button
-                type="button"
-                onClick={() => goToPage(safePage + 1)}
-                disabled={safePage === totalPages}
-                aria-label="Next page"
-                className="w-8 h-8 rounded-full bg-white border border-[#A49150]/20 shadow-sm flex items-center justify-center text-[#16283D] transition-all duration-300 hover:bg-[#1E3A5F] hover:text-white hover:border-[#1E3A5F] hover:shadow-lg hover:shadow-[#1E3A5F]/25 hover:-translate-y-0.5 disabled:opacity-40 disabled:pointer-events-none disabled:hover:translate-y-0"
-              >
-                <ChevronRight className="w-4 h-4" />
-              </button>
+                  <button
+                    type="button"
+                    onClick={() => goToPage(safePage + 1)}
+                    disabled={safePage === totalPages}
+                    className={`flex-1 py-2.5 px-3 text-xs font-semibold rounded-full flex items-center justify-center gap-1.5 border transition-all ${
+                      safePage === totalPages
+                        ? 'bg-gray-100 text-gray-300 border-gray-200 cursor-not-allowed'
+                        : 'bg-white text-gray-800 border-gray-300 active:bg-gray-100 shadow-2xs cursor-pointer'
+                    }`}
+                    aria-label="Next page"
+                  >
+                    <span>Next</span>
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                </div>
+
+                <span className="text-[11px] text-gray-500 font-medium">
+                  Showing {startIndex + 1}–{endIndex} of {CERTIFICATIONS.length} certificates
+                </span>
+              </div>
+
+              {/* Desktop / Tablet Pagination View (sm and above) */}
+              <div className="hidden sm:flex items-center justify-between w-full">
+                <span className="text-xs text-[#1c1c15]/70 font-medium">
+                  Showing <strong className="text-gray-900">{startIndex + 1}–{endIndex}</strong> of <strong className="text-gray-900">{CERTIFICATIONS.length}</strong> certificates • Page <strong className="text-gray-900">{safePage}</strong> of <strong className="text-gray-900">{totalPages}</strong>
+                </span>
+
+                <div className="inline-flex items-center gap-1.5 p-1 bg-white border border-gray-300 rounded-full shadow-2xs">
+                  <button
+                    type="button"
+                    onClick={() => goToPage(safePage - 1)}
+                    disabled={safePage === 1}
+                    className={`px-3 py-1.5 text-xs font-semibold rounded-full flex items-center gap-1 transition-all ${
+                      safePage === 1
+                        ? 'text-gray-300 cursor-not-allowed'
+                        : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100 cursor-pointer'
+                    }`}
+                    aria-label="Previous page"
+                  >
+                    <ChevronLeft className="w-3.5 h-3.5" />
+                    <span className="hidden sm:inline">Prev</span>
+                  </button>
+
+                  <div className="flex items-center gap-1 px-1">
+                    {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((page) => (
+                      <button
+                        key={page}
+                        type="button"
+                        onClick={() => goToPage(page)}
+                        aria-current={page === safePage ? 'page' : undefined}
+                        className={`w-7 h-7 text-xs font-semibold rounded-full flex items-center justify-center transition-all cursor-pointer ${
+                          page === safePage
+                            ? 'bg-gray-900 text-white shadow-xs'
+                            : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                        }`}
+                      >
+                        {page}
+                      </button>
+                    ))}
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => goToPage(safePage + 1)}
+                    disabled={safePage === totalPages}
+                    className={`px-3 py-1.5 text-xs font-semibold rounded-full flex items-center gap-1 transition-all ${
+                      safePage === totalPages
+                        ? 'text-gray-300 cursor-not-allowed'
+                        : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100 cursor-pointer'
+                    }`}
+                    aria-label="Next page"
+                  >
+                    <span className="hidden sm:inline">Next</span>
+                    <ChevronRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </div>
             </div>
           )}
         </div>

@@ -695,10 +695,10 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  background-color: #F2834C;
+  background-color: #A49150;
   background-image:
     radial-gradient(circle, rgba(255, 255, 255, 0.24) 1px, transparent 1.5px),
-    linear-gradient(120deg, #e9753e 0%, #F2834C 48%, #ef8d55 100%);
+    linear-gradient(120deg, #8f7d43 0%, #A49150 48%, #b8a565 100%);
   background-size: 24px 24px, 100% 100%;
 }
 

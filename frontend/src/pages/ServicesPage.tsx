@@ -1,7 +1,7 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { SERVICES, Service } from '../data/services';
-import { Wrench, CheckCircle2, Eye, X, Download, ShieldCheck, Layers, FileText, Sparkles } from 'lucide-react';
+import { CheckCircle2, Eye, X, Download } from 'lucide-react';
 
 export const ServicesPage: React.FC = () => {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
@@ -202,10 +202,9 @@ export const ServicesPage: React.FC = () => {
 
             {/* Right: content, slides in from the right on open */}
             <div className="flex-1 min-h-0 flex flex-col">
-              <div className="service-modal-content-panel flex-1 overflow-y-auto p-6 sm:p-10 flex flex-col gap-7">
+              <div className="service-modal-content-panel modal-scroll flex-1 overflow-y-auto p-6 sm:p-10 flex flex-col gap-6">
                 <div>
-                  <span className="inline-flex w-fit items-center gap-1.5 text-xs font-medium text-[#F2834C] bg-[#F2834C]/10 border border-[#F2834C]/20 px-3 py-1.5 rounded-full mb-3">
-                    <Wrench className="w-3.5 h-3.5" />
+                  <span className="inline-flex w-fit items-center text-xs font-medium text-[#A49150] bg-[#A49150]/10 border border-[#A49150]/30 px-3 py-1.5 rounded-full mb-3">
                     Service
                   </span>
                   <h3 className="text-2xl sm:text-3xl font-serif font-bold text-[#16283D] leading-tight">
@@ -216,75 +215,37 @@ export const ServicesPage: React.FC = () => {
                   </p>
                 </div>
 
-                {/* Highlights */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <div className="flex items-center gap-3 bg-[#fdf9ed] rounded-2xl p-4 border border-[#A49150]/15">
-                    <div className="w-10 h-10 rounded-xl bg-[#F2834C]/10 flex items-center justify-center shrink-0">
-                      <ShieldCheck className="w-5 h-5 text-[#F2834C]" />
-                    </div>
-                    <div>
-                      <p className="text-[11px] text-[#1c1c15]/50">Standard</p>
-                      <p className="text-sm font-semibold text-[#16283D]">ISO Certified</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 bg-[#fdf9ed] rounded-2xl p-4 border border-[#A49150]/15">
-                    <div className="w-10 h-10 rounded-xl bg-[#16283D]/8 flex items-center justify-center shrink-0">
-                      <Layers className="w-5 h-5 text-[#16283D]" />
-                    </div>
-                    <div>
-                      <p className="text-[11px] text-[#1c1c15]/50">Expertise</p>
-                      <p className="text-sm font-semibold text-[#16283D]">Tier-1 Engineers</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 bg-[#fdf9ed] rounded-2xl p-4 border border-[#A49150]/15">
-                    <div className="w-10 h-10 rounded-xl bg-[#A49150]/15 flex items-center justify-center shrink-0">
-                      <Sparkles className="w-5 h-5 text-[#A49150]" />
-                    </div>
-                    <div>
-                      <p className="text-[11px] text-[#1c1c15]/50">Turnaround</p>
-                      <p className="text-sm font-semibold text-[#16283D]">Milestone Driven</p>
-                    </div>
-                  </div>
+                {/* Section 1: Service Overview */}
+                <div className="space-y-2 pt-1">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-[#16283D] border-b border-gray-200 pb-1.5">
+                    Service Overview
+                  </h4>
+                  <p className="text-sm text-[#1c1c15]/75 leading-relaxed">{selectedService.description}</p>
                 </div>
 
-                {/* Scope of Work */}
-                <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
-                  <div className="flex items-center gap-2.5 mb-3">
-                    <div className="w-8 h-8 rounded-lg bg-[#F2834C]/10 flex items-center justify-center">
-                      <Sparkles className="w-4 h-4 text-[#F2834C]" />
-                    </div>
-                    <h4 className="text-sm font-semibold text-[#16283D]">Scope of Work</h4>
-                  </div>
-                  <p className="text-sm text-[#1c1c15]/70 leading-relaxed">{selectedService.description}</p>
-                </div>
-
-                {/* Methodology */}
-                <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
-                  <div className="flex items-center gap-2.5 mb-3">
-                    <div className="w-8 h-8 rounded-lg bg-[#16283D]/8 flex items-center justify-center">
-                      <ShieldCheck className="w-4 h-4 text-[#16283D]" />
-                    </div>
-                    <h4 className="text-sm font-semibold text-[#16283D]">How We Deliver It</h4>
-                  </div>
-                  <p className="text-sm text-[#1c1c15]/70 leading-relaxed">{selectedService.methodology}</p>
-                </div>
-
-                {/* Deliverables */}
-                <div>
-                  <div className="flex items-center gap-2.5 mb-4">
-                    <div className="w-8 h-8 rounded-lg bg-[#A49150]/15 flex items-center justify-center">
-                      <FileText className="w-4 h-4 text-[#A49150]" />
-                    </div>
-                    <h4 className="text-sm font-semibold text-[#16283D]">What You Get</h4>
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {/* Section 2: Scope of Work */}
+                <div className="space-y-2 pt-1">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-[#16283D] border-b border-gray-200 pb-1.5">
+                    Scope of Work
+                  </h4>
+                  <ul className="space-y-1.5 text-sm text-[#1c1c15]/75">
                     {selectedService.deliverables.map((del, dIdx) => (
-                      <div key={dIdx} className="flex items-center gap-3 bg-[#fdf9ed] rounded-xl p-3.5 border border-[#A49150]/15 hover:border-[#F2834C]/40 transition-colors">
-                        <CheckCircle2 className="w-4 h-4 text-[#F2834C] shrink-0" />
-                        <span className="text-sm text-[#16283D]">{del}</span>
-                      </div>
+                      <li key={dIdx} className="flex items-start gap-2">
+                        <span className="text-[#A49150] font-bold text-sm leading-none mt-0.5">•</span>
+                        <span className="font-medium text-[#16283D]/90 leading-relaxed">{del}</span>
+                      </li>
                     ))}
-                  </div>
+                  </ul>
+                </div>
+
+                {/* Section 3: How We Deliver It */}
+                <div className="space-y-2 pt-1">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-[#16283D] border-b border-gray-200 pb-1.5">
+                    How We Deliver It
+                  </h4>
+                  <p className="text-sm text-[#1c1c15]/75 leading-relaxed bg-[#fdf9ed] border-l-3 border-[#A49150] p-3.5 rounded-xs">
+                    {selectedService.methodology}
+                  </p>
                 </div>
               </div>
 
@@ -301,7 +262,7 @@ export const ServicesPage: React.FC = () => {
                     handleDownloadBrochure(selectedService.title);
                     setSelectedService(null);
                   }}
-                  className="px-6 py-2.5 bg-[#F2834C] hover:bg-[#d9723f] text-white text-sm font-semibold rounded-full shadow-md hover:shadow-lg flex items-center gap-2 transition-all hover:-translate-y-0.5 active:translate-y-0"
+                  className="px-6 py-2.5 bg-[#A49150] hover:bg-[#8b7b44] text-white text-sm font-semibold rounded-full shadow-md hover:shadow-lg flex items-center gap-2 transition-all hover:-translate-y-0.5 active:translate-y-0"
                 >
                   <Download className="w-4 h-4" />
                   <span>Download Service Brief</span>

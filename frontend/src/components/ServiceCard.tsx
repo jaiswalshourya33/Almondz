@@ -11,7 +11,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
   return (
     <Link 
       to={`/services?service=${service.slug}`}
-      className="service-parallax-card group bg-white border border-[#A49150]/30 p-6 flex flex-col justify-between shadow-sm hover:shadow-xl hover:border-[#F2834C] transition-all duration-500"
+      className="service-parallax-card group bg-white border border-[#A49150]/30 p-6 flex flex-col justify-between shadow-sm hover:shadow-xl hover:border-[#A49150] transition-all duration-500"
     >
       <div className="service-card__body flex flex-col gap-4">
         <div className="service-card__top flex justify-end items-start">
@@ -20,7 +20,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
           </span>
         </div>
 
-        <h3 className="service-card__title text-lg font-serif text-[#16283D] group-hover:text-[#F2834C] transition-colors leading-snug">
+        <h3 className="service-card__title text-lg font-serif text-[#16283D] group-hover:text-[#A49150] transition-colors leading-snug">
           {service.title}
         </h3>
 
@@ -33,24 +33,24 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
           <ul className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
             {service.deliverables.map((item, idx) => (
               <li key={idx} className="flex items-start gap-2 text-xs text-[#1c1c15]">
-                <CheckCircle2 className="mt-0.5 w-3.5 h-3.5 text-[#F2834C] shrink-0" />
+                <CheckCircle2 className="mt-0.5 w-3.5 h-3.5 text-[#A49150] shrink-0" />
                 <span>{item}</span>
               </li>
             ))}
           </ul>
         </div>
 
-        <div className="service-card__methodology border-l-2 border-[#F2834C] bg-[#fdf9ed] px-3 py-2.5">
+        <div className="service-card__methodology border-l-2 border-[#A49150] bg-[#fdf9ed] px-3 py-2.5">
           <span className="block text-[10px] font-mono font-bold tracking-widest text-[#16283D] uppercase">Delivery approach</span>
           <p className="mt-1 text-xs leading-relaxed text-[#1c1c15]">{service.methodology}</p>
         </div>
       </div>
 
       <div className="service-card__footer pt-6 mt-4 border-t border-gray-100 flex items-center justify-between">
-        <span className="text-xs font-mono font-bold text-[#16283D] group-hover:text-[#F2834C] transition-colors">
+        <span className="text-xs font-mono font-bold text-[#16283D] group-hover:text-[#A49150] transition-colors">
           VIEW CAPABILITIES
         </span>
-        <ArrowRight className="w-4 h-4 text-[#F2834C] group-hover:translate-x-1 transition-transform" />
+        <ArrowRight className="w-4 h-4 text-[#A49150] group-hover:translate-x-1 transition-transform" />
       </div>
     </Link>
   );

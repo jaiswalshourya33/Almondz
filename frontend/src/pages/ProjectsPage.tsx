@@ -1,11 +1,13 @@
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { PROJECTS, Project } from '../data/projects';
 import { SECTORS } from '../data/sectors';
 import { ProjectCard } from '../components/ProjectCard';
 import { ProjectVideoModal } from '../components/ProjectVideoModal';
 import { ProjectDetailsModal } from '../components/ProjectDetailsModal';
-import { Search, Filter } from 'lucide-react';
+import { Search, Filter, ChevronLeft, ChevronRight } from 'lucide-react';
+
+const PROJECTS_PER_PAGE = 6;
 
 export const ProjectsPage: React.FC = () => {
   const { filter } = useParams<{ filter?: string }>();
@@ -18,6 +20,8 @@ export const ProjectsPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [activeVideo, setActiveVideo] = useState<{ url: string; title: string } | null>(null);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const gridSectionRef = useRef<HTMLElement | null>(null);
   const heroHeadingRef = useRef<HTMLHeadingElement | null>(null);
   const [heroLineWidth, setHeroLineWidth] = useState<number | null>(null);
 
@@ -42,6 +46,25 @@ export const ProjectsPage: React.FC = () => {
                           proj.client.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesStatus && matchesSector && matchesSearch;
   });
+
+  // Reset to page 1 whenever the filtered result set changes, so a filter
+  // or search that shrinks the results can never leave the user stranded
+  // on a page number that no longer exists.
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedStatus, selectedSector, searchQuery]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredProjects.length / PROJECTS_PER_PAGE));
+  const safePage = Math.min(currentPage, totalPages);
+  const startIndex = (safePage - 1) * PROJECTS_PER_PAGE;
+  const endIndex = Math.min(startIndex + PROJECTS_PER_PAGE, filteredProjects.length);
+  const paginatedProjects = filteredProjects.slice(startIndex, endIndex);
+
+  const goToPage = (page: number) => {
+    const clamped = Math.min(Math.max(page, 1), totalPages);
+    setCurrentPage(clamped);
+    gridSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   return (
     <div className="dropdown-content-page flex flex-col min-h-screen bg-[#fdf9ed] pt-24">
@@ -99,29 +122,149 @@ export const ProjectsPage: React.FC = () => {
       </section>
 
       {/* Projects Grid */}
-      <section className="dropdown-scroll-content py-16">
+      <section ref={gridSectionRef} className="dropdown-scroll-content py-16 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {filteredProjects.length === 0 ? (
             <div className="text-center py-20 bg-white border border-[#A49150]/30 rounded-lg">
               <h3 className="text-xl font-serif text-[#16283D]">No projects found matching your criteria.</h3>
               <p className="text-xs text-gray-500 mt-2">Try adjusting your filter or search query.</p>
-              <button 
+              <button
                 onClick={() => { setSelectedStatus('All'); setSelectedSector('All'); setSearchQuery(''); }}
-                className="mt-6 bg-[#F2834C] hover:bg-[#d9723f] text-white px-6 py-2.5 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 rounded-md border border-[#F2834C]/20"
+                className="mt-6 bg-[#A49150] hover:bg-[#8b7b44] text-white px-6 py-2.5 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 rounded-md border border-[#A49150]/20"
               >
                 Reset Filters
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredProjects.map((proj) => (
-                <ProjectCard
-                  key={proj.id}
-                  project={proj}
-                  onOpenDetails={(project) => setSelectedProject(project)}
-                />
-              ))}
-            </div>
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {paginatedProjects.map((proj) => (
+                  <ProjectCard
+                    key={proj.id}
+                    project={proj}
+                    onOpenDetails={(project) => setSelectedProject(project)}
+                  />
+                ))}
+              </div>
+
+              {/* Cursor & Page-based Responsive Pagination — same styling/behavior as the Management Team page */}
+              {totalPages > 1 && (
+                <div className="mt-12 pt-6 border-t border-gray-300/80">
+                  {/* Mobile Pagination View (< sm) */}
+                  <div className="flex sm:hidden flex-col items-center gap-3 w-full">
+                    <div className="flex items-center justify-between w-full gap-2">
+                      <button
+                        type="button"
+                        onClick={() => goToPage(safePage - 1)}
+                        disabled={safePage === 1}
+                        className={`flex-1 py-2.5 px-3 text-xs font-semibold rounded-full flex items-center justify-center gap-1.5 border transition-all ${
+                          safePage === 1
+                            ? 'bg-gray-100 text-gray-300 border-gray-200 cursor-not-allowed'
+                            : 'bg-white text-gray-800 border-gray-300 active:bg-gray-100 shadow-2xs cursor-pointer'
+                        }`}
+                        aria-label="Previous page"
+                      >
+                        <ChevronLeft className="w-4 h-4" />
+                        <span>Previous</span>
+                      </button>
+
+                      <div className="flex items-center gap-1 px-1">
+                        {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((page) => (
+                          <button
+                            key={page}
+                            type="button"
+                            onClick={() => goToPage(page)}
+                            className={`w-8 h-8 text-xs font-semibold rounded-full flex items-center justify-center transition-all cursor-pointer ${
+                              page === safePage
+                                ? 'bg-gray-900 text-white shadow-xs'
+                                : 'text-gray-700 bg-white border border-gray-200 active:bg-gray-100'
+                            }`}
+                          >
+                            {page}
+                          </button>
+                        ))}
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => goToPage(safePage + 1)}
+                        disabled={safePage === totalPages}
+                        className={`flex-1 py-2.5 px-3 text-xs font-semibold rounded-full flex items-center justify-center gap-1.5 border transition-all ${
+                          safePage === totalPages
+                            ? 'bg-gray-100 text-gray-300 border-gray-200 cursor-not-allowed'
+                            : 'bg-white text-gray-800 border-gray-300 active:bg-gray-100 shadow-2xs cursor-pointer'
+                        }`}
+                        aria-label="Next page"
+                      >
+                        <span>Next</span>
+                        <ChevronRight className="w-4 h-4" />
+                      </button>
+                    </div>
+
+                    <span className="text-[11px] text-gray-500 font-medium">
+                      Showing {startIndex + 1}–{endIndex} of {filteredProjects.length} projects
+                    </span>
+                  </div>
+
+                  {/* Desktop / Tablet Pagination View (sm and above) */}
+                  <div className="hidden sm:flex items-center justify-between w-full">
+                    <span className="text-xs text-[#1c1c15]/70 font-medium">
+                      Showing <strong className="text-gray-900">{startIndex + 1}–{endIndex}</strong> of <strong className="text-gray-900">{filteredProjects.length}</strong> projects • Page <strong className="text-gray-900">{safePage}</strong> of <strong className="text-gray-900">{totalPages}</strong>
+                    </span>
+
+                    <div className="inline-flex items-center gap-1.5 p-1 bg-white border border-gray-300 rounded-full shadow-2xs">
+                      <button
+                        type="button"
+                        onClick={() => goToPage(safePage - 1)}
+                        disabled={safePage === 1}
+                        className={`px-3 py-1.5 text-xs font-semibold rounded-full flex items-center gap-1 transition-all ${
+                          safePage === 1
+                            ? 'text-gray-300 cursor-not-allowed'
+                            : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100 cursor-pointer'
+                        }`}
+                        aria-label="Previous page"
+                      >
+                        <ChevronLeft className="w-3.5 h-3.5" />
+                        <span className="hidden sm:inline">Prev</span>
+                      </button>
+
+                      <div className="flex items-center gap-1 px-1">
+                        {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((page) => (
+                          <button
+                            key={page}
+                            type="button"
+                            onClick={() => goToPage(page)}
+                            aria-current={page === safePage ? 'page' : undefined}
+                            className={`w-7 h-7 text-xs font-semibold rounded-full flex items-center justify-center transition-all cursor-pointer ${
+                              page === safePage
+                                ? 'bg-gray-900 text-white shadow-xs'
+                                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                            }`}
+                          >
+                            {page}
+                          </button>
+                        ))}
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => goToPage(safePage + 1)}
+                        disabled={safePage === totalPages}
+                        className={`px-3 py-1.5 text-xs font-semibold rounded-full flex items-center gap-1 transition-all ${
+                          safePage === totalPages
+                            ? 'text-gray-300 cursor-not-allowed'
+                            : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100 cursor-pointer'
+                        }`}
+                        aria-label="Next page"
+                      >
+                        <span className="hidden sm:inline">Next</span>
+                        <ChevronRight className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </>
           )}
         </div>
       </section>

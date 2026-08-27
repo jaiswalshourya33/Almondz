@@ -109,12 +109,12 @@ export const SectorDetail: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
             {/* Left Column: Services & Capabilities (8 cols) */}
-            <div className="lg:col-span-8 bg-white border border-gray-200 p-8 sm:p-10 shadow-xs">
+            <div className="group/services-card lg:col-span-8 bg-white border border-gray-200 p-8 sm:p-10 shadow-xs">
               <div>
                 <h3 className="text-2xl sm:text-3xl font-serif font-bold text-[#16283D]">
                   Services &amp; Scope of Work
                 </h3>
-                <div className="w-14 h-1 bg-[#F2834C] mt-2.5 mb-6"></div>
+                <div className="w-14 h-1 bg-[#F2834C] mt-2.5 mb-6 origin-left scale-x-0 transition-transform duration-700 ease-out delay-300 group-hover/services-card:scale-x-100"></div>
 
                 <p className="text-sm text-gray-600 leading-relaxed mb-8">
                   Almondz Global Infra-Consultant Limited provides end-to-end consulting and advisory solutions across all stages of {sector.title.toLowerCase()} development. Our multidisciplinary engineering teams deliver technical rigor, statutory adherence, and value engineering for central, state, and private infrastructure authorities.
@@ -145,11 +145,11 @@ export const SectorDetail: React.FC = () => {
             </div>
 
             {/* Right Column: Contact / Inquiry Panel (4 cols) */}
-            <div className="lg:col-span-4 bg-white border border-gray-200 border-t-4 border-t-[#F2834C] p-6 sm:p-8 shadow-xs">
+            <div className="group/consult-card lg:col-span-4 bg-white border border-gray-200 border-t-4 border-t-[#F2834C] p-6 sm:p-8 shadow-xs">
               <h4 className="text-xl font-serif font-bold text-[#16283D]">
                 Need Sector Consultation?
               </h4>
-              <div className="w-10 h-0.5 bg-[#F2834C] mt-2 mb-4"></div>
+              <div className="w-10 h-0.5 bg-[#F2834C] mt-2 mb-4 origin-left scale-x-0 transition-transform duration-700 ease-out delay-300 group-hover/consult-card:scale-x-100"></div>
 
               <p className="text-xs sm:text-sm text-gray-600 leading-relaxed mb-6">
                 Speak directly with our senior infrastructure directors and domain experts regarding project feasibility, DPR preparation, or transaction advisory.

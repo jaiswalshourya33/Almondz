@@ -11,10 +11,6 @@ import {
   Search,
   Filter,
   X,
-  ShieldCheck,
-  Building2,
-  Compass,
-  TrendingUp,
   ChevronLeft,
   ChevronRight
 } from 'lucide-react';
@@ -131,10 +127,9 @@ export const ManagementTeamPage: React.FC = () => {
   // Defensive clamp: if totalPages ever shrinks below the current page for
   // any reason, fall back to the last valid page instead of rendering blank.
   const safePage = Math.min(currentPage, totalPages);
-  const paginatedMembers = filteredMembers.slice(
-    (safePage - 1) * MEMBERS_PER_PAGE,
-    safePage * MEMBERS_PER_PAGE,
-  );
+  const startIndex = (safePage - 1) * MEMBERS_PER_PAGE;
+  const endIndex = Math.min(startIndex + MEMBERS_PER_PAGE, filteredMembers.length);
+  const paginatedMembers = filteredMembers.slice(startIndex, endIndex);
 
   const goToPage = (page: number) => {
     const clamped = Math.min(Math.max(page, 1), totalPages);
@@ -163,45 +158,45 @@ export const ManagementTeamPage: React.FC = () => {
       </section>
 
       {/* Highlights Bar */}
-      <section ref={highlightsSectionRef} className="bg-[#071A2D] text-white py-8 border-b border-[#A49150]/20">
+      <section ref={highlightsSectionRef} className="bg-[#071A2D] text-white py-4 border-b border-[#A49150]/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-y md:divide-y-0 md:divide-x divide-white/10">
-            <div className="p-3">
-              <CountUpValue value="200+" start={highlightsStarted} className="text-3xl sm:text-4xl font-serif font-bold text-[#F2834C]" />
-              <div className="text-xs font-mono text-white/70 mt-1 uppercase tracking-wider">Cumulative Experience (Years)</div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center divide-y md:divide-y-0 md:divide-x divide-white/10">
+            <div className="p-1.5">
+              <CountUpValue value="200+" start={highlightsStarted} className="text-2xl sm:text-3xl font-serif font-bold text-[#F2834C]" />
+              <div className="text-[11px] font-mono text-white/70 mt-0.5 uppercase tracking-wider">Cumulative Experience (Years)</div>
             </div>
-            <div className="p-3">
-              <CountUpValue value="5" start={highlightsStarted} className="text-3xl sm:text-4xl font-serif font-bold text-white" />
-              <div className="text-xs font-mono text-white/70 mt-1 uppercase tracking-wider">Core Specialist Divisions</div>
+            <div className="p-1.5">
+              <CountUpValue value="5" start={highlightsStarted} className="text-2xl sm:text-3xl font-serif font-bold text-white" />
+              <div className="text-[11px] font-mono text-white/70 mt-0.5 uppercase tracking-wider">Core Specialist Divisions</div>
             </div>
-            <div className="p-3">
-              <CountUpValue value="100+" start={highlightsStarted} className="text-3xl sm:text-4xl font-serif font-bold text-[#A49150]" />
-              <div className="text-xs font-mono text-white/70 mt-1 uppercase tracking-wider">Active Infrastructure Projects</div>
+            <div className="p-1.5">
+              <CountUpValue value="100+" start={highlightsStarted} className="text-2xl sm:text-3xl font-serif font-bold text-[#A49150]" />
+              <div className="text-[11px] font-mono text-white/70 mt-0.5 uppercase tracking-wider">Active Infrastructure Projects</div>
             </div>
-            <div className="p-3">
-              <CountUpValue value="100%" start={highlightsStarted} className="text-3xl sm:text-4xl font-serif font-bold text-[#F2834C]" />
-              <div className="text-xs font-mono text-white/70 mt-1 uppercase tracking-wider">ISO Quality Governance</div>
+            <div className="p-1.5">
+              <CountUpValue value="100%" start={highlightsStarted} className="text-2xl sm:text-3xl font-serif font-bold text-[#F2834C]" />
+              <div className="text-[11px] font-mono text-white/70 mt-0.5 uppercase tracking-wider">ISO Quality Governance</div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Main Roster Section */}
-      <section ref={rosterSectionRef} className="about-dropdown-content py-16 scroll-mt-24">
+      <section ref={rosterSectionRef} className="about-dropdown-content pt-16 pb-8 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Controls: Search & Department Tabs */}
           <div className="flex flex-col lg:flex-row gap-4 justify-between items-stretch lg:items-center mb-12 bg-white rounded-2xl border border-[#A49150]/15 shadow-sm p-3">
             {/* Department Filter Tabs */}
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1.5">
               {departments.map((dept) => (
                 <button
                   key={dept}
                   onClick={() => setSelectedDepartment(dept)}
-                  className={`px-4 py-2 text-xs font-medium rounded-full transition-all duration-300 ${
+                  className={`px-2.5 py-1.5 text-[10px] font-mono font-bold uppercase whitespace-nowrap transition-all duration-300 rounded-md shadow-sm hover:shadow ${
                     selectedDepartment === dept
-                      ? 'bg-[#F2834C] text-white shadow-md shadow-[#F2834C]/30 scale-[1.03]'
-                      : 'bg-[#fdf9ed] text-[#16283D] hover:bg-[#16283D] hover:text-white'
+                      ? 'bg-[#16283D] text-white border border-[#16283D] shadow-md -translate-y-0.5'
+                      : 'bg-[#fdf9ed] text-[#16283D] border border-[#A49150]/30 hover:border-[#F2834C] hover:bg-[#A49150]/10 hover:-translate-y-0.5 active:translate-y-0'
                   }`}
                 >
                   {dept}
@@ -283,45 +278,121 @@ export const ManagementTeamPage: React.FC = () => {
             </div>
           ) : null}
 
-          {/* Pagination — only shown once there's more than one page */}
+          {/* Cursor & Page-based Responsive Pagination — same styling/behavior as the Sector Detail page */}
           {filteredMembers.length > 0 && totalPages > 1 && (
-            <div className="flex items-center justify-end gap-2 mt-12">
-              <button
-                type="button"
-                onClick={() => goToPage(safePage - 1)}
-                disabled={safePage === 1}
-                aria-label="Previous page"
-                className="w-8 h-8 rounded-full bg-white border border-[#A49150]/20 shadow-sm flex items-center justify-center text-[#16283D] transition-all duration-300 hover:bg-[#1E3A5F] hover:text-white hover:border-[#1E3A5F] hover:shadow-lg hover:shadow-[#1E3A5F]/25 hover:-translate-y-0.5 disabled:opacity-40 disabled:pointer-events-none disabled:hover:translate-y-0"
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
+            <div className="mt-12 pt-6 border-t border-gray-300/80">
+              {/* Mobile Pagination View (< sm) */}
+              <div className="flex sm:hidden flex-col items-center gap-3 w-full">
+                <div className="flex items-center justify-between w-full gap-2">
+                  <button
+                    type="button"
+                    onClick={() => goToPage(safePage - 1)}
+                    disabled={safePage === 1}
+                    className={`flex-1 py-2.5 px-3 text-xs font-semibold rounded-full flex items-center justify-center gap-1.5 border transition-all ${
+                      safePage === 1
+                        ? 'bg-gray-100 text-gray-300 border-gray-200 cursor-not-allowed'
+                        : 'bg-white text-gray-800 border-gray-300 active:bg-gray-100 shadow-2xs cursor-pointer'
+                    }`}
+                    aria-label="Previous page"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                    <span>Previous</span>
+                  </button>
 
-              {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((page) => (
-                <button
-                  type="button"
-                  key={page}
-                  onClick={() => goToPage(page)}
-                  aria-label={`Go to page ${page}`}
-                  aria-current={page === safePage ? 'page' : undefined}
-                  className={`w-8 h-8 rounded-full text-xs font-semibold transition-all duration-300 ${
-                    page === safePage
-                      ? 'bg-[#1E3A5F] text-white shadow-md shadow-[#1E3A5F]/30'
-                      : 'bg-white border border-[#A49150]/20 text-[#16283D] shadow-sm hover:bg-[#1E3A5F] hover:text-white hover:border-[#1E3A5F] hover:shadow-lg hover:shadow-[#1E3A5F]/25 hover:-translate-y-0.5'
-                  }`}
-                >
-                  {page}
-                </button>
-              ))}
+                  <div className="flex items-center gap-1 px-1">
+                    {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((page) => (
+                      <button
+                        key={page}
+                        type="button"
+                        onClick={() => goToPage(page)}
+                        className={`w-8 h-8 text-xs font-semibold rounded-full flex items-center justify-center transition-all cursor-pointer ${
+                          page === safePage
+                            ? 'bg-gray-900 text-white shadow-xs'
+                            : 'text-gray-700 bg-white border border-gray-200 active:bg-gray-100'
+                        }`}
+                      >
+                        {page}
+                      </button>
+                    ))}
+                  </div>
 
-              <button
-                type="button"
-                onClick={() => goToPage(safePage + 1)}
-                disabled={safePage === totalPages}
-                aria-label="Next page"
-                className="w-8 h-8 rounded-full bg-white border border-[#A49150]/20 shadow-sm flex items-center justify-center text-[#16283D] transition-all duration-300 hover:bg-[#1E3A5F] hover:text-white hover:border-[#1E3A5F] hover:shadow-lg hover:shadow-[#1E3A5F]/25 hover:-translate-y-0.5 disabled:opacity-40 disabled:pointer-events-none disabled:hover:translate-y-0"
-              >
-                <ChevronRight className="w-4 h-4" />
-              </button>
+                  <button
+                    type="button"
+                    onClick={() => goToPage(safePage + 1)}
+                    disabled={safePage === totalPages}
+                    className={`flex-1 py-2.5 px-3 text-xs font-semibold rounded-full flex items-center justify-center gap-1.5 border transition-all ${
+                      safePage === totalPages
+                        ? 'bg-gray-100 text-gray-300 border-gray-200 cursor-not-allowed'
+                        : 'bg-white text-gray-800 border-gray-300 active:bg-gray-100 shadow-2xs cursor-pointer'
+                    }`}
+                    aria-label="Next page"
+                  >
+                    <span>Next</span>
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                </div>
+
+                <span className="text-[11px] text-gray-500 font-medium">
+                  Showing {startIndex + 1}–{endIndex} of {filteredMembers.length} team members
+                </span>
+              </div>
+
+              {/* Desktop / Tablet Pagination View (sm and above) */}
+              <div className="hidden sm:flex items-center justify-between w-full">
+                <span className="text-xs text-[#1c1c15]/70 font-medium">
+                  Showing <strong className="text-gray-900">{startIndex + 1}–{endIndex}</strong> of <strong className="text-gray-900">{filteredMembers.length}</strong> team members • Page <strong className="text-gray-900">{safePage}</strong> of <strong className="text-gray-900">{totalPages}</strong>
+                </span>
+
+                <div className="inline-flex items-center gap-1.5 p-1 bg-white border border-gray-300 rounded-full shadow-2xs">
+                  <button
+                    type="button"
+                    onClick={() => goToPage(safePage - 1)}
+                    disabled={safePage === 1}
+                    className={`px-3 py-1.5 text-xs font-semibold rounded-full flex items-center gap-1 transition-all ${
+                      safePage === 1
+                        ? 'text-gray-300 cursor-not-allowed'
+                        : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100 cursor-pointer'
+                    }`}
+                    aria-label="Previous page"
+                  >
+                    <ChevronLeft className="w-3.5 h-3.5" />
+                    <span className="hidden sm:inline">Prev</span>
+                  </button>
+
+                  <div className="flex items-center gap-1 px-1">
+                    {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((page) => (
+                      <button
+                        key={page}
+                        type="button"
+                        onClick={() => goToPage(page)}
+                        aria-current={page === safePage ? 'page' : undefined}
+                        className={`w-7 h-7 text-xs font-semibold rounded-full flex items-center justify-center transition-all cursor-pointer ${
+                          page === safePage
+                            ? 'bg-gray-900 text-white shadow-xs'
+                            : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                        }`}
+                      >
+                        {page}
+                      </button>
+                    ))}
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => goToPage(safePage + 1)}
+                    disabled={safePage === totalPages}
+                    className={`px-3 py-1.5 text-xs font-semibold rounded-full flex items-center gap-1 transition-all ${
+                      safePage === totalPages
+                        ? 'text-gray-300 cursor-not-allowed'
+                        : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100 cursor-pointer'
+                    }`}
+                    aria-label="Next page"
+                  >
+                    <span className="hidden sm:inline">Next</span>
+                    <ChevronRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </div>
             </div>
           )}
 
@@ -344,7 +415,7 @@ export const ManagementTeamPage: React.FC = () => {
       </section>
 
       {/* Governance Philosophy Section */}
-      <section className="py-20 bg-[#fdf9ed]">
+      <section className="pt-8 pb-20 bg-[#fdf9ed]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div ref={governanceBannerRef} className="gov-banner relative rounded-3xl shadow-2xl overflow-hidden">
             {/* Full-width background image — its height now follows the
@@ -367,62 +438,50 @@ export const ManagementTeamPage: React.FC = () => {
             <div className="relative m-5 sm:m-8 lg:m-10">
               <div className="gov-banner__card w-full max-w-2xl bg-white rounded-2xl shadow-2xl ring-1 ring-black/5 border-t-4 border-[#A49150] p-6 sm:p-8 flex flex-col gap-4">
               <div>
-                <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">EXECUTIVE GOVERNANCE</span>
+                <span className="text-xs font-mono tracking-widest text-[#A49150] uppercase">EXECUTIVE GOVERNANCE</span>
                 <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#16283D] mt-2">Pillars of Management Leadership</h2>
                 <p className="text-sm text-[#1c1c15]/70 mt-3 leading-relaxed">
                   Our executive leadership adheres to rigorous institutional protocols, ensuring total accountability, transparent governance, and technical excellence across all client mandates.
                 </p>
               </div>
 
-              <ul className="flex flex-col gap-3">
-                <li className="flex items-start gap-3">
-                  <span className="w-8 h-8 rounded-lg bg-[#F2834C]/10 flex items-center justify-center shrink-0">
-                    <ShieldCheck className="w-4 h-4 text-[#F2834C]" />
-                  </span>
-                  <div>
-                    <h3 className="text-sm font-semibold text-[#16283D]">Technical Rigor</h3>
-                    <p className="text-xs text-[#1c1c15]/70 mt-0.5 leading-relaxed">
-                      Zero compromise on engineering safety, structural load validations, and international ISO quality standards.
-                    </p>
-                  </div>
-                </li>
+              <div className="flex flex-col gap-4">
+                <div className="space-y-1.5">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#16283D] border-b border-gray-200 pb-1.5">
+                    Technical Rigor
+                  </h3>
+                  <p className="text-xs text-[#1c1c15]/70 leading-relaxed">
+                    Zero compromise on engineering safety, structural load validations, and international ISO quality standards.
+                  </p>
+                </div>
 
-                <li className="flex items-start gap-3">
-                  <span className="w-8 h-8 rounded-lg bg-[#A49150]/15 flex items-center justify-center shrink-0">
-                    <TrendingUp className="w-4 h-4 text-[#A49150]" />
-                  </span>
-                  <div>
-                    <h3 className="text-sm font-semibold text-[#16283D]">Fiscal Integrity</h3>
-                    <p className="text-xs text-[#1c1c15]/70 mt-0.5 leading-relaxed">
-                      Transparent transaction advisory, risk-mitigated PPP models, and prudent financial capital allocation.
-                    </p>
-                  </div>
-                </li>
+                <div className="space-y-1.5">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#16283D] border-b border-gray-200 pb-1.5">
+                    Fiscal Integrity
+                  </h3>
+                  <p className="text-xs text-[#1c1c15]/70 leading-relaxed">
+                    Transparent transaction advisory, risk-mitigated PPP models, and prudent financial capital allocation.
+                  </p>
+                </div>
 
-                <li className="flex items-start gap-3">
-                  <span className="w-8 h-8 rounded-lg bg-[#F2834C]/10 flex items-center justify-center shrink-0">
-                    <Compass className="w-4 h-4 text-[#F2834C]" />
-                  </span>
-                  <div>
-                    <h3 className="text-sm font-semibold text-[#16283D]">BIM & GIS Innovation</h3>
-                    <p className="text-xs text-[#1c1c15]/70 mt-0.5 leading-relaxed">
-                      Pioneering 3D digital twin modeling, automated pavement audits, and drone-based spatial mapping.
-                    </p>
-                  </div>
-                </li>
+                <div className="space-y-1.5">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#16283D] border-b border-gray-200 pb-1.5">
+                    BIM & GIS Innovation
+                  </h3>
+                  <p className="text-xs text-[#1c1c15]/70 leading-relaxed">
+                    Pioneering 3D digital twin modeling, automated pavement audits, and drone-based spatial mapping.
+                  </p>
+                </div>
 
-                <li className="flex items-start gap-3">
-                  <span className="w-8 h-8 rounded-lg bg-[#A49150]/15 flex items-center justify-center shrink-0">
-                    <Building2 className="w-4 h-4 text-[#A49150]" />
-                  </span>
-                  <div>
-                    <h3 className="text-sm font-semibold text-[#16283D]">ESG & Stewardship</h3>
-                    <p className="text-xs text-[#1c1c15]/70 mt-0.5 leading-relaxed">
-                      Embedding environmental protection, carbon footprint auditing, and social safeguards into every master plan.
-                    </p>
-                  </div>
-                </li>
-              </ul>
+                <div className="space-y-1.5">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#16283D] border-b border-gray-200 pb-1.5">
+                    ESG & Stewardship
+                  </h3>
+                  <p className="text-xs text-[#1c1c15]/70 leading-relaxed">
+                    Embedding environmental protection, carbon footprint auditing, and social safeguards into every master plan.
+                  </p>
+                </div>
+              </div>
               </div>
             </div>
           </div>
@@ -455,7 +514,7 @@ export const ManagementTeamPage: React.FC = () => {
               <img
                 src={activeModalMember.image}
                 alt={activeModalMember.name}
-                className="h-full w-full object-cover object-top"
+                className="h-full w-full object-contain"
                 referrerPolicy="no-referrer"
               />
             </div>

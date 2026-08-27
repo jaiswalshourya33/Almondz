@@ -373,7 +373,7 @@ export const Home: React.FC = () => {
               <div className="flex flex-wrap items-center gap-4 pt-4">
                 <Link
                   to="/projects"
-                  className="bg-[#F2834C] hover:bg-[#d9723f] text-white px-8 py-4 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-xl hover:shadow-[#F2834C]/30 hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-3 rounded-md border border-[#F2834C]/20"
+                  className="bg-[#A49150] hover:bg-[#8b7b44] text-white px-8 py-4 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-xl hover:shadow-[#A49150]/30 hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-3 rounded-md border border-[#A49150]/20"
                 >
                   <span>EXPLORE PROJECTS</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
