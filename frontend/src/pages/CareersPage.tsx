@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Briefcase, MapPin, ArrowRight } from 'lucide-react';
 
@@ -29,6 +29,21 @@ const OPEN_ROLES = [
 export const CareersPage: React.FC = () => {
   const openingsSectionRef = useRef<HTMLElement | null>(null);
   const openingsCardsRef = useRef<HTMLDivElement | null>(null);
+  const heroHeadingRef = useRef<HTMLHeadingElement | null>(null);
+  const [heroLineWidth, setHeroLineWidth] = useState<number | null>(null);
+
+  useLayoutEffect(() => {
+    const measure = () => {
+      const heading = heroHeadingRef.current;
+      if (!heading) return;
+      const rects = heading.getClientRects();
+      const lastRect = rects[rects.length - 1];
+      if (lastRect) setHeroLineWidth(lastRect.width);
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, []);
 
   // Same scroll-triggered reveal used on the About Overview page's
   // "Corporate Governance & Leadership" section: heading first, then the
@@ -55,11 +70,15 @@ export const CareersPage: React.FC = () => {
 
   return (
     <div className="about-dropdown-page flex flex-col min-h-screen bg-[#fdf9ed] pt-24">
-      <section className="bg-[#16283D] text-white py-16 border-b border-[#A49150]/30">
+      <section className="bg-[#1E3A5F] text-white py-16 border-b border-[#A49150]/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="about-dropdown-banner-copy flex flex-col gap-4 max-w-3xl">
-            <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">JOIN OUR TEAM</span>
-            <h1 className="text-4xl sm:text-5xl font-serif font-bold">Careers at Almondz Global Infra</h1>
+          <div className="about-dropdown-banner-copy flex flex-col gap-5 max-w-3xl">
+            <span className="inline-flex w-fit items-center text-xs font-mono tracking-widest text-[#A49150] uppercase bg-[#A49150]/10 border border-[#A49150]/30 px-4 py-1.5 rounded-full">JOIN OUR TEAM</span>
+            <h1 ref={heroHeadingRef} className="text-4xl sm:text-5xl font-serif font-bold">Careers at Almondz Global Infra</h1>
+            <div
+              className="services-hero-line h-[3px] bg-[#A49150] rounded-full"
+              style={{ width: heroLineWidth ? `${heroLineWidth}px` : '4rem' }}
+            ></div>
             <p className="text-white/80 text-base leading-relaxed">
               Build your engineering and advisory career on projects that shape national connectivity and sustainable development.
             </p>

@@ -72,6 +72,34 @@
   to { opacity: 1; transform: translateX(0); }
 }
 
+/* Governance banner (Management Team page): the background image slides in
+   from the right as soon as the banner starts entering view, then the
+   floating content card slides in from the left once scroll has reached
+   roughly the center of the image (see the 0.5 threshold in the component). */
+@media (prefers-reduced-motion: no-preference) {
+  .gov-banner__image {
+    opacity: 0;
+    transform: translateX(110px);
+    transition: opacity 900ms cubic-bezier(0.22, 1, 0.36, 1), transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .gov-banner.is-visible .gov-banner__image {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .gov-banner__card {
+    opacity: 0;
+    transform: translateX(-90px);
+    transition: opacity 800ms cubic-bezier(0.22, 1, 0.36, 1), transform 800ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .gov-banner.is-centered .gov-banner__card {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 /* Leadership profile dialog: the card itself eases in with a gentle
    scale + rise, then its text content fades/slides in in sequence. */
 @media (prefers-reduced-motion: no-preference) {
@@ -88,6 +116,8 @@
   .leader-modal-content-panel > :nth-child(1) { animation-delay: 180ms; }
   .leader-modal-content-panel > :nth-child(2) { animation-delay: 340ms; }
   .leader-modal-content-panel > :nth-child(3) { animation-delay: 500ms; }
+  .leader-modal-content-panel > :nth-child(4) { animation-delay: 660ms; }
+  .leader-modal-content-panel > :nth-child(5) { animation-delay: 820ms; }
 }
 
 @keyframes leader-modal-content-enter {
@@ -172,8 +202,25 @@
   .about-dropdown-banner-copy > :nth-child(1) { animation-delay: 100ms; }
   .dropdown-banner-copy > :nth-child(2),
   .about-dropdown-banner-copy > :nth-child(2) { animation-delay: 300ms; }
-  .dropdown-banner-copy > :nth-child(3),
+  .dropdown-banner-copy > :nth-child(3):not(.services-hero-line),
   .about-dropdown-banner-copy > :nth-child(3) { animation-delay: 620ms; }
+  .dropdown-banner-copy > :nth-child(4),
+  .about-dropdown-banner-copy > :nth-child(4) { animation-delay: 780ms; }
+
+  /* Hero accent line under the heading (all page heroes now share this):
+     instead of the generic fade+rise every other banner child gets, it
+     grows out from the left edge until it reaches the width of the
+     heading text above it (that target width is measured in JS and set
+     as this element's inline style — see heroLineWidth in each page).
+     Higher specificity than the nth-child rule above so it wins on the
+     same element. */
+  .dropdown-banner-copy > .services-hero-line,
+  .about-dropdown-banner-copy > .services-hero-line,
+  .leadership-banner-copy > .services-hero-line,
+  .about-banner-copy > .services-hero-line {
+    transform-origin: left center;
+    animation: services-line-sweep 1.6s 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
 
   .leadership-banner-copy > * {
     animation: about-banner-enter 1.55s cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -181,7 +228,8 @@
 
   .leadership-banner-copy > :nth-child(1) { animation-delay: 100ms; }
   .leadership-banner-copy > :nth-child(2) { animation-delay: 300ms; }
-  .leadership-banner-copy > :nth-child(3) { animation-delay: 620ms; }
+  .leadership-banner-copy > :nth-child(3):not(.services-hero-line) { animation-delay: 620ms; }
+  .leadership-banner-copy > :nth-child(4) { animation-delay: 780ms; }
 
   .leadership-roster .leadership-profile-card {
     opacity: 0;
@@ -207,7 +255,8 @@
 
   .about-banner-copy > :nth-child(1) { animation-delay: 100ms; }
   .about-banner-copy > :nth-child(2) { animation-delay: 300ms; }
-  .about-banner-copy > :nth-child(3) { animation-delay: 620ms; }
+  .about-banner-copy > :nth-child(3):not(.services-hero-line) { animation-delay: 620ms; }
+  .about-banner-copy > :nth-child(4) { animation-delay: 780ms; }
 
   /* Hidden until the heritage section actually scrolls into view (see
      .about-heritage-section.is-visible below) — these were previously
@@ -259,6 +308,22 @@
   .about-subnav-section.is-visible .about-subnav-card:nth-child(1) { animation-delay: 450ms; }
   .about-subnav-section.is-visible .about-subnav-card:nth-child(2) { animation-delay: 700ms; }
   .about-subnav-section.is-visible .about-subnav-card:nth-child(3) { animation-delay: 950ms; }
+
+  /* Institutional Empanelments header (CertificationsPage): eyebrow, then
+     heading, then paragraph fade/rise in one after another, only once
+     scrolled into view — not on page load. */
+  .empanelments-header > * {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  .empanelments-header.is-visible > * {
+    animation: about-banner-enter 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .empanelments-header.is-visible > :nth-child(1) { animation-delay: 80ms; }
+  .empanelments-header.is-visible > :nth-child(2) { animation-delay: 260ms; }
+  .empanelments-header.is-visible > :nth-child(3) { animation-delay: 440ms; }
 }
 
 @supports (animation-timeline: view()) {
@@ -310,6 +375,11 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes services-line-sweep {
+  from { opacity: 0; transform: scaleX(0); }
+  to { opacity: 1; transform: scaleX(1); }
+}
+
 @keyframes about-scroll-content-reveal {
   from { opacity: 0; transform: translateY(42px); }
   to { opacity: 1; transform: translateY(0); }
@@ -358,6 +428,35 @@
 .partner-marquee__item:hover {
   background: #fdf9ed;
   transform: translateY(-3px);
+}
+
+/* Institutional Empanelments card variant: same marquee scroll mechanics as
+   the plain stat/logo tiles above, but sized and laid out like the site's
+   normal empanelment cards (icon/logo + name + description + status row)
+   instead of a single centered line. */
+.partner-marquee__item--empanelment {
+  width: 340px;
+  height: auto;
+  flex: 0 0 340px;
+  align-items: stretch;
+  justify-content: center;
+  flex-direction: column;
+  padding: 26px;
+  margin: 10px 12px;
+  border-right: none;
+  border: 1px solid rgba(164, 145, 80, 0.2);
+  border-top: 3px solid #A49150;
+  border-radius: 16px;
+  background: linear-gradient(160deg, #ffffff 0%, #fdf9ed 130%);
+  box-shadow: 0 4px 14px rgba(13, 27, 42, 0.07);
+  transition: border-color 300ms ease, box-shadow 300ms ease, transform 300ms ease;
+}
+
+.partner-marquee__item--empanelment:hover {
+  background: linear-gradient(160deg, #ffffff 0%, #fdf9ed 130%);
+  border-top-color: #F2834C;
+  box-shadow: 0 20px 40px rgba(13, 27, 42, 0.16);
+  transform: translateY(-5px);
 }
 
 .partner-marquee__logo {

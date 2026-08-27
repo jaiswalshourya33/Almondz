@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Mail, MapPin, Phone, Send, CheckCircle2, Building2, ArrowRight } from 'lucide-react';
 import { SECTORS } from '../data/sectors';
@@ -45,6 +45,21 @@ export const ContactPage: React.FC = () => {
     resumeFileName: '',
     message: ''
   });
+  const heroHeadingRef = useRef<HTMLHeadingElement | null>(null);
+  const [heroLineWidth, setHeroLineWidth] = useState<number | null>(null);
+
+  useLayoutEffect(() => {
+    const measure = () => {
+      const heading = heroHeadingRef.current;
+      if (!heading) return;
+      const rects = heading.getClientRects();
+      const lastRect = rects[rects.length - 1];
+      if (lastRect) setHeroLineWidth(lastRect.width);
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, []);
 
   const handleCopy = (text: string, field: string) => {
     navigator.clipboard.writeText(text);
@@ -110,26 +125,27 @@ export const ContactPage: React.FC = () => {
       )}
 
       {/* Hero Header */}
-      <section className="bg-[#16283D] text-white py-20 relative overflow-hidden border-b border-[#A49150]/30">
+      <section className="bg-[#1E3A5F] text-white py-20 relative overflow-hidden border-b border-[#A49150]/30">
         <div className="absolute inset-0 z-0 opacity-20">
-          <img 
-            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2000&q=85" 
+          <img
+            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2000&q=85"
             alt="Corporate architecture"
             className="w-full h-full object-cover transform scale-105 animate-pulse duration-10000"
             referrerPolicy="no-referrer"
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-[#16283D] via-[#16283D]/90 to-[#071A2D]/80 z-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#1E3A5F] via-[#1E3A5F]/90 to-[#16283D]/80 z-10"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
-          <div className="flex flex-col gap-4 max-w-3xl">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#F2834C]"></span>
-              <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">STRATEGIC LIAISON & ADVISORY</span>
-            </div>
-            <h1 className="text-4xl sm:text-6xl font-serif font-bold tracking-tight text-white">
-              Connect With Our <span className="text-[#F2834C] italic font-medium">Experts</span>
+          <div className="dropdown-banner-copy flex flex-col gap-5 max-w-3xl">
+            <span className="inline-flex w-fit items-center text-xs font-mono tracking-widest text-[#A49150] uppercase bg-[#A49150]/10 border border-[#A49150]/30 px-4 py-1.5 rounded-full">STRATEGIC LIAISON & ADVISORY</span>
+            <h1 ref={heroHeadingRef} className="text-4xl sm:text-6xl font-serif font-bold tracking-tight text-white">
+              Connect With Our <span className="text-[#A49150] italic font-medium">Experts</span>
             </h1>
+            <div
+              className="services-hero-line h-[3px] bg-[#A49150] rounded-full"
+              style={{ width: heroLineWidth ? `${heroLineWidth}px` : '4rem' }}
+            ></div>
             <p className="text-white/80 text-base sm:text-lg leading-relaxed font-light">
               Engage our principal engineering divisions, corporate headquarters, or regional technical directorates for institutional mandates and independent engineering assignments.
             </p>

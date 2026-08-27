@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { SECTORS } from '../data/sectors';
 import { PROJECTS, Project } from '../data/projects';
@@ -12,6 +12,24 @@ export const SectorDetail: React.FC = () => {
   const sector = SECTORS.find((s) => s.slug === slug);
   const [activeVideo, setActiveVideo] = useState<{ url: string; title: string } | null>(null);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const heroHeadingRef = useRef<HTMLHeadingElement | null>(null);
+  const [heroLineWidth, setHeroLineWidth] = useState<number | null>(null);
+
+  // Re-measure whenever the sector changes (navigating between sector
+  // detail pages via the "related sectors" links reuses this same
+  // component instance rather than remounting it).
+  useLayoutEffect(() => {
+    const measure = () => {
+      const heading = heroHeadingRef.current;
+      if (!heading) return;
+      const rects = heading.getClientRects();
+      const lastRect = rects[rects.length - 1];
+      if (lastRect) setHeroLineWidth(lastRect.width);
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, [sector?.title]);
 
   if (!sector) {
     return (
@@ -30,26 +48,30 @@ export const SectorDetail: React.FC = () => {
   return (
     <div className="dropdown-content-page flex flex-col min-h-screen bg-[#fdf9ed] pt-24">
       {/* Hero Banner */}
-      <section className="relative py-20 bg-[#16283D] text-white overflow-hidden border-b border-[#A49150]/30">
+      <section className="relative py-20 bg-[#1E3A5F] text-white overflow-hidden border-b border-[#A49150]/30">
         <div className="absolute inset-0 z-0">
-          <img 
-            src={sector.image} 
+          <img
+            src={sector.image}
             alt={sector.title}
             className="w-full h-full object-cover opacity-25"
             referrerPolicy="no-referrer"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#16283D] via-[#16283D]/90 to-[#071A2D]/80"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#1E3A5F] via-[#1E3A5F]/90 to-[#16283D]/80"></div>
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Link to="/sectors" className="inline-flex items-center gap-2 text-xs font-mono text-[#F2834C] hover:underline mb-6">
+          <Link to="/sectors" className="inline-flex items-center gap-2 text-xs font-mono text-[#A49150] hover:underline mb-6">
             <ArrowLeft className="w-4 h-4" />
             <span>BACK TO ALL SECTORS</span>
           </Link>
 
-          <div className="dropdown-banner-copy max-w-3xl flex flex-col gap-4">
-            <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">DOMAINS // EXPERTISE</span>
-            <h1 className="text-4xl sm:text-5xl font-serif font-bold text-white leading-tight">{sector.title}</h1>
+          <div className="dropdown-banner-copy max-w-3xl flex flex-col gap-5">
+            <span className="inline-flex w-fit items-center text-xs font-mono tracking-widest text-[#A49150] uppercase bg-[#A49150]/10 border border-[#A49150]/30 px-4 py-1.5 rounded-full">DOMAINS // EXPERTISE</span>
+            <h1 ref={heroHeadingRef} className="text-4xl sm:text-5xl font-serif font-bold text-white leading-tight">{sector.title}</h1>
+            <div
+              className="services-hero-line h-[3px] bg-[#A49150] rounded-full"
+              style={{ width: heroLineWidth ? `${heroLineWidth}px` : '4rem' }}
+            ></div>
             <p className="text-white/80 text-base leading-relaxed">{sector.description}</p>
           </div>
         </div>

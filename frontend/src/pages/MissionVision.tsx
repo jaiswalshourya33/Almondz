@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Check } from 'lucide-react';
 import missionVisionHero from '../images/hero/mumbai-skyline.jpg';
 
@@ -41,7 +41,47 @@ const VISION_BULLETS = [
 
 export const MissionVision: React.FC = () => {
   const zoomSectionRef = useRef<HTMLElement | null>(null);
+  const missionCardRef = useRef<HTMLDivElement | null>(null);
+  const visionCardRef = useRef<HTMLDivElement | null>(null);
   const [progress, setProgress] = useState(0);
+  const [cardHeight, setCardHeight] = useState<number | null>(null);
+  const heroHeadingRef = useRef<HTMLHeadingElement | null>(null);
+  const [heroLineWidth, setHeroLineWidth] = useState<number | null>(null);
+
+  useLayoutEffect(() => {
+    const measure = () => {
+      const heading = heroHeadingRef.current;
+      if (!heading) return;
+      const rects = heading.getClientRects();
+      const lastRect = rects[rects.length - 1];
+      if (lastRect) setHeroLineWidth(lastRect.width);
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, []);
+
+  // Both cards must match in height, and neither can clip its own content —
+  // a fixed px/vh height can't satisfy both across every viewport, since the
+  // actual text needs more room than a short viewport has to offer. Instead,
+  // measure each card's real (unclipped) content height, size both to the
+  // taller of the two, and cap that to whatever vertical space is actually
+  // available (matching the top-24/bottom-8 wrapper below) — the rare case
+  // where content still doesn't fit falls back to an internal scroll rather
+  // than silently cutting text off.
+  useLayoutEffect(() => {
+    const measure = () => {
+      const mission = missionCardRef.current;
+      const vision = visionCardRef.current;
+      if (!mission || !vision) return;
+      const naturalHeight = Math.max(mission.scrollHeight, vision.scrollHeight);
+      const availableHeight = window.innerHeight - 96 - 32;
+      setCardHeight(Math.min(naturalHeight, availableHeight));
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, []);
 
   useEffect(() => {
     const zoomSection = zoomSectionRef.current;
@@ -96,11 +136,15 @@ export const MissionVision: React.FC = () => {
 
   return (
     <div className="about-dropdown-page flex flex-col min-h-screen bg-[#fdf9ed] pt-24">
-      <section className="bg-[#16283D] text-white py-16 border-b border-[#A49150]/30">
+      <section className="bg-[#1E3A5F] text-white py-16 border-b border-[#A49150]/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="about-dropdown-banner-copy flex flex-col gap-4 max-w-3xl">
-            <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">OUR PURPOSE</span>
-            <h1 className="text-4xl sm:text-5xl font-serif font-bold">Mission, Vision & Core Values</h1>
+          <div className="about-dropdown-banner-copy flex flex-col gap-5 max-w-3xl">
+            <span className="inline-flex w-fit items-center text-xs font-mono tracking-widest text-[#A49150] uppercase bg-[#A49150]/10 border border-[#A49150]/30 px-4 py-1.5 rounded-full">OUR PURPOSE</span>
+            <h1 ref={heroHeadingRef} className="text-4xl sm:text-5xl font-serif font-bold">Mission, Vision & Core Values</h1>
+            <div
+              className="services-hero-line h-[3px] bg-[#A49150] rounded-full"
+              style={{ width: heroLineWidth ? `${heroLineWidth}px` : '4rem' }}
+            ></div>
             <p className="text-white/80 text-base leading-relaxed">
               Guiding principles that steer Almondz Global Infra-Consultant Limited toward sustainable engineering excellence and national progress.
             </p>
@@ -132,7 +176,11 @@ export const MissionVision: React.FC = () => {
             className="absolute left-0 top-24 bottom-8 flex items-center w-full max-w-xl sm:max-w-2xl px-4 sm:px-8 lg:px-12"
             style={{ opacity: missionOpacity, transform: `translateX(${missionTranslate}px)` }}
           >
-            <div className="mission-vision-card bg-white rounded-2xl shadow-xl p-5 sm:p-9 flex flex-col gap-3 h-[clamp(340px,58vh,440px)]">
+            <div
+              ref={missionCardRef}
+              className="mission-vision-card bg-white rounded-2xl shadow-xl p-5 sm:p-9 flex flex-col gap-3 overflow-y-auto"
+              style={{ height: cardHeight ? `${cardHeight}px` : 'auto' }}
+            >
               <h2 style={revealStyle(progress, MISSION_START + 0.1, 0.05)} className="text-2xl sm:text-3xl font-serif font-bold text-[#16283D]">Our Mission</h2>
               <p style={revealStyle(progress, MISSION_START + 0.13, 0.06)} className="text-xs sm:text-sm text-[#1c1c15]/70 leading-relaxed">
                 To deliver excellence in infrastructure consultancy, engineering and technology through innovation, domain expertise and client-centric execution. Almondz creates long-term value with efficient, transparent and sustainable solutions across transportation, water, urban infrastructure, disaster resilience and digital transformation — building strong partnerships with governments, institutions and private enterprises, always to the highest standards of integrity, quality and operational excellence.
@@ -156,7 +204,11 @@ export const MissionVision: React.FC = () => {
             className="absolute right-0 top-24 bottom-8 flex items-center justify-end w-full max-w-xl sm:max-w-2xl px-4 sm:px-8 lg:px-12 ml-auto"
             style={{ opacity: visionOpacity, transform: `translateX(${visionTranslate}px)` }}
           >
-            <div className="mission-vision-card bg-white rounded-2xl shadow-xl p-5 sm:p-9 flex flex-col gap-3 h-[clamp(340px,58vh,440px)]">
+            <div
+              ref={visionCardRef}
+              className="mission-vision-card bg-white rounded-2xl shadow-xl p-5 sm:p-9 flex flex-col gap-3 overflow-y-auto"
+              style={{ height: cardHeight ? `${cardHeight}px` : 'auto' }}
+            >
               <h2 style={revealStyle(progress, VISION_START + 0.1, 0.05)} className="text-2xl sm:text-3xl font-serif font-bold text-[#16283D]">Our Vision</h2>
               <p style={revealStyle(progress, VISION_START + 0.13, 0.06)} className="text-xs sm:text-sm text-[#1c1c15]/70 leading-relaxed">
                 To emerge as a globally respected, technology-driven infrastructure consultancy — enabling sustainable growth through innovative engineering, digital transformation and integrated advisory. Almondz envisions building resilient, future-ready infrastructure ecosystems that advance economic development, urban modernisation, environmental sustainability and quality of life across communities in India and beyond.

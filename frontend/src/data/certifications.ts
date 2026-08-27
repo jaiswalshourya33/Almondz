@@ -26,12 +26,15 @@ export const CERTIFICATIONS: Certification[] = [
 
 // A short teaser of AGICL's empanelments — see the full, categorized list
 // (Central/State Bodies, Banks) on the dedicated Empanelments & Clients page.
+// `logo` is only set where a verified official logo file (Wikimedia Commons,
+// checked to actually load) was found — the card falls back to the Building2
+// icon badge for institutions without one, rather than risk a broken image.
 export const EMPANELMENTS = [
   { name: "NHAI", desc: "National Highways Authority of India — Financial Consultant / Drone Aerial Survey" },
-  { name: "MoRTH", desc: "Ministry of Road Transport and Highways — Empanelled Consultancy Partner" },
-  { name: "World Bank", desc: "Registered Consultant for World Bank-Funded Infrastructure Projects" },
-  { name: "Asian Development Bank (ADB)", desc: "Empanelled Consultant for ADB-Funded Urban Infrastructure Projects" },
-  { name: "SIDBI", desc: "Small Industrial Development Bank of India — Techno-Economic Viability (TEV) Empanelment" },
+  { name: "MoRTH", desc: "Ministry of Road Transport and Highways — Empanelled Consultancy Partner", logo: "https://upload.wikimedia.org/wikipedia/commons/c/ce/Ministry_of_Road_Transport_and_Highways.svg" },
+  { name: "World Bank", desc: "Registered Consultant for World Bank-Funded Infrastructure Projects", logo: "https://upload.wikimedia.org/wikipedia/commons/8/86/World_Bank_logo.svg" },
+  { name: "Asian Development Bank (ADB)", desc: "Empanelled Consultant for ADB-Funded Urban Infrastructure Projects", logo: "https://upload.wikimedia.org/wikipedia/commons/4/43/Asian_Development_Bank_logo.svg" },
+  { name: "SIDBI", desc: "Small Industrial Development Bank of India — Techno-Economic Viability (TEV) Empanelment", logo: "https://upload.wikimedia.org/wikipedia/commons/b/b1/SIDBI_LOGO.png" },
   { name: "Indian Banks' Association (IBA)", desc: "Empanelled Agency for Specialised Monitoring (ASM) for NPA Resolution" },
   { name: "NaBFID", desc: "National Bank for Financing Infrastructure and Development — LIE & TEV Empanelment" }
 ];

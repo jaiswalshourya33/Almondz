@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { COMPANY_STATS } from '../data/company';
 import { ShieldCheck, Award, Building2, ArrowRight } from 'lucide-react';
@@ -9,6 +9,21 @@ export const AboutOverview: React.FC = () => {
   const heritageSectionRef = useRef<HTMLElement | null>(null);
   const subNavSectionRef = useRef<HTMLElement | null>(null);
   const subNavCardsRef = useRef<HTMLDivElement | null>(null);
+  const heroHeadingRef = useRef<HTMLHeadingElement | null>(null);
+  const [heroLineWidth, setHeroLineWidth] = useState<number | null>(null);
+
+  useLayoutEffect(() => {
+    const measure = () => {
+      const heading = heroHeadingRef.current;
+      if (!heading) return;
+      const rects = heading.getClientRects();
+      const lastRect = rects[rects.length - 1];
+      if (lastRect) setHeroLineWidth(lastRect.width);
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, []);
 
   useEffect(() => {
     const heritageSection = heritageSectionRef.current;
@@ -74,11 +89,15 @@ export const AboutOverview: React.FC = () => {
   return (
     <div className="about-overview-page flex flex-col min-h-screen bg-[#fdf9ed] pt-24">
       {/* Header Banner */}
-      <section className="bg-[#16283D] text-white py-16 border-b border-[#A49150]/30">
+      <section className="bg-[#1E3A5F] text-white py-16 border-b border-[#A49150]/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="about-banner-copy flex flex-col gap-4 max-w-3xl">
-            <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">ABOUT ALMONDZ GLOBAL INFRA</span>
-            <h1 className="text-4xl sm:text-5xl font-serif font-bold">Engineering Excellence & Institutional Trust</h1>
+          <div className="about-banner-copy flex flex-col gap-5 max-w-3xl">
+            <span className="inline-flex w-fit items-center text-xs font-mono tracking-widest text-[#A49150] uppercase bg-[#A49150]/10 border border-[#A49150]/30 px-4 py-1.5 rounded-full">ABOUT ALMONDZ GLOBAL INFRA</span>
+            <h1 ref={heroHeadingRef} className="text-4xl sm:text-5xl font-serif font-bold">Engineering Excellence & Institutional Trust</h1>
+            <div
+              className="services-hero-line h-[3px] bg-[#A49150] rounded-full"
+              style={{ width: heroLineWidth ? `${heroLineWidth}px` : '4rem' }}
+            ></div>
             <p className="text-white/80 text-base leading-relaxed">
               Almondz Global Infra Consultant Limited (AGICL) is a premier infrastructure consultancy and Public Limited Company, a subsidiary of the publicly listed Almondz Global Securities Limited (AGSL). The firm holds ISO 9001:2015, ISO/IEC 27001:2022, ISO 45001:2018, ISO 14001:2015, and CMMI Level 3 certifications, with an NABL-accredited laboratory certified to ISO/IEC 17025:2017 standards.
             </p>

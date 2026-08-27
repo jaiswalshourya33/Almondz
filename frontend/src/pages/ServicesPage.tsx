@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { SERVICES, Service } from '../data/services';
 import { Wrench, CheckCircle2, Eye, X, Download, ShieldCheck, Layers, FileText, Sparkles } from 'lucide-react';
@@ -8,6 +8,25 @@ export const ServicesPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>('all');
   const [downloadNotice, setDownloadNotice] = useState<string | null>(null);
   const [searchParams, setSearchParams] = useSearchParams();
+  const heroHeadingRef = useRef<HTMLHeadingElement | null>(null);
+  const [heroLineWidth, setHeroLineWidth] = useState<number | null>(null);
+
+  // The accent line under the hero heading should reach exactly as far as
+  // the last rendered line of that heading text — measure the heading's own
+  // wrapped line boxes (not just its container width) so it tracks the
+  // actual glyph width at any viewport size, and re-measure on resize.
+  useLayoutEffect(() => {
+    const measure = () => {
+      const heading = heroHeadingRef.current;
+      if (!heading) return;
+      const rects = heading.getClientRects();
+      const lastRect = rects[rects.length - 1];
+      if (lastRect) setHeroLineWidth(lastRect.width);
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, []);
 
   const handleDownloadBrochure = (title: string) => {
     setDownloadNotice(title);
@@ -46,26 +65,29 @@ export const ServicesPage: React.FC = () => {
   return (
     <div className="dropdown-content-page flex flex-col min-h-screen bg-[#fdf9ed] pt-24">
       {/* Hero Header */}
-      <section className="bg-[#16283D] text-white py-20 relative overflow-hidden border-b border-[#A49150]/30">
+      <section className="bg-[#1E3A5F] text-white py-20 relative overflow-hidden border-b border-[#A49150]/30">
         <div className="absolute inset-0 z-0 opacity-20">
-          <img 
-            src="https://images.unsplash.com/photo-1541888946425-d0fbb18f02f8?auto=format&fit=crop&w=2000&q=85" 
+          <img
+            src="https://images.unsplash.com/photo-1541888946425-d0fbb18f02f8?auto=format&fit=crop&w=2000&q=85"
             alt="Engineering background"
             className="w-full h-full object-cover transform scale-105 animate-pulse duration-10000"
             referrerPolicy="no-referrer"
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-[#16283D] via-[#16283D]/90 to-[#071A2D]/80 z-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#1E3A5F] via-[#1E3A5F]/90 to-[#16283D]/80 z-10"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
-          <div className="dropdown-banner-copy flex flex-col gap-4 max-w-3xl">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#F2834C]"></span>
-              <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">PROFESSIONAL MASTERY & CONSULTANCY</span>
-            </div>
-            <h1 className="text-4xl sm:text-6xl font-serif font-bold tracking-tight text-white">
-              End-to-End <span className="text-[#F2834C] italic font-medium">Infrastructure</span> Solutions
+          <div className="dropdown-banner-copy flex flex-col gap-5 max-w-3xl">
+            <span className="inline-flex w-fit items-center text-xs font-mono tracking-widest text-[#A49150] uppercase bg-[#A49150]/10 border border-[#A49150]/30 px-4 py-1.5 rounded-full">
+              Professional Mastery & Consultancy
+            </span>
+            <h1 ref={heroHeadingRef} className="text-4xl sm:text-6xl font-serif font-bold tracking-tight text-white leading-tight">
+              End-to-End <span className="text-[#A49150] italic font-medium">Infrastructure</span> Solutions
             </h1>
+            <div
+              className="services-hero-line h-[3px] bg-[#A49150] rounded-full"
+              style={{ width: heroLineWidth ? `${heroLineWidth}px` : '4rem' }}
+            ></div>
             <p className="text-white/80 text-base sm:text-lg leading-relaxed font-light">
               From techno-economic feasibility and independent lender engineering to detailed design and real-time execution oversight, we deliver elite consultancy across national infrastructure.
             </p>
@@ -83,19 +105,6 @@ export const ServicesPage: React.FC = () => {
           </div>
         </div>
       )}
-
-      {/* Scrolling Ticker / Highlights */}
-      <div className="bg-[#16283D] text-white/90 border-b border-[#A49150]/20 py-3 overflow-hidden whitespace-nowrap">
-        <div className="inline-flex gap-12 animate-marquee text-xs font-mono tracking-wider">
-          <span className="flex items-center gap-2"><Sparkles className="w-4 h-4 text-[#F2834C]" /> Specialised Infrastructure Consultancy Services</span>
-          <span className="text-[#F2834C]">•</span>
-          <span className="flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-[#F2834C]" /> ISO 9001:2015 Certified Quality Management</span>
-          <span className="text-[#F2834C]">•</span>
-          <span className="flex items-center gap-2"><Layers className="w-4 h-4 text-[#F2834C]" /> Technical, financial and transaction advisory expertise</span>
-          <span className="text-[#F2834C]">•</span>
-          <span className="flex items-center gap-2"><Sparkles className="w-4 h-4 text-[#F2834C]" /> Multidisciplinary Expert Panels</span>
-        </div>
-      </div>
 
       {/* SERVICES SHOWCASE SECTION */}
       <section className="dropdown-scroll-content py-20">

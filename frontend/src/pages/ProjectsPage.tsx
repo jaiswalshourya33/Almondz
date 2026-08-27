@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { PROJECTS, Project } from '../data/projects';
 import { SECTORS } from '../data/sectors';
@@ -18,6 +18,21 @@ export const ProjectsPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [activeVideo, setActiveVideo] = useState<{ url: string; title: string } | null>(null);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const heroHeadingRef = useRef<HTMLHeadingElement | null>(null);
+  const [heroLineWidth, setHeroLineWidth] = useState<number | null>(null);
+
+  useLayoutEffect(() => {
+    const measure = () => {
+      const heading = heroHeadingRef.current;
+      if (!heading) return;
+      const rects = heading.getClientRects();
+      const lastRect = rects[rects.length - 1];
+      if (lastRect) setHeroLineWidth(lastRect.width);
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, []);
 
   const filteredProjects = PROJECTS.filter((proj) => {
     const matchesStatus = selectedStatus === 'All' || proj.status === selectedStatus;
@@ -31,11 +46,15 @@ export const ProjectsPage: React.FC = () => {
   return (
     <div className="dropdown-content-page flex flex-col min-h-screen bg-[#fdf9ed] pt-24">
       {/* Hero */}
-      <section className="bg-[#16283D] text-white py-16 border-b border-[#A49150]/30">
+      <section className="bg-[#1E3A5F] text-white py-16 border-b border-[#A49150]/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="dropdown-banner-copy flex flex-col gap-4 max-w-3xl">
-            <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">PORTFOLIO EXPLORER</span>
-            <h1 className="text-4xl sm:text-5xl font-serif font-bold">Infrastructure Project Portfolio</h1>
+          <div className="dropdown-banner-copy flex flex-col gap-5 max-w-3xl">
+            <span className="inline-flex w-fit items-center text-xs font-mono tracking-widest text-[#A49150] uppercase bg-[#A49150]/10 border border-[#A49150]/30 px-4 py-1.5 rounded-full">PORTFOLIO EXPLORER</span>
+            <h1 ref={heroHeadingRef} className="text-4xl sm:text-5xl font-serif font-bold">Infrastructure Project Portfolio</h1>
+            <div
+              className="services-hero-line h-[3px] bg-[#A49150] rounded-full"
+              style={{ width: heroLineWidth ? `${heroLineWidth}px` : '4rem' }}
+            ></div>
             <p className="text-white/80 text-base leading-relaxed">
               Explore our extensive track record of completed, ongoing, and recently awarded national infrastructure assignments.
             </p>

@@ -1,18 +1,73 @@
-import React, { useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { CERTIFICATIONS, EMPANELMENTS, Certification } from '../data/certifications';
-import { Award, ShieldCheck, Eye, X, Building2 } from 'lucide-react';
+import { Award, ShieldCheck, Eye, X, Building2, ChevronLeft, ChevronRight } from 'lucide-react';
+
+const CERTS_PER_PAGE = 6;
 
 export const CertificationsPage: React.FC = () => {
   const [selectedCert, setSelectedCert] = useState<Certification | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const certsSectionRef = useRef<HTMLElement | null>(null);
+  const empanelmentsHeaderRef = useRef<HTMLDivElement | null>(null);
+  const heroHeadingRef = useRef<HTMLHeadingElement | null>(null);
+  const [heroLineWidth, setHeroLineWidth] = useState<number | null>(null);
+
+  useLayoutEffect(() => {
+    const measure = () => {
+      const heading = heroHeadingRef.current;
+      if (!heading) return;
+      const rects = heading.getClientRects();
+      const lastRect = rects[rects.length - 1];
+      if (lastRect) setHeroLineWidth(lastRect.width);
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, []);
+
+  useEffect(() => {
+    const header = empanelmentsHeaderRef.current;
+    if (!header || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          header.classList.add('is-visible');
+          observer.unobserve(header);
+        }
+      },
+      { threshold: 0.3 },
+    );
+
+    observer.observe(header);
+    return () => observer.disconnect();
+  }, []);
+
+  const totalPages = Math.max(1, Math.ceil(CERTIFICATIONS.length / CERTS_PER_PAGE));
+  const safePage = Math.min(currentPage, totalPages);
+  const paginatedCerts = CERTIFICATIONS.slice(
+    (safePage - 1) * CERTS_PER_PAGE,
+    safePage * CERTS_PER_PAGE,
+  );
+
+  const goToPage = (page: number) => {
+    const clamped = Math.min(Math.max(page, 1), totalPages);
+    setCurrentPage(clamped);
+    certsSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   return (
     <div className="about-dropdown-page flex flex-col min-h-screen bg-[#fdf9ed] pt-24">
       {/* Hero Header */}
-      <section className="bg-[#16283D] text-white py-16 sm:py-20 border-b border-[#A49150]/30 relative overflow-hidden">
+      <section className="bg-[#1E3A5F] text-white py-16 sm:py-20 border-b border-[#A49150]/30 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="about-dropdown-banner-copy flex flex-col gap-4 max-w-3xl">
-            <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">QUALITY ASSURANCE & ACCREDITATIONS</span>
-            <h1 className="text-4xl sm:text-5xl font-serif font-bold tracking-tight">Certifications & Institutional Empanelments</h1>
+          <div className="about-dropdown-banner-copy flex flex-col gap-5 max-w-3xl">
+            <span className="inline-flex w-fit items-center text-xs font-mono tracking-widest text-[#A49150] uppercase bg-[#A49150]/10 border border-[#A49150]/30 px-4 py-1.5 rounded-full">QUALITY ASSURANCE & ACCREDITATIONS</span>
+            <h1 ref={heroHeadingRef} className="text-4xl sm:text-5xl font-serif font-bold tracking-tight">Certifications & Institutional Empanelments</h1>
+            <div
+              className="services-hero-line h-[3px] bg-[#A49150] rounded-full"
+              style={{ width: heroLineWidth ? `${heroLineWidth}px` : '4rem' }}
+            ></div>
             <p className="text-white/80 text-base leading-relaxed">
               Rigorous quality management systems, international ISO accreditations, and premier institutional empanelments backing every infrastructure consultancy deliverable.
             </p>
@@ -21,20 +76,15 @@ export const CertificationsPage: React.FC = () => {
       </section>
 
       {/* CERTIFICATIONS SECTION */}
-      <section className="about-dropdown-content py-20">
+      <section ref={certsSectionRef} className="about-dropdown-content pt-20 pb-10 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-[#A49150]/20">
-            <div>
-              <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">ISO & COMPLIANCE</span>
-              <h2 className="text-3xl font-serif font-bold text-[#16283D] mt-1">Accredited Quality Standards</h2>
-            </div>
-            <p className="text-xs text-[#1c1c15]/70 max-w-md mt-2 md:mt-0">
-              Click any certification card to view verified compliance credentials, audit scopes, and official accreditation certificates.
-            </p>
+          <div className="mb-12 pb-6 border-b border-[#A49150]/20">
+            <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">ISO & COMPLIANCE</span>
+            <h2 className="text-3xl font-serif font-bold text-[#16283D] mt-1">Accredited Quality Standards</h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {CERTIFICATIONS.map((cert, idx) => (
+          <div key={safePage} className="grid grid-cols-1 md:grid-cols-3 gap-8 animate-fade-in">
+            {paginatedCerts.map((cert, idx) => (
               <div
                 key={idx}
                 className="bg-white border border-[#A49150]/30 p-6 shadow-sm flex flex-col justify-between hover:border-[#F2834C] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group rounded-md"
@@ -63,13 +113,55 @@ export const CertificationsPage: React.FC = () => {
               </div>
             ))}
           </div>
+
+          {/* Pagination — same styling/behavior as the Management Team page */}
+          {totalPages > 1 && (
+            <div className="flex items-center justify-end gap-2 mt-12">
+              <button
+                type="button"
+                onClick={() => goToPage(safePage - 1)}
+                disabled={safePage === 1}
+                aria-label="Previous page"
+                className="w-8 h-8 rounded-full bg-white border border-[#A49150]/20 shadow-sm flex items-center justify-center text-[#16283D] transition-all duration-300 hover:bg-[#1E3A5F] hover:text-white hover:border-[#1E3A5F] hover:shadow-lg hover:shadow-[#1E3A5F]/25 hover:-translate-y-0.5 disabled:opacity-40 disabled:pointer-events-none disabled:hover:translate-y-0"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+
+              {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((page) => (
+                <button
+                  type="button"
+                  key={page}
+                  onClick={() => goToPage(page)}
+                  aria-label={`Go to page ${page}`}
+                  aria-current={page === safePage ? 'page' : undefined}
+                  className={`w-8 h-8 rounded-full text-xs font-semibold transition-all duration-300 ${
+                    page === safePage
+                      ? 'bg-[#1E3A5F] text-white shadow-md shadow-[#1E3A5F]/30'
+                      : 'bg-white border border-[#A49150]/20 text-[#16283D] shadow-sm hover:bg-[#1E3A5F] hover:text-white hover:border-[#1E3A5F] hover:shadow-lg hover:shadow-[#1E3A5F]/25 hover:-translate-y-0.5'
+                  }`}
+                >
+                  {page}
+                </button>
+              ))}
+
+              <button
+                type="button"
+                onClick={() => goToPage(safePage + 1)}
+                disabled={safePage === totalPages}
+                aria-label="Next page"
+                className="w-8 h-8 rounded-full bg-white border border-[#A49150]/20 shadow-sm flex items-center justify-center text-[#16283D] transition-all duration-300 hover:bg-[#1E3A5F] hover:text-white hover:border-[#1E3A5F] hover:shadow-lg hover:shadow-[#1E3A5F]/25 hover:-translate-y-0.5 disabled:opacity-40 disabled:pointer-events-none disabled:hover:translate-y-0"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          )}
         </div>
       </section>
 
       {/* INSTITUTIONAL EMPANELMENTS SECTION */}
-      <section className="py-20 bg-[#16283D]/5 border-t border-[#A49150]/20">
+      <section className="pt-10 pb-20 bg-[#16283D]/5 border-t border-[#A49150]/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
+          <div ref={empanelmentsHeaderRef} className="empanelments-header text-center max-w-3xl mx-auto mb-10">
             <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">GOVERNMENT & MULTILATERAL RECOGNITION</span>
             <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#16283D] mt-2">Institutional Empanelments</h2>
             <p className="text-xs sm:text-sm text-[#1c1c15]/70 mt-3 leading-relaxed">
@@ -77,30 +169,43 @@ export const CertificationsPage: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {EMPANELMENTS.map((emp, idx) => (
-              <div 
-                key={idx} 
-                className="bg-white border border-[#A49150]/30 p-6 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 rounded-md flex flex-col justify-between group"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-[#F2834C]/10 text-[#F2834C] flex items-center justify-center rounded-md font-mono font-bold text-xs shrink-0 group-hover:bg-[#F2834C] group-hover:text-white transition-colors">
-                    <Building2 className="w-5 h-5" />
-                  </div>
-                  <div className="flex flex-col">
-                    <div className="flex items-center gap-2">
-                      <h4 className="text-base font-serif font-bold text-[#16283D]">{emp.name}</h4>
-                      <ShieldCheck className="w-4 h-4 text-[#F2834C]" />
+          {/* Same auto-scrolling marquee technique as the landing page's
+              sector-figures section (index.css .partner-marquee), just with
+              a wider card-shaped item instead of a plain stat tile. Pauses
+              on hover; the list is duplicated so the loop is seamless. */}
+          <div className="partner-marquee" aria-label="Institutional empanelments">
+            <div className="partner-marquee__track">
+              {[...EMPANELMENTS, ...EMPANELMENTS].map((emp, idx) => (
+                <div
+                  key={`${emp.name}-${idx}`}
+                  className="partner-marquee__item partner-marquee__item--empanelment group"
+                >
+                  <div className="flex items-start gap-4">
+                    {emp.logo ? (
+                      <div className="w-14 h-14 bg-white border border-[#A49150]/20 rounded-xl shadow-sm shrink-0 flex items-center justify-center p-2 group-hover:border-[#F2834C]/40 group-hover:shadow-md transition-all duration-300">
+                        <img
+                          src={emp.logo}
+                          alt={`${emp.name} logo`}
+                          className="max-w-full max-h-full object-contain"
+                          referrerPolicy="no-referrer"
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#F2834C]/15 to-[#F2834C]/5 text-[#F2834C] flex items-center justify-center shrink-0 group-hover:from-[#F2834C] group-hover:to-[#d9723f] group-hover:text-white transition-all duration-300 shadow-sm group-hover:shadow-md">
+                        <Building2 className="w-6 h-6" />
+                      </div>
+                    )}
+                    <div className="flex flex-col">
+                      <div className="flex items-center gap-2">
+                        <h4 className="text-base font-serif font-bold text-[#16283D]">{emp.name}</h4>
+                        <ShieldCheck className="w-4 h-4 text-[#F2834C]" />
+                      </div>
+                      <p className="text-xs text-[#1c1c15]/70 mt-2 leading-relaxed">{emp.desc}</p>
                     </div>
-                    <p className="text-xs text-[#1c1c15]/70 mt-2 leading-relaxed">{emp.desc}</p>
                   </div>
                 </div>
-                <div className="mt-4 pt-4 border-t border-gray-100 flex justify-between items-center text-[10px] font-mono text-[#A49150]">
-                  <span>STATUS: ACTIVE & VERIFIED</span>
-                  <span className="text-[#16283D] font-bold">EMPANELLED PARTNER</span>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { LEADERSHIP, Leader } from '../data/leadership';
 import { Mail, X, ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -6,6 +6,21 @@ export const LeadershipPage: React.FC = () => {
   const [selectedLeader, setSelectedLeader] = useState<Leader | null>(null);
   const rosterSectionRef = useRef<HTMLElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
+  const heroHeadingRef = useRef<HTMLHeadingElement | null>(null);
+  const [heroLineWidth, setHeroLineWidth] = useState<number | null>(null);
+
+  useLayoutEffect(() => {
+    const measure = () => {
+      const heading = heroHeadingRef.current;
+      if (!heading) return;
+      const rects = heading.getClientRects();
+      const lastRect = rects[rects.length - 1];
+      if (lastRect) setHeroLineWidth(lastRect.width);
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, []);
 
   useEffect(() => {
     const rosterSection = rosterSectionRef.current;
@@ -69,15 +84,16 @@ export const LeadershipPage: React.FC = () => {
   return (
     <div className="leadership-page flex flex-col min-h-screen bg-[#fdf9ed] pt-24">
       {/* Header Banner */}
-      <section className="bg-[#16283D] text-white py-16 border-b border-[#A49150]/30 relative overflow-hidden">
-        <div className="absolute right-0 top-0 w-96 h-96 bg-[#F2834C]/5 rounded-full blur-3xl pointer-events-none"></div>
+      <section className="bg-[#1E3A5F] text-white py-16 border-b border-[#A49150]/30 relative overflow-hidden">
+        <div className="absolute right-0 top-0 w-96 h-96 bg-[#A49150]/5 rounded-full blur-3xl pointer-events-none"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="leadership-banner-copy flex flex-col gap-4 max-w-3xl">
-            <div className="inline-flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#F2834C]"></span>
-              <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">STEWARDSHIP</span>
-            </div>
-            <h1 className="text-4xl sm:text-5xl font-serif font-bold tracking-tight">Board of Directors & Leadership Team</h1>
+          <div className="leadership-banner-copy flex flex-col gap-5 max-w-3xl">
+            <span className="inline-flex w-fit items-center text-xs font-mono tracking-widest text-[#A49150] uppercase bg-[#A49150]/10 border border-[#A49150]/30 px-4 py-1.5 rounded-full">STEWARDSHIP</span>
+            <h1 ref={heroHeadingRef} className="text-4xl sm:text-5xl font-serif font-bold tracking-tight">Board of Directors & Leadership Team</h1>
+            <div
+              className="services-hero-line h-[3px] bg-[#A49150] rounded-full"
+              style={{ width: heroLineWidth ? `${heroLineWidth}px` : '4rem' }}
+            ></div>
             <p className="text-white/80 text-base leading-relaxed">
               Decades of combined engineering wisdom, financial acumen, and public sector stewardship guiding Almondz Global Infra-Consultant Limited.
             </p>
@@ -168,15 +184,16 @@ export const LeadershipPage: React.FC = () => {
 
       {selectedLeader && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-[#16283D]/70 backdrop-blur-sm p-4 sm:p-10 animate-fade-in"
+          className="fixed inset-0 z-50 overflow-y-auto bg-[#16283D]/70 backdrop-blur-sm p-4 sm:p-10 animate-fade-in"
           role="dialog"
           aria-modal="true"
           aria-labelledby="leader-profile-title"
           onClick={() => setSelectedLeader(null)}
         >
+          <div className="min-h-full flex items-center justify-center">
           <div
             key={selectedLeader.name}
-            className="leader-modal-panel w-full max-w-5xl max-h-[92vh] overflow-hidden bg-white rounded-3xl shadow-2xl relative flex flex-col sm:flex-row"
+            className="leader-modal-panel w-full max-w-5xl bg-white rounded-3xl shadow-2xl relative flex flex-col sm:flex-row"
             onClick={(event) => event.stopPropagation()}
           >
             <button
@@ -188,7 +205,8 @@ export const LeadershipPage: React.FC = () => {
               <X className="w-5 h-5" />
             </button>
 
-            <div className="relative w-full sm:w-[30%] h-48 sm:h-auto shrink-0 overflow-hidden bg-[#fdf9ed]">
+            {/* Left: the leader's photo, filling the full card height */}
+            <div className="relative w-full sm:w-[30%] h-48 sm:h-auto shrink-0 overflow-hidden bg-[#fdf9ed] rounded-t-3xl sm:rounded-t-none sm:rounded-l-3xl">
               <img
                 src={selectedLeader.image}
                 alt={selectedLeader.name}
@@ -197,7 +215,10 @@ export const LeadershipPage: React.FC = () => {
               />
             </div>
 
-            <div className="leader-modal-content-panel flex-1 min-h-0 overflow-y-auto p-6 sm:p-8 flex flex-col gap-3">
+            {/* Right: content — the card always grows to fit in full (no
+                internal scrollbar); the page behind scrolls instead if a
+                profile is too long for the viewport. */}
+            <div className="leader-modal-content-panel flex-1 p-6 sm:p-8 flex flex-col gap-3">
               <div>
                 <span className="inline-flex w-fit items-center text-[11px] font-mono uppercase tracking-widest text-[#F2834C] bg-[#F2834C]/10 border border-[#F2834C]/20 px-3 py-1.5 rounded-full mb-2.5">
                   {selectedLeader.category}
@@ -224,6 +245,7 @@ export const LeadershipPage: React.FC = () => {
                 </a>
               </div>
             </div>
+          </div>
           </div>
         </div>
       )}
