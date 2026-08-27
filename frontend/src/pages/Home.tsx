@@ -37,7 +37,7 @@ export const Home: React.FC = () => {
   const sectorCardRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const sectorTrackRef = useRef<HTMLDivElement | null>(null);
   const ctaSectionRef = useRef<HTMLElement | null>(null);
-  const sectorFiguresSectionRef = useRef<HTMLElement | null>(null);
+  const sectorFiguresSectionRef = useRef<HTMLDivElement | null>(null);
   const [sectorFiguresStarted, setSectorFiguresStarted] = useState(false);
   const lifecycleSectionRef = useRef<HTMLElement | null>(null);
   const lifecycleHeaderRef = useRef<HTMLDivElement | null>(null);
