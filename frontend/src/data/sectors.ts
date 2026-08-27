@@ -1,7 +1,9 @@
+import himachalRopewayImage from '../images/himachal-ropeway.jpg';
+
 export interface Sector { id: string; title: string; slug: string; shortDesc: string; description: string; image: string; services: string[]; featuredProjects: string[]; metrics: { label: string; value: string }[]; }
 
 const images = {
-  smart: "https://almondzglobalinfra.com/media/product/313788118_smartcity.jpg", roads: "https://almondzglobalinfra.com/media/product/183845799_highway.jpg", water: "https://almondzglobalinfra.com/media/product/1502232643_water.jpg", tourism: "https://almondzglobalinfra.com/media/product/1272138012_cable.jpg", rail: "https://almondzglobalinfra.com/media/product/28977533_rail.jpg", esia: "https://almondzglobalinfra.com/media/product/2141855248_sector.jpg", renewable: "https://almondzglobalinfra.com/media/product/1513015590_1.jpg", sewerage: "https://almondzglobalinfra.com/media/product/1986369775_as1.jpg", itConsulting: "https://almondzglobalinfra.com/media/product/1514813843_agency-for-specialized-monitoring-(asm)1.jpg"
+  smart: "https://almondzglobalinfra.com/media/product/313788118_smartcity.jpg", roads: "https://almondzglobalinfra.com/media/product/183845799_highway.jpg", water: "https://almondzglobalinfra.com/media/product/1502232643_water.jpg", tourism: himachalRopewayImage, rail: "https://almondzglobalinfra.com/media/product/28977533_rail.jpg", esia: "https://almondzglobalinfra.com/media/product/2141855248_sector.jpg", renewable: "https://almondzglobalinfra.com/media/product/1513015590_1.jpg", sewerage: "https://almondzglobalinfra.com/media/product/1986369775_as1.jpg", itConsulting: "https://almondzglobalinfra.com/media/product/1514813843_agency-for-specialized-monitoring-(asm)1.jpg"
 };
 const sector = (id: string, title: string, shortDesc: string, description: string, image: string, services: string[], featuredProjects: string[] = []): Sector => ({ id, title, slug: id, shortDesc, description, image, services, featuredProjects, metrics: [] });
 
