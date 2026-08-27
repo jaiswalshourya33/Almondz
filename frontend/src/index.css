@@ -311,7 +311,7 @@
 }
 
 @keyframes about-scroll-content-reveal {
-  from { opacity: 0; transform: translateY(42px); }
+  from { opacity: 1; transform: translateY(24px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -977,7 +977,8 @@
   box-shadow: 0 -16px 36px rgba(13, 27, 42, 0.16), 0 26px 48px rgba(13, 27, 42, 0.28);
 }
 
-/* Scroll-linked reveals enhance modern browsers without changing the fallback layout. */
+/* Scroll-linked reveals enhance modern browsers without changing the fallback layout.
+   Opacity is locked at 1 to prevent any semi-transparent / foggy ghosting while scrolling. */
 @supports (animation-timeline: view()) {
   main section :is(h1, h2) {
     animation: scroll-text-reveal 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -991,7 +992,7 @@
     animation-range: entry 10% cover 35%;
   }
 
-  main section .group:not(.sector-stack__card):not(.lifecycle-showcase__card):not(.about-subnav-card) {
+  main section .group:not(.sector-stack__card):not(.lifecycle-showcase__card):not(.about-subnav-card):not(.project-card) {
     animation: scroll-card-reveal 950ms cubic-bezier(0.22, 1, 0.36, 1) both;
     animation-timeline: view();
     animation-range: entry 4% cover 24%;
@@ -1005,18 +1006,24 @@
   }
 }
 
+.project-card,
+.group.project-card {
+  opacity: 1 !important;
+  animation: none !important;
+}
+
 @keyframes scroll-text-reveal {
-  from { opacity: 0; transform: translateY(30px); letter-spacing: 0.035em; }
+  from { opacity: 1; transform: translateY(20px); letter-spacing: 0.035em; }
   to { opacity: 1; transform: translateY(0); letter-spacing: normal; }
 }
 
 @keyframes scroll-copy-reveal {
-  from { opacity: 0; transform: translateY(18px); }
+  from { opacity: 1; transform: translateY(14px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes scroll-card-reveal {
-  from { opacity: 0; transform: translateY(38px) scale(0.985); }
+  from { opacity: 1; transform: translateY(24px) scale(0.99); }
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
@@ -1092,19 +1099,40 @@
   }
 }
 
-/* Custom Scrollbar */
+/* Custom Scrollbar - Almondz Brand (#F2834C) */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #F2834C transparent;
+}
+
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 5px;
+  height: 5px;
 }
+
 ::-webkit-scrollbar-track {
-  background: #fdf9ed;
+  background: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
-  background: #A49150;
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
   background: #F2834C;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #d9723f;
+}
+
+/* Hide scrollbar completely while maintaining native smooth scrolling */
+.modal-scroll {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
+.modal-scroll::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
 @media (prefers-reduced-motion: reduce) {

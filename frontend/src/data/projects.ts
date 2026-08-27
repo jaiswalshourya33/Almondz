@@ -1,7 +1,14 @@
+import himachalRopewayImage from '../images/himachal-ropeway.jpg';
+
 export interface Project { id: string; title: string; slug: string; sector: string; sectorSlug: string; status: "Recently Awarded" | "Ongoing" | "Completed"; location: string; coordinates: string; image: string; youtubeUrl?: string; role: string; client: string; description: string; impact: string; servicesProvided: string[]; }
 
 const images = {
-  roads: "https://almondzglobalinfra.com/media/product/183845799_highway.jpg", smart: "https://almondzglobalinfra.com/media/product/313788118_smartcity.jpg", tourism: "https://almondzglobalinfra.com/media/product/1272138012_cable.jpg", rail: "https://almondzglobalinfra.com/media/product/28977533_rail.jpg", finance: "https://almondzglobalinfra.com/media/product/1513015590_1.jpg", water: "https://almondzglobalinfra.com/media/product/1502232643_water.jpg"
+  roads: "https://almondzglobalinfra.com/media/product/183845799_highway.jpg",
+  smart: "https://almondzglobalinfra.com/media/product/313788118_smartcity.jpg",
+  tourism: himachalRopewayImage,
+  rail: "https://almondzglobalinfra.com/media/product/28977533_rail.jpg",
+  finance: "https://almondzglobalinfra.com/media/product/1513015590_1.jpg",
+  water: "https://almondzglobalinfra.com/media/product/1502232643_water.jpg"
 };
 
 const project = (

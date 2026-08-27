@@ -16,23 +16,22 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenDetails
   };
 
   return (
-    <div className="group bg-[#16283D] border border-[#A49150]/30 overflow-hidden flex flex-col justify-between shadow-lg hover:border-[#F2834C] transition-all duration-300">
+    <div className="group project-card bg-[#16283D] border border-[#A49150]/30 overflow-hidden flex flex-col justify-between shadow-lg hover:border-[#F2834C] transition-all duration-300">
       {/* Image & Header */}
-      <div className="relative aspect-[16/10] overflow-hidden bg-black">
+      <div className="relative aspect-[16/10] overflow-hidden bg-[#0e1b2b] border-b border-[#A49150]/25">
         <img 
           src={project.image} 
           alt={project.title}
-          className="w-full h-full object-cover opacity-95 group-hover:scale-105 group-hover:opacity-100 transition-all duration-700"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           referrerPolicy="no-referrer"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#16283D] via-transparent to-transparent"></div>
 
         {/* Badges */}
-        <div className="absolute top-4 left-4 right-4 flex justify-between items-center z-10">
-          <span className={`text-[10px] font-mono tracking-wider px-2.5 py-1 uppercase shadow ${statusColors[project.status]}`}>
+        <div className="absolute top-3.5 left-3.5 right-3.5 flex justify-between items-center z-10">
+          <span className={`text-[10px] font-mono tracking-wider px-2.5 py-1 uppercase shadow-sm ${statusColors[project.status]}`}>
             {project.status}
           </span>
-          <span className="text-[10px] font-mono bg-black/60 backdrop-blur-md text-[#A49150] border border-[#A49150]/40 px-2 py-0.5">
+          <span className="text-[10px] font-mono bg-[#16283D]/90 text-[#A49150] border border-[#A49150]/50 px-2 py-0.5">
             {project.sector}
           </span>
         </div>
@@ -50,13 +49,13 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenDetails
             {project.title}
           </h3>
 
-          <p className="text-xs text-white/70 line-clamp-2 leading-relaxed">
+          <p className="text-xs text-white/85 line-clamp-2 leading-relaxed font-normal">
             {project.description}
           </p>
         </div>
 
         <div className="pt-4 border-t border-white/10 flex items-center justify-between">
-          <span className="text-[11px] font-mono text-white/50 truncate max-w-[180px]">
+          <span className="text-[11px] font-mono text-white/70 truncate max-w-[180px]">
             {project.client}
           </span>
           {onOpenDetails ? (

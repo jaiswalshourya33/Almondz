@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { SERVICES, Service } from '../data/services';
-import { Wrench, CheckCircle2, Eye, X, Download, ShieldCheck, Layers, FileText, Sparkles } from 'lucide-react';
+import { Wrench, CheckCircle2, Eye, X, Download, ShieldCheck, Layers, FileText, Award, Clock } from 'lucide-react';
 
 export const ServicesPage: React.FC = () => {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
@@ -87,13 +87,13 @@ export const ServicesPage: React.FC = () => {
       {/* Scrolling Ticker / Highlights */}
       <div className="bg-[#16283D] text-white/90 border-b border-[#A49150]/20 py-3 overflow-hidden whitespace-nowrap">
         <div className="inline-flex gap-12 animate-marquee text-xs font-mono tracking-wider">
-          <span className="flex items-center gap-2"><Sparkles className="w-4 h-4 text-[#F2834C]" /> Specialised Infrastructure Consultancy Services</span>
+          <span className="flex items-center gap-2"><Award className="w-4 h-4 text-[#F2834C]" /> Specialised Infrastructure Consultancy Services</span>
           <span className="text-[#F2834C]">•</span>
           <span className="flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-[#F2834C]" /> ISO 9001:2015 Certified Quality Management</span>
           <span className="text-[#F2834C]">•</span>
           <span className="flex items-center gap-2"><Layers className="w-4 h-4 text-[#F2834C]" /> Technical, financial and transaction advisory expertise</span>
           <span className="text-[#F2834C]">•</span>
-          <span className="flex items-center gap-2"><Sparkles className="w-4 h-4 text-[#F2834C]" /> Multidisciplinary Expert Panels</span>
+          <span className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-[#F2834C]" /> Multidisciplinary Expert Panels</span>
         </div>
       </div>
 
@@ -229,7 +229,7 @@ export const ServicesPage: React.FC = () => {
                   </div>
                   <div className="flex items-center gap-3 bg-[#fdf9ed] rounded-2xl p-4 border border-[#A49150]/15">
                     <div className="w-10 h-10 rounded-xl bg-[#A49150]/15 flex items-center justify-center shrink-0">
-                      <Sparkles className="w-5 h-5 text-[#A49150]" />
+                      <Clock className="w-5 h-5 text-[#A49150]" />
                     </div>
                     <div>
                       <p className="text-[11px] text-[#1c1c15]/50">Turnaround</p>
@@ -242,7 +242,7 @@ export const ServicesPage: React.FC = () => {
                 <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
                   <div className="flex items-center gap-2.5 mb-3">
                     <div className="w-8 h-8 rounded-lg bg-[#F2834C]/10 flex items-center justify-center">
-                      <Sparkles className="w-4 h-4 text-[#F2834C]" />
+                      <FileText className="w-4 h-4 text-[#F2834C]" />
                     </div>
                     <h4 className="text-sm font-semibold text-[#16283D]">Scope of Work</h4>
                   </div>
