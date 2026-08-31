@@ -44,16 +44,16 @@ export const ProjectVideoModal: React.FC<ProjectVideoModalProps> = ({
         aria-label="Close modal background"
       />
       
-      <div className="relative w-full max-w-5xl bg-[#16283D] border border-[#A49150]/30 shadow-2xl overflow-hidden z-10">
+      <div className="relative w-full max-w-5xl bg-[#18253A] border border-[#A49050]/30 shadow-2xl overflow-hidden z-10">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-[#071A2D]">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-[#101A29]">
           <div className="flex items-center gap-3">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#F2834C] animate-pulse"></span>
+            <span className="w-2.5 h-2.5 rounded-full bg-[#D96B33] animate-pulse"></span>
             <h3 className="text-white font-serif text-lg tracking-wide">{title} — Project Showcase</h3>
           </div>
           <button
             onClick={onClose}
-            className="p-2 text-white/70 hover:text-white bg-white/5 hover:bg-[#F2834C] transition-all duration-300 shadow hover:shadow-lg rounded-none border border-white/10 hover:border-[#F2834C]"
+            className="p-2 text-white/70 hover:text-white bg-white/5 hover:bg-[#D96B33] transition-all duration-300 shadow hover:shadow-lg rounded-none border border-white/10 hover:border-[#D96B33]"
             aria-label="Close modal"
           >
             <X className="w-5 h-5" />
@@ -72,9 +72,9 @@ export const ProjectVideoModal: React.FC<ProjectVideoModalProps> = ({
         </div>
 
         {/* Footer info */}
-        <div className="px-6 py-4 bg-[#071A2D] text-xs font-mono text-white/60 flex items-center justify-between border-t border-white/10">
+        <div className="px-6 py-4 bg-[#101A29] text-xs font-mono text-white/60 flex items-center justify-between border-t border-white/10">
           <span>ALMONDZ GLOBAL INFRASTRUCTURE CONSULTANCY</span>
-          <span className="text-[#F2834C]">CINEMATIC CASE STUDY</span>
+          <span className="text-[#D96B33]">CINEMATIC CASE STUDY</span>
         </div>
       </div>
     </div>

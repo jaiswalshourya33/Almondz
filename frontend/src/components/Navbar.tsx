@@ -83,8 +83,8 @@ export const Navbar: React.FC = () => {
       ref={navRef}
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
         isScrolled 
-          ? 'bg-[#16283D] shadow-lg py-3.5 border-b border-white/10'
-          : 'bg-gradient-to-b from-[#16283D]/90 via-[#16283D]/50 to-transparent py-5'
+          ? 'bg-[#18253A] shadow-lg py-3.5 border-b border-white/10'
+          : 'bg-gradient-to-b from-[#18253A]/90 via-[#18253A]/50 to-transparent py-5'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
@@ -97,10 +97,10 @@ export const Navbar: React.FC = () => {
         <nav className="hidden lg:flex items-center gap-8">
           <Link 
             to="/" 
-            className="text-sm font-medium tracking-wide text-white/90 hover:text-[#F2834C] transition-colors py-1 relative group"
+            className="text-sm font-medium tracking-wide text-white/90 hover:text-[#D96B33] transition-colors py-1 relative group"
           >
             HOME
-            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#F2834C] transition-all duration-300 group-hover:w-full"></span>
+            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#D96B33] transition-all duration-300 group-hover:w-full"></span>
           </Link>
 
           {/* ABOUT Dropdown */}
@@ -112,14 +112,14 @@ export const Navbar: React.FC = () => {
             <button
               type="button"
               onClick={() => setActiveDropdown('about')}
-              className="flex items-center gap-1.5 text-sm font-medium tracking-wide text-white/90 hover:text-[#F2834C] transition-colors py-1 group"
+              className="flex items-center gap-1.5 text-sm font-medium tracking-wide text-white/90 hover:text-[#D96B33] transition-colors py-1 group"
             >
               ABOUT
-              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === 'about' ? 'rotate-180 text-[#F2834C]' : ''}`} />
+              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === 'about' ? 'rotate-180 text-[#D96B33]' : ''}`} />
             </button>
 
             {activeDropdown === 'about' && (
-              <div className="absolute top-full left-0 w-72 bg-[#16283D] border border-[#A49150]/30 shadow-2xl py-3 px-1 z-50 animate-fade-in">
+              <div className="absolute top-full left-0 w-72 bg-[#18253A] border border-[#A49050]/30 shadow-2xl py-3 px-1 z-50 animate-fade-in">
                 {[
                   { name: "Overview", path: "/about" },
                   { name: "Mission & Vision", path: "/about/mission-vision" },
@@ -132,7 +132,7 @@ export const Navbar: React.FC = () => {
                     key={idx}
                     to={item.path}
                     onClick={closeDropdowns}
-                    className="block px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/10 transition-colors border-l-2 border-transparent hover:border-[#F2834C]"
+                    className="block px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/10 transition-colors border-l-2 border-transparent hover:border-[#D96B33]"
                   >
                     {item.name}
                   </Link>
@@ -150,16 +150,16 @@ export const Navbar: React.FC = () => {
             <button
               type="button"
               onClick={() => setActiveDropdown('sectors')}
-              className="flex items-center gap-1.5 text-sm font-medium tracking-wide text-white/90 hover:text-[#F2834C] transition-colors py-1"
+              className="flex items-center gap-1.5 text-sm font-medium tracking-wide text-white/90 hover:text-[#D96B33] transition-colors py-1"
             >
               SECTORS
-              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === 'sectors' ? 'rotate-180 text-[#F2834C]' : ''}`} />
+              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === 'sectors' ? 'rotate-180 text-[#D96B33]' : ''}`} />
             </button>
 
             {activeDropdown === 'sectors' && (
-              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[min(850px,90vw)] bg-[#16283D] border border-[#A49150]/30 shadow-2xl p-6 z-50 grid grid-cols-2 gap-4 animate-fade-in">
+              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[min(850px,90vw)] bg-[#18253A] border border-[#A49050]/30 shadow-2xl p-6 z-50 grid grid-cols-2 gap-4 animate-fade-in">
                 <div className="col-span-2 pb-2 border-b border-white/10">
-                  <span className="text-xs font-mono tracking-widest text-[#F2834C]">SPECIALIZED INFRASTRUCTURE DOMAINS (011)</span>
+                  <span className="text-xs font-mono tracking-widest text-[#D96B33]">SPECIALIZED INFRASTRUCTURE DOMAINS (011)</span>
                 </div>
                 {SECTORS.map((sector) => (
                   <Link
@@ -168,9 +168,9 @@ export const Navbar: React.FC = () => {
                     onClick={closeDropdowns}
                     className="p-2.5 rounded hover:bg-white/5 transition-colors group flex items-start gap-3"
                   >
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#A49150] mt-2 group-hover:bg-[#F2834C] transition-colors"></div>
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#A49050] mt-2 group-hover:bg-[#D96B33] transition-colors"></div>
                     <div>
-                      <h4 className="text-sm font-serif font-medium text-white group-hover:text-[#F2834C] transition-colors">
+                      <h4 className="text-sm font-serif font-medium text-white group-hover:text-[#D96B33] transition-colors">
                         {sector.title}
                       </h4>
                       <p className="text-xs text-white/60 line-clamp-1 mt-0.5">{sector.shortDesc}</p>
@@ -190,16 +190,16 @@ export const Navbar: React.FC = () => {
             <button
               type="button"
               onClick={() => setActiveDropdown('services')}
-              className="flex items-center gap-1.5 text-sm font-medium tracking-wide text-white/90 hover:text-[#F2834C] transition-colors py-1"
+              className="flex items-center gap-1.5 text-sm font-medium tracking-wide text-white/90 hover:text-[#D96B33] transition-colors py-1"
             >
               SERVICES
-              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === 'services' ? 'rotate-180 text-[#F2834C]' : ''}`} />
+              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === 'services' ? 'rotate-180 text-[#D96B33]' : ''}`} />
             </button>
 
             {activeDropdown === 'services' && (
-              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[min(850px,90vw)] bg-[#16283D] border border-[#A49150]/30 shadow-2xl p-6 z-50 grid grid-cols-2 gap-3 animate-fade-in">
+              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[min(850px,90vw)] bg-[#18253A] border border-[#A49050]/30 shadow-2xl p-6 z-50 grid grid-cols-2 gap-3 animate-fade-in">
                 <div className="col-span-2 pb-2 border-b border-white/10 flex justify-between items-center">
-                  <span className="text-xs font-mono tracking-widest text-[#F2834C]">END-TO-END CONSULTANCY SERVICES</span>
+                  <span className="text-xs font-mono tracking-widest text-[#D96B33]">END-TO-END CONSULTANCY SERVICES</span>
                   <Link to="/services" onClick={closeDropdowns} className="text-xs font-mono text-white/70 hover:text-white flex items-center gap-1">
                     View All Services <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
@@ -211,9 +211,9 @@ export const Navbar: React.FC = () => {
                     onClick={closeDropdowns}
                     className="p-2 rounded hover:bg-white/5 transition-colors group flex items-start gap-3"
                   >
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#A49150] mt-2 group-hover:bg-[#F2834C] transition-colors"></div>
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#A49050] mt-2 group-hover:bg-[#D96B33] transition-colors"></div>
                     <div>
-                      <h4 className="text-xs font-medium text-white group-hover:text-[#F2834C] transition-colors">
+                      <h4 className="text-xs font-medium text-white group-hover:text-[#D96B33] transition-colors">
                         {srv.title}
                       </h4>
                     </div>
@@ -226,10 +226,10 @@ export const Navbar: React.FC = () => {
           <Link
             to="/projects"
             onClick={closeDropdowns}
-            className="text-sm font-medium tracking-wide text-white/90 hover:text-[#F2834C] transition-colors py-1 relative group"
+            className="text-sm font-medium tracking-wide text-white/90 hover:text-[#D96B33] transition-colors py-1 relative group"
           >
             PROJECTS
-            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#F2834C] transition-all duration-300 group-hover:w-full"></span>
+            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#D96B33] transition-all duration-300 group-hover:w-full"></span>
           </Link>
         </nav>
 
@@ -237,7 +237,7 @@ export const Navbar: React.FC = () => {
         <div className="hidden lg:flex items-center gap-4">
           <Link
             to="/contact"
-            className="bg-[#F2834C] hover:bg-[#d9723f] text-white px-5 py-2.5 text-xs font-mono font-bold tracking-widest uppercase transition-all shadow-md flex items-center gap-2 rounded-md"
+            className="bg-[#D96B33] hover:bg-[#C25A28] text-white px-5 py-2.5 text-xs font-mono font-bold tracking-widest uppercase transition-all shadow-md flex items-center gap-2 rounded-md"
           >
             <Phone className="w-3.5 h-3.5" />
             CONTACT US
@@ -265,12 +265,12 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 right-0 bg-[#16283D] border-b border-[#A49150]/30 shadow-2xl px-6 py-6 max-h-[85vh] overflow-y-auto animate-fade-in z-50">
+        <div className="lg:hidden absolute top-full left-0 right-0 bg-[#18253A] border-b border-[#A49050]/30 shadow-2xl px-6 py-6 max-h-[85vh] overflow-y-auto animate-fade-in z-50">
           <div className="flex flex-col gap-4">
             <Link 
               to="/" 
               onClick={() => setMobileMenuOpen(false)}
-              className="text-base font-medium text-white hover:text-[#F2834C] py-2 border-b border-white/10"
+              className="text-base font-medium text-white hover:text-[#D96B33] py-2 border-b border-white/10"
             >
               Home
             </Link>
@@ -279,13 +279,13 @@ export const Navbar: React.FC = () => {
             <div>
               <button 
                 onClick={() => setMobileSubmenu(mobileSubmenu === 'about' ? null : 'about')}
-                className="flex items-center justify-between w-full text-base font-medium text-white hover:text-[#F2834C] py-2 border-b border-white/10"
+                className="flex items-center justify-between w-full text-base font-medium text-white hover:text-[#D96B33] py-2 border-b border-white/10"
               >
                 <span>About</span>
                 <ChevronDown className={`w-4 h-4 transition-transform ${mobileSubmenu === 'about' ? 'rotate-180' : ''}`} />
               </button>
               {mobileSubmenu === 'about' && (
-                <div className="pl-4 py-2 flex flex-col gap-2 bg-[#071A2D] mt-1">
+                <div className="pl-4 py-2 flex flex-col gap-2 bg-[#101A29] mt-1">
                   <Link to="/about" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80 py-1.5">Overview</Link>
                   <Link to="/about/mission-vision" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80 py-1.5">Mission & Vision</Link>
                   <Link to="/about/leadership" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80 py-1.5">Leadership & Directors</Link>
@@ -300,14 +300,14 @@ export const Navbar: React.FC = () => {
             <div>
               <button 
                 onClick={() => setMobileSubmenu(mobileSubmenu === 'sectors' ? null : 'sectors')}
-                className="flex items-center justify-between w-full text-base font-medium text-white hover:text-[#F2834C] py-2 border-b border-white/10"
+                className="flex items-center justify-between w-full text-base font-medium text-white hover:text-[#D96B33] py-2 border-b border-white/10"
               >
                 <span>Sectors</span>
                 <ChevronDown className={`w-4 h-4 transition-transform ${mobileSubmenu === 'sectors' ? 'rotate-180' : ''}`} />
               </button>
               {mobileSubmenu === 'sectors' && (
-                <div className="pl-4 py-2 flex flex-col gap-2 bg-[#071A2D] mt-1 max-h-60 overflow-y-auto">
-                  <Link to="/sectors" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium text-[#F2834C] py-1">View All Sectors</Link>
+                <div className="pl-4 py-2 flex flex-col gap-2 bg-[#101A29] mt-1 max-h-60 overflow-y-auto">
+                  <Link to="/sectors" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium text-[#D96B33] py-1">View All Sectors</Link>
                   {SECTORS.map((sec) => (
                     <Link key={sec.id} to={`/sectors/${sec.slug}`} onClick={() => setMobileMenuOpen(false)} className="text-xs text-white/80 py-1">
                       {sec.title}
@@ -321,14 +321,14 @@ export const Navbar: React.FC = () => {
             <div>
               <button 
                 onClick={() => setMobileSubmenu(mobileSubmenu === 'services' ? null : 'services')}
-                className="flex items-center justify-between w-full text-base font-medium text-white hover:text-[#F2834C] py-2 border-b border-white/10"
+                className="flex items-center justify-between w-full text-base font-medium text-white hover:text-[#D96B33] py-2 border-b border-white/10"
               >
                 <span>Services</span>
                 <ChevronDown className={`w-4 h-4 transition-transform ${mobileSubmenu === 'services' ? 'rotate-180' : ''}`} />
               </button>
               {mobileSubmenu === 'services' && (
-                <div className="pl-4 py-2 flex flex-col gap-2 bg-[#071A2D] mt-1 max-h-60 overflow-y-auto">
-                  <Link to="/services" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium text-[#F2834C] py-1">View All Services</Link>
+                <div className="pl-4 py-2 flex flex-col gap-2 bg-[#101A29] mt-1 max-h-60 overflow-y-auto">
+                  <Link to="/services" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium text-[#D96B33] py-1">View All Services</Link>
                   {SERVICES.map((srv) => (
                     <Link key={srv.id} to={`/services?service=${srv.slug}`} onClick={() => setMobileMenuOpen(false)} className="text-xs text-white/80 py-1">
                       {srv.title}
@@ -341,7 +341,7 @@ export const Navbar: React.FC = () => {
             <Link
               to="/projects"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-base font-medium text-white hover:text-[#F2834C] py-2 border-b border-white/10"
+              className="text-base font-medium text-white hover:text-[#D96B33] py-2 border-b border-white/10"
             >
               Projects
             </Link>
@@ -349,7 +349,7 @@ export const Navbar: React.FC = () => {
             <Link 
               to="/contact" 
               onClick={() => setMobileMenuOpen(false)}
-              className="mt-4 bg-[#F2834C] text-white py-3 text-center text-xs font-mono font-bold tracking-widest uppercase rounded-md shadow-md"
+              className="mt-4 bg-[#D96B33] text-white py-3 text-center text-xs font-mono font-bold tracking-widest uppercase rounded-md shadow-md"
             >
               Contact Us
             </Link>

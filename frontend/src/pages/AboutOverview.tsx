@@ -87,15 +87,15 @@ export const AboutOverview: React.FC = () => {
   };
 
   return (
-    <div className="about-overview-page flex flex-col min-h-screen bg-[#fdf9ed] pt-24">
+    <div className="about-overview-page flex flex-col min-h-screen bg-[#F1F3F5] pt-24">
       {/* Header Banner */}
-      <section className="bg-[#1E3A5F] text-white py-16 border-b border-[#A49150]/30">
+      <section className="bg-[#53647D] text-white py-16 border-b border-[#A49050]/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="about-banner-copy flex flex-col gap-5 max-w-3xl">
-            <span className="inline-flex w-fit items-center text-xs font-mono tracking-widest text-[#A49150] uppercase bg-[#A49150]/10 border border-[#A49150]/30 px-4 py-1.5 rounded-full">ABOUT ALMONDZ GLOBAL INFRA</span>
+            <span className="inline-flex w-fit items-center text-xs font-mono tracking-widest text-[#A49050] uppercase bg-[#A49050]/10 border border-[#A49050]/30 px-4 py-1.5 rounded-full">ABOUT ALMONDZ GLOBAL INFRA</span>
             <h1 ref={heroHeadingRef} className="text-4xl sm:text-5xl font-serif font-bold">Engineering Excellence & Institutional Trust</h1>
             <div
-              className="services-hero-line h-[3px] bg-[#A49150] rounded-full"
+              className="services-hero-line h-[3px] bg-[#A49050] rounded-full"
               style={{ width: heroLineWidth ? `${heroLineWidth}px` : '4rem' }}
             ></div>
             <p className="text-white/80 text-base leading-relaxed">
@@ -111,39 +111,39 @@ export const AboutOverview: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
             <div className="about-heritage-copy lg:col-span-6 flex flex-col gap-6">
-              <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">OUR HERITAGE</span>
-              <h2 className="text-3xl font-serif font-bold text-[#16283D]">A Legacy of Precision, Integrity, and Nation-Building</h2>
-              <p className="text-sm text-[#1c1c15]/80 leading-relaxed">
+              <span className="text-xs font-mono tracking-widest text-[#D96B33] uppercase">OUR HERITAGE</span>
+              <h2 className="text-3xl font-serif font-bold text-[#18253A]">A Legacy of Precision, Integrity, and Nation-Building</h2>
+              <p className="text-sm text-[#18253A]/80 leading-relaxed">
                 Founded in 2013, Almondz Global Infra Consultant Limited has over a decade of experience in infrastructure consultancy, backed by the larger Almondz Group's legacy since 1994. AGICL has successfully delivered over 50+ major infrastructure projects and maintains more than 100+ active engagements across India and abroad.
               </p>
-              <p className="text-sm text-[#1c1c15]/80 leading-relaxed">
+              <p className="text-sm text-[#18253A]/80 leading-relaxed">
                 Our multidisciplinary teams comprise seasoned civil engineers, geotechnical experts, urban planners, financial analysts, and environmental scientists who work in synergy to deliver turnkey consultancy from concept to commissioning.
               </p>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4 border-t border-[#A49150]/30">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4 border-t border-[#A49050]/30">
                 <div>
-                  <div className="text-xl font-serif font-bold text-[#16283D]">₹500Cr+</div>
-                  <div className="text-xs font-mono text-[#1c1c15]/60 mt-1">Active Order Book</div>
+                  <div className="text-xl font-serif font-bold text-[#18253A]">₹500Cr+</div>
+                  <div className="text-xs font-mono text-[#18253A]/60 mt-1">Active Order Book</div>
                 </div>
                 <div>
-                  <div className="text-xl font-serif font-bold text-[#F2834C]">500+</div>
-                  <div className="text-xs font-mono text-[#1c1c15]/60 mt-1">Employees</div>
+                  <div className="text-xl font-serif font-bold text-[#D96B33]">500+</div>
+                  <div className="text-xs font-mono text-[#18253A]/60 mt-1">Employees</div>
                 </div>
                 <div>
-                  <div className="text-xl font-serif font-bold text-[#16283D]">BBB-</div>
-                  <div className="text-xs font-mono text-[#1c1c15]/60 mt-1">CARE Rating</div>
+                  <div className="text-xl font-serif font-bold text-[#18253A]">BBB-</div>
+                  <div className="text-xs font-mono text-[#18253A]/60 mt-1">CARE Rating</div>
                 </div>
                 <div>
-                  <div className="text-xl font-serif font-bold text-[#16283D]">ISO 9001:2015</div>
-                  <div className="text-xs font-mono text-[#1c1c15]/60 mt-1">Certified Quality System</div>
+                  <div className="text-xl font-serif font-bold text-[#18253A]">ISO 9001:2015</div>
+                  <div className="text-xs font-mono text-[#18253A]/60 mt-1">Certified Quality System</div>
                 </div>
                 <div>
-                  <div className="text-xl font-serif font-bold text-[#16283D]">CMMI Level 3</div>
-                  <div className="text-xs font-mono text-[#1c1c15]/60 mt-1">Process Maturity</div>
+                  <div className="text-xl font-serif font-bold text-[#18253A]">CMMI Level 3</div>
+                  <div className="text-xs font-mono text-[#18253A]/60 mt-1">Process Maturity</div>
                 </div>
                 <div>
-                  <div className="text-xl font-serif font-bold text-[#F2834C]">30+ Empanelments</div>
-                  <div className="text-xs font-mono text-[#1c1c15]/60 mt-1">Government & Multilateral</div>
+                  <div className="text-xl font-serif font-bold text-[#D96B33]">30+ Empanelments</div>
+                  <div className="text-xs font-mono text-[#18253A]/60 mt-1">Government & Multilateral</div>
                 </div>
               </div>
             </div>
@@ -160,8 +160,8 @@ export const AboutOverview: React.FC = () => {
                   alt="Metro infrastructure project"
                   className="w-full h-[450px] object-cover shadow-2xl"
                 />
-                <div className="absolute -bottom-6 -left-6 bg-[#16283D] text-white p-6 border border-[#A49150]/40 shadow-xl max-w-xs">
-                  <div className="text-xl font-serif font-bold text-[#F2834C]">100% Commitment</div>
+                <div className="absolute -bottom-6 -left-6 bg-[#18253A] text-white p-6 border border-[#A49050]/40 shadow-xl max-w-xs">
+                  <div className="text-xl font-serif font-bold text-[#D96B33]">100% Commitment</div>
                   <div className="text-xs text-white/70 font-mono mt-1">Rigorous adherence to international safety and environmental benchmarks.</div>
                 </div>
               </div>
@@ -172,48 +172,48 @@ export const AboutOverview: React.FC = () => {
       </section>
 
       {/* SUB-NAVIGATION CARDS */}
-      <section ref={subNavSectionRef} className="about-subnav-section py-16 bg-white border-t border-[#A49150]/20">
+      <section ref={subNavSectionRef} className="about-subnav-section py-16 bg-white border-t border-[#A49050]/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="about-subnav-header text-center mb-12">
-            <span className="text-xs font-mono tracking-widest text-[#A49150] uppercase">EXPLORE FURTHER</span>
-            <h2 className="text-3xl font-serif font-bold text-[#16283D] mt-1">Corporate Governance & Leadership</h2>
+            <span className="text-xs font-mono tracking-widest text-[#A49050] uppercase">EXPLORE FURTHER</span>
+            <h2 className="text-3xl font-serif font-bold text-[#18253A] mt-1">Corporate Governance & Leadership</h2>
           </div>
 
           <div ref={subNavCardsRef} className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Link to="/about/mission-vision" className="about-subnav-card p-8 bg-white rounded-2xl border border-[#A49150]/20 shadow-sm hover:shadow-xl hover:border-[#F2834C]/50 hover:-translate-y-2 hover:scale-[1.03] transition-all duration-300 group">
-              <div className="w-14 h-14 rounded-full bg-[#fdf9ed] border border-[#A49150]/20 flex items-center justify-center text-[#16283D] group-hover:text-[#F2834C] group-hover:border-[#F2834C]/40 transition-colors">
+            <Link to="/about/mission-vision" className="about-subnav-card p-8 bg-white rounded-2xl border border-[#A49050]/20 shadow-sm hover:shadow-xl hover:border-[#D96B33]/50 hover:-translate-y-2 hover:scale-[1.03] transition-all duration-300 group">
+              <div className="w-14 h-14 rounded-full bg-[#F1F3F5] border border-[#A49050]/20 flex items-center justify-center text-[#18253A] group-hover:text-[#D96B33] group-hover:border-[#D96B33]/40 transition-colors">
                 <ShieldCheck className="w-6 h-6" />
               </div>
-              <div className="border-t border-[#A49150]/15 mt-6 mb-6" />
-              <h3 className="text-xl font-serif font-bold text-[#16283D] group-hover:text-[#F2834C] transition-colors">Mission & Vision</h3>
-              <p className="text-xs text-[#1c1c15]/70 mt-2 leading-relaxed">Our core pillars of sustainable engineering, innovation, and ethical infrastructure stewardship.</p>
-              <div className="mt-6 flex items-center gap-2 text-xs font-mono font-bold text-[#F2834C]">
+              <div className="border-t border-[#A49050]/15 mt-6 mb-6" />
+              <h3 className="text-xl font-serif font-bold text-[#18253A] group-hover:text-[#D96B33] transition-colors">Mission & Vision</h3>
+              <p className="text-xs text-[#18253A]/70 mt-2 leading-relaxed">Our core pillars of sustainable engineering, innovation, and ethical infrastructure stewardship.</p>
+              <div className="mt-6 flex items-center gap-2 text-xs font-mono font-bold text-[#D96B33]">
                 <span>Read More</span>
                 <ArrowRight className="w-4 h-4" />
               </div>
             </Link>
 
-            <Link to="/about/leadership" className="about-subnav-card p-8 bg-white rounded-2xl border border-[#A49150]/20 shadow-sm hover:shadow-xl hover:border-[#F2834C]/50 hover:-translate-y-2 hover:scale-[1.03] transition-all duration-300 group">
-              <div className="w-14 h-14 rounded-full bg-[#fdf9ed] border border-[#A49150]/20 flex items-center justify-center text-[#16283D] group-hover:text-[#F2834C] group-hover:border-[#F2834C]/40 transition-colors">
+            <Link to="/about/leadership" className="about-subnav-card p-8 bg-white rounded-2xl border border-[#A49050]/20 shadow-sm hover:shadow-xl hover:border-[#D96B33]/50 hover:-translate-y-2 hover:scale-[1.03] transition-all duration-300 group">
+              <div className="w-14 h-14 rounded-full bg-[#F1F3F5] border border-[#A49050]/20 flex items-center justify-center text-[#18253A] group-hover:text-[#D96B33] group-hover:border-[#D96B33]/40 transition-colors">
                 <Building2 className="w-6 h-6" />
               </div>
-              <div className="border-t border-[#A49150]/15 mt-6 mb-6" />
-              <h3 className="text-xl font-serif font-bold text-[#16283D] group-hover:text-[#F2834C] transition-colors">Leadership & Board</h3>
-              <p className="text-xs text-[#1c1c15]/70 mt-2 leading-relaxed">Meet our Board of Directors, managing directors, and technical practice leaders.</p>
-              <div className="mt-6 flex items-center gap-2 text-xs font-mono font-bold text-[#F2834C]">
+              <div className="border-t border-[#A49050]/15 mt-6 mb-6" />
+              <h3 className="text-xl font-serif font-bold text-[#18253A] group-hover:text-[#D96B33] transition-colors">Leadership & Board</h3>
+              <p className="text-xs text-[#18253A]/70 mt-2 leading-relaxed">Meet our Board of Directors, managing directors, and technical practice leaders.</p>
+              <div className="mt-6 flex items-center gap-2 text-xs font-mono font-bold text-[#D96B33]">
                 <span>Meet the Team</span>
                 <ArrowRight className="w-4 h-4" />
               </div>
             </Link>
 
-            <Link to="/about/certifications" className="about-subnav-card p-8 bg-white rounded-2xl border border-[#A49150]/20 shadow-sm hover:shadow-xl hover:border-[#F2834C]/50 hover:-translate-y-2 hover:scale-[1.03] transition-all duration-300 group">
-              <div className="w-14 h-14 rounded-full bg-[#fdf9ed] border border-[#A49150]/20 flex items-center justify-center text-[#16283D] group-hover:text-[#F2834C] group-hover:border-[#F2834C]/40 transition-colors">
+            <Link to="/about/certifications" className="about-subnav-card p-8 bg-white rounded-2xl border border-[#A49050]/20 shadow-sm hover:shadow-xl hover:border-[#D96B33]/50 hover:-translate-y-2 hover:scale-[1.03] transition-all duration-300 group">
+              <div className="w-14 h-14 rounded-full bg-[#F1F3F5] border border-[#A49050]/20 flex items-center justify-center text-[#18253A] group-hover:text-[#D96B33] group-hover:border-[#D96B33]/40 transition-colors">
                 <Award className="w-6 h-6" />
               </div>
-              <div className="border-t border-[#A49150]/15 mt-6 mb-6" />
-              <h3 className="text-xl font-serif font-bold text-[#16283D] group-hover:text-[#F2834C] transition-colors">Certifications & Empanelments</h3>
-              <p className="text-xs text-[#1c1c15]/70 mt-2 leading-relaxed">View our ISO accreditations and official empanelments with NHAI, MoRTH, and World Bank.</p>
-              <div className="mt-6 flex items-center gap-2 text-xs font-mono font-bold text-[#F2834C]">
+              <div className="border-t border-[#A49050]/15 mt-6 mb-6" />
+              <h3 className="text-xl font-serif font-bold text-[#18253A] group-hover:text-[#D96B33] transition-colors">Certifications & Empanelments</h3>
+              <p className="text-xs text-[#18253A]/70 mt-2 leading-relaxed">View our ISO accreditations and official empanelments with NHAI, MoRTH, and World Bank.</p>
+              <div className="mt-6 flex items-center gap-2 text-xs font-mono font-bold text-[#D96B33]">
                 <span>View Credentials</span>
                 <ArrowRight className="w-4 h-4" />
               </div>

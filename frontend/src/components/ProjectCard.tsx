@@ -10,15 +10,15 @@ interface ProjectCardProps {
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenDetails }) => {
   const statusColors = {
-    "Recently Awarded": "bg-[#F2834C] text-white",
-    "Ongoing": "bg-[#1E3A5F] text-white",
+    "Recently Awarded": "bg-[#D96B33] text-white",
+    "Ongoing": "bg-[#53647D] text-white",
     "Completed": "bg-emerald-700 text-white"
   };
 
   return (
-    <div className="group project-card bg-[#1E3A5F] border border-[#A49150]/30 rounded-2xl overflow-hidden flex flex-col justify-between shadow-lg hover:border-[#F2834C] transition-all duration-300">
+    <div className="group project-card bg-[#53647D] border border-[#A49050]/30 rounded-2xl overflow-hidden flex flex-col justify-between shadow-lg hover:border-[#D96B33] transition-all duration-300">
       {/* Image & Header */}
-      <div className="relative aspect-[16/10] overflow-hidden bg-[#0e1b2b] border-b border-[#A49150]/25">
+      <div className="relative aspect-[16/10] overflow-hidden bg-[#101A29] border-b border-[#A49050]/25">
         <img 
           src={project.image} 
           alt={project.title}
@@ -31,7 +31,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenDetails
           <span className={`text-[10px] font-mono tracking-wider px-2.5 py-1 uppercase shadow-sm ${statusColors[project.status]}`}>
             {project.status}
           </span>
-          <span className="text-[10px] font-mono bg-[#1E3A5F]/90 text-[#A49150] border border-[#A49150]/50 px-2 py-0.5">
+          <span className="text-[10px] font-mono bg-[#53647D]/90 text-[#A49050] border border-[#A49050]/50 px-2 py-0.5">
             {project.sector}
           </span>
         </div>
@@ -40,11 +40,11 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenDetails
       {/* Content */}
       <div className="p-6 flex flex-col gap-4 flex-1">
         <div>
-          <span className="text-[10px] font-mono font-bold text-[#A49150] uppercase tracking-widest">
+          <span className="text-[10px] font-mono font-bold text-[#A49050] uppercase tracking-widest">
             {project.sector}
           </span>
 
-          <h3 className="mt-1.5 text-lg font-serif text-white group-hover:text-[#A49150] transition-colors leading-snug">
+          <h3 className="mt-1.5 text-lg font-serif text-white group-hover:text-[#A49050] transition-colors leading-snug">
             {project.title}
           </h3>
         </div>
@@ -55,7 +55,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenDetails
             <p className="text-[9px] font-mono text-white/45 uppercase tracking-wider mt-0.5">Location</p>
           </div>
           <div className="px-3">
-            <p className="text-xs font-bold text-[#A49150] truncate">{project.client}</p>
+            <p className="text-xs font-bold text-[#A49050] truncate">{project.client}</p>
             <p className="text-[9px] font-mono text-white/45 uppercase tracking-wider mt-0.5">Client</p>
           </div>
           <div className="pl-3">
@@ -71,7 +71,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenDetails
           {onOpenDetails ? (
             <button
               onClick={() => onOpenDetails(project)}
-              className="text-xs font-mono font-bold text-[#F2834C] flex items-center gap-1 hover:underline cursor-pointer"
+              className="text-xs font-mono font-bold text-[#D96B33] flex items-center gap-1 hover:underline cursor-pointer"
             >
               <span>DETAILS</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -79,7 +79,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenDetails
           ) : (
             <Link
               to={`/projects`}
-              className="text-xs font-mono font-bold text-[#F2834C] flex items-center gap-1 hover:underline"
+              className="text-xs font-mono font-bold text-[#D96B33] flex items-center gap-1 hover:underline"
             >
               <span>DETAILS</span>
               <ArrowRight className="w-3.5 h-3.5" />

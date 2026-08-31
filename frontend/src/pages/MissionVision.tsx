@@ -135,14 +135,14 @@ export const MissionVision: React.FC = () => {
   const visionTranslate = mapRange(progress, VISION_START, VISION_START + 0.08, 70, 0);
 
   return (
-    <div className="about-dropdown-page flex flex-col min-h-screen bg-[#fdf9ed] pt-24">
-      <section className="bg-[#1E3A5F] text-white py-16 border-b border-[#A49150]/30">
+    <div className="about-dropdown-page flex flex-col min-h-screen bg-[#F1F3F5] pt-24">
+      <section className="bg-[#53647D] text-white py-16 border-b border-[#A49050]/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="about-dropdown-banner-copy flex flex-col gap-5 max-w-3xl">
-            <span className="inline-flex w-fit items-center text-xs font-mono tracking-widest text-[#A49150] uppercase bg-[#A49150]/10 border border-[#A49150]/30 px-4 py-1.5 rounded-full">OUR PURPOSE</span>
+            <span className="inline-flex w-fit items-center text-xs font-mono tracking-widest text-[#A49050] uppercase bg-[#A49050]/10 border border-[#A49050]/30 px-4 py-1.5 rounded-full">OUR PURPOSE</span>
             <h1 ref={heroHeadingRef} className="text-4xl sm:text-5xl font-serif font-bold">Mission, Vision & Core Values</h1>
             <div
-              className="services-hero-line h-[3px] bg-[#A49150] rounded-full"
+              className="services-hero-line h-[3px] bg-[#A49050] rounded-full"
               style={{ width: heroLineWidth ? `${heroLineWidth}px` : '4rem' }}
             ></div>
             <p className="text-white/80 text-base leading-relaxed">
@@ -167,7 +167,7 @@ export const MissionVision: React.FC = () => {
             className="absolute inset-0 w-full h-full object-cover"
             style={{ transform: `scale(${imageScale})`, transition: 'transform 60ms linear' }}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#16283D]/50 via-[#16283D]/10 to-[#16283D]/60" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#18253A]/50 via-[#18253A]/10 to-[#18253A]/60" />
 
           {/* Mission — left, vertically centered below the fixed navbar (top-24
               clears it); same fixed height as the Vision card so both match
@@ -181,14 +181,14 @@ export const MissionVision: React.FC = () => {
               className="mission-vision-card bg-white rounded-2xl shadow-xl p-5 sm:p-9 flex flex-col gap-3 overflow-y-auto"
               style={{ height: cardHeight ? `${cardHeight}px` : 'auto' }}
             >
-              <h2 style={revealStyle(progress, MISSION_START + 0.1, 0.05)} className="text-2xl sm:text-3xl font-serif font-bold text-[#16283D]">Our Mission</h2>
-              <p style={revealStyle(progress, MISSION_START + 0.13, 0.06)} className="text-xs sm:text-sm text-[#1c1c15]/70 leading-relaxed">
+              <h2 style={revealStyle(progress, MISSION_START + 0.1, 0.05)} className="text-2xl sm:text-3xl font-serif font-bold text-[#18253A]">Our Mission</h2>
+              <p style={revealStyle(progress, MISSION_START + 0.13, 0.06)} className="text-xs sm:text-sm text-[#18253A]/70 leading-relaxed">
                 To deliver excellence in infrastructure consultancy, engineering and technology through innovation, domain expertise and client-centric execution. Almondz creates long-term value with efficient, transparent and sustainable solutions across transportation, water, urban infrastructure, disaster resilience and digital transformation — building strong partnerships with governments, institutions and private enterprises, always to the highest standards of integrity, quality and operational excellence.
               </p>
               <ul className="flex flex-col gap-2 pt-3 mt-auto border-t border-gray-100">
                 {MISSION_BULLETS.map((bullet, idx) => (
-                  <li key={bullet} style={revealStyle(progress, MISSION_START + 0.17 + idx * 0.02, 0.05)} className="flex items-center gap-3 text-xs sm:text-sm text-[#1c1c15]/80">
-                    <span className="w-5 h-5 rounded-full bg-[#F2834C] flex items-center justify-center shrink-0">
+                  <li key={bullet} style={revealStyle(progress, MISSION_START + 0.17 + idx * 0.02, 0.05)} className="flex items-center gap-3 text-xs sm:text-sm text-[#18253A]/80">
+                    <span className="w-5 h-5 rounded-full bg-[#D96B33] flex items-center justify-center shrink-0">
                       <Check className="w-3 h-3 text-white" strokeWidth={3} />
                     </span>
                     <span>{bullet}</span>
@@ -209,14 +209,14 @@ export const MissionVision: React.FC = () => {
               className="mission-vision-card bg-white rounded-2xl shadow-xl p-5 sm:p-9 flex flex-col gap-3 overflow-y-auto"
               style={{ height: cardHeight ? `${cardHeight}px` : 'auto' }}
             >
-              <h2 style={revealStyle(progress, VISION_START + 0.1, 0.05)} className="text-2xl sm:text-3xl font-serif font-bold text-[#16283D]">Our Vision</h2>
-              <p style={revealStyle(progress, VISION_START + 0.13, 0.06)} className="text-xs sm:text-sm text-[#1c1c15]/70 leading-relaxed">
+              <h2 style={revealStyle(progress, VISION_START + 0.1, 0.05)} className="text-2xl sm:text-3xl font-serif font-bold text-[#18253A]">Our Vision</h2>
+              <p style={revealStyle(progress, VISION_START + 0.13, 0.06)} className="text-xs sm:text-sm text-[#18253A]/70 leading-relaxed">
                 To emerge as a globally respected, technology-driven infrastructure consultancy — enabling sustainable growth through innovative engineering, digital transformation and integrated advisory. Almondz envisions building resilient, future-ready infrastructure ecosystems that advance economic development, urban modernisation, environmental sustainability and quality of life across communities in India and beyond.
               </p>
               <ul className="flex flex-col gap-2 pt-3 mt-auto border-t border-gray-100">
                 {VISION_BULLETS.map((bullet, idx) => (
-                  <li key={bullet} style={revealStyle(progress, VISION_START + 0.17 + idx * 0.02, 0.05)} className="flex items-center gap-3 text-xs sm:text-sm text-[#1c1c15]/80">
-                    <span className="w-5 h-5 rounded-full bg-[#F2834C] flex items-center justify-center shrink-0">
+                  <li key={bullet} style={revealStyle(progress, VISION_START + 0.17 + idx * 0.02, 0.05)} className="flex items-center gap-3 text-xs sm:text-sm text-[#18253A]/80">
+                    <span className="w-5 h-5 rounded-full bg-[#D96B33] flex items-center justify-center shrink-0">
                       <Check className="w-3 h-3 text-white" strokeWidth={3} />
                     </span>
                     <span>{bullet}</span>

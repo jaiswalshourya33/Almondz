@@ -138,16 +138,16 @@ export const ManagementTeamPage: React.FC = () => {
   };
 
   return (
-    <div className="about-dropdown-page flex flex-col min-h-screen bg-[#fdf9ed] pt-24">
+    <div className="about-dropdown-page flex flex-col min-h-screen bg-[#F1F3F5] pt-24">
       {/* Header Banner */}
-      <section className="bg-[#1E3A5F] text-white py-16 border-b border-[#A49150]/30 relative overflow-hidden">
-        <div className="absolute right-0 top-0 w-96 h-96 bg-[#A49150]/5 rounded-full blur-3xl pointer-events-none"></div>
+      <section className="bg-[#53647D] text-white py-16 border-b border-[#A49050]/30 relative overflow-hidden">
+        <div className="absolute right-0 top-0 w-96 h-96 bg-[#A49050]/5 rounded-full blur-3xl pointer-events-none"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="about-dropdown-banner-copy flex flex-col gap-5 max-w-3xl">
-            <span className="inline-flex w-fit items-center text-xs font-mono tracking-widest text-[#A49150] uppercase bg-[#A49150]/10 border border-[#A49150]/30 px-4 py-1.5 rounded-full">EXECUTIVE LEADERSHIP & GOVERNANCE</span>
+            <span className="inline-flex w-fit items-center text-xs font-mono tracking-widest text-[#A49050] uppercase bg-[#A49050]/10 border border-[#A49050]/30 px-4 py-1.5 rounded-full">EXECUTIVE LEADERSHIP & GOVERNANCE</span>
             <h1 ref={heroHeadingRef} className="text-4xl sm:text-5xl font-serif font-bold tracking-tight">Management Team Members</h1>
             <div
-              className="services-hero-line h-[3px] bg-[#A49150] rounded-full"
+              className="services-hero-line h-[3px] bg-[#A49050] rounded-full"
               style={{ width: heroLineWidth ? `${heroLineWidth}px` : '4rem' }}
             ></div>
             <p className="text-white/80 text-base sm:text-lg leading-relaxed">
@@ -158,11 +158,11 @@ export const ManagementTeamPage: React.FC = () => {
       </section>
 
       {/* Highlights Bar */}
-      <section ref={highlightsSectionRef} className="bg-[#071A2D] text-white py-4 border-b border-[#A49150]/20">
+      <section ref={highlightsSectionRef} className="bg-[#101A29] text-white py-4 border-b border-[#A49050]/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center divide-y md:divide-y-0 md:divide-x divide-white/10">
             <div className="p-1.5">
-              <CountUpValue value="200+" start={highlightsStarted} className="text-2xl sm:text-3xl font-serif font-bold text-[#F2834C]" />
+              <CountUpValue value="200+" start={highlightsStarted} className="text-2xl sm:text-3xl font-serif font-bold text-[#D96B33]" />
               <div className="text-[11px] font-mono text-white/70 mt-0.5 uppercase tracking-wider">Cumulative Experience (Years)</div>
             </div>
             <div className="p-1.5">
@@ -170,11 +170,11 @@ export const ManagementTeamPage: React.FC = () => {
               <div className="text-[11px] font-mono text-white/70 mt-0.5 uppercase tracking-wider">Core Specialist Divisions</div>
             </div>
             <div className="p-1.5">
-              <CountUpValue value="100+" start={highlightsStarted} className="text-2xl sm:text-3xl font-serif font-bold text-[#A49150]" />
+              <CountUpValue value="100+" start={highlightsStarted} className="text-2xl sm:text-3xl font-serif font-bold text-[#A49050]" />
               <div className="text-[11px] font-mono text-white/70 mt-0.5 uppercase tracking-wider">Active Infrastructure Projects</div>
             </div>
             <div className="p-1.5">
-              <CountUpValue value="100%" start={highlightsStarted} className="text-2xl sm:text-3xl font-serif font-bold text-[#F2834C]" />
+              <CountUpValue value="100%" start={highlightsStarted} className="text-2xl sm:text-3xl font-serif font-bold text-[#D96B33]" />
               <div className="text-[11px] font-mono text-white/70 mt-0.5 uppercase tracking-wider">ISO Quality Governance</div>
             </div>
           </div>
@@ -186,7 +186,7 @@ export const ManagementTeamPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Controls: Search & Department Tabs */}
-          <div className="flex flex-col lg:flex-row gap-4 justify-between items-stretch lg:items-center mb-12 bg-white rounded-2xl border border-[#A49150]/15 shadow-sm p-3">
+          <div className="flex flex-col lg:flex-row gap-4 justify-between items-stretch lg:items-center mb-12 bg-white rounded-2xl border border-[#A49050]/15 shadow-sm p-3">
             {/* Department Filter Tabs */}
             <div className="flex flex-wrap gap-1.5">
               {departments.map((dept) => (
@@ -195,8 +195,8 @@ export const ManagementTeamPage: React.FC = () => {
                   onClick={() => setSelectedDepartment(dept)}
                   className={`px-2.5 py-1.5 text-[10px] font-mono font-bold uppercase whitespace-nowrap transition-all duration-300 rounded-md shadow-sm hover:shadow ${
                     selectedDepartment === dept
-                      ? 'bg-[#16283D] text-white border border-[#16283D] shadow-md -translate-y-0.5'
-                      : 'bg-[#fdf9ed] text-[#16283D] border border-[#A49150]/30 hover:border-[#F2834C] hover:bg-[#A49150]/10 hover:-translate-y-0.5 active:translate-y-0'
+                      ? 'bg-[#18253A] text-white border border-[#18253A] shadow-md -translate-y-0.5'
+                      : 'bg-[#F1F3F5] text-[#18253A] border border-[#A49050]/30 hover:border-[#D96B33] hover:bg-[#A49050]/10 hover:-translate-y-0.5 active:translate-y-0'
                   }`}
                 >
                   {dept}
@@ -212,7 +212,7 @@ export const ManagementTeamPage: React.FC = () => {
                 placeholder="Search by name, role, or skill..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 bg-[#fdf9ed] border border-transparent rounded-full text-xs text-[#16283D] placeholder-gray-400 focus:outline-none focus:border-[#F2834C] focus:bg-white transition-all"
+                className="w-full pl-10 pr-4 py-2.5 bg-[#F1F3F5] border border-transparent rounded-full text-xs text-[#18253A] placeholder-gray-400 focus:outline-none focus:border-[#D96B33] focus:bg-white transition-all"
               />
               {searchQuery && (
                 <button
@@ -233,40 +233,40 @@ export const ManagementTeamPage: React.FC = () => {
                   type="button"
                   key={member.id}
                   onClick={() => setActiveModalMember(member)}
-                  className="group bg-white rounded-2xl border border-[#A49150]/20 shadow-sm hover:shadow-xl hover:border-[#F2834C]/40 hover:-translate-y-1 transition-all duration-300 overflow-hidden text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F2834C]"
+                  className="group bg-white rounded-2xl border border-[#A49050]/20 shadow-sm hover:shadow-xl hover:border-[#D96B33]/40 hover:-translate-y-1 transition-all duration-300 overflow-hidden text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D96B33]"
                 >
                   {/* Photo */}
-                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#fdf9ed]">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#F1F3F5]">
                     <img
                       src={member.image}
                       alt={member.name}
                       className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                       referrerPolicy="no-referrer"
                     />
-                    <span className="absolute top-2.5 left-2.5 text-[9px] font-mono uppercase tracking-widest text-white bg-[#16283D]/85 backdrop-blur-sm px-2 py-0.5 rounded-full border border-white/10">
+                    <span className="absolute top-2.5 left-2.5 text-[9px] font-mono uppercase tracking-widest text-white bg-[#18253A]/85 backdrop-blur-sm px-2 py-0.5 rounded-full border border-white/10">
                       {member.department ?? 'Management'}
                     </span>
-                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#16283D]/85 to-transparent px-3 pb-2 pt-8 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#18253A]/85 to-transparent px-3 pb-2 pt-8 opacity-0 group-hover:opacity-100 transition-opacity">
                       <span className="text-[9px] font-mono uppercase tracking-widest text-white/90">View Profile</span>
                     </div>
                   </div>
 
                   {/* Name & Title */}
                   <div className="p-3.5 flex flex-col gap-0.5">
-                    <h3 className="text-base font-serif font-bold text-[#16283D] leading-snug group-hover:text-[#F2834C] transition-colors">
+                    <h3 className="text-base font-serif font-bold text-[#18253A] leading-snug group-hover:text-[#D96B33] transition-colors">
                       {member.name}
                     </h3>
-                    <p className="text-xs font-medium text-[#A49150]">{member.title}</p>
+                    <p className="text-xs font-medium text-[#A49050]">{member.title}</p>
 
                     {(member.competencies?.length ?? 0) > 0 && (
                       <div className="flex flex-wrap gap-1.5 mt-2 pt-2 border-t border-gray-100">
                         {member.competencies!.slice(0, 3).map((comp, idx) => (
-                          <span key={idx} className="text-[10px] font-medium bg-[#16283D] text-white px-2 py-1 rounded-full">
+                          <span key={idx} className="text-[10px] font-medium bg-[#18253A] text-white px-2 py-1 rounded-full">
                             {comp}
                           </span>
                         ))}
                         {member.competencies!.length > 3 && (
-                          <span className="text-[10px] font-medium text-[#A49150] px-1 py-1">
+                          <span className="text-[10px] font-medium text-[#A49050] px-1 py-1">
                             +{member.competencies!.length - 3}
                           </span>
                         )}
@@ -339,7 +339,7 @@ export const ManagementTeamPage: React.FC = () => {
 
               {/* Desktop / Tablet Pagination View (sm and above) */}
               <div className="hidden sm:flex items-center justify-between w-full">
-                <span className="text-xs text-[#1c1c15]/70 font-medium">
+                <span className="text-xs text-[#18253A]/70 font-medium">
                   Showing <strong className="text-gray-900">{startIndex + 1}–{endIndex}</strong> of <strong className="text-gray-900">{filteredMembers.length}</strong> team members • Page <strong className="text-gray-900">{safePage}</strong> of <strong className="text-gray-900">{totalPages}</strong>
                 </span>
 
@@ -397,15 +397,15 @@ export const ManagementTeamPage: React.FC = () => {
           )}
 
           {filteredMembers.length === 0 && (
-            <div className="text-center py-20 bg-white border border-[#A49150]/30 p-8">
-              <Users className="w-12 h-12 text-[#A49150] mx-auto mb-4 opacity-50" />
-              <h3 className="text-lg font-serif font-bold text-[#16283D]">No management team members found</h3>
+            <div className="text-center py-20 bg-white border border-[#A49050]/30 p-8">
+              <Users className="w-12 h-12 text-[#A49050] mx-auto mb-4 opacity-50" />
+              <h3 className="text-lg font-serif font-bold text-[#18253A]">No management team members found</h3>
               <p className="text-xs text-gray-500 mt-1 max-w-md mx-auto">
                 No team members match your current filter or search criteria. Try clearing search filters.
               </p>
               <button
                 onClick={() => { setSelectedDepartment('All'); setSearchQuery(''); }}
-                className="mt-4 px-4 py-2 bg-[#16283D] text-white text-xs font-mono hover:bg-[#F2834C] transition-colors"
+                className="mt-4 px-4 py-2 bg-[#18253A] text-white text-xs font-mono hover:bg-[#D96B33] transition-colors"
               >
                 Reset Filters
               </button>
@@ -415,7 +415,7 @@ export const ManagementTeamPage: React.FC = () => {
       </section>
 
       {/* Governance Philosophy Section */}
-      <section className="pt-8 pb-20 bg-[#fdf9ed]">
+      <section className="pt-8 pb-20 bg-[#F1F3F5]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div ref={governanceBannerRef} className="gov-banner relative rounded-3xl shadow-2xl overflow-hidden">
             {/* Full-width background image — its height now follows the
@@ -429,55 +429,55 @@ export const ManagementTeamPage: React.FC = () => {
               className="gov-banner__image absolute inset-0 w-full h-full object-cover"
               referrerPolicy="no-referrer"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#16283D]/15 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#18253A]/15 via-transparent to-transparent" />
 
             {/* Floating content card — in normal flow (via margin, not
                 absolute centering) so its natural height sets the banner's
                 height, and the image above matches it exactly. Slides in
                 from the left once scroll reaches the center of the image. */}
             <div className="relative m-5 sm:m-8 lg:m-10">
-              <div className="gov-banner__card w-full max-w-2xl bg-white rounded-2xl shadow-2xl ring-1 ring-black/5 border-t-4 border-[#A49150] p-6 sm:p-8 flex flex-col gap-4">
+              <div className="gov-banner__card w-full max-w-2xl bg-white rounded-2xl shadow-2xl ring-1 ring-black/5 border-t-4 border-[#A49050] p-6 sm:p-8 flex flex-col gap-4">
               <div>
-                <span className="text-xs font-mono tracking-widest text-[#A49150] uppercase">EXECUTIVE GOVERNANCE</span>
-                <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#16283D] mt-2">Pillars of Management Leadership</h2>
-                <p className="text-sm text-[#1c1c15]/70 mt-3 leading-relaxed">
+                <span className="text-xs font-mono tracking-widest text-[#A49050] uppercase">EXECUTIVE GOVERNANCE</span>
+                <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#18253A] mt-2">Pillars of Management Leadership</h2>
+                <p className="text-sm text-[#18253A]/70 mt-3 leading-relaxed">
                   Our executive leadership adheres to rigorous institutional protocols, ensuring total accountability, transparent governance, and technical excellence across all client mandates.
                 </p>
               </div>
 
               <div className="flex flex-col gap-4">
                 <div className="space-y-1.5">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#16283D] border-b border-gray-200 pb-1.5">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#18253A] border-b border-gray-200 pb-1.5">
                     Technical Rigor
                   </h3>
-                  <p className="text-xs text-[#1c1c15]/70 leading-relaxed">
+                  <p className="text-xs text-[#18253A]/70 leading-relaxed">
                     Zero compromise on engineering safety, structural load validations, and international ISO quality standards.
                   </p>
                 </div>
 
                 <div className="space-y-1.5">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#16283D] border-b border-gray-200 pb-1.5">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#18253A] border-b border-gray-200 pb-1.5">
                     Fiscal Integrity
                   </h3>
-                  <p className="text-xs text-[#1c1c15]/70 leading-relaxed">
+                  <p className="text-xs text-[#18253A]/70 leading-relaxed">
                     Transparent transaction advisory, risk-mitigated PPP models, and prudent financial capital allocation.
                   </p>
                 </div>
 
                 <div className="space-y-1.5">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#16283D] border-b border-gray-200 pb-1.5">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#18253A] border-b border-gray-200 pb-1.5">
                     BIM & GIS Innovation
                   </h3>
-                  <p className="text-xs text-[#1c1c15]/70 leading-relaxed">
+                  <p className="text-xs text-[#18253A]/70 leading-relaxed">
                     Pioneering 3D digital twin modeling, automated pavement audits, and drone-based spatial mapping.
                   </p>
                 </div>
 
                 <div className="space-y-1.5">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#16283D] border-b border-gray-200 pb-1.5">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#18253A] border-b border-gray-200 pb-1.5">
                     ESG & Stewardship
                   </h3>
-                  <p className="text-xs text-[#1c1c15]/70 leading-relaxed">
+                  <p className="text-xs text-[#18253A]/70 leading-relaxed">
                     Embedding environmental protection, carbon footprint auditing, and social safeguards into every master plan.
                   </p>
                 </div>
@@ -492,7 +492,7 @@ export const ManagementTeamPage: React.FC = () => {
           the Leadership profile dialog (LeadershipPage.tsx). */}
       {activeModalMember && (
         <div
-          className="fixed inset-0 z-50 overflow-y-auto bg-[#16283D]/70 backdrop-blur-sm p-4 sm:p-10 animate-fade-in"
+          className="fixed inset-0 z-50 overflow-y-auto bg-[#18253A]/70 backdrop-blur-sm p-4 sm:p-10 animate-fade-in"
           onClick={() => setActiveModalMember(null)}
         >
           <div className="min-h-full flex items-center justify-center">
@@ -503,14 +503,14 @@ export const ManagementTeamPage: React.FC = () => {
           >
             <button
               onClick={() => setActiveModalMember(null)}
-              className="absolute top-5 right-5 z-20 p-2.5 bg-white/95 hover:bg-white text-[#16283D] rounded-full shadow-lg transition-colors"
+              className="absolute top-5 right-5 z-20 p-2.5 bg-white/95 hover:bg-white text-[#18253A] rounded-full shadow-lg transition-colors"
               aria-label="Close profile"
             >
               <X className="w-5 h-5" />
             </button>
 
             {/* Left: the member's own photo, filling the full card height */}
-            <div className="relative w-full sm:w-[30%] h-48 sm:h-auto shrink-0 overflow-hidden bg-[#fdf9ed] rounded-t-3xl sm:rounded-t-none sm:rounded-l-3xl">
+            <div className="relative w-full sm:w-[30%] h-48 sm:h-auto shrink-0 overflow-hidden bg-[#F1F3F5] rounded-t-3xl sm:rounded-t-none sm:rounded-l-3xl">
               <img
                 src={activeModalMember.image}
                 alt={activeModalMember.name}
@@ -526,51 +526,51 @@ export const ManagementTeamPage: React.FC = () => {
             <div className="flex-1 flex flex-col">
               <div className="leader-modal-content-panel flex-1 p-6 sm:p-8 flex flex-col gap-4">
                 <div>
-                  <span className="inline-flex w-fit items-center text-[11px] font-mono uppercase tracking-widest text-[#F2834C] bg-[#F2834C]/10 border border-[#F2834C]/20 px-3 py-1.5 rounded-full mb-3">
+                  <span className="inline-flex w-fit items-center text-[11px] font-mono uppercase tracking-widest text-[#D96B33] bg-[#D96B33]/10 border border-[#D96B33]/20 px-3 py-1.5 rounded-full mb-3">
                     {activeModalMember.department ?? 'Management'}
                   </span>
-                  <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#16283D] leading-tight">
+                  <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#18253A] leading-tight">
                     {activeModalMember.name}
                   </h2>
-                  <p className="mt-1.5 text-sm font-semibold text-[#A49150]">{activeModalMember.title}</p>
+                  <p className="mt-1.5 text-sm font-semibold text-[#A49050]">{activeModalMember.title}</p>
                 </div>
 
                 {/* Qualification & Experience */}
-                <div className="flex items-start gap-3 bg-[#fdf9ed] rounded-2xl p-4 border border-[#A49150]/15">
-                  <div className="w-10 h-10 rounded-xl bg-[#F2834C]/10 flex items-center justify-center shrink-0">
-                    <GraduationCap className="w-5 h-5 text-[#F2834C]" />
+                <div className="flex items-start gap-3 bg-[#F1F3F5] rounded-2xl p-4 border border-[#A49050]/15">
+                  <div className="w-10 h-10 rounded-xl bg-[#D96B33]/10 flex items-center justify-center shrink-0">
+                    <GraduationCap className="w-5 h-5 text-[#D96B33]" />
                   </div>
                   <div>
-                    <p className="text-sm text-[#16283D]">{activeModalMember.qualification}</p>
-                    <p className="text-xs font-semibold text-[#F2834C] mt-1">{activeModalMember.experienceYears}+ Years Experience</p>
+                    <p className="text-sm text-[#18253A]">{activeModalMember.qualification}</p>
+                    <p className="text-xs font-semibold text-[#D96B33] mt-1">{activeModalMember.experienceYears}+ Years Experience</p>
                   </div>
                 </div>
 
                 {/* Professional Background */}
                 <div className="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
                   <div className="flex items-center gap-2.5 mb-2.5">
-                    <div className="w-8 h-8 rounded-lg bg-[#16283D]/8 flex items-center justify-center">
-                      <Briefcase className="w-4 h-4 text-[#16283D]" />
+                    <div className="w-8 h-8 rounded-lg bg-[#18253A]/8 flex items-center justify-center">
+                      <Briefcase className="w-4 h-4 text-[#18253A]" />
                     </div>
-                    <h4 className="text-sm font-semibold text-[#16283D]">Professional Background</h4>
+                    <h4 className="text-sm font-semibold text-[#18253A]">Professional Background</h4>
                   </div>
-                  <p className="text-sm text-[#1c1c15]/70 leading-relaxed">{activeModalMember.bio}</p>
+                  <p className="text-sm text-[#18253A]/70 leading-relaxed">{activeModalMember.bio}</p>
                 </div>
 
                 {/* Key Projects Supervised */}
                 {(activeModalMember.keyProjects?.length ?? 0) > 0 && (
                   <div>
                     <div className="flex items-center gap-2.5 mb-3">
-                      <div className="w-8 h-8 rounded-lg bg-[#A49150]/15 flex items-center justify-center">
-                        <Award className="w-4 h-4 text-[#A49150]" />
+                      <div className="w-8 h-8 rounded-lg bg-[#A49050]/15 flex items-center justify-center">
+                        <Award className="w-4 h-4 text-[#A49050]" />
                       </div>
-                      <h4 className="text-sm font-semibold text-[#16283D]">Key Projects Supervised</h4>
+                      <h4 className="text-sm font-semibold text-[#18253A]">Key Projects Supervised</h4>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {activeModalMember.keyProjects!.map((proj, idx) => (
-                        <div key={idx} className="flex items-start gap-2.5 bg-[#fdf9ed] rounded-xl p-3 border border-[#A49150]/15">
-                          <CheckCircle2 className="w-4 h-4 text-[#F2834C] shrink-0 mt-0.5" />
-                          <span className="text-sm text-[#16283D]">{proj}</span>
+                        <div key={idx} className="flex items-start gap-2.5 bg-[#F1F3F5] rounded-xl p-3 border border-[#A49050]/15">
+                          <CheckCircle2 className="w-4 h-4 text-[#D96B33] shrink-0 mt-0.5" />
+                          <span className="text-sm text-[#18253A]">{proj}</span>
                         </div>
                       ))}
                     </div>
@@ -579,17 +579,17 @@ export const ManagementTeamPage: React.FC = () => {
               </div>
 
               {/* Footer Buttons */}
-              <div className="flex items-center justify-between gap-3 px-6 sm:px-8 py-5 border-t border-gray-100 bg-[#fdf9ed]/50 shrink-0">
+              <div className="flex items-center justify-between gap-3 px-6 sm:px-8 py-5 border-t border-gray-100 bg-[#F1F3F5]/50 shrink-0">
                 <a
                   href={`mailto:${activeModalMember.email}`}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#F2834C] hover:bg-[#d9723f] text-white text-sm font-semibold rounded-full shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 active:translate-y-0"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#D96B33] hover:bg-[#C25A28] text-white text-sm font-semibold rounded-full shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 active:translate-y-0"
                 >
                   <Mail className="w-4 h-4" />
                   <span>Contact</span>
                 </a>
                 <button
                   onClick={() => setActiveModalMember(null)}
-                  className="px-5 py-2.5 text-sm font-medium text-[#16283D] hover:bg-gray-100 rounded-full transition-colors"
+                  className="px-5 py-2.5 text-sm font-medium text-[#18253A] hover:bg-gray-100 rounded-full transition-colors"
                 >
                   Close
                 </button>

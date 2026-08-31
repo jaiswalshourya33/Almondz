@@ -67,15 +67,15 @@ export const ProjectsPage: React.FC = () => {
   };
 
   return (
-    <div className="dropdown-content-page flex flex-col min-h-screen bg-[#fdf9ed] pt-24">
+    <div className="dropdown-content-page flex flex-col min-h-screen bg-[#F1F3F5] pt-24">
       {/* Hero */}
-      <section className="bg-[#1E3A5F] text-white py-16 border-b border-[#A49150]/30">
+      <section className="bg-[#53647D] text-white py-16 border-b border-[#A49050]/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="dropdown-banner-copy flex flex-col gap-5 max-w-3xl">
-            <span className="inline-flex w-fit items-center text-xs font-mono tracking-widest text-[#A49150] uppercase bg-[#A49150]/10 border border-[#A49150]/30 px-4 py-1.5 rounded-full">PORTFOLIO EXPLORER</span>
+            <span className="inline-flex w-fit items-center text-xs font-mono tracking-widest text-[#A49050] uppercase bg-[#A49050]/10 border border-[#A49050]/30 px-4 py-1.5 rounded-full">PORTFOLIO EXPLORER</span>
             <h1 ref={heroHeadingRef} className="text-4xl sm:text-5xl font-serif font-bold">Infrastructure Project Portfolio</h1>
             <div
-              className="services-hero-line h-[3px] bg-[#A49150] rounded-full"
+              className="services-hero-line h-[3px] bg-[#A49050] rounded-full"
               style={{ width: heroLineWidth ? `${heroLineWidth}px` : '4rem' }}
             ></div>
             <p className="text-white/80 text-base leading-relaxed">
@@ -97,8 +97,8 @@ export const ProjectsPage: React.FC = () => {
                 onClick={() => setSelectedStatus(status)}
                 className={`px-4 py-2.5 text-xs font-mono font-bold uppercase transition-all duration-300 rounded-md shadow-sm hover:shadow ${
                   selectedStatus === status 
-                    ? 'bg-[#16283D] text-white border border-[#16283D] shadow-md -translate-y-0.5' 
-                    : 'bg-[#fdf9ed] text-[#16283D] border border-[#A49150]/30 hover:border-[#F2834C] hover:bg-[#A49150]/10 hover:-translate-y-0.5 active:translate-y-0'
+                    ? 'bg-[#18253A] text-white border border-[#18253A] shadow-md -translate-y-0.5' 
+                    : 'bg-[#F1F3F5] text-[#18253A] border border-[#A49050]/30 hover:border-[#D96B33] hover:bg-[#A49050]/10 hover:-translate-y-0.5 active:translate-y-0'
                 }`}
               >
                 {status}
@@ -114,7 +114,7 @@ export const ProjectsPage: React.FC = () => {
               placeholder="Search projects, client, location..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-[#fdf9ed] border border-[#A49150]/30 pl-10 pr-4 py-2 text-xs text-[#16283D] placeholder-gray-500 focus:outline-none focus:border-[#F2834C] rounded-md"
+              className="w-full bg-[#F1F3F5] border border-[#A49050]/30 pl-10 pr-4 py-2 text-xs text-[#18253A] placeholder-gray-500 focus:outline-none focus:border-[#D96B33] rounded-md"
             />
           </div>
 
@@ -125,12 +125,12 @@ export const ProjectsPage: React.FC = () => {
       <section ref={gridSectionRef} className="dropdown-scroll-content py-16 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {filteredProjects.length === 0 ? (
-            <div className="text-center py-20 bg-white border border-[#A49150]/30 rounded-lg">
-              <h3 className="text-xl font-serif text-[#16283D]">No projects found matching your criteria.</h3>
+            <div className="text-center py-20 bg-white border border-[#A49050]/30 rounded-lg">
+              <h3 className="text-xl font-serif text-[#18253A]">No projects found matching your criteria.</h3>
               <p className="text-xs text-gray-500 mt-2">Try adjusting your filter or search query.</p>
               <button
                 onClick={() => { setSelectedStatus('All'); setSelectedSector('All'); setSearchQuery(''); }}
-                className="mt-6 bg-[#A49150] hover:bg-[#8b7b44] text-white px-6 py-2.5 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 rounded-md border border-[#A49150]/20"
+                className="mt-6 bg-[#A49050] hover:bg-[#8A7942] text-white px-6 py-2.5 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 rounded-md border border-[#A49050]/20"
               >
                 Reset Filters
               </button>
@@ -208,7 +208,7 @@ export const ProjectsPage: React.FC = () => {
 
                   {/* Desktop / Tablet Pagination View (sm and above) */}
                   <div className="hidden sm:flex items-center justify-between w-full">
-                    <span className="text-xs text-[#1c1c15]/70 font-medium">
+                    <span className="text-xs text-[#18253A]/70 font-medium">
                       Showing <strong className="text-gray-900">{startIndex + 1}–{endIndex}</strong> of <strong className="text-gray-900">{filteredProjects.length}</strong> projects • Page <strong className="text-gray-900">{safePage}</strong> of <strong className="text-gray-900">{totalPages}</strong>
                     </span>
 

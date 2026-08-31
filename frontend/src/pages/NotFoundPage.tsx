@@ -4,17 +4,17 @@ import { ArrowLeft } from 'lucide-react';
 
 export const NotFoundPage: React.FC = () => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-[80vh] bg-[#fdf9ed] px-4 text-center">
-      <div className="w-20 h-20 bg-[#16283D] text-[#F2834C] flex items-center justify-center font-mono text-3xl font-bold mb-6">
+    <div className="flex flex-col items-center justify-center min-h-[80vh] bg-[#F1F3F5] px-4 text-center">
+      <div className="w-20 h-20 bg-[#18253A] text-[#D96B33] flex items-center justify-center font-mono text-3xl font-bold mb-6">
         404
       </div>
-      <h1 className="text-3xl sm:text-4xl font-serif font-bold text-[#16283D]">Page Not Found</h1>
-      <p className="text-sm text-[#1c1c15]/70 max-w-md mt-3 leading-relaxed">
+      <h1 className="text-3xl sm:text-4xl font-serif font-bold text-[#18253A]">Page Not Found</h1>
+      <p className="text-sm text-[#18253A]/70 max-w-md mt-3 leading-relaxed">
         The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
       </p>
       <Link
         to="/"
-        className="mt-8 bg-[#F2834C] hover:bg-[#d9723f] text-white px-8 py-3 text-xs font-mono font-bold tracking-widest uppercase transition-all shadow-md flex items-center gap-2 rounded-none"
+        className="mt-8 bg-[#D96B33] hover:bg-[#C25A28] text-white px-8 py-3 text-xs font-mono font-bold tracking-widest uppercase transition-all shadow-md flex items-center gap-2 rounded-none"
       >
         <ArrowLeft className="w-4 h-4" />
         <span>Return to Home</span>

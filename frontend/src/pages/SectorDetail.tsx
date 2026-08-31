@@ -20,10 +20,10 @@ export const SectorDetail: React.FC = () => {
 
   if (!sector) {
     return (
-      <div className="min-h-screen bg-[#fdf9ed] pt-32 pb-20 text-center">
-        <h2 className="text-3xl font-serif text-[#16283D]">Sector Not Found</h2>
-        <p className="text-sm text-[#1c1c15]/70 mt-2">The requested sector could not be located.</p>
-        <Link to="/sectors" className="mt-6 inline-block bg-[#F2834C] hover:bg-[#d9723f] text-white px-6 py-3 text-xs font-mono font-bold tracking-widest uppercase shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 rounded-none border border-[#F2834C]/20">
+      <div className="min-h-screen bg-[#F1F3F5] pt-32 pb-20 text-center">
+        <h2 className="text-3xl font-serif text-[#18253A]">Sector Not Found</h2>
+        <p className="text-sm text-[#18253A]/70 mt-2">The requested sector could not be located.</p>
+        <Link to="/sectors" className="mt-6 inline-block bg-[#D96B33] hover:bg-[#C25A28] text-white px-6 py-3 text-xs font-mono font-bold tracking-widest uppercase shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 rounded-none border border-[#D96B33]/20">
           Back to Sectors
         </Link>
       </div>
@@ -76,9 +76,9 @@ export const SectorDetail: React.FC = () => {
   };
 
   return (
-    <div className="dropdown-content-page flex flex-col min-h-screen bg-[#fdf9ed] pt-24">
+    <div className="dropdown-content-page flex flex-col min-h-screen bg-[#F1F3F5] pt-24">
       {/* Hero Banner */}
-      <section className="relative py-20 bg-[#16283D] text-white overflow-hidden border-b border-[#A49150]/30">
+      <section className="relative py-20 bg-[#18253A] text-white overflow-hidden border-b border-[#A49050]/30">
         <div className="absolute inset-0 z-0">
           <img 
             src={sector.image} 
@@ -86,17 +86,17 @@ export const SectorDetail: React.FC = () => {
             className="w-full h-full object-cover opacity-25"
             referrerPolicy="no-referrer"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#16283D] via-[#16283D]/90 to-[#071A2D]/80"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#18253A] via-[#18253A]/90 to-[#101A29]/80"></div>
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Link to="/sectors" className="inline-flex items-center gap-2 text-xs font-mono text-[#F2834C] hover:underline mb-6">
+          <Link to="/sectors" className="inline-flex items-center gap-2 text-xs font-mono text-[#D96B33] hover:underline mb-6">
             <ArrowLeft className="w-4 h-4" />
             <span>BACK TO ALL SECTORS</span>
           </Link>
 
           <div className="dropdown-banner-copy max-w-3xl flex flex-col gap-4">
-            <span className="text-xs font-mono tracking-widest text-[#F2834C] uppercase">DOMAINS // EXPERTISE</span>
+            <span className="text-xs font-mono tracking-widest text-[#D96B33] uppercase">DOMAINS // EXPERTISE</span>
             <h1 className="text-4xl sm:text-5xl font-serif font-bold text-white leading-tight">{sector.title}</h1>
             <p className="text-white/80 text-base leading-relaxed">{sector.description}</p>
           </div>
@@ -111,10 +111,10 @@ export const SectorDetail: React.FC = () => {
             {/* Left Column: Services & Capabilities (8 cols) */}
             <div className="group/services-card lg:col-span-8 bg-white border border-gray-200 p-8 sm:p-10 shadow-xs">
               <div>
-                <h3 className="text-2xl sm:text-3xl font-serif font-bold text-[#16283D]">
+                <h3 className="text-2xl sm:text-3xl font-serif font-bold text-[#18253A]">
                   Services &amp; Scope of Work
                 </h3>
-                <div className="w-14 h-1 bg-[#F2834C] mt-2.5 mb-6 origin-left scale-x-0 transition-transform duration-700 ease-out delay-300 group-hover/services-card:scale-x-100"></div>
+                <div className="w-14 h-1 bg-[#D96B33] mt-2.5 mb-6 origin-left scale-x-0 transition-transform duration-700 ease-out delay-300 group-hover/services-card:scale-x-100"></div>
 
                 <p className="text-sm text-gray-600 leading-relaxed mb-8">
                   Almondz Global Infra-Consultant Limited provides end-to-end consulting and advisory solutions across all stages of {sector.title.toLowerCase()} development. Our multidisciplinary engineering teams deliver technical rigor, statutory adherence, and value engineering for central, state, and private infrastructure authorities.
@@ -126,10 +126,10 @@ export const SectorDetail: React.FC = () => {
                     {sector.services.map((srv, idx) => (
                       <li 
                         key={idx} 
-                        className="flex items-start gap-3 py-3.5 border-b border-gray-100 hover:border-[#A49150]/40 transition-colors group"
+                        className="flex items-start gap-3 py-3.5 border-b border-gray-100 hover:border-[#A49050]/40 transition-colors group"
                       >
-                        <ChevronRight className="w-4 h-4 text-[#F2834C] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform" />
-                        <span className="text-sm font-medium text-gray-800 group-hover:text-[#16283D] leading-snug">
+                        <ChevronRight className="w-4 h-4 text-[#D96B33] shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform" />
+                        <span className="text-sm font-medium text-gray-800 group-hover:text-[#18253A] leading-snug">
                           {srv}
                         </span>
                       </li>
@@ -145,11 +145,11 @@ export const SectorDetail: React.FC = () => {
             </div>
 
             {/* Right Column: Contact / Inquiry Panel (4 cols) */}
-            <div className="group/consult-card lg:col-span-4 bg-white border border-gray-200 border-t-4 border-t-[#F2834C] p-6 sm:p-8 shadow-xs">
-              <h4 className="text-xl font-serif font-bold text-[#16283D]">
+            <div className="group/consult-card lg:col-span-4 bg-white border border-gray-200 border-t-4 border-t-[#D96B33] p-6 sm:p-8 shadow-xs">
+              <h4 className="text-xl font-serif font-bold text-[#18253A]">
                 Need Sector Consultation?
               </h4>
-              <div className="w-10 h-0.5 bg-[#F2834C] mt-2 mb-4 origin-left scale-x-0 transition-transform duration-700 ease-out delay-300 group-hover/consult-card:scale-x-100"></div>
+              <div className="w-10 h-0.5 bg-[#D96B33] mt-2 mb-4 origin-left scale-x-0 transition-transform duration-700 ease-out delay-300 group-hover/consult-card:scale-x-100"></div>
 
               <p className="text-xs sm:text-sm text-gray-600 leading-relaxed mb-6">
                 Speak directly with our senior infrastructure directors and domain experts regarding project feasibility, DPR preparation, or transaction advisory.
@@ -157,41 +157,41 @@ export const SectorDetail: React.FC = () => {
 
               <div className="space-y-4 pt-4 border-t border-gray-100 text-xs text-gray-700 mb-8">
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-full bg-[#fdf9ed] border border-[#A49150]/30 flex items-center justify-center shrink-0 text-[#F2834C]">
+                  <div className="w-8 h-8 rounded-full bg-[#F1F3F5] border border-[#A49050]/30 flex items-center justify-center shrink-0 text-[#D96B33]">
                     <Mail className="w-4 h-4" />
                   </div>
                   <div>
                     <span className="text-[10px] text-gray-400 uppercase font-semibold block">Email Inquiry</span>
-                    <a href="mailto:info@almondz.com" className="font-medium text-[#16283D] hover:text-[#F2834C] transition-colors">
+                    <a href="mailto:info@almondz.com" className="font-medium text-[#18253A] hover:text-[#D96B33] transition-colors">
                       info@almondz.com
                     </a>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-full bg-[#fdf9ed] border border-[#A49150]/30 flex items-center justify-center shrink-0 text-[#F2834C]">
+                  <div className="w-8 h-8 rounded-full bg-[#F1F3F5] border border-[#A49050]/30 flex items-center justify-center shrink-0 text-[#D96B33]">
                     <Phone className="w-4 h-4" />
                   </div>
                   <div>
                     <span className="text-[10px] text-gray-400 uppercase font-semibold block">Telephone</span>
-                    <span className="font-medium text-[#16283D]">+91 11 4350 0100</span>
+                    <span className="font-medium text-[#18253A]">+91 11 4350 0100</span>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-full bg-[#fdf9ed] border border-[#A49150]/30 flex items-center justify-center shrink-0 text-[#F2834C]">
+                  <div className="w-8 h-8 rounded-full bg-[#F1F3F5] border border-[#A49050]/30 flex items-center justify-center shrink-0 text-[#D96B33]">
                     <MapPin className="w-4 h-4" />
                   </div>
                   <div>
                     <span className="text-[10px] text-gray-400 uppercase font-semibold block">Corporate Office</span>
-                    <span className="font-medium text-[#16283D]">New Delhi, India</span>
+                    <span className="font-medium text-[#18253A]">New Delhi, India</span>
                   </div>
                 </div>
               </div>
 
               <Link 
                 to="/contact" 
-                className="w-full bg-[#16283D] hover:bg-[#F2834C] text-white py-3.5 px-4 text-center text-xs font-bold uppercase tracking-wider transition-colors duration-200 shadow-xs rounded-none block text-center"
+                className="w-full bg-[#18253A] hover:bg-[#D96B33] text-white py-3.5 px-4 text-center text-xs font-bold uppercase tracking-wider transition-colors duration-200 shadow-xs rounded-none block text-center"
               >
                 Contact Sector Lead &rarr;
               </Link>
@@ -203,20 +203,20 @@ export const SectorDetail: React.FC = () => {
 
       {/* Representative Projects - Full Width Section with Status Filters (6 Cards Max per Page) */}
       {relatedProjects.length > 0 && (
-        <section ref={projectsSectionRef} className="py-16 bg-[#f7f2e4]/50 border-t border-[#A49150]/20 scroll-mt-24">
+        <section ref={projectsSectionRef} className="py-16 bg-[#F1F3F5]/50 border-t border-[#A49050]/20 scroll-mt-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
             {/* Header + Status Filters Row (Responsive Layout) */}
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-8 pb-4 border-b border-[#A49150]/20 gap-6">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-8 pb-4 border-b border-[#A49050]/20 gap-6">
               <div>
-                <span className="text-xs font-bold text-[#F2834C] uppercase tracking-wider block mb-1">
+                <span className="text-xs font-bold text-[#D96B33] uppercase tracking-wider block mb-1">
                   Project Portfolio
                 </span>
-                <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#16283D] leading-snug">
+                <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#18253A] leading-snug">
                   <span className="block">Representative Projects in</span>
-                  <span className="block text-[#16283D]">{sector.title}</span>
+                  <span className="block text-[#18253A]">{sector.title}</span>
                 </h2>
-                <p className="text-xs text-[#1c1c15]/65 mt-2 font-medium">
+                <p className="text-xs text-[#18253A]/65 mt-2 font-medium">
                   Showing {filteredProjects.length === 0 ? 0 : startIndex + 1}–{endIndex} of {filteredProjects.length} Key Infrastructure Assets
                 </p>
               </div>
@@ -264,7 +264,7 @@ export const SectorDetail: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setSelectedStatus('All')}
-                  className="mt-4 px-4 py-2 bg-[#16283D] hover:bg-[#F2834C] text-white text-xs font-semibold uppercase tracking-wider transition-colors rounded-sm"
+                  className="mt-4 px-4 py-2 bg-[#18253A] hover:bg-[#D96B33] text-white text-xs font-semibold uppercase tracking-wider transition-colors rounded-sm"
                 >
                   View All Projects
                 </button>
@@ -348,7 +348,7 @@ export const SectorDetail: React.FC = () => {
 
                     {/* Desktop / Tablet Pagination View (sm and above - preserved exactly as requested) */}
                     <div className="hidden sm:flex items-center justify-between w-full">
-                      <span className="text-xs text-[#1c1c15]/70 font-medium">
+                      <span className="text-xs text-[#18253A]/70 font-medium">
                         Showing <strong className="text-gray-900">{startIndex + 1}–{endIndex}</strong> of <strong className="text-gray-900">{filteredProjects.length}</strong> assets • Page <strong className="text-gray-900">{currentPage}</strong> of <strong className="text-gray-900">{totalPages}</strong>
                       </span>
 

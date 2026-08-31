@@ -20,14 +20,14 @@ export const SectorsPage: React.FC = () => {
   }, []);
 
   return (
-    <div className="dropdown-content-page flex flex-col min-h-screen bg-[#fdf9ed] pt-24">
-      <section className="bg-[#1E3A5F] text-white py-16 border-b border-[#A49150]/30">
+    <div className="dropdown-content-page flex flex-col min-h-screen bg-[#F1F3F5] pt-24">
+      <section className="bg-[#53647D] text-white py-16 border-b border-[#A49050]/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="dropdown-banner-copy flex flex-col gap-5 max-w-3xl">
-            <span className="inline-flex w-fit items-center text-xs font-mono tracking-widest text-[#A49150] uppercase bg-[#A49150]/10 border border-[#A49150]/30 px-4 py-1.5 rounded-full">INFRASTRUCTURE EXPERTISE</span>
+            <span className="inline-flex w-fit items-center text-xs font-mono tracking-widest text-[#A49050] uppercase bg-[#A49050]/10 border border-[#A49050]/30 px-4 py-1.5 rounded-full">INFRASTRUCTURE EXPERTISE</span>
             <h1 ref={heroHeadingRef} className="text-4xl sm:text-5xl font-serif font-bold">All Specialized Sectors ({String(SECTORS.length).padStart(3, '0')})</h1>
             <div
-              className="services-hero-line h-[3px] bg-[#A49150] rounded-full"
+              className="services-hero-line h-[3px] bg-[#A49050] rounded-full"
               style={{ width: heroLineWidth ? `${heroLineWidth}px` : '4rem' }}
             ></div>
             <p className="text-white/80 text-base leading-relaxed">

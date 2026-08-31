@@ -142,27 +142,27 @@
 }
 
 .bg-navy {
-  background-color: #16283D;
+  background-color: #18253A;
 }
 
 .text-navy {
-  color: #16283D;
+  color: #18253A;
 }
 
 .bg-orange-brand {
-  background-color: #F2834C;
+  background-color: #D96B33;
 }
 
 .text-orange-brand {
-  color: #F2834C;
+  color: #D96B33;
 }
 
 .border-orange-brand {
-  border-color: #F2834C;
+  border-color: #D96B33;
 }
 
 /* About/Leadership pages keep their plain soft-dusty cream background
-   (set via bg-[#fdf9ed] on each page's root element) — no dot texture. */
+   (set via bg-[#F1F3F5] on each page's root element) — no dot texture. */
 
 /* Director portrait cards respond to the pointer without affecting page layout. */
 .leadership-profile-card {
@@ -178,7 +178,7 @@
 
 @media (hover: hover) {
   .leadership-profile-card:hover {
-    border-color: #F2834C;
+    border-color: #D96B33;
     box-shadow: 0 28px 56px rgba(13, 27, 42, 0.3);
   }
 
@@ -421,12 +421,12 @@
   justify-content: center;
   padding: 20px 28px;
   border-right: 1px solid rgba(164, 145, 80, 0.18);
-  background: linear-gradient(135deg, rgba(253, 249, 237, 0.75), rgba(255, 255, 255, 0.98));
+  background: linear-gradient(135deg, rgba(241, 243, 245, 0.75), rgba(255, 255, 255, 0.98));
   transition: background-color 200ms ease, transform 200ms ease;
 }
 
 .partner-marquee__item:hover {
-  background: #fdf9ed;
+  background: #F1F3F5;
   transform: translateY(-3px);
 }
 
@@ -445,16 +445,16 @@
   margin: 10px 12px;
   border-right: none;
   border: 1px solid rgba(164, 145, 80, 0.2);
-  border-top: 3px solid #A49150;
+  border-top: 3px solid #A49050;
   border-radius: 16px;
-  background: linear-gradient(160deg, #ffffff 0%, #fdf9ed 130%);
+  background: linear-gradient(160deg, #ffffff 0%, #F1F3F5 130%);
   box-shadow: 0 4px 14px rgba(13, 27, 42, 0.07);
   transition: border-color 300ms ease, box-shadow 300ms ease, transform 300ms ease;
 }
 
 .partner-marquee__item--empanelment:hover {
-  background: linear-gradient(160deg, #ffffff 0%, #fdf9ed 130%);
-  border-top-color: #F2834C;
+  background: linear-gradient(160deg, #ffffff 0%, #F1F3F5 130%);
+  border-top-color: #D96B33;
   box-shadow: 0 20px 40px rgba(13, 27, 42, 0.16);
   transform: translateY(-5px);
 }
@@ -502,14 +502,14 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #A49150;
+  color: #A49050;
 }
 
 .partner-marquee__figure-value {
   font-family: var(--font-serif);
   font-size: 26px;
   font-weight: 700;
-  color: #16283D;
+  color: #18253A;
   line-height: 1.1;
 }
 
@@ -518,7 +518,7 @@
   font-size: 10px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: rgba(28, 28, 21, 0.6);
+  color: rgba(24, 37, 58, 0.6);
 }
 
 /* Click-driven sector gallery: one feature card with a visible stack of previews. */
@@ -556,7 +556,7 @@
      plus their nine 12px gaps, so the active card always stays fully within
      the gallery at desktop widths. Update this if SECTORS.length changes. */
   flex-basis: max(320px, calc(100% - 756px));
-  border-color: rgba(242, 131, 76, 0.8);
+  border-color: rgba(217, 107, 51, 0.8);
   box-shadow: 0 22px 44px rgba(13, 27, 42, 0.25);
 }
 
@@ -589,8 +589,22 @@
 }
 
 .sector-showcase__card:focus-visible {
-  outline: 3px solid #F2834C;
+  outline: 3px solid #D96B33;
   outline-offset: 3px;
+}
+
+/* "Services We Provide" reuses the whole sector-showcase layout; only the
+   active card's reserved gutter changes, because the strip has more (SERVICES
+   .length - 1 = 10) collapsed preview cards to sit beside it. Higher
+   specificity than the base .is-active rules so it wins at every breakpoint. */
+.service-showcase.sector-showcase .sector-showcase__card.is-active {
+  flex-basis: max(320px, calc(100% - 840px)); /* 10 previews * (72px + 12px gap) */
+}
+
+@media (min-width: 641px) and (max-width: 1100px) {
+  .service-showcase.sector-showcase .sector-showcase__card.is-active {
+    flex-basis: max(320px, calc(100% - 660px)); /* 10 * (56px + 10px gap) */
+  }
 }
 
 /* Service cards use independently moving layers for a subtle scroll parallax. */
@@ -607,7 +621,7 @@
   z-index: -1;
   inset: -30%;
   opacity: 0;
-  background: radial-gradient(circle at 18% 12%, rgba(242, 131, 76, 0.14), transparent 34%);
+  background: radial-gradient(circle at 18% 12%, rgba(217, 107, 51, 0.14), transparent 34%);
   transition: opacity 500ms ease, transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -643,7 +657,7 @@
 .service-scroll-section {
   position: relative;
   overflow: clip;
-  background-color: #16283D;
+  background-color: #18253A;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -676,7 +690,7 @@
 .service-scroll-card-shell {
   width: min(100%, 760px);
   padding: 1px;
-  background: rgba(253, 249, 237, 0.7);
+  background: rgba(241, 243, 245, 0.7);
   box-shadow: 0 22px 52px rgba(13, 27, 42, 0.16);
 }
 
@@ -695,10 +709,10 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  background-color: #A49150;
+  background-color: #A49050;
   background-image:
     radial-gradient(circle, rgba(255, 255, 255, 0.24) 1px, transparent 1.5px),
-    linear-gradient(120deg, #8f7d43 0%, #A49150 48%, #b8a565 100%);
+    linear-gradient(120deg, #8A7942 0%, #A49050 48%, #B8AA79 100%);
   background-size: 24px 24px, 100% 100%;
 }
 
@@ -752,7 +766,7 @@
   padding: 17px 28px;
   border: 1px solid rgba(255, 255, 255, 0.38);
   border-radius: 999px;
-  background: #16283D;
+  background: #18253A;
   color: #fff;
   font-family: 'JetBrains Mono', 'Segoe UI', sans-serif;
   font-size: 0.75rem;
@@ -764,7 +778,7 @@
 }
 
 .cta-showcase__button:hover {
-  background: #071A2D;
+  background: #101A29;
   box-shadow: 0 20px 38px rgba(13, 27, 42, 0.34);
   transform: translateY(-5px);
 }
@@ -843,6 +857,63 @@
 
 .lifecycle-active-connector {
   animation: connector-dash-flow 1.2s linear infinite;
+}
+
+/* Brand statement section: the two hairline rules draw out from the left, then
+   the three lines of the tagline rise and fade in one after another — slowly
+   and smoothly — once the section scrolls into view (JS adds .is-visible via an
+   IntersectionObserver, the same pattern as .cta-showcase). The hidden initial
+   state lives only inside this no-preference query, so with reduced motion the
+   text is simply shown. */
+@media (prefers-reduced-motion: no-preference) {
+  .brand-statement__rule {
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .brand-statement.is-visible .brand-statement__rule {
+    transform: scaleX(1);
+  }
+
+  .brand-statement.is-visible .brand-statement__rule:last-child {
+    transition-delay: 2s;
+  }
+
+  .brand-statement__line {
+    opacity: 0;
+    transform: translateY(38px);
+  }
+
+  .brand-statement.is-visible .brand-statement__line {
+    animation: brand-statement-line-reveal 1.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .brand-statement.is-visible .brand-statement__line:nth-child(1) { animation-delay: 300ms; }
+  .brand-statement.is-visible .brand-statement__line:nth-child(2) { animation-delay: 950ms; }
+  .brand-statement.is-visible .brand-statement__line:nth-child(3) { animation-delay: 1600ms; }
+}
+
+@keyframes brand-statement-line-reveal {
+  from { opacity: 0; transform: translateY(38px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Lifecycle section: a soft "architectural" wash over the light grey panel
+   so the background reads as intentional rather than flat — several faint
+   palette-toned glows layered into a gradient mesh: a light lift at the top,
+   a cool-slate glow at upper-left, a muted-gold glow at upper-right, a large
+   soft slate sweep through the middle-right, and a gentle shadow pooling at
+   the bottom for depth. Purely decorative: painted on the section itself,
+   behind the content wrapper (z-10) and the SVG connectors, so no layout,
+   animation or interaction changes. */
+.lifecycle-showcase {
+  background-image:
+    radial-gradient(ellipse 74% 48% at 50% -8%, rgba(255, 255, 255, 0.72), transparent 70%),
+    radial-gradient(ellipse 58% 54% at 6% 8%, rgba(83, 100, 125, 0.2), transparent 60%),
+    radial-gradient(ellipse 54% 52% at 94% 20%, rgba(164, 144, 80, 0.14), transparent 62%),
+    radial-gradient(ellipse 80% 70% at 78% 62%, rgba(83, 100, 125, 0.12), transparent 66%),
+    radial-gradient(ellipse 94% 56% at 50% 108%, rgba(24, 37, 58, 0.11), transparent 74%);
 }
 
 /* Zigzag roadmap presentation for the lifecycle stage cards: cards alternate
@@ -937,18 +1008,18 @@
   align-items: center;
   justify-content: center;
   border-radius: 9999px;
-  background: #16283D;
-  border: 2px solid #F2834C;
-  color: #F2834C;
+  background: #18253A;
+  border: 2px solid #D96B33;
+  color: #D96B33;
   z-index: 2;
   box-shadow: none;
   transition: transform 0.3s ease;
 }
 
 .lifecycle-showcase__node.is-node-active {
-  background: #16283D;
-  color: #F2834C;
-  border-color: #F2834C;
+  background: #18253A;
+  color: #D96B33;
+  border-color: #D96B33;
   box-shadow: none;
   transform: scale(1.05);
 }
@@ -1198,10 +1269,10 @@
   }
 }
 
-/* Custom Scrollbar - Almondz Brand (#F2834C) */
+/* Custom Scrollbar - Almondz Brand (#D96B33) */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #F2834C transparent;
+  scrollbar-color: #D96B33 transparent;
 }
 
 ::-webkit-scrollbar {
@@ -1214,12 +1285,12 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #F2834C;
+  background: #D96B33;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #d9723f;
+  background: #C25A28;
 }
 
 /* Hide scrollbar completely while maintaining native smooth scrolling */
