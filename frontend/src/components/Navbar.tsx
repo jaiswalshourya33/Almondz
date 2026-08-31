@@ -82,9 +82,9 @@ export const Navbar: React.FC = () => {
     <header 
       ref={navRef}
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-[#18253A] shadow-lg py-3.5 border-b border-white/10'
-          : 'bg-gradient-to-b from-[#18253A]/90 via-[#18253A]/50 to-transparent py-5'
+        isScrolled
+          ? 'bg-[#53647D] shadow-lg py-3.5 border-b border-white/10'
+          : 'bg-gradient-to-b from-[#53647D]/95 via-[#53647D]/60 to-transparent py-5'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">

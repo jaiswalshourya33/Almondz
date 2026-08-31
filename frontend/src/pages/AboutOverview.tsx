@@ -1,12 +1,27 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { COMPANY_STATS } from '../data/company';
-import { ShieldCheck, Award, Building2, ArrowRight } from 'lucide-react';
+import { ShieldCheck, Award, Building2, ArrowRight, Target, Users, TrendingUp, Leaf } from 'lucide-react';
 import heritageImage from '../images/about-heritage.jpg';
+import strengthsImage from '../images/hero/wind-energy.jpg';
+import { GroupCompaniesGraphic } from '../components/GroupCompaniesGraphic';
+
+// "Why Almondz" strength pillars — icon + label + one-line note, matched to the
+// six-pillar reference layout. Icons stay on the site's copper accent so the
+// block reads as part of the Slate & Copper theme.
+const STRENGTH_PILLARS = [
+  { icon: Target, title: 'Integrated Approach', desc: 'Seamless continuity across all stages' },
+  { icon: Award, title: 'Quality & Compliance', desc: 'Adherence to global standards and best practices' },
+  { icon: Users, title: 'Multidisciplinary Expertise', desc: '400+ professionals across diverse domains' },
+  { icon: TrendingUp, title: 'Value Optimization', desc: 'Solutions that balance quality, cost and time' },
+  { icon: Leaf, title: 'Sustainability Focus', desc: 'Environmentally responsible and future-ready solutions' },
+  { icon: ShieldCheck, title: 'Trust & Transparency', desc: 'Strong governance and ethical practices' },
+];
 
 export const AboutOverview: React.FC = () => {
   const imageCardRef = useRef<HTMLDivElement>(null);
   const heritageSectionRef = useRef<HTMLElement | null>(null);
+  const strengthsSectionRef = useRef<HTMLElement | null>(null);
   const subNavSectionRef = useRef<HTMLElement | null>(null);
   const subNavCardsRef = useRef<HTMLDivElement | null>(null);
   const heroHeadingRef = useRef<HTMLHeadingElement | null>(null);
@@ -40,6 +55,24 @@ export const AboutOverview: React.FC = () => {
     );
 
     observer.observe(heritageSection);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const strengthsSection = strengthsSectionRef.current;
+    if (!strengthsSection || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          strengthsSection.classList.add('is-visible');
+          observer.unobserve(strengthsSection);
+        }
+      },
+      { threshold: 0.3 },
+    );
+
+    observer.observe(strengthsSection);
     return () => observer.disconnect();
   }, []);
 
@@ -160,16 +193,48 @@ export const AboutOverview: React.FC = () => {
                   alt="Metro infrastructure project"
                   className="w-full h-[450px] object-cover shadow-2xl"
                 />
-                <div className="absolute -bottom-6 -left-6 bg-[#18253A] text-white p-6 border border-[#A49050]/40 shadow-xl max-w-xs">
-                  <div className="text-xl font-serif font-bold text-[#D96B33]">100% Commitment</div>
-                  <div className="text-xs text-white/70 font-mono mt-1">Rigorous adherence to international safety and environmental benchmarks.</div>
-                </div>
               </div>
             </div>
 
           </div>
         </div>
       </section>
+
+      {/* WHY ALMONDZ — STRENGTHS SHOWCASE */}
+      <section ref={strengthsSectionRef} className="strengths-showcase py-20 bg-[#F1F3F5] border-t border-[#A49050]/20">
+        <div className="strengths-showcase__inner max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="strengths-showcase__media" aria-hidden="true">
+            <img
+              src={strengthsImage}
+              alt="Renewable energy infrastructure — wind, hydro and solar"
+              referrerPolicy="no-referrer"
+            />
+          </div>
+
+          <div className="strengths-showcase__content">
+            <span className="strengths-showcase__eyebrow block text-xs font-mono tracking-widest text-[#D96B33] uppercase">Why Almondz</span>
+            <h2 className="strengths-showcase__title text-3xl font-serif font-bold text-[#18253A] mt-1">Our Core Strengths</h2>
+
+            <div className="strengths-grid">
+              {STRENGTH_PILLARS.map((pillar) => {
+                const Icon = pillar.icon;
+                return (
+                  <div key={pillar.title} className="strength-item">
+                    <span className="strength-item__icon">
+                      <Icon className="w-5 h-5" />
+                    </span>
+                    <h3 className="strength-item__title">{pillar.title}</h3>
+                    <p className="strength-item__desc">{pillar.desc}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* GROUP COMPANIES — ANIMATED GRAPHIC */}
+      <GroupCompaniesGraphic />
 
       {/* SUB-NAVIGATION CARDS */}
       <section ref={subNavSectionRef} className="about-subnav-section py-16 bg-white border-t border-[#A49050]/20">
