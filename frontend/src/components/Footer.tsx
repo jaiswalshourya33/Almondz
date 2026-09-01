@@ -5,13 +5,15 @@ import { ArrowRight, Linkedin, Youtube, Mail, MapPin, Phone } from 'lucide-react
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="bg-[#3E4C60] text-white pt-8 pb-5 border-t border-[#A49050]/30">
+    <footer className="bg-[#18253A] text-white pt-8 pb-5 border-t border-[#A49050]/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-8 pb-6 border-b border-white/10">
 
           {/* Col 1: Brand & Address */}
-          <div className="lg:col-span-2 flex flex-col gap-3">
-            <Logo light={true} />
+          <div className="lg:col-span-2 flex flex-col items-start gap-3">
+            <Link to="/" className="inline-block self-start -ml-0.5" aria-label="Almondz Home">
+              <Logo light={true} className="h-11 sm:h-12" />
+            </Link>
             <div className="flex flex-col gap-1.5 text-xs font-mono text-white/60">
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-[#A49050] shrink-0 mt-0.5" />

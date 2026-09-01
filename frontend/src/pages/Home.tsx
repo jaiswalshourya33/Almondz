@@ -11,6 +11,8 @@ import windEnergyHero from '../images/hero/wind-energy.jpg';
 import metroRailHero from '../images/hero/metro-rail.jpg';
 import highwayBridgeHero from '../images/hero/highway-bridge-banner.jpg';
 import transitCtaHero from '../images/hero/transit-cta-banner.jpg';
+import lifecycleInfraBackdrop from '../images/hero/lifecycle-infra-backdrop.jpg';
+import { Iso9001Logo, Iso45001Logo, Iso14001Logo, Iso27001Logo, OssCertLogo, CeaiLogo, UkCertLogo } from '../components/CertificationBadges';
 
 // Headline figures for each sector, sourced directly from AGICL_Corporate_Profile.md
 // (Section 4, "Notable Projects by Sector") and AGICL_Brochure_Final.md (Section 4,
@@ -22,7 +24,8 @@ const SECTOR_FIGURES = [
   { sector: "Renewable Energy", value: "₹5,193 Cr", label: "Largest Renewable Energy Assignment (ASM)" },
   { sector: "Railways & Metro Rail", value: "₹10,500 Cr+", label: "Total Railways Project Value" },
   { sector: "Water & Irrigation", value: "₹16,019 Cr+", label: "Total Water Sector Project Value" },
-  { sector: "Tourism Infrastructure", value: "₹1,863 Cr", label: "PPP Transaction Advisory — Heritage Development" }
+  { sector: "Tourism Infrastructure", value: "₹1,863 Cr", label: "PPP Transaction Advisory — Heritage Development" },
+  { sector: "Urban Infrastructure & Smart Cities", value: "₹5,200 Cr+", label: "Completed Urban Assignments" }
 ];
 
 // One icon per lifecycle stage, matched by index to LIFECYCLE_STAGES.
@@ -35,25 +38,33 @@ const SECTOR_FILTER_LABELS = [
   'Sewerage', 'Tourism', 'Mining', 'Environment', 'IT',
 ];
 
-// The four ISO management-system certifications AGICL holds — sourced from
-// AGICL_Corporate_Profile.md ("Certifications held") and AGICL_Brochure_Final.md.
-// Shown as self-contained SVG seals in the stats bar (no external logo files).
-const CERT_BADGES = [
-  { code: "ISO 9001", year: "2015", label: "Quality Management", full: "ISO 9001:2015" },
-  { code: "ISO 27001", year: "2022", label: "Information Security", full: "ISO/IEC 27001:2022" },
-  { code: "ISO 45001", year: "2018", label: "Occupational Health & Safety", full: "ISO 45001:2018" },
-  { code: "ISO 14001", year: "2015", label: "Environmental Management", full: "ISO 14001:2015" },
+// Official accreditation and certification logos requested (4 certificates)
+const ACCREDITATION_LOGOS = [
+  {
+    id: "iso27001",
+    label: "ISO 27001:2022",
+    sub: "Information Security",
+    component: Iso27001Logo,
+  },
+  {
+    id: "oss",
+    label: "OSS CERTIFICATION",
+    sub: "Accredited Management",
+    component: OssCertLogo,
+  },
+  {
+    id: "ceai",
+    label: "CEAI MEMBER",
+    sub: "Consulting Engineers",
+    component: CeaiLogo,
+  },
+  {
+    id: "ukcert",
+    label: "UK CERT",
+    sub: "Certification & Inspection",
+    component: UkCertLogo,
+  },
 ];
-
-const CertSeal: React.FC<{ code: string; year: string; full: string }> = ({ code, year, full }) => (
-  <svg viewBox="0 0 120 120" className="w-12 h-12 sm:w-14 sm:h-14" role="img" aria-label={`${full} certified`}>
-    <circle cx="60" cy="60" r="54" fill="none" stroke="#A49050" strokeWidth="2" />
-    <circle cx="60" cy="60" r="46" fill="none" stroke="#A49050" strokeWidth="1" strokeDasharray="2 4" opacity="0.7" />
-    <text x="60" y="50" textAnchor="middle" fontFamily="'JetBrains Mono', monospace" fontSize="17" fontWeight="700" fill="#ffffff">{code}</text>
-    <text x="60" y="70" textAnchor="middle" fontFamily="'JetBrains Mono', monospace" fontSize="13" fontWeight="700" fill="#D96B33">{year}</text>
-    <text x="60" y="88" textAnchor="middle" fontFamily="'JetBrains Mono', monospace" fontSize="7" letterSpacing="2" fill="rgba(255,255,255,0.55)">CERTIFIED</text>
-  </svg>
-);
 
 export const Home: React.FC = () => {
   const [activeVideo, setActiveVideo] = useState<{ url: string; title: string } | null>(null);
@@ -204,10 +215,11 @@ export const Home: React.FC = () => {
       const nodeCenters: { x: number; y: number; absY: number }[] = [];
 
       for (let i = 0; i < LIFECYCLE_STAGES.length; i++) {
-        const card = cardElementRefs.current[i];
-        if (card) {
-          const nodeX = card.offsetLeft + 54;
-          const nodeY = card.offsetTop;
+        const node = lifecycleNodeRefs.current[i];
+        if (node) {
+          const nodeRect = node.getBoundingClientRect();
+          const nodeX = nodeRect.left - trackRect.left + nodeRect.width / 2;
+          const nodeY = nodeRect.top - trackRect.top + nodeRect.height / 2;
           nodeCenters.push({
             x: nodeX,
             y: nodeY,
@@ -390,8 +402,8 @@ export const Home: React.FC = () => {
     <div className="flex flex-col min-h-screen bg-[#F1F3F5]">
       
       {/* HERO SECTION */}
-      <section className="relative group min-h-[92vh] flex items-center justify-center bg-[#18253A] text-white overflow-hidden pt-24 pb-16">
-        {/* Background Slideshow */}
+      <section className="projects-hero-statement is-visible relative group min-h-[92vh] flex items-center justify-center bg-[#18253A] text-white overflow-hidden pt-28 pb-16">
+        {/* Background Slideshow with Balanced Dark Film */}
         <div className="absolute inset-0 z-0">
           {backgroundImages.map((img, idx) => (
             <div
@@ -407,19 +419,19 @@ export const Home: React.FC = () => {
               />
             </div>
           ))}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#18253A]/70 via-[#18253A]/45 to-[#101A29]/30 z-20"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#101A29]/85 via-[#18253A]/70 to-[#101A29]/50 backdrop-brightness-[0.9] z-20"></div>
 
           {/* Slideshow indicators / caption badge */}
-          <div className="absolute bottom-6 right-6 z-30 hidden sm:flex items-center gap-2 bg-black/40 backdrop-blur-md px-4 py-2 border border-white/20 rounded-md">
-            <span className="text-[10px] font-mono text-[#D96B33] tracking-widest uppercase">FEATURING:</span>
-            <span className="text-xs font-mono text-white">{backgroundImages[currentImageIndex].caption}</span>
+          <div className="absolute bottom-6 right-6 z-30 hidden sm:flex items-center gap-2 bg-[#101A29]/80 backdrop-blur-md px-4 py-2 border border-[#A49050]/40 rounded-lg shadow-xl">
+            <span className="text-[10px] font-mono text-[#D6C489] tracking-widest uppercase font-bold">FEATURING:</span>
+            <span className="text-xs font-mono text-white/90">{backgroundImages[currentImageIndex].caption}</span>
             <div className="flex items-center gap-1.5 ml-3">
               {backgroundImages.map((_, dotIdx) => (
                 <button
                   key={dotIdx}
                   onClick={() => setCurrentImageIndex(dotIdx)}
-                  className={`w-2 h-2 rounded-full transition-all ${
-                    dotIdx === currentImageIndex ? 'bg-[#D96B33] w-4' : 'bg-white/50 hover:bg-white'
+                  className={`h-2 rounded-full transition-all cursor-pointer ${
+                    dotIdx === currentImageIndex ? 'bg-[#D6C489] w-5' : 'bg-white/40 hover:bg-white w-2'
                   }`}
                   aria-label={`Slide ${dotIdx + 1}`}
                 />
@@ -428,40 +440,51 @@ export const Home: React.FC = () => {
           </div>
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-12">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             
-            <div className="hero-entry lg:col-span-8 flex flex-col gap-6">
-              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-sans font-normal tracking-tight text-white/95 leading-[1.2]">
-                Building Future Ready <span className="text-[#D96B33] font-serif italic font-medium">Infrastructure</span>, Building a Legacy.
+            <div className="lg:col-span-8 flex flex-col gap-6">
+              {/* Top gold accent line */}
+              <span className="brand-statement__rule block h-[2.5px] w-24 sm:w-32 bg-[#D6C489] rounded-full shadow-sm" aria-hidden="true" />
+
+              <h1 className="text-2xl sm:text-4xl lg:text-[3.25rem] font-sans font-normal tracking-tight text-white/95 leading-[1.2]">
+                <span className="brand-statement__line block">
+                  Building Future Ready
+                </span>
+                <span className="brand-statement__line block">
+                  <span className="text-[#D6C489] font-serif italic font-medium">Infrastructure</span>, Building a
+                </span>
+                <span className="brand-statement__line block">
+                  Legacy.
+                </span>
               </h1>
 
-              <p className="text-base sm:text-lg text-white/80 max-w-2xl leading-relaxed font-bold mt-3">
+              <p className="brand-statement__line text-xs sm:text-sm lg:text-[15px] text-white/85 max-w-2xl leading-relaxed font-normal drop-shadow-sm">
                 From concept to commissioning, Almondz Global Infra-Consultant Limited delivers world-class engineering design, techno-economic feasibility, independent engineering, and project management across highways, metros, smart cities, and energy grids.
               </p>
 
-              <div className="flex flex-wrap items-center gap-4 pt-4">
+              <div className="brand-statement__line flex flex-wrap items-center gap-4 pt-2">
                 <Link
                   to="/projects"
-                  className="bg-[#A49050] hover:bg-[#8A7942] text-white px-8 py-4 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-xl hover:shadow-[#A49050]/30 hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-3 rounded-md border border-[#A49050]/20"
+                  className="bg-[#D6C489] hover:bg-white text-[#18253A] px-7 py-3.5 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-xl hover:shadow-[#D6C489]/40 hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-3 rounded-lg border border-[#D6C489]"
                 >
                   <span>EXPLORE PROJECTS</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </Link>
 
                 <Link
                   to="/services"
-                  className="bg-white/15 hover:bg-white/25 text-white border border-white/30 px-8 py-4 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 backdrop-blur-md rounded-md shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0"
+                  className="bg-white/10 hover:bg-white/20 text-white border border-white/30 px-7 py-3.5 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 backdrop-blur-md rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0"
                 >
                   OUR SERVICES
                 </Link>
 
                 <button
                   onClick={() => handleOpenVideo("https://www.youtube.com/embed/dQw4w9WgXcQ", "Almondz Corporate Overview")}
-                  className="group flex items-center gap-3 text-xs font-mono font-bold text-white hover:text-[#D96B33] transition-all px-4 py-2"
+                  className="group flex items-center gap-3 text-xs font-mono font-bold text-white hover:text-[#D6C489] transition-all px-2 py-2 cursor-pointer"
                 >
-                  <div className="w-10 h-10 rounded-full border border-[#D96B33]/60 group-hover:border-[#D96B33] flex items-center justify-center text-[#D96B33] bg-[#D96B33]/10 group-hover:bg-[#D96B33]/20 transition-all shadow-md group-hover:scale-105">
-                    <Play className="w-4 h-4 fill-[#D96B33] ml-0.5" />
+                  <div className="w-10 h-10 rounded-full border border-[#D6C489]/60 group-hover:border-[#D6C489] flex items-center justify-center text-[#D6C489] bg-[#D6C489]/10 group-hover:bg-[#D6C489]/25 transition-all shadow-md group-hover:scale-110">
+                    <Play className="w-4 h-4 fill-[#D6C489] ml-0.5" />
                   </div>
                   <span>WATCH SHOWCASE</span>
                 </button>
@@ -469,10 +492,10 @@ export const Home: React.FC = () => {
             </div>
 
             {/* Hero Quick Metrics Panel */}
-            <div className="hero-summary-entry lg:col-span-4 bg-[#101A29]/90 border border-[#A49050]/40 p-6 sm:p-8 backdrop-blur-md shadow-2xl flex flex-col gap-6">
-              <div className="border-b border-white/10 pb-4">
-                <span className="text-xs font-mono tracking-widest text-[#A49050]">AT A GLANCE</span>
-                <h3 className="text-xl font-serif text-white mt-1">Institutional Excellence</h3>
+            <div className="hero-summary-entry lg:col-span-4 bg-[#101A29]/85 border border-[#A49050]/40 p-6 sm:p-8 backdrop-blur-md shadow-2xl rounded-2xl flex flex-col gap-6 ring-1 ring-white/10">
+              <div className="border-b border-[#A49050]/25 pb-4">
+                <span className="text-xs font-mono tracking-widest text-[#A49050] uppercase font-bold">AT A GLANCE</span>
+                <h3 className="text-xl font-serif text-white mt-1 font-bold">Institutional Excellence</h3>
               </div>
 
               <div className="grid grid-cols-2 gap-5">
@@ -485,7 +508,7 @@ export const Home: React.FC = () => {
                   <div className="text-xs text-white/70 font-mono mt-1">Employees</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-serif font-bold text-[#A49050]">7+</div>
+                  <div className="text-2xl font-serif font-bold text-[#D6C489]">7+</div>
                   <div className="text-xs text-white/70 font-mono mt-1">Sectors</div>
                 </div>
                 <div>
@@ -497,14 +520,14 @@ export const Home: React.FC = () => {
                   <div className="text-xs text-white/70 font-mono mt-1">Ongoing Engagements</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-serif font-bold text-[#A49050]">80+</div>
+                  <div className="text-2xl font-serif font-bold text-[#D6C489]">80+</div>
                   <div className="text-xs text-white/70 font-mono mt-1">Empanelments</div>
                 </div>
               </div>
 
-              <div className="pt-2 border-t border-white/10 flex items-center justify-between text-xs font-mono text-white/60">
+              <div className="pt-3 border-t border-[#A49050]/25 flex items-center justify-between text-xs font-mono text-white/60">
                 <span>PUBLIC LIMITED COMPANY</span>
-                <span className="text-[#D96B33]">SUBSIDIARY OF AGSL (LISTED)</span>
+                <span className="text-[#D6C489] font-bold">SUBSIDIARY OF AGSL (LISTED)</span>
               </div>
             </div>
 
@@ -512,16 +535,30 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* STATS TICKER BAR */}
-      <section className="bg-[#101A29] border-b border-[#A49050]/30 py-3 text-white">
+      {/* ACCREDITATIONS & CERTIFICATIONS LOGO BAR */}
+      <section className="bg-[#101A29] border-b border-[#A49050]/30 py-3.5 text-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-            {CERT_BADGES.map((cert, idx) => (
-              <div key={cert.code} className={`flex flex-col items-center justify-center gap-1 px-4 ${idx === CERT_BADGES.length - 1 ? '' : 'border-r'} border-white/10`}>
-                <CertSeal code={cert.code} year={cert.year} full={cert.full} />
-                <div className="text-xs font-mono text-white/70 uppercase tracking-wider">{cert.label}</div>
-              </div>
-            ))}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 items-center">
+            {ACCREDITATION_LOGOS.map((logo, idx) => {
+              const LogoComp = logo.component;
+              return (
+                <Link
+                  key={logo.id}
+                  to="/about/certifications"
+                  className={`group flex flex-col items-center justify-center px-4 py-1 ${
+                    idx === ACCREDITATION_LOGOS.length - 1 ? '' : 'md:border-r md:border-white/10'
+                  } hover:-translate-y-0.5 transition-all duration-300`}
+                  title={`${logo.label} - ${logo.sub}`}
+                >
+                  <div className="w-full max-w-[145px] sm:max-w-[160px] h-10 sm:h-12 bg-white rounded-lg shadow-sm px-3 py-1 flex items-center justify-center border border-white/20 group-hover:border-[#D6C489] group-hover:shadow-md transition-all duration-300">
+                    <LogoComp className="h-full w-auto max-h-8 sm:max-h-9 object-contain" />
+                  </div>
+                  <span className="text-[10px] sm:text-[11px] font-mono font-bold text-[#D6C489] tracking-wider uppercase block mt-1.5 text-center group-hover:text-white transition-colors truncate w-full">
+                    {logo.label}
+                  </span>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -675,17 +712,27 @@ export const Home: React.FC = () => {
       <ServicesShowcase />
 
       {/* CONCEPT TO COMMISSIONING LIFECYCLE */}
-      <section ref={lifecycleSectionRef} className="lifecycle-showcase py-20 bg-[#E1E5EA] text-[#18253A] relative overflow-hidden">
+      <section ref={lifecycleSectionRef} className="lifecycle-showcase relative py-16 sm:py-20 text-white overflow-hidden bg-[#101A29]">
+        {/* Lighter Panoramic Infrastructure Background Image with Balanced Overlay */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src={lifecycleInfraBackdrop}
+            alt="End-to-End Infrastructure Engineering Capability"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#101A29]/55 via-[#18253A]/40 to-[#101A29]/60 backdrop-brightness-[0.9]"></div>
+        </div>
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div ref={lifecycleHeaderRef} className="lifecycle-showcase__header text-center max-w-3xl mx-auto mb-16">
-            <span className="text-xs font-mono tracking-widest text-[#D96B33] uppercase">END-TO-END CAPABILITY</span>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#18253A] mt-1">From Concept to Commissioning</h2>
-            <p className="text-[#18253A]/70 text-sm mt-3 leading-relaxed">
+          <div ref={lifecycleHeaderRef} className="lifecycle-showcase__header text-center max-w-3xl mx-auto mb-10 sm:mb-12">
+            <span className="text-xs font-mono tracking-widest text-[#D6C489] uppercase font-bold">END-TO-END CAPABILITY</span>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-white mt-1">From Concept to Commissioning</h2>
+            <p className="text-white/90 text-xs sm:text-sm mt-2 leading-relaxed max-w-2xl mx-auto drop-shadow-xs">
               Our multidisciplinary engineering and financial advisory teams guide infrastructure assets seamlessly through every stage of their lifecycle.
             </p>
           </div>
 
-          <div ref={lifecycleTrackRef} className="lifecycle-showcase__grid relative flex flex-col gap-16 max-w-xl mx-auto lg:max-w-6xl lg:gap-16">
+          <div ref={lifecycleTrackRef} className="lifecycle-showcase__grid relative flex flex-col gap-6 sm:gap-8 max-w-xl mx-auto lg:max-w-5xl lg:gap-8">
             <svg className="absolute inset-0 hidden h-full w-full lg:block" style={{ zIndex: 0 }} aria-hidden="true">
               <defs>
                 <filter id="line-super-glow" x="-50%" y="-50%" width="200%" height="200%">
@@ -707,9 +754,9 @@ export const Home: React.FC = () => {
                   y1={seg.y1}
                   x2={seg.x2}
                   y2={seg.y2}
-                  stroke="rgba(164, 145, 80, 0.55)"
-                  strokeWidth="2.5"
-                  strokeDasharray="8 8"
+                  stroke="rgba(164, 145, 80, 0.45)"
+                  strokeWidth="2"
+                  strokeDasharray="6 6"
                 />
               ))}
 
@@ -723,16 +770,16 @@ export const Home: React.FC = () => {
 
                 return (
                   <g key={`active-${i}`}>
-                    {/* Vibrant Neon Glow on the dashed line */}
+                    {/* Vibrant Glow on the dashed line */}
                     <line
                       x1={seg.x1}
                       y1={seg.y1}
                       x2={activeX2}
                       y2={activeY2}
                       stroke="#D96B33"
-                      strokeWidth="7"
+                      strokeWidth="6"
                       strokeOpacity="0.75"
-                      strokeDasharray="8 8"
+                      strokeDasharray="6 6"
                       strokeLinecap="round"
                       filter="url(#line-super-glow)"
                     />
@@ -743,8 +790,8 @@ export const Home: React.FC = () => {
                       x2={activeX2}
                       y2={activeY2}
                       stroke="#C25A28"
-                      strokeWidth="3.5"
-                      strokeDasharray="8 8"
+                      strokeWidth="3"
+                      strokeDasharray="6 6"
                       strokeLinecap="round"
                     />
                     {/* Glowing tip indicator on current actively glowing dash */}
@@ -752,11 +799,11 @@ export const Home: React.FC = () => {
                       <circle
                         cx={activeX2}
                         cy={activeY2}
-                        r="4.5"
+                        r="4"
                         fill="#18253A"
                         stroke="#D96B33"
                         strokeWidth="2.5"
-                        style={{ filter: 'drop-shadow(0 0 10px #D96B33) drop-shadow(0 0 18px #D96B33)' }}
+                        style={{ filter: 'drop-shadow(0 0 8px #D96B33) drop-shadow(0 0 14px #D96B33)' }}
                       />
                     )}
                   </g>
@@ -766,30 +813,32 @@ export const Home: React.FC = () => {
             {LIFECYCLE_STAGES.map((stage, idx) => {
               const isVisible = visibleCards[idx];
               const isNodeActive = isVisible || (idx > 0 && (segmentProgress[idx - 1] || 0) > 0.1);
-              const StageIcon = LIFECYCLE_ICONS[idx];
+              const StageIcon = LIFECYCLE_ICONS[idx] || Compass;
 
               return (
                 <div
                   key={idx}
                   ref={(element) => { cardElementRefs.current[idx] = element; }}
-                  className={`lifecycle-showcase__card relative z-10 w-full bg-white border border-[#18253A]/10 rounded-2xl shadow-lg p-3 group transition-colors lg:w-[340px] ${
+                  className={`lifecycle-showcase__card relative z-10 w-full bg-white border border-[#18253A]/10 rounded-2xl shadow-md p-2.5 sm:p-3 group transition-all duration-300 lg:w-[310px] ${
                     idx % 2 === 0 ? 'lg:self-start card-odd' : 'lg:self-end card-even'
                   } ${isVisible ? 'is-card-visible' : ''}`}
                 >
                   <div
                     ref={(element) => { lifecycleNodeRefs.current[idx] = element; }}
-                    className={`lifecycle-showcase__node text-lg font-mono font-bold ${
+                    className={`lifecycle-showcase__node text-base font-mono font-bold ${
+                      idx % 2 === 0 ? 'lg:left-auto lg:right-6' : 'lg:left-6 lg:right-auto'
+                    } ${
                       isNodeActive ? 'is-node-active' : ''
                     }`}
                   >
                     {stage.step}
                   </div>
-                  <div className="rounded-xl bg-[#F8F9FA] p-6 pt-8 flex flex-col gap-3">
-                    <div className="w-10 h-10 rounded-full bg-white shadow-sm border border-black/5 flex items-center justify-center text-[#18253A]">
-                      <StageIcon className="w-[18px] h-[18px]" />
+                  <div className="rounded-xl bg-[#F8F9FA] p-4 sm:p-5 pt-6 flex flex-col gap-2">
+                    <div className="w-8 h-8 rounded-full bg-white shadow-sm border border-black/5 flex items-center justify-center text-[#18253A]">
+                      <StageIcon className="w-4 h-4" />
                     </div>
-                    <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#D96B33]">{stage.category}</span>
-                    <h3 className="text-xl font-serif font-bold text-[#18253A]">{stage.title}</h3>
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#A49050]">{stage.category}</span>
+                    <h3 className="text-base sm:text-lg font-serif font-bold text-[#18253A] leading-snug">{stage.title}</h3>
                     <p className="text-xs text-gray-500 leading-relaxed">{stage.description}</p>
                   </div>
                 </div>
@@ -800,57 +849,26 @@ export const Home: React.FC = () => {
       </section>
 
       {/* CTA BANNER */}
-      <section
-        ref={ctaSectionRef}
-        className="brand-statement relative min-h-[460px] sm:min-h-[540px] flex items-center justify-center py-20 sm:py-28 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#18253A]"
-      >
-        {/* Panoramic Infrastructure Background Image with Balanced Dark Film */}
-        <div className="absolute inset-0 z-0">
-          <img
-            src={transitCtaHero}
-            alt="Modern transit and sustainable smart city infrastructure"
-            className="w-full h-full object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#101A29]/75 via-[#18253A]/55 to-[#101A29]/80 backdrop-brightness-[0.9]"></div>
-        </div>
-
-        {/* Floating Text Directly Over Image */}
-        <div className="relative z-10 w-full max-w-5xl mx-auto text-center flex flex-col items-center">
-          {/* Top decorative accent rule */}
-          <span className="brand-statement__rule block h-[2.5px] w-28 sm:w-36 bg-[#D6C489] mb-6 sm:mb-8 rounded-full shadow-sm" aria-hidden="true" />
-
-          {/* Main Typography with Image 4 Staggered Animation */}
-          <div className="space-y-4">
-            <span className="brand-statement__line block text-xs font-mono font-bold tracking-[0.2em] text-[#D6C489] uppercase">
-              PARTNER WITH ALMONDZ
-            </span>
-
-            <h2 className="font-sans font-bold tracking-tight leading-tight text-3xl sm:text-5xl lg:text-6xl">
-              <span className="brand-statement__line block text-white drop-shadow-md">
-                READY TO ENGINEER YOUR NEXT
-              </span>
-              <span className="brand-statement__line block text-[#D6C489] drop-shadow-md">
-                MEGA INFRASTRUCTURE PROJECT?
-              </span>
+      <section ref={ctaSectionRef} className="cta-showcase py-16 sm:py-20 text-white">
+        <div className="cta-showcase__orb cta-showcase__orb--one" aria-hidden="true" />
+        <div className="cta-showcase__orb cta-showcase__orb--two" aria-hidden="true" />
+        <div className="cta-showcase__inner max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+          <div className="cta-showcase__copy flex flex-col gap-2.5 max-w-3xl">
+            <h2 className="cta-showcase__title text-3xl sm:text-4xl lg:text-[2.65rem] font-sans font-normal tracking-tight text-white/95 leading-[1.2]">
+              Ready to Engineer Your Next Mega Infrastructure Project?
             </h2>
-
-            <p className="brand-statement__line text-sm sm:text-base lg:text-lg text-white/90 max-w-2xl mx-auto leading-relaxed font-normal pt-2 drop-shadow-sm">
-              Connect with our experts.
+            <p className="cta-showcase__description text-sm sm:text-base lg:text-[17px] text-white/95 font-normal leading-relaxed max-w-2xl">
+              From vision and planning to engineering and execution, partner with Almondz to turn ambitious ideas into infrastructure that creates lasting impact.
             </p>
-
-            <div className="brand-statement__line pt-4">
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2 bg-[#18253A] hover:bg-[#3E4C60] text-white hover:text-[#D6C489] py-3.5 px-8 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 rounded-lg shadow-xl border border-[#D6C489]/50 hover:border-[#D6C489] hover:shadow-2xl hover:-translate-y-0.5"
-              >
-                <span>CONTACT US</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
           </div>
-
-          {/* Bottom decorative accent rule */}
-          <span className="brand-statement__rule block h-[2.5px] w-28 sm:w-36 bg-[#D6C489] mt-6 sm:mt-8 rounded-full shadow-sm" aria-hidden="true" />
+          <div className="shrink-0 flex items-center justify-center md:justify-end">
+            <Link
+              to="/contact"
+              className="cta-showcase__button group"
+            >
+              <span>CONTACT US</span>
+            </Link>
+          </div>
         </div>
       </section>
 
