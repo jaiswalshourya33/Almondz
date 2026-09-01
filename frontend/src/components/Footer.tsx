@@ -5,7 +5,7 @@ import { ArrowRight, Linkedin, Youtube, Mail, MapPin, Phone } from 'lucide-react
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="bg-[#53647D] text-white pt-8 pb-5 border-t border-[#A49050]/30">
+    <footer className="bg-[#3E4C60] text-white pt-8 pb-5 border-t border-[#A49050]/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-8 pb-6 border-b border-white/10">
 

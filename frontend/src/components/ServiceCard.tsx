@@ -40,7 +40,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
           </ul>
         </div>
 
-        <div className="service-card__methodology border-l-2 border-[#A49050] bg-[#F1F3F5] px-3 py-2.5">
+        <div className="service-card__methodology bg-[#F1F3F5] px-3 py-2.5 rounded-sm">
           <span className="block text-[10px] font-mono font-bold tracking-widest text-[#18253A] uppercase">Delivery approach</span>
           <p className="mt-1 text-xs leading-relaxed text-[#18253A]">{service.methodology}</p>
         </div>

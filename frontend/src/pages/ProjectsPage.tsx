@@ -6,6 +6,7 @@ import { ProjectCard } from '../components/ProjectCard';
 import { ProjectVideoModal } from '../components/ProjectVideoModal';
 import { ProjectDetailsModal } from '../components/ProjectDetailsModal';
 import { Search, Filter, ChevronLeft, ChevronRight } from 'lucide-react';
+import cleanEnergyHero from '../images/hero/clean-energy-infra.jpg';
 
 const PROJECTS_PER_PAGE = 6;
 
@@ -22,20 +23,30 @@ export const ProjectsPage: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const gridSectionRef = useRef<HTMLElement | null>(null);
-  const heroHeadingRef = useRef<HTMLHeadingElement | null>(null);
-  const [heroLineWidth, setHeroLineWidth] = useState<number | null>(null);
+  const heroStatementRef = useRef<HTMLElement | null>(null);
 
-  useLayoutEffect(() => {
-    const measure = () => {
-      const heading = heroHeadingRef.current;
-      if (!heading) return;
-      const rects = heading.getClientRects();
-      const lastRect = rects[rects.length - 1];
-      if (lastRect) setHeroLineWidth(lastRect.width);
-    };
-    measure();
-    window.addEventListener('resize', measure);
-    return () => window.removeEventListener('resize', measure);
+  useEffect(() => {
+    const heroStatement = heroStatementRef.current;
+    if (!heroStatement) return;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      heroStatement.classList.add('is-visible');
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          heroStatement.classList.add('is-visible');
+        } else {
+          heroStatement.classList.remove('is-visible');
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    observer.observe(heroStatement);
+    return () => observer.disconnect();
   }, []);
 
   const filteredProjects = PROJECTS.filter((proj) => {
@@ -68,20 +79,40 @@ export const ProjectsPage: React.FC = () => {
 
   return (
     <div className="dropdown-content-page flex flex-col min-h-screen bg-[#F1F3F5] pt-24">
-      {/* Hero */}
-      <section className="bg-[#53647D] text-white py-16 border-b border-[#A49050]/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="dropdown-banner-copy flex flex-col gap-5 max-w-3xl">
-            <span className="inline-flex w-fit items-center text-xs font-mono tracking-widest text-[#A49050] uppercase bg-[#A49050]/10 border border-[#A49050]/30 px-4 py-1.5 rounded-full">PORTFOLIO EXPLORER</span>
-            <h1 ref={heroHeadingRef} className="text-4xl sm:text-5xl font-serif font-bold">Infrastructure Project Portfolio</h1>
-            <div
-              className="services-hero-line h-[3px] bg-[#A49050] rounded-full"
-              style={{ width: heroLineWidth ? `${heroLineWidth}px` : '4rem' }}
-            ></div>
-            <p className="text-white/80 text-base leading-relaxed">
-              Explore our extensive track record of completed, ongoing, and recently awarded national infrastructure assignments.
+      {/* Hero Banner with Clean Energy Infrastructure Background & Direct Overlay Text (Image 4 Animation) */}
+      <section 
+        ref={heroStatementRef}
+        className="projects-hero-statement relative -mt-24 min-h-[560px] sm:min-h-[640px] flex items-center justify-center pt-52 pb-16 sm:pt-60 sm:pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#18253A]"
+      >
+        {/* Panoramic Infrastructure Background Image with Balanced Dark Film */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src={cleanEnergyHero} 
+            alt="Infrastructure Projects" 
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#101A29]/75 via-[#18253A]/55 to-[#101A29]/80 backdrop-brightness-[0.9]"></div>
+        </div>
+
+        {/* Floating Text Directly Over Image */}
+        <div className="relative z-10 w-full max-w-4xl mx-auto text-center flex flex-col items-center">
+          {/* Top decorative accent rule */}
+          <span className="brand-statement__rule block h-[2.5px] w-28 sm:w-36 bg-[#D6C489] mb-6 sm:mb-8 rounded-full shadow-sm" aria-hidden="true" />
+
+          {/* Main Content with Staggered Image 4 Animation */}
+          <div className="space-y-3 sm:space-y-4">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-sans font-bold tracking-tight leading-tight">
+              <span className="brand-statement__line block text-white drop-shadow-md">IDEAS THAT CONNECT.</span>
+              <span className="brand-statement__line block text-[#D6C489] drop-shadow-md">PROJECTS THAT TRANSFORM.</span>
+            </h1>
+
+            <p className="brand-statement__line text-sm sm:text-base lg:text-lg text-white/90 max-w-2xl mx-auto leading-relaxed font-normal pt-2 drop-shadow-sm">
+              Explore the projects where expertise, innovation and infrastructure come together to create lasting impact.
             </p>
           </div>
+
+          {/* Bottom decorative accent rule */}
+          <span className="brand-statement__rule block h-[2.5px] w-28 sm:w-36 bg-[#D6C489] mt-6 sm:mt-8 rounded-full shadow-sm" aria-hidden="true" />
         </div>
       </section>
 
@@ -137,7 +168,7 @@ export const ProjectsPage: React.FC = () => {
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
                 {paginatedProjects.map((proj) => (
                   <ProjectCard
                     key={proj.id}

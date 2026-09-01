@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect, useLayoutEffect, useRef } from 'react';
 import { MANAGEMENT_TEAM, ManagementMember } from '../data/management';
 import { CountUpValue } from '../components/CountUpValue';
+import { PageHeroBanner } from '../components/PageHeroBanner';
 import {
   Users,
   Award,
@@ -139,26 +140,15 @@ export const ManagementTeamPage: React.FC = () => {
 
   return (
     <div className="about-dropdown-page flex flex-col min-h-screen bg-[#F1F3F5] pt-24">
-      {/* Header Banner */}
-      <section className="bg-[#53647D] text-white py-16 border-b border-[#A49050]/30 relative overflow-hidden">
-        <div className="absolute right-0 top-0 w-96 h-96 bg-[#A49050]/5 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="about-dropdown-banner-copy flex flex-col gap-5 max-w-3xl">
-            <span className="inline-flex w-fit items-center text-xs font-mono tracking-widest text-[#A49050] uppercase bg-[#A49050]/10 border border-[#A49050]/30 px-4 py-1.5 rounded-full">EXECUTIVE LEADERSHIP & GOVERNANCE</span>
-            <h1 ref={heroHeadingRef} className="text-4xl sm:text-5xl font-serif font-bold tracking-tight">Management Team Members</h1>
-            <div
-              className="services-hero-line h-[3px] bg-[#A49050] rounded-full"
-              style={{ width: heroLineWidth ? `${heroLineWidth}px` : '4rem' }}
-            ></div>
-            <p className="text-white/80 text-base sm:text-lg leading-relaxed">
-              Decades of multidisciplinary engineering wisdom, financial acumen, and public sector stewardship driving Almondz Global Infra-Consultant Limited toward nation-building excellence.
-            </p>
-          </div>
-        </div>
-      </section>
+      {/* Header Banner with Clean Energy Infrastructure Background */}
+      <PageHeroBanner
+        line1="EXECUTIVE LEADERSHIP."
+        line2="MANAGEMENT TEAM."
+        description="Decades of multidisciplinary engineering wisdom, financial acumen, and public sector stewardship driving Almondz Global Infra-Consultant Limited toward nation-building excellence."
+      />
 
       {/* Highlights Bar */}
-      <section ref={highlightsSectionRef} className="bg-[#101A29] text-white py-4 border-b border-[#A49050]/20">
+      <section ref={highlightsSectionRef} className="bg-[#101A29] text-white py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center divide-y md:divide-y-0 md:divide-x divide-white/10">
             <div className="p-1.5">

@@ -12,15 +12,15 @@ import { motion, useInView } from 'motion/react';
        the same way). */
 
 const CX = 380;
-const CY = 320;
+const CY = 355;
 const R_OUT = 152;
 const R_IN = 104;
 const HOLE = 99;
 const VB_W = 760;
-const VB_H = 580;
-/* Each connector is the same short dashed bridge sitting in the gap between a
-   node and the ring's outer edge — never touching either. */
-const NODE_GAP = 26;
+const VB_H = 595;
+/* Each connector is the same dashed bridge sitting in the gap between a node
+   and the ring's outer edge — never touching either. */
+const NODE_GAP = 40;
 
 // Full rainbow wheel, read clockwise from just past the bottom gap.
 const RING_COLORS = [
@@ -71,7 +71,7 @@ const GROUPS: GroupNode[] = [
     heading: ['Infrastructure', 'Consulting'],
     company: 'Almondz Global Infra Consultant Ltd.',
     color: '#1B3A73',
-    pos: { top: '55%', left: '17%' },
+    pos: { top: '56%', left: '14%' },
     caption: 'top',
     captionAlign: 'left',
     connector: { x1: CX - R_OUT - 2 - NODE_GAP, y1: CY, x2: CX - R_OUT - 2, y2: CY },
@@ -81,7 +81,7 @@ const GROUPS: GroupNode[] = [
     heading: ['Financial', 'Services'],
     company: 'Almondz Financial Services Ltd. (Merchant Banking / Corp. Finance)',
     color: '#7A2E1F',
-    pos: { top: '12%', left: '50%' },
+    pos: { top: '15%', left: '50%' },
     caption: 'side',
     captionAlign: 'left',
     connector: { x1: CX, y1: CY - R_OUT - 2 - NODE_GAP, x2: CX, y2: CY - R_OUT - 2 },
@@ -91,7 +91,7 @@ const GROUPS: GroupNode[] = [
     heading: ['Green Fuel'],
     company: 'Premier Green Innovation Pvt. Ltd.',
     color: '#5AA13E',
-    pos: { top: '55%', left: '83%' },
+    pos: { top: '56%', left: '86%' },
     caption: 'top',
     captionAlign: 'right',
     connector: { x1: CX + R_OUT + 2 + NODE_GAP, y1: CY, x2: CX + R_OUT + 2, y2: CY },
@@ -214,7 +214,7 @@ export const GroupCompaniesGraphic: React.FC = () => {
   };
 
   return (
-    <section className="py-20 bg-white border-t border-[#A49050]/20 overflow-hidden">
+    <section className="pt-20 pb-8 bg-white overflow-hidden">
       <div ref={sectionRef} className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.h2
           custom={0}

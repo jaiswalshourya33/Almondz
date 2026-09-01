@@ -1,6 +1,7 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Briefcase, MapPin, ArrowRight } from 'lucide-react';
+import { PageHeroBanner } from '../components/PageHeroBanner';
 
 const OPEN_ROLES = [
   {
@@ -70,21 +71,12 @@ export const CareersPage: React.FC = () => {
 
   return (
     <div className="about-dropdown-page flex flex-col min-h-screen bg-[#F1F3F5] pt-24">
-      <section className="bg-[#53647D] text-white py-16 border-b border-[#A49050]/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="about-dropdown-banner-copy flex flex-col gap-5 max-w-3xl">
-            <span className="inline-flex w-fit items-center text-xs font-mono tracking-widest text-[#A49050] uppercase bg-[#A49050]/10 border border-[#A49050]/30 px-4 py-1.5 rounded-full">JOIN OUR TEAM</span>
-            <h1 ref={heroHeadingRef} className="text-4xl sm:text-5xl font-serif font-bold">Careers at Almondz Global Infra</h1>
-            <div
-              className="services-hero-line h-[3px] bg-[#A49050] rounded-full"
-              style={{ width: heroLineWidth ? `${heroLineWidth}px` : '4rem' }}
-            ></div>
-            <p className="text-white/80 text-base leading-relaxed">
-              Build your engineering and advisory career on projects that shape national connectivity and sustainable development.
-            </p>
-          </div>
-        </div>
-      </section>
+      {/* Header Banner with Clean Energy Infrastructure Background */}
+      <PageHeroBanner
+        line1="BUILD THE FUTURE."
+        line2="CAREERS AT ALMONDZ."
+        description="Shape your engineering and advisory career on monumental infrastructure projects that define national connectivity and sustainable growth."
+      />
 
       <section ref={openingsSectionRef} className="about-subnav-section py-20 bg-[#F1F3F5]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

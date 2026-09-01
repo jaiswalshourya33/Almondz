@@ -1,6 +1,7 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { CERTIFICATIONS, EMPANELMENTS, Certification } from '../data/certifications';
 import { Award, ShieldCheck, Eye, X, Building2, ChevronLeft, ChevronRight } from 'lucide-react';
+import { PageHeroBanner } from '../components/PageHeroBanner';
 
 const CERTS_PER_PAGE = 6;
 
@@ -57,27 +58,17 @@ export const CertificationsPage: React.FC = () => {
 
   return (
     <div className="about-dropdown-page flex flex-col min-h-screen bg-[#F1F3F5] pt-24">
-      {/* Hero Header */}
-      <section className="bg-[#53647D] text-white py-16 sm:py-20 border-b border-[#A49050]/30 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="about-dropdown-banner-copy flex flex-col gap-5 max-w-3xl">
-            <span className="inline-flex w-fit items-center text-xs font-mono tracking-widest text-[#A49050] uppercase bg-[#A49050]/10 border border-[#A49050]/30 px-4 py-1.5 rounded-full">QUALITY ASSURANCE & ACCREDITATIONS</span>
-            <h1 ref={heroHeadingRef} className="text-4xl sm:text-5xl font-serif font-bold tracking-tight">Certifications & Institutional Empanelments</h1>
-            <div
-              className="services-hero-line h-[3px] bg-[#A49050] rounded-full"
-              style={{ width: heroLineWidth ? `${heroLineWidth}px` : '4rem' }}
-            ></div>
-            <p className="text-white/80 text-base leading-relaxed">
-              Rigorous quality management systems, international ISO accreditations, and premier institutional empanelments backing every infrastructure consultancy deliverable.
-            </p>
-          </div>
-        </div>
-      </section>
+      {/* Header Banner with Clean Energy Infrastructure Background */}
+      <PageHeroBanner
+        line1="QUALITY ASSURANCE."
+        line2="ACCREDITATIONS & EMPANELMENTS."
+        description="Rigorous quality management systems, international ISO accreditations, and premier institutional empanelments backing every infrastructure consultancy deliverable."
+      />
 
       {/* CERTIFICATIONS SECTION */}
       <section ref={certsSectionRef} className="about-dropdown-content pt-20 pb-10 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-12 pb-6 border-b border-[#A49050]/20">
+          <div className="mb-12">
             <span className="text-xs font-mono tracking-widest text-[#D96B33] uppercase">ISO & COMPLIANCE</span>
             <h2 className="text-3xl font-serif font-bold text-[#18253A] mt-1">Accredited Quality Standards</h2>
           </div>
@@ -234,7 +225,7 @@ export const CertificationsPage: React.FC = () => {
       </section>
 
       {/* INSTITUTIONAL EMPANELMENTS SECTION */}
-      <section className="pt-10 pb-20 bg-[#18253A]/5 border-t border-[#A49050]/20">
+      <section className="pt-10 pb-20 bg-[#18253A]/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div ref={empanelmentsHeaderRef} className="empanelments-header text-center max-w-3xl mx-auto mb-10">
             <span className="text-xs font-mono tracking-widest text-[#D96B33] uppercase">GOVERNMENT & MULTILATERAL RECOGNITION</span>

@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { SECTORS } from '../data/sectors';
-import { SERVICES } from '../data/services';
 import { LIFECYCLE_STAGES } from '../data/company';
 import { ProjectVideoModal } from '../components/ProjectVideoModal';
+import { ServicesShowcase } from '../components/ServicesShowcase';
 import { CountUpValue } from '../components/CountUpValue';
 import { ArrowRight, ShieldCheck, Award, Building2, Compass, CheckCircle2, Play, ChevronRight, FileText, PenTool, TrendingUp } from 'lucide-react';
 import indiaRoadsHero from '../images/hero/india-roads.jpg';
 import windEnergyHero from '../images/hero/wind-energy.jpg';
 import metroRailHero from '../images/hero/metro-rail.jpg';
+import highwayBridgeHero from '../images/hero/highway-bridge-banner.jpg';
+import transitCtaHero from '../images/hero/transit-cta-banner.jpg';
 
 // Headline figures for each sector, sourced directly from AGICL_Corporate_Profile.md
 // (Section 4, "Notable Projects by Sector") and AGICL_Brochure_Final.md (Section 4,
@@ -31,13 +33,6 @@ const LIFECYCLE_ICONS = [Compass, FileText, PenTool, TrendingUp, Building2, Chec
 const SECTOR_FILTER_LABELS = [
   'Roads', 'Urban', 'Renewable', 'Railways', 'Water',
   'Sewerage', 'Tourism', 'Mining', 'Environment', 'IT',
-];
-
-// Terse labels for the "Services We Provide" filter row, kept short so all
-// eleven chips sit on a single line; index-matched to SERVICES.
-const SERVICE_FILTER_LABELS = [
-  'Design', 'IE / AE', 'PMC', 'Safety', 'Pre-Bid', 'Advisory',
-  'ASM', 'TEV', 'Survey / GIS', 'LIE', 'Due Diligence',
 ];
 
 // The four ISO management-system certifications AGICL holds — sourced from
@@ -69,11 +64,6 @@ export const Home: React.FC = () => {
   // auto-advance carousel pauses for a short window after any interaction so a
   // filter selection isn't overridden a couple of seconds later.
   const sectorInteractionRef = useRef(0);
-  // Same three, for the parallel "Services We Provide" showcase.
-  const [activeServiceIndex, setActiveServiceIndex] = useState(0);
-  const serviceCardRefs = useRef<(HTMLAnchorElement | null)[]>([]);
-  const serviceTrackRef = useRef<HTMLDivElement | null>(null);
-  const serviceInteractionRef = useRef(0);
   const sectorTrackRef = useRef<HTMLDivElement | null>(null);
   const ctaSectionRef = useRef<HTMLElement | null>(null);
   const brandStatementRef = useRef<HTMLElement | null>(null);
@@ -396,37 +386,6 @@ export const Home: React.FC = () => {
     return () => clearInterval(interval);
   }, [activeSectorIndex]);
 
-  // Service showcase — identical behaviour to the sector showcase above.
-  const selectServiceFromFilter = (index: number) => {
-    serviceInteractionRef.current = Date.now();
-    setActiveServiceIndex(index);
-    window.setTimeout(() => {
-      const track = serviceTrackRef.current;
-      const card = serviceCardRefs.current[index];
-      if (!track || !card) return;
-      const targetLeft = card.offsetLeft - (track.clientWidth - card.offsetWidth) / 2;
-      track.scrollTo({ left: Math.max(0, targetLeft), behavior: 'smooth' });
-    }, 720);
-  };
-
-  useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    const interval = setInterval(() => {
-      if (Date.now() - serviceInteractionRef.current < 25000) return;
-      const nextIndex = (activeServiceIndex + 1) % SERVICES.length;
-      setActiveServiceIndex(nextIndex);
-      window.setTimeout(() => {
-        const track = serviceTrackRef.current;
-        const card = serviceCardRefs.current[nextIndex];
-        if (!track || !card) return;
-        const targetLeft = card.offsetLeft - (track.clientWidth - card.offsetWidth) / 2;
-        track.scrollTo({ left: Math.max(0, targetLeft), behavior: 'smooth' });
-      }, 720);
-    }, 2000);
-    return () => clearInterval(interval);
-  }, [activeServiceIndex]);
-
   return (
     <div className="flex flex-col min-h-screen bg-[#F1F3F5]">
       
@@ -610,7 +569,7 @@ export const Home: React.FC = () => {
                   className={`shrink-0 whitespace-nowrap rounded-full border px-3 py-1.5 text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider transition-colors duration-200 ${
                     activeSectorIndex === index
                       ? 'bg-[#18253A] border-[#18253A] text-white'
-                      : 'bg-white border-[#18253A]/15 text-[#18253A]/70 hover:bg-[#53647D] hover:border-[#53647D] hover:text-white'
+                      : 'bg-white border-[#18253A]/15 text-[#18253A]/70 hover:bg-[#3E4C60] hover:border-[#3E4C60] hover:text-white'
                   }`}
                 >
                   {SECTOR_FILTER_LABELS[index]}
@@ -673,97 +632,47 @@ export const Home: React.FC = () => {
       </section>
 
       {/* BRAND STATEMENT */}
-      <section ref={brandStatementRef} className="brand-statement bg-[#18253A] py-20 sm:py-28">
-        <div className="brand-statement__inner max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <span className="brand-statement__rule block h-[3px] w-full bg-white/60" aria-hidden="true" />
-          <p className="py-14 sm:py-20 text-center font-sans font-normal tracking-tight text-white leading-[1.3] text-[2.5rem] sm:text-6xl lg:text-[4.25rem]">
-            <span className="brand-statement__line block">We are <span className="font-medium italic text-[#D96B33]">Almondz</span>.</span>
-            <span className="brand-statement__line block">We shape infrastructure,</span>
-            <span className="brand-statement__line block">We build tomorrow.</span>
-          </p>
-          <span className="brand-statement__rule block h-[3px] w-full bg-white/60" aria-hidden="true" />
+      <section
+        ref={brandStatementRef}
+        className="brand-statement relative min-h-[460px] sm:min-h-[540px] flex items-center justify-center py-20 sm:py-28 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#18253A]"
+      >
+        {/* Panoramic Infrastructure Background Image with Balanced Dark Film */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src={highwayBridgeHero}
+            alt="National highway and bridge infrastructure"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#101A29]/75 via-[#18253A]/55 to-[#101A29]/80 backdrop-brightness-[0.9]"></div>
+        </div>
+
+        {/* Floating Text Directly Over Image */}
+        <div className="relative z-10 w-full max-w-5xl mx-auto text-center flex flex-col items-center">
+          {/* Top decorative accent rule */}
+          <span className="brand-statement__rule block h-[2.5px] w-28 sm:w-36 bg-[#D6C489] mb-6 sm:mb-8 rounded-full shadow-sm" aria-hidden="true" />
+
+          {/* Main Typography with Image 4 Staggered Animation */}
+          <div className="space-y-3 sm:space-y-4">
+            <h2 className="font-sans font-bold tracking-tight leading-tight text-3xl sm:text-5xl lg:text-6xl">
+              <span className="brand-statement__line block text-white drop-shadow-md">
+                WE ARE <span className="text-[#D6C489]">ALMONDZ.</span>
+              </span>
+              <span className="brand-statement__line block text-white drop-shadow-md">
+                WE SHAPE INFRASTRUCTURE.
+              </span>
+              <span className="brand-statement__line block text-[#D6C489] drop-shadow-md">
+                WE BUILD TOMORROW.
+              </span>
+            </h2>
+          </div>
+
+          {/* Bottom decorative accent rule */}
+          <span className="brand-statement__rule block h-[2.5px] w-28 sm:w-36 bg-[#D6C489] mt-6 sm:mt-8 rounded-full shadow-sm" aria-hidden="true" />
         </div>
       </section>
 
-      {/* SERVICES GRID SECTION */}
-      <section className="pt-16 pb-8 bg-[#F1F3F5]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-10">
-            <span className="text-xs font-mono tracking-widest text-[#D96B33] uppercase">WHAT WE DO</span>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#18253A] mt-1">Services We Provide</h2>
-
-            <div
-              className="mt-6 flex flex-nowrap items-center gap-1.5 sm:gap-2 overflow-x-auto"
-              role="tablist"
-              aria-label="Filter services"
-            >
-              {SERVICES.map((service, index) => (
-                <button
-                  key={service.id}
-                  type="button"
-                  role="tab"
-                  aria-selected={activeServiceIndex === index}
-                  onClick={() => selectServiceFromFilter(index)}
-                  className={`shrink-0 whitespace-nowrap rounded-full border px-3 py-1.5 text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider transition-colors duration-200 ${
-                    activeServiceIndex === index
-                      ? 'bg-[#18253A] border-[#18253A] text-white'
-                      : 'bg-white border-[#18253A]/15 text-[#18253A]/70 hover:bg-[#53647D] hover:border-[#53647D] hover:text-white'
-                  }`}
-                >
-                  {SERVICE_FILTER_LABELS[index]}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div ref={serviceTrackRef} className="sector-showcase service-showcase" aria-label="Consultancy and engineering services">
-            {SERVICES.map((service, index) => (
-              <Link
-                key={service.id}
-                ref={(element) => { serviceCardRefs.current[index] = element; }}
-                to="/services"
-                onClick={(event) => {
-                  if (activeServiceIndex !== index) {
-                    event.preventDefault();
-                    selectServiceFromFilter(index);
-                  }
-                }}
-                className={`sector-showcase__card group ${
-                  activeServiceIndex === index ? 'is-active' : ''
-                }`}
-                aria-current={activeServiceIndex === index ? 'true' : undefined}
-                aria-label={
-                  activeServiceIndex === index
-                    ? `Open ${service.title}`
-                    : `Show ${service.title}`
-                }
-              >
-                <img
-                  src={service.image}
-                  alt={service.title}
-                  className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                  referrerPolicy="no-referrer"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#101A29] via-[#18253A]/40 to-[#18253A]/10" />
-
-                <div className="relative flex h-full flex-col justify-between p-7 sm:p-10 lg:p-14">
-                  <div className="sector-showcase__tag flex items-start justify-end gap-6">
-                    <span className="text-4xl font-serif text-white/50 sm:text-6xl">{String(index + 1).padStart(2, '0')}</span>
-                  </div>
-
-                  <div className="sector-showcase__content max-w-3xl">
-                    <h3 className="text-xl font-serif font-medium leading-snug text-white sm:text-2xl lg:text-3xl">{service.title}</h3>
-                    <div className="mt-5 inline-flex items-center gap-2 text-xs font-mono font-bold tracking-wider text-[#D96B33]">
-                      <span>View Details</span>
-                      <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-2" />
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* SERVICES SPOTLIGHT SECTION */}
+      <ServicesShowcase />
 
       {/* CONCEPT TO COMMISSIONING LIFECYCLE */}
       <section ref={lifecycleSectionRef} className="lifecycle-showcase py-20 bg-[#E1E5EA] text-[#18253A] relative overflow-hidden">
@@ -891,21 +800,57 @@ export const Home: React.FC = () => {
       </section>
 
       {/* CTA BANNER */}
-      <section ref={ctaSectionRef} className="cta-showcase py-16 text-white">
-        <div className="cta-showcase__orb cta-showcase__orb--one" aria-hidden="true" />
-        <div className="cta-showcase__orb cta-showcase__orb--two" aria-hidden="true" />
-        <div className="cta-showcase__inner max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
-          <div className="cta-showcase__copy flex flex-col gap-2 max-w-2xl">
-            <span className="cta-showcase__eyebrow text-xs font-mono tracking-widest uppercase opacity-90">PARTNER WITH ALMONDZ</span>
-            <h2 className="cta-showcase__title text-3xl sm:text-4xl font-serif font-bold">Ready to Engineer Your Next Mega Infrastructure Project?</h2>
-            <p className="cta-showcase__description text-sm opacity-90">Get in touch with our experts.</p>
+      <section
+        ref={ctaSectionRef}
+        className="brand-statement relative min-h-[460px] sm:min-h-[540px] flex items-center justify-center py-20 sm:py-28 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#18253A]"
+      >
+        {/* Panoramic Infrastructure Background Image with Balanced Dark Film */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src={transitCtaHero}
+            alt="Modern transit and sustainable smart city infrastructure"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#101A29]/75 via-[#18253A]/55 to-[#101A29]/80 backdrop-brightness-[0.9]"></div>
+        </div>
+
+        {/* Floating Text Directly Over Image */}
+        <div className="relative z-10 w-full max-w-5xl mx-auto text-center flex flex-col items-center">
+          {/* Top decorative accent rule */}
+          <span className="brand-statement__rule block h-[2.5px] w-28 sm:w-36 bg-[#D6C489] mb-6 sm:mb-8 rounded-full shadow-sm" aria-hidden="true" />
+
+          {/* Main Typography with Image 4 Staggered Animation */}
+          <div className="space-y-4">
+            <span className="brand-statement__line block text-xs font-mono font-bold tracking-[0.2em] text-[#D6C489] uppercase">
+              PARTNER WITH ALMONDZ
+            </span>
+
+            <h2 className="font-sans font-bold tracking-tight leading-tight text-3xl sm:text-5xl lg:text-6xl">
+              <span className="brand-statement__line block text-white drop-shadow-md">
+                READY TO ENGINEER YOUR NEXT
+              </span>
+              <span className="brand-statement__line block text-[#D6C489] drop-shadow-md">
+                MEGA INFRASTRUCTURE PROJECT?
+              </span>
+            </h2>
+
+            <p className="brand-statement__line text-sm sm:text-base lg:text-lg text-white/90 max-w-2xl mx-auto leading-relaxed font-normal pt-2 drop-shadow-sm">
+              Connect with our experts.
+            </p>
+
+            <div className="brand-statement__line pt-4">
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-2 bg-[#18253A] hover:bg-[#3E4C60] text-white hover:text-[#D6C489] py-3.5 px-8 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 rounded-lg shadow-xl border border-[#D6C489]/50 hover:border-[#D6C489] hover:shadow-2xl hover:-translate-y-0.5"
+              >
+                <span>CONTACT US</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
           </div>
-          <Link
-            to="/contact"
-            className="cta-showcase__button group shrink-0"
-          >
-            <span>Contact Us</span>
-          </Link>
+
+          {/* Bottom decorative accent rule */}
+          <span className="brand-statement__rule block h-[2.5px] w-28 sm:w-36 bg-[#D6C489] mt-6 sm:mt-8 rounded-full shadow-sm" aria-hidden="true" />
         </div>
       </section>
 

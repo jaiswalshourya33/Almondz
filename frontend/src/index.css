@@ -94,7 +94,16 @@
     transition: opacity 800ms cubic-bezier(0.22, 1, 0.36, 1), transform 800ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
+  .gov-banner__card--right {
+    transform: translateX(90px);
+  }
+
   .gov-banner.is-centered .gov-banner__card {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .gov-banner.is-centered .gov-banner__card--right {
     opacity: 1;
     transform: translateX(0);
   }
@@ -130,15 +139,41 @@
   to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-/* Leadership roster slideshow: native scroll-snap carousel, scrollbar
-   hidden so the arrow buttons read as the only way to page it. */
-.leadership-roster-track {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+/* Leadership grid: every director card on one page. Cards fade up in reading
+   order on scroll-in (delay driven by the inline --i index), and the whole
+   card — photo and text together — zooms on hover. */
+@media (prefers-reduced-motion: no-preference) {
+  .leadership-grid .leader-card {
+    opacity: 0;
+    translate: 0 32px;
+  }
+
+  .leadership-grid.is-visible .leader-card {
+    animation: leader-card-in 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(var(--i, 0) * 80ms);
+  }
 }
 
-.leadership-roster-track::-webkit-scrollbar {
-  display: none;
+@keyframes leader-card-in {
+  from { opacity: 0; translate: 0 32px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+.leader-card {
+  transform-origin: center;
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 320ms ease,
+              border-color 320ms ease;
+  will-change: transform;
+}
+
+@media (hover: hover) {
+  .leader-card:hover {
+    transform: scale(1.06);
+    box-shadow: 0 26px 52px rgba(13, 27, 42, 0.20);
+    border-color: rgba(164, 144, 80, 0.5);
+    z-index: 5;
+  }
 }
 
 .bg-navy {
@@ -163,33 +198,6 @@
 
 /* About/Leadership pages keep their plain soft-dusty cream background
    (set via bg-[#F1F3F5] on each page's root element) — no dot texture. */
-
-/* Director portrait cards respond to the pointer without affecting page layout. */
-.leadership-profile-card {
-  --leader-tilt-x: 0deg;
-  --leader-tilt-y: 0deg;
-  --leader-shift-x: 0px;
-  --leader-shift-y: 0px;
-  transform: perspective(1100px) rotateX(var(--leader-tilt-x)) rotateY(var(--leader-tilt-y)) translate3d(var(--leader-shift-x), var(--leader-shift-y), 0);
-  transform-style: preserve-3d;
-  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), border-color 220ms ease, box-shadow 220ms ease;
-  will-change: transform;
-}
-
-@media (hover: hover) {
-  .leadership-profile-card:hover {
-    border-color: #D96B33;
-    box-shadow: 0 28px 56px rgba(13, 27, 42, 0.3);
-  }
-
-  .leadership-profile-photo img {
-    transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .leadership-profile-photo:hover img {
-    transform: scale(1.045);
-  }
-}
 
 /* About-page heritage entrance and pointer-responsive image card. */
 @media (prefers-reduced-motion: no-preference) {
@@ -230,24 +238,6 @@
   .leadership-banner-copy > :nth-child(2) { animation-delay: 300ms; }
   .leadership-banner-copy > :nth-child(3):not(.services-hero-line) { animation-delay: 620ms; }
   .leadership-banner-copy > :nth-child(4) { animation-delay: 780ms; }
-
-  .leadership-roster .leadership-profile-card {
-    opacity: 0;
-    transform: perspective(1100px) rotateX(var(--leader-tilt-x)) rotateY(var(--leader-tilt-y)) translate3d(var(--leader-shift-x), var(--leader-shift-y), 0) translateY(48px) scale(0.98);
-  }
-
-  .leadership-roster.is-visible .leadership-profile-card {
-    animation: leadership-card-reveal 1.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  }
-
-  .leadership-roster.is-visible .leadership-profile-card:nth-child(1) { animation-delay: 100ms; }
-  .leadership-roster.is-visible .leadership-profile-card:nth-child(2) { animation-delay: 260ms; }
-  .leadership-roster.is-visible .leadership-profile-card:nth-child(3) { animation-delay: 420ms; }
-  .leadership-roster.is-visible .leadership-profile-card:nth-child(4) { animation-delay: 580ms; }
-  .leadership-roster.is-visible .leadership-profile-card:nth-child(5) { animation-delay: 740ms; }
-  .leadership-roster.is-visible .leadership-profile-card:nth-child(6) { animation-delay: 900ms; }
-  .leadership-roster.is-visible .leadership-profile-card:nth-child(7) { animation-delay: 1060ms; }
-  .leadership-roster.is-visible .leadership-profile-card:nth-child(8) { animation-delay: 1220ms; }
 
   .about-banner-copy > * {
     animation: about-banner-enter 1.55s cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -302,12 +292,12 @@
   .about-subnav-section.is-visible .about-subnav-header > :nth-child(2) { animation-delay: 250ms; }
 
   .about-subnav-section.is-visible .about-subnav-card {
-    animation: scroll-card-reveal 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: about-subnav-card-in 1150ms cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
-  .about-subnav-section.is-visible .about-subnav-card:nth-child(1) { animation-delay: 450ms; }
-  .about-subnav-section.is-visible .about-subnav-card:nth-child(2) { animation-delay: 700ms; }
-  .about-subnav-section.is-visible .about-subnav-card:nth-child(3) { animation-delay: 950ms; }
+  .about-subnav-section.is-visible .about-subnav-card:nth-child(1) { animation-delay: 250ms; }
+  .about-subnav-section.is-visible .about-subnav-card:nth-child(2) { animation-delay: 800ms; }
+  .about-subnav-section.is-visible .about-subnav-card:nth-child(3) { animation-delay: 1350ms; }
 
   /* Institutional Empanelments header (CertificationsPage): eyebrow, then
      heading, then paragraph fade/rise in one after another, only once
@@ -332,6 +322,66 @@
     animation: about-scroll-content-reveal 1s cubic-bezier(0.22, 1, 0.36, 1) both;
     animation-timeline: view();
     animation-range: entry 4% cover 42%;
+  }
+}
+
+/* Sector detail — "Services & Scope of Work" / "Need Sector Consultation?"
+   two-row scroll story: staggered copy reveal, plus photos that slide in from
+   the right (row 1) and glide right-to-left into place at a medium pace (row 2).
+   The photo movement is applied to the <img> INSIDE its clipping wrapper, so it
+   never spills into the page's horizontal scroll box. Uses the CSS `translate`
+   property (not `transform`) so it composes with any hover transforms. */
+@media (prefers-reduced-motion: no-preference) {
+  .sector-scope-section .scope-reveal {
+    opacity: 0;
+    translate: 0 24px;
+    transition:
+      opacity 1100ms cubic-bezier(0.22, 1, 0.36, 1),
+      translate 1100ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: calc(var(--i, 0) * 260ms);
+  }
+
+  .sector-scope-section .scope-row.is-visible .scope-reveal {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  /* Bullet points glide in smoothly from the LEFT side, starting after paragraph */
+  .sector-scope-section .scope-bullet {
+    opacity: 0;
+    translate: -36px 0;
+    transition:
+      opacity 1000ms cubic-bezier(0.22, 1, 0.36, 1),
+      translate 1000ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: calc(1000ms + (var(--bullet-i, 0) * 160ms));
+  }
+
+  .sector-scope-section .scope-row.is-visible .scope-bullet {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  .sector-scope-section .scope-media > img {
+    opacity: 0;
+    transition:
+      opacity 1100ms ease,
+      translate 1300ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .sector-scope-section .scope-media--fromright > img {
+    translate: 20% 0;
+  }
+
+  .sector-scope-section .scope-media--glide > img {
+    translate: 35% 0;
+    transition:
+      opacity 1100ms ease,
+      translate 1400ms cubic-bezier(0.33, 0, 0.2, 1);
+  }
+
+  .sector-scope-section .scope-row.is-visible .scope-media > img {
+    opacity: 1;
+    translate: 0 0;
   }
 }
 
@@ -385,11 +435,6 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes leadership-card-reveal {
-  from { opacity: 0; transform: perspective(1100px) rotateX(var(--leader-tilt-x)) rotateY(var(--leader-tilt-y)) translate3d(var(--leader-shift-x), var(--leader-shift-y), 0) translateY(48px) scale(0.98); }
-  to { opacity: 1; transform: perspective(1100px) rotateX(var(--leader-tilt-x)) rotateY(var(--leader-tilt-y)) translate3d(var(--leader-shift-x), var(--leader-shift-y), 0) translateY(0) scale(1); }
-}
-
 @keyframes about-image-enter {
   from { opacity: 0; transform: translateX(52px); }
   to { opacity: 1; transform: translateX(0); }
@@ -410,7 +455,7 @@
 
 .strengths-showcase__inner {
   position: relative;
-  min-height: 580px;
+  min-height: 540px;
 }
 
 .strengths-showcase__content {
@@ -418,6 +463,11 @@
   z-index: 1;
   width: 48%;
   margin-left: auto;
+  /* Match the docked photo's height so the card grid ends exactly where the
+     image does — the grid then flex-fills whatever space the heading leaves. */
+  min-height: 540px;
+  display: flex;
+  flex-direction: column;
 }
 
 .strengths-showcase__media {
@@ -441,9 +491,11 @@
 }
 
 .strengths-grid {
-  margin-top: 2.25rem;
+  margin-top: 2rem;
+  flex: 1 1 auto;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(3, 1fr);
   gap: 1px;
   background: rgba(24, 37, 58, 0.14);
   border: 1px solid rgba(24, 37, 58, 0.14);
@@ -455,10 +507,12 @@
 .strength-item {
   position: relative;
   background: #F1F3F5;
-  padding: 1.4rem 1.4rem 1.6rem;
+  padding: 1.5rem 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 0;
   transition: transform 340ms cubic-bezier(0.22, 1, 0.36, 1),
               box-shadow 340ms ease,
               background-color 340ms ease;
@@ -471,22 +525,6 @@
 .strength-item:nth-child(5) { border-bottom-left-radius: 13px; }
 .strength-item:nth-child(6) { border-bottom-right-radius: 13px; }
 
-/* Copper top bar that sweeps in from the left on hover. */
-.strength-item::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: #D96B33;
-  border-radius: 3px 3px 0 0;
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
-  pointer-events: none;
-}
-
 @media (hover: hover) {
   .strength-item:hover {
     background: #ffffff;
@@ -496,43 +534,28 @@
     z-index: 3;
   }
 
-  .strength-item:hover::before {
-    transform: scaleX(1);
+  .strength-item:hover .strength-item__title {
+    color: #A49050;
   }
-
-  .strength-item:hover .strength-item__icon {
-    background: #D96B33;
-    color: #ffffff;
-  }
-}
-
-.strength-item__icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  background: rgba(217, 107, 51, 0.12);
-  color: #D96B33;
-  margin-bottom: 0.3rem;
-  transition: background-color 340ms ease, color 340ms ease;
 }
 
 .strength-item__title {
   font-family: var(--font-serif);
   font-weight: 700;
-  font-size: 0.9rem;
-  letter-spacing: 0.05em;
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
   line-height: 1.3;
   color: #18253A;
+  overflow-wrap: break-word;
+  transition: color 300ms ease;
 }
 
 .strength-item__desc {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   line-height: 1.55;
   color: rgba(24, 37, 58, 0.7);
+  overflow-wrap: break-word;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -598,7 +621,12 @@
 @media (max-width: 1023px) {
   .strengths-showcase__inner { min-height: 0; }
 
-  .strengths-showcase__content { width: 100%; }
+  .strengths-showcase__content { width: 100%; min-height: 0; }
+
+  /* photo is stacked above now, so the grid goes back to natural row heights */
+  .strengths-grid { flex: none; grid-template-rows: none; }
+
+  .strength-item { min-height: 116px; }
 
   .strengths-showcase__media {
     position: relative;
@@ -841,6 +869,28 @@
 @media (min-width: 641px) and (max-width: 1100px) {
   .service-showcase.sector-showcase .sector-showcase__card.is-active {
     flex-basis: max(320px, calc(100% - 660px)); /* 10 * (56px + 10px gap) */
+  }
+}
+
+/* "Services We Provide" spotlight — Accenture-style hover list + live preview.
+   Scroll-reveal handled with IntersectionObserver + .is-visible (framer-motion
+   whileInView is unreliable in this project). */
+.services-spotlight {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 600ms ease, transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.services-spotlight.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .services-spotlight {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
 
@@ -1105,8 +1155,8 @@
 @media (prefers-reduced-motion: no-preference) {
   .brand-statement__rule {
     transform: scaleX(0);
-    transform-origin: left center;
-    transition: transform 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+    transform-origin: center;
+    transition: transform 1.3s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .brand-statement.is-visible .brand-statement__rule {
@@ -1114,7 +1164,7 @@
   }
 
   .brand-statement.is-visible .brand-statement__rule:last-child {
-    transition-delay: 2s;
+    transition-delay: 1.4s;
   }
 
   .brand-statement__line {
@@ -1129,6 +1179,33 @@
   .brand-statement.is-visible .brand-statement__line:nth-child(1) { animation-delay: 300ms; }
   .brand-statement.is-visible .brand-statement__line:nth-child(2) { animation-delay: 950ms; }
   .brand-statement.is-visible .brand-statement__line:nth-child(3) { animation-delay: 1600ms; }
+
+  .projects-hero-statement .brand-statement__rule {
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 1.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .projects-hero-statement.is-visible .brand-statement__rule {
+    transform: scaleX(1);
+  }
+
+  .projects-hero-statement.is-visible .brand-statement__rule:last-child {
+    transition-delay: 1.4s;
+  }
+
+  .projects-hero-statement .brand-statement__line {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+
+  .projects-hero-statement.is-visible .brand-statement__line {
+    animation: brand-statement-line-reveal 1.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .projects-hero-statement.is-visible .brand-statement__line:nth-child(1) { animation-delay: 200ms; }
+  .projects-hero-statement.is-visible .brand-statement__line:nth-child(2) { animation-delay: 750ms; }
+  .projects-hero-statement.is-visible .brand-statement__line:nth-child(3) { animation-delay: 1300ms; }
 }
 
 @keyframes brand-statement-line-reveal {
@@ -1147,9 +1224,9 @@
 .lifecycle-showcase {
   background-image:
     radial-gradient(ellipse 74% 48% at 50% -8%, rgba(255, 255, 255, 0.72), transparent 70%),
-    radial-gradient(ellipse 58% 54% at 6% 8%, rgba(83, 100, 125, 0.2), transparent 60%),
+    radial-gradient(ellipse 58% 54% at 6% 8%, rgba(62, 76, 96, 0.2), transparent 60%),
     radial-gradient(ellipse 54% 52% at 94% 20%, rgba(164, 144, 80, 0.14), transparent 62%),
-    radial-gradient(ellipse 80% 70% at 78% 62%, rgba(83, 100, 125, 0.12), transparent 66%),
+    radial-gradient(ellipse 80% 70% at 78% 62%, rgba(62, 76, 96, 0.12), transparent 66%),
     radial-gradient(ellipse 94% 56% at 50% 108%, rgba(24, 37, 58, 0.11), transparent 74%);
 }
 
@@ -1434,6 +1511,14 @@
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
+/* Sub-nav cards fade + rise in one at a time (opacity animates here, unlike
+   the shared scroll-card-reveal which only slides) so each card clearly
+   appears on its own as the stagger delay reaches it. */
+@keyframes about-subnav-card-in {
+  from { opacity: 0; transform: translateY(46px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
 @media (max-width: 640px) {
   .sector-showcase {
     gap: 8px;
@@ -1506,10 +1591,10 @@
   }
 }
 
-/* Custom Scrollbar - Almondz Brand (#D96B33) */
+/* Custom Scrollbar - Almondz Brand (#3E4C60) */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #D96B33 transparent;
+  scrollbar-color: #3E4C60 transparent;
 }
 
 ::-webkit-scrollbar {
@@ -1522,12 +1607,12 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #D96B33;
+  background: #3E4C60;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #C25A28;
+  background: #18253A;
 }
 
 /* Hide scrollbar completely while maintaining native smooth scrolling */

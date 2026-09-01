@@ -1,10 +1,11 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { COMPANY_STATS } from '../data/company';
-import { ShieldCheck, Award, Building2, ArrowRight, Target, Users, TrendingUp, Leaf } from 'lucide-react';
+import { ShieldCheck, Award, ArrowRight, Target, Users, TrendingUp, Leaf } from 'lucide-react';
 import heritageImage from '../images/about-heritage.jpg';
 import strengthsImage from '../images/hero/wind-energy.jpg';
 import { GroupCompaniesGraphic } from '../components/GroupCompaniesGraphic';
+import { PageHeroBanner } from '../components/PageHeroBanner';
 
 // "Why Almondz" strength pillars — icon + label + one-line note, matched to the
 // six-pillar reference layout. Icons stay on the site's copper accent so the
@@ -121,22 +122,12 @@ export const AboutOverview: React.FC = () => {
 
   return (
     <div className="about-overview-page flex flex-col min-h-screen bg-[#F1F3F5] pt-24">
-      {/* Header Banner */}
-      <section className="bg-[#53647D] text-white py-16 border-b border-[#A49050]/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="about-banner-copy flex flex-col gap-5 max-w-3xl">
-            <span className="inline-flex w-fit items-center text-xs font-mono tracking-widest text-[#A49050] uppercase bg-[#A49050]/10 border border-[#A49050]/30 px-4 py-1.5 rounded-full">ABOUT ALMONDZ GLOBAL INFRA</span>
-            <h1 ref={heroHeadingRef} className="text-4xl sm:text-5xl font-serif font-bold">Engineering Excellence & Institutional Trust</h1>
-            <div
-              className="services-hero-line h-[3px] bg-[#A49050] rounded-full"
-              style={{ width: heroLineWidth ? `${heroLineWidth}px` : '4rem' }}
-            ></div>
-            <p className="text-white/80 text-base leading-relaxed">
-              Almondz Global Infra Consultant Limited (AGICL) is a premier infrastructure consultancy and Public Limited Company, a subsidiary of the publicly listed Almondz Global Securities Limited (AGSL). The firm holds ISO 9001:2015, ISO/IEC 27001:2022, ISO 45001:2018, ISO 14001:2015, and CMMI Level 3 certifications, with an NABL-accredited laboratory certified to ISO/IEC 17025:2017 standards.
-            </p>
-          </div>
-        </div>
-      </section>
+      {/* Header Banner with Clean Energy Infrastructure Background */}
+      <PageHeroBanner
+        line1="ENGINEERING EXCELLENCE."
+        line2="INSTITUTIONAL TRUST."
+        description="Almondz Global Infra Consultant Limited (AGICL) is a premier infrastructure consultancy delivering end-to-end engineering, advisory, and sustainable nation-building solutions."
+      />
 
       {/* Main Content */}
       <section ref={heritageSectionRef} className="about-heritage-section py-20">
@@ -163,20 +154,20 @@ export const AboutOverview: React.FC = () => {
                   <div className="text-xs font-mono text-[#18253A]/60 mt-1">Employees</div>
                 </div>
                 <div>
-                  <div className="text-xl font-serif font-bold text-[#18253A]">BBB-</div>
-                  <div className="text-xs font-mono text-[#18253A]/60 mt-1">CARE Rating</div>
+                  <div className="text-xl font-serif font-bold text-[#18253A]">7+</div>
+                  <div className="text-xs font-mono text-[#18253A]/60 mt-1">Sectors</div>
                 </div>
                 <div>
-                  <div className="text-xl font-serif font-bold text-[#18253A]">ISO 9001:2015</div>
-                  <div className="text-xs font-mono text-[#18253A]/60 mt-1">Certified Quality System</div>
+                  <div className="text-xl font-serif font-bold text-[#18253A]">100+</div>
+                  <div className="text-xs font-mono text-[#18253A]/60 mt-1">Completed Projects</div>
                 </div>
                 <div>
-                  <div className="text-xl font-serif font-bold text-[#18253A]">CMMI Level 3</div>
-                  <div className="text-xs font-mono text-[#18253A]/60 mt-1">Process Maturity</div>
+                  <div className="text-xl font-serif font-bold text-[#18253A]">200+</div>
+                  <div className="text-xs font-mono text-[#18253A]/60 mt-1">Ongoing Engagements</div>
                 </div>
                 <div>
-                  <div className="text-xl font-serif font-bold text-[#D96B33]">30+ Empanelments</div>
-                  <div className="text-xs font-mono text-[#18253A]/60 mt-1">Government & Multilateral</div>
+                  <div className="text-xl font-serif font-bold text-[#D96B33]">80+</div>
+                  <div className="text-xs font-mono text-[#18253A]/60 mt-1">Empanelments</div>
                 </div>
               </div>
             </div>
@@ -201,7 +192,7 @@ export const AboutOverview: React.FC = () => {
       </section>
 
       {/* WHY ALMONDZ — STRENGTHS SHOWCASE */}
-      <section ref={strengthsSectionRef} className="strengths-showcase py-20 bg-[#F1F3F5] border-t border-[#A49050]/20">
+      <section ref={strengthsSectionRef} className="strengths-showcase py-20 bg-[#F1F3F5]">
         <div className="strengths-showcase__inner max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="strengths-showcase__media" aria-hidden="true">
             <img
@@ -212,22 +203,16 @@ export const AboutOverview: React.FC = () => {
           </div>
 
           <div className="strengths-showcase__content">
-            <span className="strengths-showcase__eyebrow block text-xs font-mono tracking-widest text-[#D96B33] uppercase">Why Almondz</span>
+            <span className="strengths-showcase__eyebrow block text-xs font-mono tracking-widest text-[#A49050] uppercase">Why Almondz</span>
             <h2 className="strengths-showcase__title text-3xl font-serif font-bold text-[#18253A] mt-1">Our Core Strengths</h2>
 
             <div className="strengths-grid">
-              {STRENGTH_PILLARS.map((pillar) => {
-                const Icon = pillar.icon;
-                return (
-                  <div key={pillar.title} className="strength-item">
-                    <span className="strength-item__icon">
-                      <Icon className="w-5 h-5" />
-                    </span>
-                    <h3 className="strength-item__title">{pillar.title}</h3>
-                    <p className="strength-item__desc">{pillar.desc}</p>
-                  </div>
-                );
-              })}
+              {STRENGTH_PILLARS.map((pillar) => (
+                <div key={pillar.title} className="strength-item">
+                  <h3 className="strength-item__title">{pillar.title}</h3>
+                  <p className="strength-item__desc">{pillar.desc}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -237,19 +222,15 @@ export const AboutOverview: React.FC = () => {
       <GroupCompaniesGraphic />
 
       {/* SUB-NAVIGATION CARDS */}
-      <section ref={subNavSectionRef} className="about-subnav-section py-16 bg-white border-t border-[#A49050]/20">
+      <section ref={subNavSectionRef} className="about-subnav-section pt-6 pb-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="about-subnav-header text-center mb-12">
-            <span className="text-xs font-mono tracking-widest text-[#A49050] uppercase">EXPLORE FURTHER</span>
-            <h2 className="text-3xl font-serif font-bold text-[#18253A] mt-1">Corporate Governance & Leadership</h2>
+            <span className="text-sm font-mono tracking-widest text-[#A49050] uppercase">EXPLORE FURTHER</span>
+            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#18253A] mt-2">Corporate Governance & Leadership</h2>
           </div>
 
           <div ref={subNavCardsRef} className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <Link to="/about/mission-vision" className="about-subnav-card p-8 bg-white rounded-2xl border border-[#A49050]/20 shadow-sm hover:shadow-xl hover:border-[#D96B33]/50 hover:-translate-y-2 hover:scale-[1.03] transition-all duration-300 group">
-              <div className="w-14 h-14 rounded-full bg-[#F1F3F5] border border-[#A49050]/20 flex items-center justify-center text-[#18253A] group-hover:text-[#D96B33] group-hover:border-[#D96B33]/40 transition-colors">
-                <ShieldCheck className="w-6 h-6" />
-              </div>
-              <div className="border-t border-[#A49050]/15 mt-6 mb-6" />
               <h3 className="text-xl font-serif font-bold text-[#18253A] group-hover:text-[#D96B33] transition-colors">Mission & Vision</h3>
               <p className="text-xs text-[#18253A]/70 mt-2 leading-relaxed">Our core pillars of sustainable engineering, innovation, and ethical infrastructure stewardship.</p>
               <div className="mt-6 flex items-center gap-2 text-xs font-mono font-bold text-[#D96B33]">
@@ -259,10 +240,6 @@ export const AboutOverview: React.FC = () => {
             </Link>
 
             <Link to="/about/leadership" className="about-subnav-card p-8 bg-white rounded-2xl border border-[#A49050]/20 shadow-sm hover:shadow-xl hover:border-[#D96B33]/50 hover:-translate-y-2 hover:scale-[1.03] transition-all duration-300 group">
-              <div className="w-14 h-14 rounded-full bg-[#F1F3F5] border border-[#A49050]/20 flex items-center justify-center text-[#18253A] group-hover:text-[#D96B33] group-hover:border-[#D96B33]/40 transition-colors">
-                <Building2 className="w-6 h-6" />
-              </div>
-              <div className="border-t border-[#A49050]/15 mt-6 mb-6" />
               <h3 className="text-xl font-serif font-bold text-[#18253A] group-hover:text-[#D96B33] transition-colors">Leadership & Board</h3>
               <p className="text-xs text-[#18253A]/70 mt-2 leading-relaxed">Meet our Board of Directors, managing directors, and technical practice leaders.</p>
               <div className="mt-6 flex items-center gap-2 text-xs font-mono font-bold text-[#D96B33]">
@@ -272,10 +249,6 @@ export const AboutOverview: React.FC = () => {
             </Link>
 
             <Link to="/about/certifications" className="about-subnav-card p-8 bg-white rounded-2xl border border-[#A49050]/20 shadow-sm hover:shadow-xl hover:border-[#D96B33]/50 hover:-translate-y-2 hover:scale-[1.03] transition-all duration-300 group">
-              <div className="w-14 h-14 rounded-full bg-[#F1F3F5] border border-[#A49050]/20 flex items-center justify-center text-[#18253A] group-hover:text-[#D96B33] group-hover:border-[#D96B33]/40 transition-colors">
-                <Award className="w-6 h-6" />
-              </div>
-              <div className="border-t border-[#A49050]/15 mt-6 mb-6" />
               <h3 className="text-xl font-serif font-bold text-[#18253A] group-hover:text-[#D96B33] transition-colors">Certifications & Empanelments</h3>
               <p className="text-xs text-[#18253A]/70 mt-2 leading-relaxed">View our ISO accreditations and official empanelments with NHAI, MoRTH, and World Bank.</p>
               <div className="mt-6 flex items-center gap-2 text-xs font-mono font-bold text-[#D96B33]">

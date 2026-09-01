@@ -9,80 +9,106 @@ interface ProjectCardProps {
 }
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenDetails }) => {
-  const statusColors = {
-    "Recently Awarded": "bg-[#D96B33] text-white",
-    "Ongoing": "bg-[#53647D] text-white",
-    "Completed": "bg-emerald-700 text-white"
+  const statusBadgeStyles: Record<Project["status"], { bg: string; dot: string; text: string }> = {
+    "Recently Awarded": {
+      bg: "bg-amber-50 border-amber-200/80 text-[#8A7942]",
+      dot: "bg-[#D6C489]",
+      text: "Recently Awarded"
+    },
+    "Ongoing": {
+      bg: "bg-blue-50 border-blue-200/80 text-[#18253A]",
+      dot: "bg-blue-600",
+      text: "Ongoing"
+    },
+    "Completed": {
+      bg: "bg-emerald-50 border-emerald-200/80 text-emerald-800",
+      dot: "bg-emerald-600",
+      text: "Completed"
+    }
   };
 
+  const statusConfig = statusBadgeStyles[project.status] || statusBadgeStyles["Completed"];
+
   return (
-    <div className="group project-card bg-[#53647D] border border-[#A49050]/30 rounded-2xl overflow-hidden flex flex-col justify-between shadow-lg hover:border-[#D96B33] transition-all duration-300">
-      {/* Image & Header */}
-      <div className="relative aspect-[16/10] overflow-hidden bg-[#101A29] border-b border-[#A49050]/25">
+    <div className="group project-card bg-white border border-gray-200/80 rounded-xl overflow-hidden flex flex-col justify-between shadow-[0_2px_10px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_20px_rgba(62,76,96,0.14)] hover:border-[#3E4C60] transition-all duration-300 hover:-translate-y-0.5">
+      {/* Compact Top Image Banner */}
+      <div className="relative h-32 sm:h-36 overflow-hidden bg-slate-100">
         <img 
           src={project.image} 
           alt={project.title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
           referrerPolicy="no-referrer"
+          loading="lazy"
         />
 
-        {/* Badges */}
-        <div className="absolute top-3.5 left-3.5 right-3.5 flex justify-between items-center z-10">
-          <span className={`text-[10px] font-mono tracking-wider px-2.5 py-1 uppercase shadow-sm ${statusColors[project.status]}`}>
-            {project.status}
-          </span>
-          <span className="text-[10px] font-mono bg-[#53647D]/90 text-[#A49050] border border-[#A49050]/50 px-2 py-0.5">
-            {project.sector}
+        {/* Floating Status Pill */}
+        <div className="absolute top-2 right-2 z-10">
+          <span className={`inline-flex items-center gap-1 text-[8.5px] font-semibold px-2 py-0.5 rounded-full border shadow-xs backdrop-blur-md ${statusConfig.bg}`}>
+            <span className={`w-1.5 h-1.5 rounded-full ${statusConfig.dot} animate-pulse`} />
+            <span>{statusConfig.text}</span>
           </span>
         </div>
       </div>
 
-      {/* Content */}
-      <div className="p-6 flex flex-col gap-4 flex-1">
+      {/* Card Content - Compact & Clean */}
+      <div className="p-3 sm:p-3.5 flex flex-col justify-between flex-1 gap-2">
+        {/* Category Pill Tag & Title */}
         <div>
-          <span className="text-[10px] font-mono font-bold text-[#A49050] uppercase tracking-widest">
+          <span className="inline-flex items-center text-[8.5px] font-mono font-bold tracking-wider uppercase px-2 py-0.5 rounded-full bg-[#3E4C60] text-[#D6C489] border border-[#A49050]/55 shadow-2xs">
             {project.sector}
           </span>
 
-          <h3 className="mt-1.5 text-lg font-serif text-white group-hover:text-[#A49050] transition-colors leading-snug">
+          <h3 
+            className="mt-1 text-[13px] sm:text-[14px] font-serif font-bold text-[#18253A] group-hover:text-[#3E4C60] transition-colors leading-snug line-clamp-2"
+            title={project.title}
+          >
             {project.title}
           </h3>
         </div>
 
-        <div className="pt-4 border-t border-white/10 grid grid-cols-3 divide-x divide-white/10">
-          <div className="pr-3">
-            <p className="text-xs font-bold text-white truncate">{project.location}</p>
-            <p className="text-[9px] font-mono text-white/45 uppercase tracking-wider mt-0.5">Location</p>
+        {/* Compact Metadata Specifications */}
+        <div className="bg-[#F8F9FA] rounded-md p-2 border border-gray-100/90 flex flex-col gap-1.5">
+          <div className="grid grid-cols-2 gap-2 pb-1.5 border-b border-gray-200/60">
+            <div>
+              <span className="text-[8px] font-mono text-gray-400 uppercase tracking-wider block mb-0.5 leading-none">Location</span>
+              <p className="text-[11px] font-semibold text-[#18253A] leading-tight break-words">
+                {project.location}
+              </p>
+            </div>
+            <div className="border-l border-gray-200/60 pl-2">
+              <span className="text-[8px] font-mono text-gray-400 uppercase tracking-wider block mb-0.5 leading-none">Client</span>
+              <p className="text-[11px] font-semibold text-[#18253A] leading-tight break-words">
+                {project.client}
+              </p>
+            </div>
           </div>
-          <div className="px-3">
-            <p className="text-xs font-bold text-[#A49050] truncate">{project.client}</p>
-            <p className="text-[9px] font-mono text-white/45 uppercase tracking-wider mt-0.5">Client</p>
-          </div>
-          <div className="pl-3">
-            <p className="text-xs font-bold text-white truncate">{project.role}</p>
-            <p className="text-[9px] font-mono text-white/45 uppercase tracking-wider mt-0.5">Role</p>
+
+          <div>
+            <span className="text-[8px] font-mono text-gray-400 uppercase tracking-wider block mb-0.5 leading-none">Role</span>
+            <p className="text-[11px] font-semibold text-[#18253A] leading-tight break-words line-clamp-2" title={project.role}>
+              {project.role}
+            </p>
           </div>
         </div>
 
-        <div className="pt-4 border-t border-white/10 flex items-end justify-between flex-1">
-          <span className="text-[10px] font-mono text-white/50 uppercase tracking-wider">
-            AGICL Delivered
-          </span>
+        {/* Compact View Details Action Button */}
+        <div className="pt-0.5">
           {onOpenDetails ? (
             <button
+              type="button"
               onClick={() => onOpenDetails(project)}
-              className="text-xs font-mono font-bold text-[#D96B33] flex items-center gap-1 hover:underline cursor-pointer"
+              className="w-full py-1.5 px-3 bg-[#18253A] hover:bg-[#3E4C60] hover:text-[#D6C489] text-white text-[10.5px] font-bold tracking-wider uppercase rounded-md transition-all duration-200 flex items-center justify-center gap-1 shadow-xs hover:shadow-sm cursor-pointer active:scale-[0.99]"
             >
-              <span>DETAILS</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <span>View Details</span>
+              <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
             </button>
           ) : (
             <Link
-              to={`/projects`}
-              className="text-xs font-mono font-bold text-[#D96B33] flex items-center gap-1 hover:underline"
+              to="/projects"
+              className="w-full py-1.5 px-3 bg-[#18253A] hover:bg-[#3E4C60] hover:text-[#D6C489] text-white text-[10.5px] font-bold tracking-wider uppercase rounded-md transition-all duration-200 flex items-center justify-center gap-1 shadow-xs hover:shadow-sm active:scale-[0.99]"
             >
-              <span>DETAILS</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <span>View Details</span>
+              <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
             </Link>
           )}
         </div>

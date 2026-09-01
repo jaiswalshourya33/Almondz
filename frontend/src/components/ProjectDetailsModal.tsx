@@ -222,7 +222,7 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
             <h3 className="text-xs font-bold uppercase tracking-wider text-[#18253A] border-b border-gray-200 pb-1.5">
               Key Highlights & Impact
             </h3>
-            <p className="text-xs sm:text-sm text-gray-700 leading-relaxed bg-[#F1F3F5] border-l-3 border-[#D96B33] p-3.5 rounded-xs">
+            <p className="text-xs sm:text-sm text-gray-700 leading-relaxed bg-[#F1F3F5] p-3.5 rounded-sm">
               {project.impact}
             </p>
           </div>

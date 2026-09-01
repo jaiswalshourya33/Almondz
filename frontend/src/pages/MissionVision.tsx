@@ -1,6 +1,7 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Check } from 'lucide-react';
 import missionVisionHero from '../images/hero/mumbai-skyline.jpg';
+import { PageHeroBanner } from '../components/PageHeroBanner';
 
 const mapRange = (value: number, inMin: number, inMax: number, outMin: number, outMax: number) => {
   if (inMax === inMin) return outMax;
@@ -136,21 +137,12 @@ export const MissionVision: React.FC = () => {
 
   return (
     <div className="about-dropdown-page flex flex-col min-h-screen bg-[#F1F3F5] pt-24">
-      <section className="bg-[#53647D] text-white py-16 border-b border-[#A49050]/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="about-dropdown-banner-copy flex flex-col gap-5 max-w-3xl">
-            <span className="inline-flex w-fit items-center text-xs font-mono tracking-widest text-[#A49050] uppercase bg-[#A49050]/10 border border-[#A49050]/30 px-4 py-1.5 rounded-full">OUR PURPOSE</span>
-            <h1 ref={heroHeadingRef} className="text-4xl sm:text-5xl font-serif font-bold">Mission, Vision & Core Values</h1>
-            <div
-              className="services-hero-line h-[3px] bg-[#A49050] rounded-full"
-              style={{ width: heroLineWidth ? `${heroLineWidth}px` : '4rem' }}
-            ></div>
-            <p className="text-white/80 text-base leading-relaxed">
-              Guiding principles that steer Almondz Global Infra-Consultant Limited toward sustainable engineering excellence and national progress.
-            </p>
-          </div>
-        </div>
-      </section>
+      {/* Header Banner with Clean Energy Infrastructure Background */}
+      <PageHeroBanner
+        line1="OUR GUIDING PURPOSE."
+        line2="MISSION & VISION."
+        description="Guiding principles and enduring core values steering Almondz Global Infra-Consultant Limited toward sustainable engineering excellence and national progress."
+      />
 
       {/* Scroll-driven image zoom, then Mission (left) and Vision (right) cards
           slide in over the image one after the other, each card's own content
