@@ -161,60 +161,60 @@ export const MissionVision: React.FC = () => {
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#18253A]/50 via-[#18253A]/10 to-[#18253A]/60" />
 
-          {/* Mission — left, vertically centered below the fixed navbar (top-24
-              clears it); same fixed height as the Vision card so both match
-              regardless of content length. */}
-          <div
-            className="absolute left-0 top-24 bottom-8 flex items-center w-full max-w-xl sm:max-w-2xl px-4 sm:px-8 lg:px-12"
-            style={{ opacity: missionOpacity, transform: `translateX(${missionTranslate}px)` }}
-          >
+          {/* Centered responsive container holding Mission and Vision with guaranteed central spacing */}
+          <div className="absolute inset-0 top-24 bottom-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between pointer-events-none gap-6 sm:gap-8 lg:gap-12">
+            {/* Mission — Left Card */}
             <div
-              ref={missionCardRef}
-              className="mission-vision-card bg-white rounded-2xl shadow-xl p-5 sm:p-9 flex flex-col gap-3 overflow-y-auto"
-              style={{ height: cardHeight ? `${cardHeight}px` : 'auto' }}
+              className="w-full md:w-[calc(50%-16px)] lg:w-[calc(50%-24px)] pointer-events-auto"
+              style={{ opacity: missionOpacity, transform: `translateX(${missionTranslate}px)` }}
             >
-              <h2 style={revealStyle(progress, MISSION_START + 0.1, 0.05)} className="text-2xl sm:text-3xl font-serif font-bold text-[#18253A]">Our Mission</h2>
-              <p style={revealStyle(progress, MISSION_START + 0.13, 0.06)} className="text-xs sm:text-sm text-[#18253A]/70 leading-relaxed">
-                To deliver excellence in infrastructure consultancy, engineering and technology through innovation, domain expertise and client-centric execution. Almondz creates long-term value with efficient, transparent and sustainable solutions across transportation, water, urban infrastructure, disaster resilience and digital transformation — building strong partnerships with governments, institutions and private enterprises, always to the highest standards of integrity, quality and operational excellence.
-              </p>
-              <ul className="flex flex-col gap-2 pt-3 mt-auto border-t border-gray-100">
-                {MISSION_BULLETS.map((bullet, idx) => (
-                  <li key={bullet} style={revealStyle(progress, MISSION_START + 0.17 + idx * 0.02, 0.05)} className="flex items-center gap-3 text-xs sm:text-sm text-[#18253A]/80">
-                    <span className="w-5 h-5 rounded-full bg-[#D96B33] flex items-center justify-center shrink-0">
-                      <Check className="w-3 h-3 text-white" strokeWidth={3} />
-                    </span>
-                    <span>{bullet}</span>
-                  </li>
-                ))}
-              </ul>
+              <div
+                ref={missionCardRef}
+                className="mission-vision-card bg-white rounded-2xl shadow-xl p-5 sm:p-8 lg:p-9 flex flex-col gap-3 overflow-y-auto"
+                style={{ height: cardHeight ? `${cardHeight}px` : 'auto' }}
+              >
+                <h2 style={revealStyle(progress, MISSION_START + 0.1, 0.05)} className="text-2xl sm:text-3xl font-serif font-bold text-[#18253A]">Our Mission</h2>
+                <p style={revealStyle(progress, MISSION_START + 0.13, 0.06)} className="text-xs sm:text-sm text-[#18253A]/70 leading-relaxed">
+                  To deliver excellence in infrastructure consultancy, engineering and technology through innovation, domain expertise and client-centric execution. Almondz creates long-term value with efficient, transparent and sustainable solutions across transportation, water, urban infrastructure, disaster resilience and digital transformation — building strong partnerships with governments, institutions and private enterprises, always to the highest standards of integrity, quality and operational excellence.
+                </p>
+                <ul className="flex flex-col gap-2 pt-3 mt-auto border-t border-gray-100">
+                  {MISSION_BULLETS.map((bullet, idx) => (
+                    <li key={bullet} style={revealStyle(progress, MISSION_START + 0.17 + idx * 0.02, 0.05)} className="flex items-center gap-3 text-xs sm:text-sm text-[#18253A]/80">
+                      <span className="w-5 h-5 rounded-full bg-[#D96B33] flex items-center justify-center shrink-0">
+                        <Check className="w-3 h-3 text-white" strokeWidth={3} />
+                      </span>
+                      <span>{bullet}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
-          </div>
 
-          {/* Vision — right, vertically centered below the fixed navbar
-              (top-24 clears it); same fixed height as the Mission card. */}
-          <div
-            className="absolute right-0 top-24 bottom-8 flex items-center justify-end w-full max-w-xl sm:max-w-2xl px-4 sm:px-8 lg:px-12 ml-auto"
-            style={{ opacity: visionOpacity, transform: `translateX(${visionTranslate}px)` }}
-          >
+            {/* Vision — Right Card */}
             <div
-              ref={visionCardRef}
-              className="mission-vision-card bg-white rounded-2xl shadow-xl p-5 sm:p-9 flex flex-col gap-3 overflow-y-auto"
-              style={{ height: cardHeight ? `${cardHeight}px` : 'auto' }}
+              className="w-full md:w-[calc(50%-16px)] lg:w-[calc(50%-24px)] pointer-events-auto"
+              style={{ opacity: visionOpacity, transform: `translateX(${visionTranslate}px)` }}
             >
-              <h2 style={revealStyle(progress, VISION_START + 0.1, 0.05)} className="text-2xl sm:text-3xl font-serif font-bold text-[#18253A]">Our Vision</h2>
-              <p style={revealStyle(progress, VISION_START + 0.13, 0.06)} className="text-xs sm:text-sm text-[#18253A]/70 leading-relaxed">
-                To emerge as a globally respected, technology-driven infrastructure consultancy — enabling sustainable growth through innovative engineering, digital transformation and integrated advisory. Almondz envisions building resilient, future-ready infrastructure ecosystems that advance economic development, urban modernisation, environmental sustainability and quality of life across communities in India and beyond.
-              </p>
-              <ul className="flex flex-col gap-2 pt-3 mt-auto border-t border-gray-100">
-                {VISION_BULLETS.map((bullet, idx) => (
-                  <li key={bullet} style={revealStyle(progress, VISION_START + 0.17 + idx * 0.02, 0.05)} className="flex items-center gap-3 text-xs sm:text-sm text-[#18253A]/80">
-                    <span className="w-5 h-5 rounded-full bg-[#D96B33] flex items-center justify-center shrink-0">
-                      <Check className="w-3 h-3 text-white" strokeWidth={3} />
-                    </span>
-                    <span>{bullet}</span>
-                  </li>
-                ))}
-              </ul>
+              <div
+                ref={visionCardRef}
+                className="mission-vision-card bg-white rounded-2xl shadow-xl p-5 sm:p-8 lg:p-9 flex flex-col gap-3 overflow-y-auto"
+                style={{ height: cardHeight ? `${cardHeight}px` : 'auto' }}
+              >
+                <h2 style={revealStyle(progress, VISION_START + 0.1, 0.05)} className="text-2xl sm:text-3xl font-serif font-bold text-[#18253A]">Our Vision</h2>
+                <p style={revealStyle(progress, VISION_START + 0.13, 0.06)} className="text-xs sm:text-sm text-[#18253A]/70 leading-relaxed">
+                  To emerge as a globally respected, technology-driven infrastructure consultancy — enabling sustainable growth through innovative engineering, digital transformation and integrated advisory. Almondz envisions building resilient, future-ready infrastructure ecosystems that advance economic development, urban modernisation, environmental sustainability and quality of life across communities in India and beyond.
+                </p>
+                <ul className="flex flex-col gap-2 pt-3 mt-auto border-t border-gray-100">
+                  {VISION_BULLETS.map((bullet, idx) => (
+                    <li key={bullet} style={revealStyle(progress, VISION_START + 0.17 + idx * 0.02, 0.05)} className="flex items-center gap-3 text-xs sm:text-sm text-[#18253A]/80">
+                      <span className="w-5 h-5 rounded-full bg-[#D96B33] flex items-center justify-center shrink-0">
+                        <Check className="w-3 h-3 text-white" strokeWidth={3} />
+                      </span>
+                      <span>{bullet}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </div>
