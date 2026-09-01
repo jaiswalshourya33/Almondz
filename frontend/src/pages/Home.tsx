@@ -444,9 +444,6 @@ export const Home: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             
             <div className="lg:col-span-8 flex flex-col gap-6">
-              {/* Top gold accent line */}
-              <span className="brand-statement__rule block h-[2.5px] w-24 sm:w-32 bg-[#D6C489] rounded-full shadow-sm" aria-hidden="true" />
-
               <h1 className="text-2xl sm:text-4xl lg:text-[3.25rem] font-sans font-normal tracking-tight text-white/95 leading-[1.2]">
                 <span className="brand-statement__line block">
                   Building Future Ready
