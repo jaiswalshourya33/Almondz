@@ -38,13 +38,25 @@ const SECTOR_FILTER_LABELS = [
   'Sewerage', 'Tourism', 'Mining', 'Environment', 'IT',
 ];
 
-// Official accreditation and certification logos requested (4 certificates)
+// Official accreditation and certification logos requested (7 certificates)
 const ACCREDITATION_LOGOS = [
   {
-    id: "iso27001",
-    label: "ISO 27001:2022",
-    sub: "Information Security",
-    component: Iso27001Logo,
+    id: "iso9001",
+    label: "ISO 9001:2015",
+    sub: "Quality Management",
+    component: Iso9001Logo,
+  },
+  {
+    id: "iso45001",
+    label: "ISO 45001:2018",
+    sub: "Occupational Health & Safety",
+    component: Iso45001Logo,
+  },
+  {
+    id: "iso14001",
+    label: "ISO 14001:2015",
+    sub: "Environmental Management",
+    component: Iso14001Logo,
   },
   {
     id: "oss",
@@ -57,6 +69,12 @@ const ACCREDITATION_LOGOS = [
     label: "CEAI MEMBER",
     sub: "Consulting Engineers",
     component: CeaiLogo,
+  },
+  {
+    id: "iso27001",
+    label: "ISO 27001:2022",
+    sub: "Information Security",
+    component: Iso27001Logo,
   },
   {
     id: "ukcert",
@@ -535,7 +553,7 @@ export const Home: React.FC = () => {
       {/* ACCREDITATIONS & CERTIFICATIONS LOGO BAR */}
       <section className="bg-[#101A29] border-b border-[#A49050]/30 py-3.5 text-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 items-center">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4 sm:gap-6 items-center">
             {ACCREDITATION_LOGOS.map((logo, idx) => {
               const LogoComp = logo.component;
               return (
