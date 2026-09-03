@@ -314,6 +314,90 @@
   .empanelments-header.is-visible > :nth-child(1) { animation-delay: 80ms; }
   .empanelments-header.is-visible > :nth-child(2) { animation-delay: 260ms; }
   .empanelments-header.is-visible > :nth-child(3) { animation-delay: 440ms; }
+
+  /* "Services Facilitation Through Group Companies" graphic (GroupCompaniesGraphic.tsx).
+     Same IntersectionObserver + .is-visible convention as the About reveals above —
+     every piece animates in pure CSS (opacity / translate), staggered via an inline
+     `--i` custom property, so no JS library is orchestrating the SVG. Hidden states
+     live only in this no-preference block; reduced motion shows the final graphic. */
+  .group-companies .gc-reveal {
+    opacity: 0;
+    translate: 0 24px;
+  }
+  .group-companies.is-visible .gc-reveal {
+    animation: strengths-copy-in 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .group-companies.is-visible .gc-reveal--late { animation-delay: 1900ms; }
+
+  .group-companies .gc-seg,
+  .group-companies .gc-center,
+  .group-companies .gc-connector,
+  .group-companies .gc-split,
+  .group-companies .gc-arc { opacity: 0; }
+
+  /* The node's centring (Tailwind `-translate-x-1/2 -translate-y-1/2`) rides on
+     `transform`, so the reveal uses the independent `translate` property and the
+     two compose without fighting — same reasoning as the other About reveals. */
+  .group-companies .gc-node {
+    opacity: 0;
+    translate: 0 20px;
+  }
+
+  .group-companies.is-visible .gc-seg {
+    animation: gc-fade-in 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(300ms + var(--i) * 70ms);
+  }
+  .group-companies.is-visible .gc-center {
+    animation: gc-fade-in 800ms cubic-bezier(0.22, 1, 0.36, 1) 1400ms both;
+  }
+  .group-companies.is-visible .gc-connector {
+    animation: gc-fade-in 800ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(1900ms + var(--i) * 150ms);
+  }
+  .group-companies.is-visible .gc-split {
+    animation: gc-fade-in 800ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(2000ms + var(--i) * 150ms);
+  }
+  .group-companies.is-visible .gc-arc {
+    animation: gc-fade-in 650ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(2300ms + var(--i) * 300ms);
+  }
+  .group-companies.is-visible .gc-node {
+    animation: gc-node-in 850ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(2450ms + var(--i) * 450ms);
+  }
+}
+
+@keyframes gc-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes gc-node-in {
+  from { opacity: 0; translate: 0 20px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+/* Group-company node hover: the company caption fades in and the "C" arc
+   nudges larger — pure CSS so it never depends on the reveal having run. The
+   caption reveal rides on `translate` (not `transform`) so it composes with the
+   Tailwind `-translate-y-1/2` centring on the side caption. */
+.group-companies .gc-caption {
+  opacity: 0;
+  translate: 0 10px;
+  transition: opacity 500ms cubic-bezier(0.22, 1, 0.36, 1), translate 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.group-companies .gc-node:hover .gc-caption {
+  opacity: 1;
+  translate: 0 0;
+}
+
+.group-companies .gc-arc-svg {
+  transform-origin: 50% 50%;
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.group-companies .gc-node:hover .gc-arc-svg {
+  transform: scale(1.07);
 }
 
 @supports (animation-timeline: view()) {

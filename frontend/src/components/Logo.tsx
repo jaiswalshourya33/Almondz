@@ -16,9 +16,12 @@ export const Logo: React.FC<{ className?: string; light?: boolean }> = ({
         className="h-full w-auto"
         aria-label="Almondz – the infrastructure specialist"
       >
-        {/* Main 'almondz' Brand Typography with slim regular weight */}
+        {/* 'almondz' wordmark — one <text> run so the letters keep the font's
+            natural kerning and read as a single tight word. The 'o' glyph is
+            rendered transparent so it still reserves its advance width (keeping
+            'ndz' correctly spaced), and the ring + orange dot are overlaid at
+            the 'o' position (x≈93 at this size/font). */}
         <g id="almondz-brand">
-          {/* 'a', 'l', 'm' */}
           <text
             x="0"
             y="39"
@@ -26,43 +29,32 @@ export const Logo: React.FC<{ className?: string; light?: boolean }> = ({
             fontFamily="'Century Gothic', 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
             fontSize="44"
             fontWeight="350"
-            letterSpacing="-0.01em"
+            letterSpacing="-0.025em"
           >
-            alm
+            <tspan>alm</tspan>
+            <tspan fill="transparent">o</tspan>
+            <tspan>ndz</tspan>
           </text>
 
-          {/* 'o' with slim outer ring and solid orange center dot - naturally spaced with other letters */}
-          <g transform="translate(95, 26)">
+          {/* 'o' as a slim outer ring with a solid orange centre dot */}
+          <g transform="translate(91, 25)">
             {/* Outer ring */}
             <circle
               cx="0"
               cy="0"
-              r="13.2"
+              r="12.2"
               stroke={textColor}
-              strokeWidth="2.8"
+              strokeWidth="2.2"
               fill="none"
             />
             {/* Solid orange inner accent circle */}
             <circle
               cx="0"
               cy="0"
-              r="8.2"
+              r="7"
               fill={orangeColor}
             />
           </g>
-
-          {/* 'ndz' naturally spaced after 'o' */}
-          <text
-            x="112"
-            y="39"
-            fill={textColor}
-            fontFamily="'Century Gothic', 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
-            fontSize="44"
-            fontWeight="350"
-            letterSpacing="-0.01em"
-          >
-            ndz
-          </text>
         </g>
 
         {/* Tagline: 'the infrastructure specialist' */}

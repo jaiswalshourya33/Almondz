@@ -16,7 +16,17 @@ export const PageHeroBanner: React.FC<PageHeroBannerProps> = ({
 
   useEffect(() => {
     const el = heroStatementRef.current;
-    if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!el) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      el.classList.add('is-visible');
+      return;
+    }
+
+    // Replay the reveal whenever the banner content changes (e.g. switching
+    // sectors from the dropdown, which swaps these props without remounting):
+    // clear the class and force a reflow so re-adding it restarts the animation.
+    el.classList.remove('is-visible');
+    void el.offsetWidth;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -30,7 +40,7 @@ export const PageHeroBanner: React.FC<PageHeroBannerProps> = ({
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [line1, line2, description]);
 
   return (
     <section

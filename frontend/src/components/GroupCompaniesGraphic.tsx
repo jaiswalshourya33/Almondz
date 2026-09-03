@@ -1,15 +1,21 @@
-import React, { useRef } from 'react';
-import { motion, useInView } from 'motion/react';
+import React, { useEffect, useRef } from 'react';
 
 /* "Services Facilitation Through Group Companies" — the reference chart rebuilt
    as an animated graphic. Colours and text are kept exactly as in the source
    image; only the presentation is animated:
-     - the colourful donut ring assembles segment by segment and carries a gentle
-       scroll-linked spin that settles as the section reaches the viewport,
+     - the colourful donut ring assembles segment by segment as the section
+       reaches the viewport,
      - the centre label, the 49% / 51% split and the three group nodes fade in
        one after another with generous gaps,
      - hovering a group heading reveals its company caption (all three behave
-       the same way). */
+       the same way).
+
+   The reveal uses the site-wide plain pattern (see AboutOverview.tsx and the
+   `.about-subnav` rules in index.css): a `useRef` + IntersectionObserver toggles
+   an `.is-visible` class on the section and every step animates in pure CSS with
+   `opacity` / `translate` + `transition-delay`. This deliberately avoids a
+   JS animation library orchestrating dozens of SVG nodes at once, which stalls
+   the renderer. */
 
 const CX = 380;
 const CY = 355;
@@ -98,146 +104,85 @@ const GROUPS: GroupNode[] = [
   },
 ];
 
-const EASE = [0.22, 1, 0.36, 1] as const;
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: (delay: number = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.9, ease: EASE, delay },
-  }),
-};
-
-const drawIn = {
-  hidden: { pathLength: 0, opacity: 0 },
-  visible: (i: number = 0) => ({
-    pathLength: 1,
-    opacity: 1,
-    transition: {
-      pathLength: { duration: 1, ease: 'easeInOut', delay: 1.9 + i * 0.25 },
-      opacity: { duration: 0.25, delay: 1.9 + i * 0.25 },
-    },
-  }),
-};
-
-const segVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 0.5, ease: EASE } },
-};
-
-const nodeVariants = {
-  hidden: { opacity: 0, y: 22 },
-  visible: (delay: number = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.85, ease: EASE, delay },
-  }),
-  hover: {},
-};
-
-const arcVariants = {
-  hidden: {},
-  visible: {},
-  hover: { scale: 1.07, transition: { type: 'spring', stiffness: 250, damping: 18 } },
-};
-
 /** One circular "C" arc node with heading + a company caption revealed on hover. */
-const ArcNode: React.FC<{ node: GroupNode; revealDelay: number }> = ({ node, revealDelay }) => {
-  const capHiddenX = node.caption === 'side' ? -10 : 0;
-  const capHiddenY = node.caption === 'top' ? 10 : 0;
-
-  return (
-    <motion.div
-      custom={revealDelay}
-      variants={nodeVariants}
-      whileHover="hover"
-      className="absolute -translate-x-1/2 -translate-y-1/2"
-      style={{ top: node.pos.top, left: node.pos.left }}
-    >
-      <div className="relative w-[156px] h-[156px] flex items-center justify-center">
-        <motion.svg
-          viewBox="0 0 100 100"
-          variants={arcVariants}
-          className="absolute inset-0 w-full h-full overflow-visible"
-        >
-          <motion.path
-            d="M 74 10 A 44 44 0 1 0 74 90"
-            fill="none"
-            stroke={node.color}
-            strokeWidth={4.5}
-            strokeLinecap="round"
-            variants={drawIn}
-            custom={0}
-          />
-        </motion.svg>
-        <span
-          className="relative z-10 text-center font-serif font-bold italic leading-tight px-1"
-          style={{ color: node.color, fontSize: '17px' }}
-        >
-          {node.heading.map((line) => (
-            <span key={line} className="block">{line}</span>
-          ))}
-        </span>
-      </div>
-
-      <motion.div
-        initial={{ opacity: 0, x: capHiddenX, y: capHiddenY }}
-        variants={{ hover: { opacity: 1, x: 0, y: 0, transition: { duration: 0.5, ease: EASE } } }}
-        className={`absolute w-[240px] text-[14px] font-semibold leading-snug text-[#1C2530] pointer-events-none ${
-          node.caption === 'top'
-            ? 'bottom-[110%] ' + (node.captionAlign === 'right' ? 'right-0 text-right' : 'left-0 text-left')
-            : 'left-[112%] top-1/2 -translate-y-1/2 text-left'
-        }`}
+const ArcNode: React.FC<{ node: GroupNode; revealIndex: number }> = ({ node, revealIndex }) => (
+  <div
+    className="gc-node absolute -translate-x-1/2 -translate-y-1/2"
+    style={{ top: node.pos.top, left: node.pos.left, ['--i' as string]: revealIndex }}
+  >
+    <div className="relative w-[156px] h-[156px] flex items-center justify-center">
+      <svg viewBox="0 0 100 100" className="gc-arc-svg absolute inset-0 w-full h-full overflow-visible">
+        <path
+          className="gc-arc"
+          d="M 74 10 A 44 44 0 1 0 74 90"
+          fill="none"
+          stroke={node.color}
+          strokeWidth={4.5}
+          strokeLinecap="round"
+        />
+      </svg>
+      <span
+        className="relative z-10 text-center font-serif font-bold italic leading-tight px-1"
+        style={{ color: node.color, fontSize: '17px' }}
       >
-        {node.company}
-      </motion.div>
-    </motion.div>
-  );
-};
+        {node.heading.map((line) => (
+          <span key={line} className="block">{line}</span>
+        ))}
+      </span>
+    </div>
+
+    <div
+      className={`gc-caption absolute w-[240px] text-[14px] font-semibold leading-snug text-[#1C2530] pointer-events-none ${
+        node.caption === 'top'
+          ? 'bottom-[110%] ' + (node.captionAlign === 'right' ? 'right-0 text-right' : 'left-0 text-left')
+          : 'left-[112%] top-1/2 -translate-y-1/2 text-left'
+      }`}
+    >
+      {node.company}
+    </div>
+  </div>
+);
 
 export const GroupCompaniesGraphic: React.FC = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(sectionRef, { once: true, margin: '-15% 0px -15% 0px' });
+  const sectionRef = useRef<HTMLElement | null>(null);
 
-  const container = {
-    hidden: {},
-    visible: { transition: { staggerChildren: 0.05 } },
-  };
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      section.classList.add('is-visible');
+      return;
+    }
 
-  const ringGroup = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { duration: 0.4, staggerChildren: 0.07, delayChildren: 0.3 },
-    },
-  };
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          section.classList.add('is-visible');
+          observer.unobserve(section);
+        }
+      },
+      { threshold: 0.25 },
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section className="pt-20 pb-8 bg-white overflow-hidden">
-      <div ref={sectionRef} className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.h2
-          custom={0}
-          variants={fadeUp}
-          initial="hidden"
-          animate={inView ? 'visible' : 'hidden'}
-          className="text-3xl sm:text-4xl font-serif font-bold text-[#18253A] text-center"
-        >
+    <section ref={sectionRef} className="group-companies pt-20 pb-8 bg-white overflow-hidden">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 className="gc-reveal text-3xl sm:text-4xl font-serif font-bold text-[#18253A] text-center">
           Services Facilitation Through Group Companies
-        </motion.h2>
+        </h2>
 
-        <motion.div
-          variants={container}
-          initial="hidden"
-          animate={inView ? 'visible' : 'hidden'}
-          className="relative mt-10 mx-auto"
-          style={{ maxWidth: VB_W }}
-        >
+        <div className="relative mt-10 mx-auto" style={{ maxWidth: VB_W }}>
           <div className="relative w-full" style={{ paddingBottom: `${(VB_H / VB_W) * 100}%` }}>
             <svg viewBox={`0 0 ${VB_W} ${VB_H}`} className="absolute inset-0 w-full h-full overflow-visible" aria-hidden="true">
               {GROUPS.map((g, i) => (
-                <motion.line
+                <line
                   key={g.key}
+                  className="gc-connector"
+                  style={{ ['--i' as string]: i }}
                   x1={g.connector.x1}
                   y1={g.connector.y1}
                   x2={g.connector.x2}
@@ -245,41 +190,38 @@ export const GroupCompaniesGraphic: React.FC = () => {
                   stroke="#3A3A3A"
                   strokeWidth={1.4}
                   strokeDasharray="5 5"
-                  custom={2.4 + i * 0.2}
-                  variants={fadeUp}
                 />
               ))}
 
-              <motion.g variants={ringGroup}>
+              <g>
                 {SEG_PATHS.map((s, i) => (
-                  <motion.path key={i} d={s.d} fill={s.color} variants={segVariants} />
+                  <path key={i} className="gc-seg" style={{ ['--i' as string]: i }} d={s.d} fill={s.color} />
                 ))}
-              </motion.g>
+              </g>
 
-              <motion.circle cx={CX} cy={CY} r={HOLE} fill="#ffffff" custom={1.4} variants={fadeUp} />
-              <motion.text
+              <circle className="gc-center" cx={CX} cy={CY} r={HOLE} fill="#ffffff" />
+              <text
+                className="gc-center font-serif"
                 x={CX}
                 y={CY - 8}
                 textAnchor="middle"
-                className="font-serif"
                 style={{ fontSize: 38, fontWeight: 700, fill: '#16202B' }}
-                custom={1.6}
-                variants={fadeUp}
               >
                 AGSL
-              </motion.text>
-              <motion.text
+              </text>
+              <text
+                className="gc-center"
                 x={CX}
                 y={CY + 26}
                 textAnchor="middle"
                 style={{ fontSize: 20, fill: '#3A4653' }}
-                custom={1.6}
-                variants={fadeUp}
               >
                 (Listed entity)
-              </motion.text>
+              </text>
 
-              <motion.line
+              <line
+                className="gc-split"
+                style={{ ['--i' as string]: 0 }}
                 x1={CX}
                 y1={CY + HOLE - 6}
                 x2={CX}
@@ -287,35 +229,29 @@ export const GroupCompaniesGraphic: React.FC = () => {
                 stroke="#8A939C"
                 strokeWidth={1.2}
                 strokeDasharray="4 4"
-                custom={2.0}
-                variants={fadeUp}
               />
-              <motion.g custom={2.15} variants={fadeUp}>
+              <g className="gc-split" style={{ ['--i' as string]: 1 }}>
                 <text x={CX - 70} y={CY + R_OUT + 32} textAnchor="middle" style={{ fontSize: 26, fontWeight: 700, fontStyle: 'italic', fill: '#16202B' }}>49%</text>
                 <text x={CX - 70} y={CY + R_OUT + 56} textAnchor="middle" style={{ fontSize: 18, fill: '#3A4653' }}>Public</text>
-              </motion.g>
-              <motion.g custom={2.3} variants={fadeUp}>
+              </g>
+              <g className="gc-split" style={{ ['--i' as string]: 2 }}>
                 <text x={CX + 76} y={CY + R_OUT + 32} textAnchor="middle" style={{ fontSize: 26, fontWeight: 700, fontStyle: 'italic', fill: '#16202B' }}>51%</text>
                 <text x={CX + 76} y={CY + R_OUT + 56} textAnchor="middle" style={{ fontSize: 18, fill: '#3A4653' }}>Promoters</text>
-              </motion.g>
+              </g>
             </svg>
 
             {GROUPS.map((g, i) => (
-              <ArcNode key={g.key} node={g} revealDelay={2.5 + i * 0.45} />
+              <ArcNode key={g.key} node={g} revealIndex={i} />
             ))}
           </div>
-        </motion.div>
+        </div>
 
-        <motion.p
-          custom={4.2}
-          variants={fadeUp}
-          initial="hidden"
-          animate={inView ? 'visible' : 'hidden'}
-          className="mt-6 text-center font-serif font-bold italic"
+        <p
+          className="gc-reveal gc-reveal--late mt-6 text-center font-serif font-bold italic"
           style={{ color: '#1F3A6B', fontSize: '1.2rem' }}
         >
           Widely held company having diversified presence
-        </motion.p>
+        </p>
       </div>
     </section>
   );
