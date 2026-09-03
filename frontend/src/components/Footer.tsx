@@ -12,7 +12,7 @@ export const Footer: React.FC = () => {
           {/* Col 1: Brand & Address */}
           <div className="lg:col-span-2 flex flex-col items-start gap-3">
             <Link to="/" className="inline-block self-start -ml-0.5" aria-label="Almondz Home">
-              <Logo light={true} className="h-11 sm:h-12" />
+              <Logo light={true} className="h-9 sm:h-10" />
             </Link>
             <div className="flex flex-col gap-1.5 text-xs font-mono text-white/60">
               <div className="flex items-start gap-2">
