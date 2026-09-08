@@ -15,10 +15,11 @@ export const SectorCard: React.FC<SectorCardProps> = ({ sector }) => {
     >
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
-        <img 
-          src={sector.image} 
+        <img
+          src={sector.image}
           alt={sector.title}
           className="w-full h-full object-cover opacity-85 group-hover:scale-105 group-hover:opacity-95 transition-all duration-700"
+          style={{ objectPosition: sector.imagePosition }}
           referrerPolicy="no-referrer"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#18253A] via-[#18253A]/40 to-transparent"></div>

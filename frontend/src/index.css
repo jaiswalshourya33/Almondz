@@ -290,6 +290,9 @@
 
   .about-subnav-section.is-visible .about-subnav-header > :nth-child(1) { animation-delay: 80ms; }
   .about-subnav-section.is-visible .about-subnav-header > :nth-child(2) { animation-delay: 250ms; }
+  /* Optional intro paragraph (e.g. the Annual Return page) reveals after the
+     heading, in natural reading order — not before it. */
+  .about-subnav-section.is-visible .about-subnav-header > :nth-child(3) { animation-delay: 420ms; }
 
   .about-subnav-section.is-visible .about-subnav-card {
     animation: about-subnav-card-in 1150ms cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -298,6 +301,59 @@
   .about-subnav-section.is-visible .about-subnav-card:nth-child(1) { animation-delay: 250ms; }
   .about-subnav-section.is-visible .about-subnav-card:nth-child(2) { animation-delay: 800ms; }
   .about-subnav-section.is-visible .about-subnav-card:nth-child(3) { animation-delay: 1350ms; }
+
+  /* Corporate Governance — "Composition of Committees" stack. Same
+     IntersectionObserver + .is-visible + inline --i convention as the
+     leadership grid above; each committee card fades up in reading order. */
+  .committee-stack .committee-card {
+    opacity: 0;
+    translate: 0 28px;
+  }
+
+  .committee-stack.is-visible .committee-card {
+    animation: committee-card-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(var(--i, 0) * 140ms);
+  }
+
+  /* Corporate Governance — "Annual Return" paginated list. The section gets
+     .is-visible from the same IntersectionObserver; each filing row slides in
+     from the left, one after another, via the inline --i index. Replays on
+     page change because the rows are keyed by file and remount. */
+  .about-subnav-section .annual-return-row {
+    opacity: 0;
+    translate: -56px 0;
+  }
+
+  .about-subnav-section.is-visible .annual-return-row {
+    animation: annual-return-row-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(var(--i, 0) * 140ms);
+  }
+
+  /* Corporate Governance — editorial timelines ("Shareholders' Info"
+     resignations, "General Meeting Notice" AGM/EGM lists). Each year block
+     reveals on its own as it scrolls into view — a dedicated IntersectionObserver
+     in CorporateGovernancePage adds .is-revealed per block, so the timeline
+     builds up one-by-one on scroll rather than all at once. The year heading +
+     node come in first; the rows below then fade up one after another via
+     their inline --j index. */
+  .gov-timeline-year {
+    opacity: 0;
+    translate: 0 34px;
+  }
+
+  .gov-timeline-year.is-revealed {
+    animation: committee-card-in 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .gov-timeline-year .gov-timeline-row {
+    opacity: 0;
+    translate: 0 18px;
+  }
+
+  .gov-timeline-year.is-revealed .gov-timeline-row {
+    animation: committee-card-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(0.22s + var(--j, 0) * 0.11s);
+  }
 
   /* Institutional Empanelments header (CertificationsPage): eyebrow, then
      heading, then paragraph fade/rise in one after another, only once
@@ -335,12 +391,13 @@
   .group-companies .gc-split,
   .group-companies .gc-arc { opacity: 0; }
 
-  /* The node's centring (Tailwind `-translate-x-1/2 -translate-y-1/2`) rides on
-     `transform`, so the reveal uses the independent `translate` property and the
-     two compose without fighting — same reasoning as the other About reveals. */
+  /* The node's centring (Tailwind `-translate-x-1/2 -translate-y-1/2`) compiles
+     to the CSS `translate` property in Tailwind v4, so the reveal offset must use
+     `transform` instead — otherwise it overrides the centring and the nodes drift
+     off their connector lines. `transform` is otherwise unused on the node. */
   .group-companies .gc-node {
     opacity: 0;
-    translate: 0 20px;
+    transform: translateY(20px);
   }
 
   .group-companies.is-visible .gc-seg {
@@ -374,8 +431,8 @@
 }
 
 @keyframes gc-node-in {
-  from { opacity: 0; translate: 0 20px; }
-  to { opacity: 1; translate: 0 0; }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* Group-company node hover: the company caption fades in and the "C" arc
@@ -650,7 +707,7 @@
   }
 
   .strengths-showcase.is-visible .strengths-showcase__media {
-    animation: strengths-media-dock 2.1s cubic-bezier(0.22, 1, 0.36, 1) 300ms both;
+    animation: strengths-media-dock 1.4s cubic-bezier(0.22, 1, 0.36, 1) 200ms both;
   }
 
   .strengths-showcase__eyebrow,
@@ -663,23 +720,23 @@
   }
 
   .strengths-showcase.is-visible .strengths-showcase__eyebrow {
-    animation: strengths-copy-in 1.1s cubic-bezier(0.22, 1, 0.36, 1) 1500ms both;
+    animation: strengths-copy-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) 900ms both;
   }
 
   .strengths-showcase.is-visible .strengths-showcase__title {
-    animation: strengths-copy-in 1.2s cubic-bezier(0.22, 1, 0.36, 1) 1800ms both;
+    animation: strengths-copy-in 0.85s cubic-bezier(0.22, 1, 0.36, 1) 1100ms both;
   }
 
   .strengths-showcase.is-visible .strength-item {
-    animation: strengths-copy-in 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: strengths-copy-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
-  .strengths-showcase.is-visible .strength-item:nth-child(1) { animation-delay: 2250ms; }
-  .strengths-showcase.is-visible .strength-item:nth-child(2) { animation-delay: 2700ms; }
-  .strengths-showcase.is-visible .strength-item:nth-child(3) { animation-delay: 3150ms; }
-  .strengths-showcase.is-visible .strength-item:nth-child(4) { animation-delay: 3600ms; }
-  .strengths-showcase.is-visible .strength-item:nth-child(5) { animation-delay: 4050ms; }
-  .strengths-showcase.is-visible .strength-item:nth-child(6) { animation-delay: 4500ms; }
+  .strengths-showcase.is-visible .strength-item:nth-child(1) { animation-delay: 1350ms; }
+  .strengths-showcase.is-visible .strength-item:nth-child(2) { animation-delay: 1650ms; }
+  .strengths-showcase.is-visible .strength-item:nth-child(3) { animation-delay: 1950ms; }
+  .strengths-showcase.is-visible .strength-item:nth-child(4) { animation-delay: 2250ms; }
+  .strengths-showcase.is-visible .strength-item:nth-child(5) { animation-delay: 2550ms; }
+  .strengths-showcase.is-visible .strength-item:nth-child(6) { animation-delay: 2850ms; }
 }
 
 @keyframes strengths-media-dock {
@@ -901,10 +958,11 @@
 }
 
 .sector-showcase__card.is-active {
-  /* Reserve room for the other nine (SECTORS.length - 1) 72px preview cards
-     plus their nine 12px gaps, so the active card always stays fully within
-     the gallery at desktop widths. Update this if SECTORS.length changes. */
-  flex-basis: max(320px, calc(100% - 756px));
+  /* Reserve room for the other seven (SECTORS.length - 1) 72px preview cards
+     plus their seven 12px gaps (7*72 + 7*12 = 588px), so the active card always
+     stays fully within the gallery at desktop widths without leaving dead space
+     on the right. Update this if SECTORS.length changes. */
+  flex-basis: max(320px, calc(100% - 588px));
   border-color: rgba(217, 107, 51, 0.8);
   box-shadow: 0 22px 44px rgba(13, 27, 42, 0.25);
 }
@@ -1603,6 +1661,34 @@
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
+@keyframes committee-card-in {
+  from { opacity: 0; translate: 0 28px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+/* Annual Return rows enter one by one, sliding in from the left. */
+@keyframes annual-return-row-in {
+  from { opacity: 0; translate: -56px 0; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+/* View-only PDF reader (PdfViewerModal) — used by the Corporate Governance
+   "Annual Return" list. Backdrop fades, panel lifts in. */
+@media (prefers-reduced-motion: no-preference) {
+  .pdf-viewer-modal__backdrop {
+    animation: gc-fade-in 240ms ease both;
+  }
+
+  .pdf-viewer-modal__panel {
+    animation: pdf-viewer-panel-in 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+
+@keyframes pdf-viewer-panel-in {
+  from { opacity: 0; transform: translateY(18px) scale(0.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
 @media (max-width: 640px) {
   .sector-showcase {
     gap: 8px;
@@ -1670,8 +1756,8 @@
   }
 
   .sector-showcase__card.is-active {
-    /* Nine 56px previews plus nine 10px gaps (SECTORS.length - 1). */
-    flex-basis: max(320px, calc(100% - 594px));
+    /* Seven 56px previews plus seven 10px gaps (SECTORS.length - 1 = 7*56 + 7*10 = 462px). */
+    flex-basis: max(320px, calc(100% - 462px));
   }
 }
 

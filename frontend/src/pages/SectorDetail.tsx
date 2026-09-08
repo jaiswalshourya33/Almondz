@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { SECTORS } from '../data/sectors';
 import { PROJECTS, Project } from '../data/projects';
+import { ROADS_RECENTLY_AWARDED } from '../data/roadsRecentlyAwarded';
 import { ProjectVideoModal } from '../components/ProjectVideoModal';
 import { ProjectDetailsModal } from '../components/ProjectDetailsModal';
 import { SectorScopeShowcase } from '../components/SectorScopeShowcase';
@@ -115,8 +116,8 @@ export const SectorDetail: React.FC = () => {
       {/* Services & Scope of Work + Consultation — scroll story with sliding imagery */}
       <SectorScopeShowcase sector={sector} />
 
-      {/* Representative Projects - horizontal-scrolling strip of compact thumbnails */}
-      {relatedProjects.length > 0 && (
+      {/* Representative Projects - horizontal-scrolling strip of compact thumbnails (hidden for Roads, Bridges, Highways & Tunnels) */}
+      {relatedProjects.length > 0 && sector.slug !== 'roads-highways' && (
         <section className="py-16 bg-[#F1F3F5]/50 scroll-mt-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
@@ -241,6 +242,44 @@ export const SectorDetail: React.FC = () => {
                 ))}
               </div>
             )}
+          </div>
+        </section>
+      )}
+
+      {/* Recently Awarded Projects — names-only list (Roads, Bridges, Highways & Tunnels only) */}
+      {sector.slug === 'roads-highways' && (
+        <section className="pb-16 bg-[#F1F3F5]/50 scroll-mt-24">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mb-8">
+              <span className="text-xs font-bold text-[#A49050] uppercase tracking-wider block mb-1">
+                Recently Awarded Projects
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#18253A] leading-snug">
+                <span className="block">Assignment List —</span>
+                <span className="block text-[#18253A]">{sector.title}</span>
+              </h2>
+              <p className="text-xs text-[#18253A]/65 mt-2 font-medium">
+                {ROADS_RECENTLY_AWARDED.length} recently awarded consultancy assignments
+              </p>
+            </div>
+
+            <div className="bg-white border border-[#A49050]/20 rounded-lg shadow-[0_2px_10px_rgba(0,0,0,0.04)] overflow-hidden">
+              <ol className="divide-y divide-gray-200/80">
+                {ROADS_RECENTLY_AWARDED.map((name, idx) => (
+                  <li
+                    key={idx}
+                    className="flex gap-3.5 sm:gap-4 px-4 sm:px-6 py-3.5 hover:bg-[#F1F3F5]/70 transition-colors"
+                  >
+                    <span className="shrink-0 w-7 pt-0.5 text-right font-mono text-xs font-bold text-[#A49050] tabular-nums">
+                      {String(idx + 1).padStart(2, '0')}
+                    </span>
+                    <span className="min-w-0 flex-1 text-[13px] sm:text-sm text-[#18253A]/85 leading-relaxed">
+                      {name}
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </div>
           </div>
         </section>
       )}

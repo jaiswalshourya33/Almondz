@@ -2,6 +2,7 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Briefcase, MapPin, ArrowRight } from 'lucide-react';
 import { PageHeroBanner } from '../components/PageHeroBanner';
+import { revealSectionOnScroll } from '../lib/revealOnScroll';
 
 const OPEN_ROLES = [
   {
@@ -29,6 +30,7 @@ const OPEN_ROLES = [
 
 export const CareersPage: React.FC = () => {
   const openingsSectionRef = useRef<HTMLElement | null>(null);
+  const openingsHeaderRef = useRef<HTMLDivElement | null>(null);
   const openingsCardsRef = useRef<HTMLDivElement | null>(null);
   const heroHeadingRef = useRef<HTMLHeadingElement | null>(null);
   const [heroLineWidth, setHeroLineWidth] = useState<number | null>(null);
@@ -47,26 +49,16 @@ export const CareersPage: React.FC = () => {
   }, []);
 
   // Same scroll-triggered reveal used on the About Overview page's
-  // "Corporate Governance & Leadership" section: heading first, then the
-  // cards below stagger in one by one — only once the card row itself
-  // scrolls into view, not the moment the section's top edge appears.
+  // "Corporate Governance & Leadership" section: the heading fades/rises in as
+  // it reaches the viewport, then the cards below stagger in via their own
+  // delays. Keyed off the heading's own position (the card row is a fallback)
+  // so the heading never sits invisible in a blank gap above tall content.
   useEffect(() => {
-    const openingsSection = openingsSectionRef.current;
-    const openingsCards = openingsCardsRef.current;
-    if (!openingsSection || !openingsCards || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          openingsSection.classList.add('is-visible');
-          observer.unobserve(openingsCards);
-        }
-      },
-      { threshold: 0.35 },
+    return revealSectionOnScroll(
+      openingsSectionRef.current,
+      [openingsHeaderRef.current, openingsCardsRef.current],
+      { threshold: 0.55 },
     );
-
-    observer.observe(openingsCards);
-    return () => observer.disconnect();
   }, []);
 
   return (
@@ -80,7 +72,7 @@ export const CareersPage: React.FC = () => {
 
       <section ref={openingsSectionRef} className="about-subnav-section py-20 bg-[#F1F3F5]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="about-subnav-header text-center mb-12">
+          <div ref={openingsHeaderRef} className="about-subnav-header text-center mb-12">
             <span className="text-xs font-mono tracking-widest text-[#A49050] uppercase">CURRENT OPENINGS</span>
             <h2 className="text-3xl font-serif font-bold text-[#18253A] mt-1">Open Positions</h2>
           </div>

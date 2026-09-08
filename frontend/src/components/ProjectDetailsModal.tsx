@@ -108,8 +108,8 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
             {/* Left: Photograph with Scale Hover Animation */}
             <div className="md:col-span-5 flex flex-col h-full">
               <div className="group border border-gray-300 hover:border-[#18253A]/40 rounded-sm overflow-hidden bg-gray-100 shadow-sm flex-1 flex flex-col min-h-[240px] transition-colors duration-300">
-                <img 
-                  src={project.image} 
+                <img
+                  src={project.detailImage ?? project.image}
                   alt={project.title}
                   className="w-full h-full object-cover flex-1 transition-transform duration-500 ease-out group-hover:scale-108"
                   referrerPolicy="no-referrer"

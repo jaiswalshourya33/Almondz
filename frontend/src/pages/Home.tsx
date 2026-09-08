@@ -6,36 +6,38 @@ import { ProjectVideoModal } from '../components/ProjectVideoModal';
 import { ServicesShowcase } from '../components/ServicesShowcase';
 import { CountUpValue } from '../components/CountUpValue';
 import { ArrowRight, ShieldCheck, Award, Building2, Compass, CheckCircle2, Play, ChevronRight, FileText, PenTool, TrendingUp } from 'lucide-react';
-import indiaRoadsHero from '../images/hero/india-roads.jpg';
-import windEnergyHero from '../images/hero/wind-energy.jpg';
-import metroRailHero from '../images/hero/metro-rail.jpg';
+import heroExpressway from '../images/hero/hero-expressway.png';
+import heroMetroStation from '../images/hero/hero-metro-station.png';
+import heroWindFarm from '../images/hero/hero-wind-farm.png';
+import heroSolarFarm from '../images/hero/hero-solar-farm.png';
+import heroInterchange from '../images/hero/hero-interchange.png';
 import highwayBridgeHero from '../images/hero/highway-bridge-banner.jpg';
 import transitCtaHero from '../images/hero/transit-cta-banner.jpg';
 import lifecycleInfraBackdrop from '../images/hero/lifecycle-infra-backdrop.jpg';
 import { Iso9001Logo, Iso45001Logo, Iso14001Logo, Iso27001Logo, OssCertLogo, CeaiLogo, UkCertLogo } from '../components/CertificationBadges';
 
-// Headline figures for each sector, sourced directly from AGICL_Corporate_Profile.md
-// (Section 4, "Notable Projects by Sector") and AGICL_Brochure_Final.md (Section 4,
-// "Diverse Sector Presence & Service Capabilities") — one real, quoted figure per
-// sector. Mining Sector, Environment Sector and IT Consulting are omitted here since
-// neither reference document states a quantified figure for them.
+// Headline figures for the "Track Record by Sector" marquee, sourced from
+// AGICL_Corporate_Profile.md (Section 4, "Notable Projects by Sector" and 4.7,
+// "Transaction Advisory and Bid Process Management") and AGICL_Brochure_Final.md —
+// one real, quoted figure per sector. This is an independent marquee, not
+// index-matched to SECTORS.
 const SECTOR_FIGURES = [
   { sector: "Roads, Bridges, Highways & Tunnels", value: "₹73,000 Cr+", label: "Delivered Project Portfolio" },
-  { sector: "Renewable Energy", value: "₹5,193 Cr", label: "Largest Renewable Energy Assignment (ASM)" },
+  { sector: "Renewable Energy / Power", value: "₹5,193 Cr", label: "Largest Renewable Energy Assignment (ASM)" },
   { sector: "Railways & Metro Rail", value: "₹10,500 Cr+", label: "Total Railways Project Value" },
-  { sector: "Water & Irrigation", value: "₹16,019 Cr+", label: "Total Water Sector Project Value" },
-  { sector: "Tourism Infrastructure", value: "₹1,863 Cr", label: "PPP Transaction Advisory — Heritage Development" },
-  { sector: "Urban Infrastructure & Smart Cities", value: "₹5,200 Cr+", label: "Completed Urban Assignments" }
+  { sector: "Water, Sanitation and Sewerage", value: "₹16,019 Cr+", label: "Total Water Sector Project Value" },
+  { sector: "Tourism / Hospitality", value: "₹1,863 Cr", label: "PPP Transaction Advisory — Heritage Development" },
+  { sector: "Smart Cities / Urban Infrastructure", value: "₹5,200 Cr+", label: "Completed Urban Assignments" }
 ];
 
 // One icon per lifecycle stage, matched by index to LIFECYCLE_STAGES.
 const LIFECYCLE_ICONS = [Compass, FileText, PenTool, TrendingUp, Building2, CheckCircle2];
 
-// Terse one-word labels for the "Sectors We Serve" filter row, kept short so all
-// ten chips sit on a single line; index-matched to SECTORS.
+// Terse labels for the "Sectors We Serve" filter row, kept short so all chips sit
+// on a single line; index-matched to SECTORS (same order as the site Sectors menu).
 const SECTOR_FILTER_LABELS = [
-  'Roads', 'Urban', 'Renewable', 'Railways', 'Water',
-  'Sewerage', 'Tourism', 'Mining', 'Environment', 'IT',
+  'Roads', 'Railways', 'Banking', 'Smart Cities',
+  'Water', 'Tourism', 'Mining', 'Renewable',
 ];
 
 // Official accreditation and certification logos requested (7 certificates)
@@ -112,22 +114,29 @@ export const Home: React.FC = () => {
     { x1: number; y1: number; x2: number; y2: number; absY1: number; absY2: number }[]
   >([]);
 
+  // Hero slideshow — each frame pairs one infrastructure image with the Almondz
+  // service line it represents (engineering design, feasibility, independent
+  // engineering and project management across these asset classes).
   const backgroundImages = [
     {
-      url: indiaRoadsHero,
-      caption: "Highways & Expressways"
+      url: heroExpressway,
+      caption: "Highways, Expressways & Tunnels"
     },
     {
-      url: "https://almondzglobalinfra.com/media/product/313788118_smartcity.jpg",
-      caption: "Urban Infrastructure"
+      url: heroMetroStation,
+      caption: "Metro Rail & Mass Rapid Transit"
     },
     {
-      url: windEnergyHero,
-      caption: "Energy Grids & Power Infrastructure"
+      url: heroWindFarm,
+      caption: "Wind Energy & Power Infrastructure"
     },
     {
-      url: metroRailHero,
-      caption: "Mass Rapid Transit & Metros"
+      url: heroSolarFarm,
+      caption: "Solar Power & Renewable Energy"
+    },
+    {
+      url: heroInterchange,
+      caption: "Bridges, Flyovers & Urban Interchanges"
     }
   ];
 
@@ -656,6 +665,7 @@ export const Home: React.FC = () => {
                   src={sector.image}
                   alt={sector.title}
                   className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                  style={{ objectPosition: sector.imagePosition }}
                   referrerPolicy="no-referrer"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#101A29] via-[#18253A]/40 to-[#18253A]/10" />
@@ -669,9 +679,9 @@ export const Home: React.FC = () => {
                   </div>
 
                   <div className="sector-showcase__content max-w-3xl">
-                    <h3 className="text-3xl font-serif leading-tight text-white sm:text-4xl lg:text-5xl">{sector.title}</h3>
-                    <p className="mt-4 max-w-2xl text-sm leading-relaxed text-white/80 sm:text-base">{sector.shortDesc}</p>
-                    <div className="mt-7 inline-flex items-center gap-2 text-xs font-mono font-bold tracking-wider text-[#D96B33]">
+                    <h3 className="text-2xl font-serif leading-tight text-white sm:text-3xl lg:text-[2.5rem] lg:leading-[1.15]">{sector.title}</h3>
+                    <p className="mt-3 max-w-2xl text-[13px] leading-relaxed text-white/80 sm:text-sm">{sector.shortDesc}</p>
+                    <div className="mt-5 inline-flex items-center gap-2 text-xs font-mono font-bold tracking-wider text-[#D96B33]">
                       <span>EXPLORE EXPERTISE</span>
                       <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-2" />
                     </div>

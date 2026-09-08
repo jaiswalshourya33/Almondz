@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Logo } from './Logo';
 import { SECTORS } from '../data/sectors';
 import { SERVICES } from '../data/services';
+import { CORPORATE_GOVERNANCE } from '../data/corporateGovernance';
 import { Menu, X, ChevronDown, ArrowRight, Phone } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
@@ -159,7 +160,7 @@ export const Navbar: React.FC = () => {
             {activeDropdown === 'sectors' && (
               <div className="absolute top-full left-1/2 -translate-x-1/2 w-[min(850px,90vw)] bg-[#18253A] border border-[#A49050]/30 shadow-2xl p-6 z-50 grid grid-cols-2 gap-4 animate-fade-in">
                 <div className="col-span-2 pb-2 border-b border-white/10">
-                  <span className="text-xs font-mono tracking-widest text-[#D96B33]">SPECIALIZED INFRASTRUCTURE DOMAINS (011)</span>
+                  <span className="text-xs font-mono tracking-widest text-[#D96B33]">SPECIALIZED INFRASTRUCTURE DOMAINS ({String(SECTORS.length).padStart(3, '0')})</span>
                 </div>
                 {SECTORS.map((sector) => (
                   <Link
@@ -231,6 +232,37 @@ export const Navbar: React.FC = () => {
             PROJECTS
             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#D96B33] transition-all duration-300 group-hover:w-full"></span>
           </Link>
+
+          {/* CORPORATE GOVERNANCE Dropdown */}
+          <div
+            className="relative"
+            onMouseEnter={() => setActiveDropdown('governance')}
+            onMouseLeave={closeDropdowns}
+          >
+            <button
+              type="button"
+              onClick={() => setActiveDropdown('governance')}
+              className="flex items-center gap-1.5 text-sm font-medium tracking-wide text-white/90 hover:text-[#D96B33] transition-colors py-1 group"
+            >
+              CORPORATE GOVERNANCE
+              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === 'governance' ? 'rotate-180 text-[#D96B33]' : ''}`} />
+            </button>
+
+            {activeDropdown === 'governance' && (
+              <div className="absolute top-full right-0 w-72 bg-[#18253A] border border-[#A49050]/30 shadow-2xl py-3 px-1 z-50 animate-fade-in">
+                {CORPORATE_GOVERNANCE.map((item) => (
+                  <Link
+                    key={item.slug}
+                    to={`/corporate-governance/${item.slug}`}
+                    onClick={closeDropdowns}
+                    className="block px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/10 transition-colors border-l-2 border-transparent hover:border-[#D96B33]"
+                  >
+                    {item.navLabel}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
         </nav>
 
         {/* CTA Button */}
@@ -346,8 +378,33 @@ export const Navbar: React.FC = () => {
               Projects
             </Link>
 
-            <Link 
-              to="/contact" 
+            {/* Corporate Governance Mobile */}
+            <div>
+              <button
+                onClick={() => setMobileSubmenu(mobileSubmenu === 'governance' ? null : 'governance')}
+                className="flex items-center justify-between w-full text-base font-medium text-white hover:text-[#D96B33] py-2 border-b border-white/10"
+              >
+                <span>Corporate Governance</span>
+                <ChevronDown className={`w-4 h-4 transition-transform ${mobileSubmenu === 'governance' ? 'rotate-180' : ''}`} />
+              </button>
+              {mobileSubmenu === 'governance' && (
+                <div className="pl-4 py-2 flex flex-col gap-2 bg-[#101A29] mt-1">
+                  {CORPORATE_GOVERNANCE.map((item) => (
+                    <Link
+                      key={item.slug}
+                      to={`/corporate-governance/${item.slug}`}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="text-sm text-white/80 py-1.5"
+                    >
+                      {item.navLabel}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <Link
+              to="/contact"
               onClick={() => setMobileMenuOpen(false)}
               className="mt-4 bg-[#D96B33] text-white py-3 text-center text-xs font-mono font-bold tracking-widest uppercase rounded-md shadow-md"
             >

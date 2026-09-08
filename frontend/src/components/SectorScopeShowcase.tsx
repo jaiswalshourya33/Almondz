@@ -75,9 +75,9 @@ export const SectorScopeShowcase: React.FC<Props> = ({ sector }) => {
               <div className="scope-reveal w-12 h-0.5 bg-[#A49050] rounded-full mt-2 mb-4" style={{ ['--i' as string]: 1 }} />
               <p className="scope-reveal text-xs sm:text-[13.5px] text-[#18253A]/75 leading-relaxed mb-5" style={{ ['--i' as string]: 2 }}>
                 Almondz Global Infra-Consultant Limited provides end-to-end consulting and advisory
-                solutions across all stages of {sector.title.toLowerCase()} development. Our
-                multidisciplinary engineering teams deliver technical rigor, statutory adherence, and
-                value engineering for central, state, and private infrastructure authorities.
+                solutions for {sector.title}. Our multidisciplinary engineering teams deliver
+                technical rigor, statutory adherence, and value engineering for central, state, and
+                private infrastructure authorities.
               </p>
 
               <div className="border-t border-[#A49050]/15">
@@ -109,12 +109,18 @@ export const SectorScopeShowcase: React.FC<Props> = ({ sector }) => {
             </div>
           </div>
 
-          <div className="scope-media scope-media--fromright lg:col-span-5 rounded-2xl overflow-hidden shadow-[0_12px_36px_rgba(13,27,42,0.12)] flex min-h-[280px] sm:min-h-[320px]">
+          {/* The image column never drives the row height — it only matches the
+             content card. Its <img> is absolutely positioned so it contributes
+             no intrinsic height; the grid's items-stretch then sizes this box to
+             the content card and object-cover crops the photo to fit. The
+             min-height is only a floor for the stacked (mobile) layout. */}
+          <div className="scope-media scope-media--fromright lg:col-span-5 relative rounded-2xl overflow-hidden shadow-[0_12px_36px_rgba(13,27,42,0.12)] min-h-[280px] sm:min-h-[320px]">
             <img
               src={sector.image}
               alt={sector.title}
               referrerPolicy="no-referrer"
-              className="w-full h-full object-cover"
+              className="absolute inset-0 w-full h-full object-cover"
+              style={{ objectPosition: sector.imagePosition }}
             />
           </div>
         </div>

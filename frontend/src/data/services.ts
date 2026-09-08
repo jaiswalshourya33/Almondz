@@ -1,10 +1,18 @@
+import dprPreparationImage from '../images/svc-pmc.png';
+import feasibilityStudiesImage from '../images/svc-pre-bid-engineering.png';
+import pmcImage from '../images/svc-lender-independent-engineer.png';
+import authorityEngineerImage from '../images/svc-detailed-design.png';
+import surveyTestingImage from '../images/sit-field-testing.png';
+import transactionAdvisoryImage from '../images/svc-transaction-advisory.png';
+import assuranceServicesImage from '../images/svc-due-diligence.png';
+import roadSafetyImage from '../images/svc-road-safety-audit.png';
+
 export interface Service {
   id: string; title: string; slug: string; shortDesc: string; description: string;
   deliverables: string[]; methodology: string; image: string;
 }
 
 const engineeringImage = "https://almondzglobalinfra.com/media/product/1392520946_highway1.jpg";
-const monitoringImage = "https://almondzglobalinfra.com/media/product/1514813843_agency-for-specialized-monitoring-(asm)1.jpg";
 
 const defaultMethodology = "An integrated technical, financial and implementation-focused approach.";
 
@@ -18,90 +26,81 @@ const service = (
   methodology = defaultMethodology
 ): Service => ({ id, title, slug: id, shortDesc, description, deliverables, methodology, image });
 
-// Descriptions below are drawn directly from AGICL's official Corporate Profile and
-// marketing brochure — not generic filler text.
+// Mirrors AGICL's "Service Capabilities" set, in the same order: DPR Preparation,
+// Feasibility Studies, PMC, Authority / Independent Engineer Services, Survey
+// Investigation & Testing, Transaction Advisory & Financial Services, Engineering
+// Design & Supervision, Assurance Services, Road Safety Services.
 export const SERVICES: Service[] = [
   service(
-    "detailed-design",
-    "Detailed Design, Planning & Execution",
-    "Detailed engineering, planning and execution support for infrastructure assignments.",
-    "Detailed engineering design, construction supervision, and quality assurance across all infrastructure sectors — spanning the full project lifecycle from concept and feasibility through design, construction and commissioning.",
-    ["Detailed project reports", "Feasibility reports", "Engineering design", "Cost estimates"]
+    "dpr-preparation",
+    "DPR Preparation",
+    "Comprehensive Detailed Project Reports for approvals and funding.",
+    "We prepare comprehensive Detailed Project Reports including feasibility inputs, engineering design, cost estimation, financial analysis and implementation strategy — in compliance with statutory requirements to obtain approvals and funding.",
+    ["Detailed Project Reports (DPR)", "Feasibility inputs & engineering design", "Cost estimation & financial analysis", "Implementation strategy & statutory compliance"],
+    dprPreparationImage
   ),
   service(
-    "independent-authority-engineer",
-    "Independent / Authority Engineer Services",
-    "Oversight and certification for EPC and BOT projects on behalf of government authorities and lenders.",
-    "AGICL provides Independent Engineer and Authority Engineer services, delivering oversight and certification for EPC and BOT projects on behalf of government authorities and lending institutions across roads, highways and infrastructure assignments nationwide.",
-    ["EPC/BOT project oversight", "Certification & compliance", "Authority engineer reporting", "Quality surveillance"],
-    engineeringImage
+    "feasibility-studies",
+    "Feasibility Studies",
+    "Techno-economic, financial, environmental and social feasibility studies.",
+    "We conduct techno-economic, financial, environmental and social feasibility studies to assess project viability, identify risks and opportunities, and support informed decision-making for sustainable and commercially viable infrastructure investments.",
+    ["Techno-economic feasibility", "Financial viability assessment", "Environmental & social feasibility", "Risk & opportunity analysis"],
+    feasibilityStudiesImage
   ),
   service(
     "pmc",
-    "Project Management Consultancy / Supervision",
-    "Project management and supervision services for effective implementation.",
-    "Feasibility studies, DPR preparation and pre-bid assistance, with end-to-end project management and implementation supervision ensuring on-time delivery and rigorous quality control.",
-    ["Project supervision", "Implementation support", "Quality monitoring", "Progress reporting"],
-    monitoringImage
+    "Project Management Consultancy (PMC)",
+    "Planning, monitoring, quality assurance and contract administration for on-time delivery.",
+    "Our PMC services cover planning, coordination, monitoring, quality assurance, contract administration and stakeholder management — ensuring timely delivery, cost efficiency and adherence to quality and safety standards.",
+    ["Project planning & coordination", "Progress monitoring & reporting", "Quality assurance", "Contract administration", "Stakeholder management"],
+    pmcImage
   ),
   service(
-    "road-safety-audit",
-    "Road Safety Audit",
-    "Road safety review and advisory for highways and transport infrastructure.",
-    "Comprehensive Road Safety Engineering and Audit Services covering Road Safety Audits (RSA), Black Spot Identification & Rectification Studies, Safety Inspections, Traffic Engineering and Crash Data Analysis, aligned with IRC, MoRTH and international best practices.",
-    ["Safety review", "Site assessment", "Black spot identification & rectification", "Safety recommendations", "Compliance reporting"]
+    "authority-independent-engineer",
+    "Authority / Independent Engineer Services",
+    "Construction supervision, review and certification for EPC, HAM and PPP projects.",
+    "We provide Authority / Independent Engineer services including construction supervision, quality control, safety compliance, technical review and certification of works for highways and infrastructure projects under EPC, HAM and PPP modes.",
+    ["Construction supervision", "Quality control & safety compliance", "Technical review of works", "Certification & authority reporting"],
+    authorityEngineerImage
   ),
   service(
-    "pre-bid-engineering",
-    "Pre-Bid Engineering & Cost Estimation",
-    "Engineering and cost-estimation support before bid submission.",
-    "Pre-bid engineering and cost-estimation support to help clients prepare technically and financially sound bids, including detailed cost estimates and technical inputs ahead of bid submission.",
-    ["Pre-bid review", "Cost estimates", "Technical inputs", "Bid support"]
+    "survey-investigation-testing",
+    "Survey Investigation & Testing",
+    "Geotechnical investigation, material testing and topographic / utility surveys.",
+    "We deliver advanced survey, investigation and testing solutions including geotechnical investigations, material testing, and topographic and utility surveys — providing accurate data and reliable insights for safe and efficient project planning and execution.",
+    ["Geotechnical investigation", "Material & soil testing", "Topographic & utility surveys", "Survey data analysis & reporting"],
+    surveyTestingImage
   ),
   service(
-    "transaction-advisory",
-    "Transaction Advisory",
-    "Transaction advisory, PPP structuring and bid-process management.",
-    "As a DEA (Department of Economic Affairs, Ministry of Finance) empanelled Transaction Advisor, AGICL provides Transaction Advisory and Bid Process Management services for complex infrastructure projects, with deep expertise in PPP structuring, financial and technical feasibility, procurement advisory and bid management.",
-    ["PPP structuring", "Financial model", "Bid process management", "Value for money analysis"],
-    monitoringImage
+    "transaction-advisory-financial",
+    "Transaction Advisory & Financial Services",
+    "Strategic advisory and financial services for infrastructure and PPP projects.",
+    "We offer strategic advisory and financial services for infrastructure and PPP projects — covering feasibility assessment, financial modelling, bid process management, concession structuring, DPR preparation and transaction support for government and private sector clients.",
+    ["Financial modelling & feasibility", "Bid process management", "Concession structuring", "Transaction support (government & private)"],
+    transactionAdvisoryImage
   ),
   service(
-    "specialised-monitoring",
-    "Agency for Specialised Monitoring",
-    "Specialised monitoring for project progress and performance.",
-    "AGICL is empanelled with the Indian Banks' Association (IBA) as an Agency for Specialised Monitoring (ASM), providing independent monitoring and loan oversight services across diverse sectors including infrastructure, energy, fertilizers and manufacturing for India's leading public sector banks.",
-    ["Project monitoring", "Progress review", "Technical reporting", "Performance assessment"],
-    monitoringImage
+    "engineering-design-supervision",
+    "Engineering Design & Supervision",
+    "Multidisciplinary engineering design and supervision across infrastructure sectors.",
+    "We provide multidisciplinary engineering design and supervision services across highways, bridges, urban infrastructure, railways and water, sanitation and sewerage systems — ensuring quality execution, technical compliance and optimal performance throughout the project lifecycle.",
+    ["Multidisciplinary detailed design", "Construction supervision", "Technical compliance review", "Lifecycle performance assurance"],
+    engineeringImage
   ),
   service(
-    "tev-study",
-    "Techno-Economic Viability Study",
-    "Technical and economic assessment of project feasibility and viability.",
-    "Techno-Economic Viability (TEV) studies providing independent project appraisal and technical due diligence, helping financial institutions and project stakeholders make informed investment decisions.",
-    ["Technical assessment", "Economic analysis", "Feasibility study", "Risk review"]
+    "assurance-services",
+    "Assurance Services",
+    "Independent technical, financial and operational assurance and audit.",
+    "We provide independent assurance and audit services including technical, financial and operational reviews — to ensure compliance, mitigate risks, improve governance and enhance stakeholder confidence.",
+    ["Technical assurance reviews", "Financial & operational audit", "Compliance & risk assessment", "Governance improvement recommendations"],
+    assuranceServicesImage
   ),
   service(
-    "survey-gis",
-    "Survey, Investigation & GIS Mapping",
-    "Engineering surveys, investigations and GIS mapping for project development.",
-    "End-to-end Survey, Investigation & GIS Mapping services supported by an extensive in-house fleet of specialised equipment — drone/UAV photogrammetry, LiDAR, DGPS and total stations — and skilled technical teams.",
-    ["Engineering surveys", "Site investigation", "GIS mapping", "Data assessment"]
-  ),
-  service(
-    "lender-independent-engineer",
-    "Lender Independent Engineers",
-    "Independent technical support for lenders and financing institutions.",
-    "As a trusted provider of Lenders' Independent Engineer (LIE) services, AGICL delivers independent project appraisal, technical due diligence, monitoring and risk assessment across infrastructure and industrial sectors on behalf of financing institutions.",
-    ["Technical due diligence", "Project review", "Progress monitoring", "Lender reporting"],
-    monitoringImage
-  ),
-  service(
-    "due-diligence",
-    "Due Diligence (Technical & Financial)",
-    "Technical and financial due diligence for infrastructure projects.",
-    "Independent technical and financial due diligence for infrastructure projects, supporting informed investment and lending decisions through rigorous risk assessment and review.",
-    ["Technical due diligence", "Financial due diligence", "Risk assessment", "Review report"],
-    monitoringImage
+    "road-safety-services",
+    "Road Safety Services",
+    "End-to-end road safety audits, black-spot studies and safety engineering.",
+    "We provide end-to-end road safety solutions including road safety audits, safety engineering, black spot studies, traffic studies, signage and marking design, and awareness programmes — to enhance road user safety and reduce accidents.",
+    ["Road safety audits (RSA)", "Black spot identification & rectification", "Traffic studies", "Signage & marking design", "Road safety awareness programmes"],
+    roadSafetyImage
   )
 ];

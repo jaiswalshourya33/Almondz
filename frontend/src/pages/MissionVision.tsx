@@ -40,6 +40,28 @@ const VISION_BULLETS = [
   'Earn fair returns on value created',
 ];
 
+/**
+ * Frosted backing for a Mission/Vision card: a real blurred copy of the hero
+ * image, clipped to the card by the card's own `overflow-hidden`, under a dark
+ * tint for text contrast. A genuine blurred image layer (not `backdrop-filter`,
+ * which in a sticky/transformed context repaints late on scroll) — so only the
+ * area behind the card is blurred, and it reads as blurred the instant the card
+ * appears. `objectPosition` matches the sharp section image so the blurred crop
+ * lines up closely with the surroundings at the card edge.
+ */
+const CardFrost: React.FC<{ objectPosition: string }> = ({ objectPosition }) => (
+  <>
+    <img
+      src={missionVisionHero}
+      alt=""
+      aria-hidden
+      className="pointer-events-none absolute inset-0 -z-10 h-full w-full scale-125 object-cover blur-xl select-none"
+      style={{ objectPosition }}
+    />
+    <span aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-[#0B1220]/35" />
+  </>
+);
+
 export const MissionVision: React.FC = () => {
   const zoomSectionRef = useRef<HTMLElement | null>(null);
   const missionCardRef = useRef<HTMLDivElement | null>(null);
@@ -62,22 +84,18 @@ export const MissionVision: React.FC = () => {
     return () => window.removeEventListener('resize', measure);
   }, []);
 
-  // Both cards must match in height, and neither can clip its own content —
-  // a fixed px/vh height can't satisfy both across every viewport, since the
-  // actual text needs more room than a short viewport has to offer. Instead,
-  // measure each card's real (unclipped) content height, size both to the
-  // taller of the two, and cap that to whatever vertical space is actually
-  // available (matching the top-24/bottom-8 wrapper below) — the rare case
-  // where content still doesn't fit falls back to an internal scroll rather
-  // than silently cutting text off.
+  // Both cards must match in height and neither may clip or scroll its own
+  // content. Measure each card's real (unclipped) content height and size both
+  // to the taller of the two — no viewport cap, so the text always fits and no
+  // scrollbar ever appears. (On a very short viewport the centred block can
+  // exceed the screen; that's an acceptable trade for this scroll-driven
+  // desktop showcase.)
   useLayoutEffect(() => {
     const measure = () => {
       const mission = missionCardRef.current;
       const vision = visionCardRef.current;
       if (!mission || !vision) return;
-      const naturalHeight = Math.max(mission.scrollHeight, vision.scrollHeight);
-      const availableHeight = window.innerHeight - 96 - 32;
-      setCardHeight(Math.min(naturalHeight, availableHeight));
+      setCardHeight(Math.max(mission.scrollHeight, vision.scrollHeight));
     };
     measure();
     window.addEventListener('resize', measure);
@@ -128,7 +146,9 @@ export const MissionVision: React.FC = () => {
   //   kept scrolling past the gap, the Vision card plays the same sequence.
   // Scrolling back up runs this whole thing in reverse, since every value
   // below is a direct, live function of `progress`.
-  const imageScale = 1 + mapRange(progress, 0, 1, 0, 0.22);
+  // Kept very small so the sharp section image and each card's fixed-attachment
+  // blurred copy stay aligned (a big zoom would only apply to the sharp layer).
+  const imageScale = 1 + mapRange(progress, 0, 1, 0, 0.04);
 
   const missionOpacity = mapRange(progress, MISSION_START, MISSION_START + 0.08, 0, 1);
   const missionTranslate = mapRange(progress, MISSION_START, MISSION_START + 0.08, -70, 0);
@@ -156,10 +176,10 @@ export const MissionVision: React.FC = () => {
           <img
             src={missionVisionHero}
             alt="Smart city infrastructure aerial view"
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover object-[center_65%]"
             style={{ transform: `scale(${imageScale})`, transition: 'transform 60ms linear' }}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#18253A]/50 via-[#18253A]/10 to-[#18253A]/60" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#18253A]/45 via-[#18253A]/15 to-[#18253A]/55" />
 
           {/* Centered responsive container holding Mission and Vision with guaranteed central spacing */}
           <div className="absolute inset-0 top-24 bottom-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between pointer-events-none gap-6 sm:gap-8 lg:gap-12">
@@ -170,16 +190,17 @@ export const MissionVision: React.FC = () => {
             >
               <div
                 ref={missionCardRef}
-                className="mission-vision-card bg-white rounded-2xl shadow-xl p-5 sm:p-8 lg:p-9 flex flex-col gap-3 overflow-y-auto"
+                className="mission-vision-card relative isolate overflow-hidden rounded-2xl p-5 sm:p-8 lg:p-9 flex flex-col gap-3 border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.28)]"
                 style={{ height: cardHeight ? `${cardHeight}px` : 'auto' }}
               >
-                <h2 style={revealStyle(progress, MISSION_START + 0.1, 0.05)} className="text-2xl sm:text-3xl font-serif font-bold text-[#18253A]">Our Mission</h2>
-                <p style={revealStyle(progress, MISSION_START + 0.13, 0.06)} className="text-xs sm:text-sm text-[#18253A]/70 leading-relaxed">
+                <CardFrost objectPosition="20% 60%" />
+                <h2 style={revealStyle(progress, MISSION_START + 0.1, 0.05)} className="text-2xl sm:text-3xl font-serif font-bold text-white [text-shadow:0_2px_10px_rgba(0,0,0,0.55)]">Our Mission</h2>
+                <p style={revealStyle(progress, MISSION_START + 0.13, 0.06)} className="text-xs sm:text-sm text-white/90 leading-relaxed [text-shadow:0_1px_6px_rgba(0,0,0,0.5)]">
                   To deliver excellence in infrastructure consultancy, engineering and technology through innovation, domain expertise and client-centric execution. Almondz creates long-term value with efficient, transparent and sustainable solutions across transportation, water, urban infrastructure, disaster resilience and digital transformation — building strong partnerships with governments, institutions and private enterprises, always to the highest standards of integrity, quality and operational excellence.
                 </p>
-                <ul className="flex flex-col gap-2 pt-3 mt-auto border-t border-gray-100">
+                <ul className="flex flex-col gap-2 pt-3 mt-auto border-t border-white/20">
                   {MISSION_BULLETS.map((bullet, idx) => (
-                    <li key={bullet} style={revealStyle(progress, MISSION_START + 0.17 + idx * 0.02, 0.05)} className="flex items-center gap-3 text-xs sm:text-sm text-[#18253A]/80">
+                    <li key={bullet} style={revealStyle(progress, MISSION_START + 0.17 + idx * 0.02, 0.05)} className="flex items-center gap-3 text-xs sm:text-sm text-white/90 [text-shadow:0_1px_6px_rgba(0,0,0,0.5)]">
                       <span className="w-5 h-5 rounded-full bg-[#D96B33] flex items-center justify-center shrink-0">
                         <Check className="w-3 h-3 text-white" strokeWidth={3} />
                       </span>
@@ -197,16 +218,17 @@ export const MissionVision: React.FC = () => {
             >
               <div
                 ref={visionCardRef}
-                className="mission-vision-card bg-white rounded-2xl shadow-xl p-5 sm:p-8 lg:p-9 flex flex-col gap-3 overflow-y-auto"
+                className="mission-vision-card relative isolate overflow-hidden rounded-2xl p-5 sm:p-8 lg:p-9 flex flex-col gap-3 border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.28)]"
                 style={{ height: cardHeight ? `${cardHeight}px` : 'auto' }}
               >
-                <h2 style={revealStyle(progress, VISION_START + 0.1, 0.05)} className="text-2xl sm:text-3xl font-serif font-bold text-[#18253A]">Our Vision</h2>
-                <p style={revealStyle(progress, VISION_START + 0.13, 0.06)} className="text-xs sm:text-sm text-[#18253A]/70 leading-relaxed">
+                <CardFrost objectPosition="80% 60%" />
+                <h2 style={revealStyle(progress, VISION_START + 0.1, 0.05)} className="text-2xl sm:text-3xl font-serif font-bold text-white [text-shadow:0_2px_10px_rgba(0,0,0,0.55)]">Our Vision</h2>
+                <p style={revealStyle(progress, VISION_START + 0.13, 0.06)} className="text-xs sm:text-sm text-white/90 leading-relaxed [text-shadow:0_1px_6px_rgba(0,0,0,0.5)]">
                   To emerge as a globally respected, technology-driven infrastructure consultancy — enabling sustainable growth through innovative engineering, digital transformation and integrated advisory. Almondz envisions building resilient, future-ready infrastructure ecosystems that advance economic development, urban modernisation, environmental sustainability and quality of life across communities in India and beyond.
                 </p>
-                <ul className="flex flex-col gap-2 pt-3 mt-auto border-t border-gray-100">
+                <ul className="flex flex-col gap-2 pt-3 mt-auto border-t border-white/20">
                   {VISION_BULLETS.map((bullet, idx) => (
-                    <li key={bullet} style={revealStyle(progress, VISION_START + 0.17 + idx * 0.02, 0.05)} className="flex items-center gap-3 text-xs sm:text-sm text-[#18253A]/80">
+                    <li key={bullet} style={revealStyle(progress, VISION_START + 0.17 + idx * 0.02, 0.05)} className="flex items-center gap-3 text-xs sm:text-sm text-white/90 [text-shadow:0_1px_6px_rgba(0,0,0,0.5)]">
                       <span className="w-5 h-5 rounded-full bg-[#D96B33] flex items-center justify-center shrink-0">
                         <Check className="w-3 h-3 text-white" strokeWidth={3} />
                       </span>

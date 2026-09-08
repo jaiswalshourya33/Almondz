@@ -1,6 +1,28 @@
 import himachalRopewayImage from '../images/himachal-ropeway.jpg';
+import railDduPssaImage from '../images/rail-ddu-pssa.png';
+import railDduGcImage from '../images/rail-ddu-gc.jpg';
+import railRatlamImage from '../images/rail-ratlam.jpg';
+import railVijayawadaImage from '../images/rail-vijayawada.jpg';
+import railTindivanamNagariImage from '../images/rail-tindivanam-nagari.jpg';
+import railBhopalKotaImage from '../images/rail-bhopal-kota.png';
+import railHyderabadImage from '../images/rail-hyderabad.png';
+import railMysuruImage from '../images/rail-mysuru.png';
+import railJiribamImphalImage from '../images/rail-jiribam-imphal.png';
+import railGoddaMahagamaImage from '../images/rail-godda-mahagama.png';
+import railDduPssaImage2 from '../images/rail-ddu-pssa-2.jpg';
+import railDduGcImage2 from '../images/rail-ddu-gc-2.jpg';
+import railRatlamImage2 from '../images/rail-ratlam-2.jpg';
+import railVijayawadaImage2 from '../images/rail-vijayawada-2.png';
+import railTindivanamNagariImage2 from '../images/rail-tindivanam-nagari-2.jpg';
+import railBhopalKotaImage2 from '../images/rail-bhopal-kota-2.png';
+import railHyderabadImage2 from '../images/rail-hyderabad-2.png';
+import railMysuruImage2 from '../images/rail-mysuru-2.png';
+import railJiribamImphalImage2 from '../images/rail-jiribam-imphal-2.png';
+import railGoddaMahagamaImage2 from '../images/rail-godda-mahagama-2.png';
 
-export interface Project { id: string; title: string; slug: string; sector: string; sectorSlug: string; status: "Recently Awarded" | "Ongoing" | "Completed"; location: string; coordinates: string; image: string; youtubeUrl?: string; role: string; client: string; description: string; impact: string; servicesProvided: string[]; }
+// `detailImage` is an optional second photograph shown in the project details
+// dialog (distinct from the card `image`). Both come from the same source project.
+export interface Project { id: string; title: string; slug: string; sector: string; sectorSlug: string; status: "Recently Awarded" | "Ongoing" | "Completed"; location: string; coordinates: string; image: string; detailImage?: string; youtubeUrl?: string; role: string; client: string; description: string; impact: string; servicesProvided: string[]; }
 
 const images = {
   roads: "https://almondzglobalinfra.com/media/product/183845799_highway.jpg",
@@ -14,8 +36,8 @@ const images = {
 const project = (
   id: string, title: string, sector: string, sectorSlug: string, status: Project["status"],
   location: string, role: string, client: string, image: string,
-  description: string, impact: string, coordinates = "India"
-): Project => ({ id, title, slug: id, sector, sectorSlug, status, location, coordinates, image, role, client, description, impact, servicesProvided: [role] });
+  description: string, impact: string, coordinates = "India", detailImage?: string
+): Project => ({ id, title, slug: id, sector, sectorSlug, status, location, coordinates, image, detailImage, role, client, description, impact, servicesProvided: [role] });
 
 export const PROJECTS: Project[] = [
   project(
@@ -186,9 +208,10 @@ export const PROJECTS: Project[] = [
   project(
     "jiribam-imphal-railway", "Jiribam–Imphal New Broad Gauge Railway",
     "Railways & Metro Rail", "railways-metro", "Ongoing", "Assam & Manipur, India",
-    "General Consultant, Dy. CE/CON/Jiribam (Silchar & Imphal)", "North Frontier Railway", images.rail,
-    "AGICL is appointed General Consultant for the office of Dy. CE/CON/Jiribam at Silchar & Imphal for North Frontier Railway, in connection with construction of the new Broad Gauge line from Jiribam to Imphal — associated with the ₹22,500+ Crore Jiribam–Imphal New Broad Gauge Line, one of India's most strategic railway connectivity projects linking Assam and Manipur.",
-    "Supporting construction consultancy on one of India's most strategic new railway lines, connecting Assam and Manipur."
+    "General Consultant, Dy. CE/CON/Jiribam (Silchar & Imphal)", "Northeast Frontier Railway", railJiribamImphalImage,
+    "AGICL provides General Consultancy Services in connection with the office of Dy. CE/CON/Jiribam at Silchar and Imphal for Northeast Frontier Railway, for construction of the new Broad Gauge railway line between Jiribam and Imphal — the ₹22,500 Crore Jiribam–Imphal New Broad Gauge Line, one of India's most strategic railway connectivity projects linking Assam and Manipur; the scope supports technical supervision, project monitoring and coordination along the new line.",
+    "Supporting construction consultancy on one of India's most strategic new railway lines, connecting Assam and Manipur.",
+    "India", railJiribamImphalImage2
   ),
   project(
     "gnhcp-highway-rehabilitation", "Green National Highways Corridor Project (GNHCP)",
@@ -196,5 +219,77 @@ export const PROJECTS: Project[] = [
     "Technical Audit Consultant", "World Bank-funded (National Highways Authority of India)", images.roads,
     "AGICL is delivering Technical Audit Consultancy services for World Bank-funded National Highway projects under the Green National Highways Corridor Project (GNHCP) and NHIIP, covering highway rehabilitation and upgradation works across Rajasthan, Himachal Pradesh, Uttar Pradesh and Andhra Pradesh, valued at ₹7,662 Cr.",
     "Auditing quality, safety and environmental sustainability across a ₹7,662 Cr multi-state highway rehabilitation programme."
+  ),
+  project(
+    "ddu-pssa-gati-shakti", "DDU Gati Shakti Unit – Project Supervision Services",
+    "Railways & Metro Rail", "railways-metro", "Ongoing", "Uttar Pradesh & Bihar, India",
+    "Project Supervision Services Agency (PSSA)", "East Central Railway, DDU Division (Gati Shakti Unit)", railDduPssaImage,
+    "AGICL is the Project Supervision Services Agency for the Gati Shakti Unit, DDU Division, supervising various railway infrastructure works — including station redevelopments under the Amrit Bharat Station Scheme (ABSS) and construction of FOBs, ROBs and RUBs across Uttar Pradesh and Bihar.",
+    "Supervising station redevelopment and bridge works across the DDU Division's Gati Shakti programme in Uttar Pradesh and Bihar.",
+    "India", railDduPssaImage2
+  ),
+  project(
+    "ddu-gc-gati-shakti", "DDU Gati Shakti Units – General Consultancy Services",
+    "Railways & Metro Rail", "railways-metro", "Ongoing", "Deen Dayal Upadhyaya Nagar, Uttar Pradesh, India",
+    "General Consultancy Services", "East Central Railway, DDU Division (Gati Shakti Units)", railDduGcImage,
+    "AGICL provides General Consultancy Services for railway infrastructure works under the Gati Shakti Units of East Central Railway, DDU Division — covering technical review, site inspections, progress monitoring and quality assessment to support effective project coordination and implementation.",
+    "Providing technical review, monitoring and quality assurance for Gati Shakti railway works in the DDU Division.",
+    "India", railDduGcImage2
+  ),
+  project(
+    "ratlam-pssa-gati-shakti", "Ratlam Gati Shakti Unit – Construction Supervision",
+    "Railways & Metro Rail", "railways-metro", "Ongoing", "Ratlam, Madhya Pradesh, India",
+    "Project Supervision Services Agency (PSSA)", "Western Railway (Gati Shakti Unit, Ratlam)", railRatlamImage,
+    "AGICL provides Project Supervision Services for various railway construction works under the Gati Shakti Unit, Ratlam, Western Railway — a ₹212 Cr programme covering inspection of workmanship, materials and progress across multiple sites, with coordination between executing agencies and railway officials for timely completion.",
+    "Supervising ₹212 Cr of railway construction, including major bridges, under Western Railway's Gati Shakti Unit at Ratlam.",
+    "India", railRatlamImage2
+  ),
+  project(
+    "vijayawada-pssa-amrit-bharat", "Vijayawada Division – Amrit Bharat Station Scheme Supervision",
+    "Railways & Metro Rail", "railways-metro", "Ongoing", "Vijayawada, Andhra Pradesh, India",
+    "Project Supervision Services Agency (PSSA)", "Indian Railways – Vijayawada Division (Gati Shakti Unit)", railVijayawadaImage,
+    "AGICL supervises railway station development and related infrastructure works under the Amrit Bharat Station Scheme in Vijayawada Division — a ₹1,600 Cr programme covering civil, structural and associated works with quality and progress assessment, and site coordination for the systematic execution of station improvements.",
+    "Supervising ₹1,600 Cr of Amrit Bharat Station Scheme works across the Vijayawada Division, including Machilipatnam, Gudivada and Gunadala stations.",
+    "India", railVijayawadaImage2
+  ),
+  project(
+    "tindivanam-nagari-new-bg-line", "Tindivanam–Nagari New Broad Gauge Line – Supervision",
+    "Railways & Metro Rail", "railways-metro", "Ongoing", "Tindivanam–Walajah–Nagari, Tamil Nadu, India",
+    "Project Supervision Services Agency (PSSA)", "Southern Railway (Dy. Chief Engineer / CN / TBM)", railTindivanamNagariImage,
+    "AGICL is the Project Supervision Services Agency for Southern Railway's Tindivanam–Nagari New Broad Gauge Line — a ₹3,634 Cr project (consultancy ~₹12.13 Cr). The scope covers supervision and monitoring of 29 ROBs, 25 major bridges, 33 minor bridges, station buildings, platforms, yards, FOBs, staff quarters and service buildings, including development works at Tindivanam and Walajah Road stations.",
+    "Overseeing quality and progress for a new broad gauge line with 87 bridges and multiple station developments, strengthening regional rail connectivity in Tamil Nadu.",
+    "India", railTindivanamNagariImage2
+  ),
+  project(
+    "bhopal-kota-2x25kv-scada", "2×25 kV AT Feeding System & SCADA – Bhopal & Kota Divisions",
+    "Railways & Metro Rail", "railways-metro", "Ongoing", "Bhopal & Kota Divisions, Madhya Pradesh & Rajasthan, India",
+    "Project Management Services (Design Review, Supervision & Monitoring)", "West Central Railway", railBhopalKotaImage,
+    "AGICL provides project management, design review, supervision and monitoring for the design, supply, erection, testing and commissioning of traction power infrastructure across West Central Railway — including 132/55 kV Scott-connected traction substations, switching posts, 2×25 kV AT feeding systems and SCADA upgradation. The ₹352.67 Cr assignment covers the Suwasra–Bina, Etarsi–Suwasra, Etarsi–Khandwa, Bina–Ruthiyai and Kota–Ruthiyai sections.",
+    "Strengthening the railway traction network across five key sections to improve operational reliability and freight loading capacity.",
+    "India", railBhopalKotaImage2
+  ),
+  project(
+    "hyderabad-pssa-gati-shakti", "Hyderabad Gati Shakti Unit – Project Supervision Services",
+    "Railways & Metro Rail", "railways-metro", "Ongoing", "Hyderabad, Telangana, India",
+    "Project Supervision Services Agency (PSSA)", "Indian Railways – CPM / Gati Shakti Unit, Hyderabad", railHyderabadImage,
+    "AGICL provides Project Supervision Services for railway infrastructure works under the Gati Shakti Unit, Hyderabad — a ₹464 Cr programme covering station redevelopments under ABSS and construction of FOBs, ROBs and RUBs, with coordination among contractors and railway authorities for efficient, timely execution.",
+    "Supervising ₹464 Cr of station redevelopment and bridge works under the Hyderabad Gati Shakti Unit.",
+    "India", railHyderabadImage2
+  ),
+  project(
+    "mysuru-station-development-pms", "Mysuru Railway Station Development – Project Management Services",
+    "Railways & Metro Rail", "railways-metro", "Ongoing", "Mysuru, Karnataka, India",
+    "Project Management Services (EPC mode)", "Indian Railways", railMysuruImage,
+    "AGICL provides Project Management Services for the EPC-mode redevelopment of Mysuru Railway Station — a ₹356 Cr project covering civil, electrical, railway electrification and Signal & Telecom works, construction of quarters and service buildings, dismantling of existing structures, earthwork, and supervision of bridge extensions, retaining walls and allied infrastructure.",
+    "Managing the ₹356 Cr EPC redevelopment of Mysuru station, from station buildings and quarters to electrification and S&T systems.",
+    "India", railMysuruImage2
+  ),
+  project(
+    "godda-mahagama-new-rail-line", "Godda–Mahagama New Rail Line – Project Management Services",
+    "Railways & Metro Rail", "railways-metro", "Ongoing", "Godda–Mahagama, Jharkhand, India",
+    "Project Management Services", "Eastern Railway", railGoddaMahagamaImage,
+    "AGICL provides Project Management Services for construction of the new railway line between Godda and Mahagama stations (Km 32.439 to Km 60.00) — a ₹531.23 Cr assignment covering civil, permanent way, electrification and Signal & Telecom works, undertaken in connection with Eastern Railway's Pirpainti–Jasidih New Rail Project.",
+    "Managing construction of a ₹531 Cr new rail line segment linking Godda and Mahagama in Jharkhand.",
+    "India", railGoddaMahagamaImage2
   )
 ];

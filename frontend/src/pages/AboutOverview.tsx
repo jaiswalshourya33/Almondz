@@ -6,6 +6,7 @@ import heritageImage from '../images/about-heritage.jpg';
 import strengthsImage from '../images/hero/wind-energy.jpg';
 import { GroupCompaniesGraphic } from '../components/GroupCompaniesGraphic';
 import { PageHeroBanner } from '../components/PageHeroBanner';
+import { revealSectionOnScroll } from '../lib/revealOnScroll';
 
 // "Why Almondz" strength pillars — icon + label + one-line note, matched to the
 // six-pillar reference layout. Icons stay on the site's copper accent so the
@@ -24,6 +25,7 @@ export const AboutOverview: React.FC = () => {
   const heritageSectionRef = useRef<HTMLElement | null>(null);
   const strengthsSectionRef = useRef<HTMLElement | null>(null);
   const subNavSectionRef = useRef<HTMLElement | null>(null);
+  const subNavHeaderRef = useRef<HTMLDivElement | null>(null);
   const subNavCardsRef = useRef<HTMLDivElement | null>(null);
   const heroHeadingRef = useRef<HTMLHeadingElement | null>(null);
   const [heroLineWidth, setHeroLineWidth] = useState<number | null>(null);
@@ -78,25 +80,14 @@ export const AboutOverview: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const subNavSection = subNavSectionRef.current;
-    const subNavCards = subNavCardsRef.current;
-    if (!subNavSection || !subNavCards || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    // Watch the card row itself (not the whole section, which also
-    // includes the heading) so the reveal fires right when the cards
-    // reach the viewport, not the moment the section's top edge peeks in.
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          subNavSection.classList.add('is-visible');
-          observer.unobserve(subNavCards);
-        }
-      },
-      { threshold: 0.35 },
+    // Key the reveal off the heading's own position — watching only the card
+    // row let the heading sit invisible in a blank gap until the (tall, on
+    // mobile) row scrolled into view. The card row is kept as a fallback.
+    return revealSectionOnScroll(
+      subNavSectionRef.current,
+      [subNavHeaderRef.current, subNavCardsRef.current],
+      { threshold: 0.55 },
     );
-
-    observer.observe(subNavCards);
-    return () => observer.disconnect();
   }, []);
 
   const handleImagePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
@@ -224,7 +215,7 @@ export const AboutOverview: React.FC = () => {
       {/* SUB-NAVIGATION CARDS */}
       <section ref={subNavSectionRef} className="about-subnav-section pt-6 pb-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="about-subnav-header text-center mb-12">
+          <div ref={subNavHeaderRef} className="about-subnav-header text-center mb-12">
             <span className="text-sm font-mono tracking-widest text-[#A49050] uppercase">EXPLORE FURTHER</span>
             <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#18253A] mt-2">Corporate Governance & Leadership</h2>
           </div>

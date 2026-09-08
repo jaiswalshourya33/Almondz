@@ -68,6 +68,9 @@ interface GroupNode {
   pos: { top: string; left: string };
   caption: 'top' | 'side';
   captionAlign: 'left' | 'right';
+  /* Optional px nudge for the "C" arc alone (not its heading), so a wide heading
+     like "Infrastructure" can sit clear of the arc's open mouth. */
+  arcShiftX?: number;
   connector: { x1: number; y1: number; x2: number; y2: number };
 }
 
@@ -77,10 +80,11 @@ const GROUPS: GroupNode[] = [
     heading: ['Infrastructure', 'Consulting'],
     company: 'Almondz Global Infra Consultant Ltd.',
     color: '#1B3A73',
-    pos: { top: '56%', left: '14%' },
+    pos: { top: '59.66%', left: '18.5%' },
     caption: 'top',
     captionAlign: 'left',
-    connector: { x1: CX - R_OUT - 2 - NODE_GAP, y1: CY, x2: CX - R_OUT - 2, y2: CY },
+    arcShiftX: -14,
+    connector: { x1: 190, y1: CY, x2: CX - R_OUT - 2, y2: CY },
   },
   {
     key: 'financial',
@@ -97,10 +101,10 @@ const GROUPS: GroupNode[] = [
     heading: ['Green Fuel'],
     company: 'Premier Green Innovation Pvt. Ltd.',
     color: '#5AA13E',
-    pos: { top: '56%', left: '86%' },
+    pos: { top: '59.66%', left: '83%' },
     caption: 'top',
     captionAlign: 'right',
-    connector: { x1: CX + R_OUT + 2 + NODE_GAP, y1: CY, x2: CX + R_OUT + 2, y2: CY },
+    connector: { x1: CX + R_OUT + 2, y1: CY, x2: 566, y2: CY },
   },
 ];
 
@@ -111,7 +115,11 @@ const ArcNode: React.FC<{ node: GroupNode; revealIndex: number }> = ({ node, rev
     style={{ top: node.pos.top, left: node.pos.left, ['--i' as string]: revealIndex }}
   >
     <div className="relative w-[156px] h-[156px] flex items-center justify-center">
-      <svg viewBox="0 0 100 100" className="gc-arc-svg absolute inset-0 w-full h-full overflow-visible">
+      <svg
+        viewBox="0 0 100 100"
+        className="gc-arc-svg absolute inset-0 w-full h-full overflow-visible"
+        style={{ left: node.arcShiftX }}
+      >
         <path
           className="gc-arc"
           d="M 74 10 A 44 44 0 1 0 74 90"
