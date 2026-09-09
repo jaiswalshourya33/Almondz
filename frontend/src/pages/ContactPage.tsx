@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Mail, MapPin, Phone, Send, CheckCircle2, Building2, ArrowRight } from 'lucide-react';
+import { Mail, MapPin, Phone, Send, CheckCircle2, Building2, ArrowRight, X } from 'lucide-react';
 import { PageHeroBanner } from '../components/PageHeroBanner';
 import { SECTORS } from '../data/sectors';
 
@@ -112,8 +112,53 @@ export const ContactPage: React.FC = () => {
     { city: "Mumbai", address: "Level 5, Grande Palladium, 175, CST Road, Off BKC, Kalina, Santacruz (East), Mumbai - 400 098, Maharashtra, INDIA", phone: "+91-22-66437600, +91-22-67526699" },
   ];
 
+  const submissionLabel =
+    activeFormType === 'inquiry' ? 'inquiry' : activeFormType === 'vendor' ? 'vendor registration' : 'career application';
+
   return (
     <div className="flex flex-col min-h-screen bg-[#F1F3F5] pt-24">
+      {/* Full-screen Submission Success Popup */}
+      {submitted && (
+        <div
+          className="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in"
+          onClick={handleReset}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-md bg-white rounded-2xl shadow-2xl border-t-4 border-[#A49050] p-8 sm:p-10 text-center flex flex-col items-center gap-5"
+          >
+            <button
+              onClick={handleReset}
+              aria-label="Close"
+              className="absolute top-3 right-3 p-1.5 text-gray-400 hover:text-[#A49050] hover:bg-[#A49050]/10 rounded-full transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="w-20 h-20 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center ring-4 ring-emerald-200">
+              <CheckCircle2 className="w-11 h-11" />
+            </div>
+
+            <div className="space-y-2">
+              <span className="text-[11px] font-mono font-bold tracking-widest uppercase text-[#A49050]">Submission Successful</span>
+              <h3 className="text-2xl sm:text-3xl font-serif font-bold text-emerald-800">Thank You!</h3>
+              <p className="text-sm text-gray-600 leading-relaxed">
+                Your {submissionLabel} form has been submitted successfully. Our team will get back to you shortly.
+              </p>
+            </div>
+
+            <button
+              onClick={handleReset}
+              className="mt-2 w-full bg-[#A49050] hover:bg-[#8A7942] text-white py-3.5 px-6 text-xs font-mono font-bold tracking-widest uppercase transition-colors rounded-md shadow-md"
+            >
+              Done
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Toast Notification */}
       {copiedField && (
         <div className="fixed bottom-8 right-8 z-50 bg-[#18253A] text-white px-6 py-4 border border-[#A49050] shadow-2xl flex items-center gap-3 animate-fade-in rounded-lg">

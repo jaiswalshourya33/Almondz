@@ -32,7 +32,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenDetails
   return (
     <div className="group project-card bg-white border border-gray-200/80 rounded-xl overflow-hidden flex flex-col justify-between shadow-[0_2px_10px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_20px_rgba(62,76,96,0.14)] hover:border-[#3E4C60] transition-all duration-300 hover:-translate-y-0.5">
       {/* Compact Top Image Banner */}
-      <div className="relative h-32 sm:h-36 overflow-hidden bg-slate-100">
+      <div className="relative h-36 sm:h-40 overflow-hidden bg-slate-100">
         <img 
           src={project.image} 
           alt={project.title}
@@ -51,48 +51,23 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenDetails
       </div>
 
       {/* Card Content - Compact & Clean */}
-      <div className="p-3 sm:p-3.5 flex flex-col justify-between flex-1 gap-2">
+      <div className="p-4 sm:p-4 flex flex-col justify-between flex-1 gap-3 min-h-[150px]">
         {/* Category Pill Tag & Title */}
         <div>
           <span className="inline-flex items-center text-[8.5px] font-mono font-bold tracking-wider uppercase px-2 py-0.5 rounded-full bg-[#3E4C60] text-[#D6C489] border border-[#A49050]/55 shadow-2xs">
             {project.sector}
           </span>
 
-          <h3 
-            className="mt-1 text-[13px] sm:text-[14px] font-serif font-bold text-[#18253A] group-hover:text-[#3E4C60] transition-colors leading-snug line-clamp-2"
+          <h3
+            className="mt-2.5 text-[11px] sm:text-[12px] font-serif font-medium text-[#18253A] group-hover:text-[#3E4C60] transition-colors leading-snug"
             title={project.title}
           >
             {project.title}
           </h3>
         </div>
 
-        {/* Compact Metadata Specifications */}
-        <div className="bg-[#F8F9FA] rounded-md p-2 border border-gray-100/90 flex flex-col gap-1.5">
-          <div className="grid grid-cols-2 gap-2 pb-1.5 border-b border-gray-200/60">
-            <div>
-              <span className="text-[8px] font-mono text-gray-400 uppercase tracking-wider block mb-0.5 leading-none">Location</span>
-              <p className="text-[11px] font-semibold text-[#18253A] leading-tight break-words">
-                {project.location}
-              </p>
-            </div>
-            <div className="border-l border-gray-200/60 pl-2">
-              <span className="text-[8px] font-mono text-gray-400 uppercase tracking-wider block mb-0.5 leading-none">Client</span>
-              <p className="text-[11px] font-semibold text-[#18253A] leading-tight break-words">
-                {project.client}
-              </p>
-            </div>
-          </div>
-
-          <div>
-            <span className="text-[8px] font-mono text-gray-400 uppercase tracking-wider block mb-0.5 leading-none">Role</span>
-            <p className="text-[11px] font-semibold text-[#18253A] leading-tight break-words line-clamp-2" title={project.role}>
-              {project.role}
-            </p>
-          </div>
-        </div>
-
         {/* Compact View Details Action Button */}
-        <div className="pt-0.5">
+        <div className="pt-3 mt-auto">
           {onOpenDetails ? (
             <button
               type="button"

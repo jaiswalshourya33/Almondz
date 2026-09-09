@@ -177,6 +177,76 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
                         </span>
                       </td>
                     </tr>
+                    {project.authorityEngineer && (
+                      <tr>
+                        <th className="py-2.5 px-3.5 bg-gray-50/80 font-semibold text-gray-600 border-r border-gray-200 align-middle">
+                          Authority / Independent Engineer
+                        </th>
+                        <td className="py-2.5 px-3.5 text-gray-900 font-medium align-middle">
+                          {project.authorityEngineer}
+                        </td>
+                      </tr>
+                    )}
+                    {project.contractor && (
+                      <tr>
+                        <th className="py-2.5 px-3.5 bg-gray-50/80 font-semibold text-gray-600 border-r border-gray-200 align-middle">
+                          Contractor
+                        </th>
+                        <td className="py-2.5 px-3.5 text-gray-900 font-medium align-middle">
+                          {project.contractor}
+                        </td>
+                      </tr>
+                    )}
+                    {project.totalLength && (
+                      <tr>
+                        <th className="py-2.5 px-3.5 bg-gray-50/80 font-semibold text-gray-600 border-r border-gray-200 align-middle">
+                          Total Length
+                        </th>
+                        <td className="py-2.5 px-3.5 text-gray-900 font-medium align-middle">
+                          {project.totalLength}
+                        </td>
+                      </tr>
+                    )}
+                    {project.totalCost && (
+                      <tr>
+                        <th className="py-2.5 px-3.5 bg-gray-50/80 font-semibold text-gray-600 border-r border-gray-200 align-middle">
+                          Total Project Cost
+                        </th>
+                        <td className="py-2.5 px-3.5 text-gray-900 font-medium align-middle">
+                          {project.totalCost}
+                        </td>
+                      </tr>
+                    )}
+                    {project.physicalProgress && (
+                      <tr>
+                        <th className="py-2.5 px-3.5 bg-gray-50/80 font-semibold text-gray-600 border-r border-gray-200 align-middle">
+                          Physical Progress
+                        </th>
+                        <td className="py-2.5 px-3.5 text-gray-900 font-medium align-middle">
+                          {project.physicalProgress}
+                        </td>
+                      </tr>
+                    )}
+                    {project.financialProgress && (
+                      <tr>
+                        <th className="py-2.5 px-3.5 bg-gray-50/80 font-semibold text-gray-600 border-r border-gray-200 align-middle">
+                          Financial Progress
+                        </th>
+                        <td className="py-2.5 px-3.5 text-gray-900 font-medium align-middle">
+                          {project.financialProgress}
+                        </td>
+                      </tr>
+                    )}
+                    {project.commercialOperationDate && (
+                      <tr>
+                        <th className="py-2.5 px-3.5 bg-gray-50/80 font-semibold text-gray-600 border-r border-gray-200 align-middle">
+                          Date of COD
+                        </th>
+                        <td className="py-2.5 px-3.5 text-gray-900 font-medium align-middle">
+                          {project.commercialOperationDate}
+                        </td>
+                      </tr>
+                    )}
                     <tr>
                       <th className="py-2.5 px-3.5 bg-gray-50/80 font-semibold text-gray-600 border-r border-gray-200 align-middle">
                         Quality Standard

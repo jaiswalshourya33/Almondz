@@ -1,10 +1,12 @@
-import dprPreparationImage from '../images/svc-pmc.png';
-import feasibilityStudiesImage from '../images/svc-pre-bid-engineering.png';
-import pmcImage from '../images/svc-lender-independent-engineer.png';
-import authorityEngineerImage from '../images/svc-detailed-design.png';
-import surveyTestingImage from '../images/sit-field-testing.png';
-import transactionAdvisoryImage from '../images/svc-transaction-advisory.png';
-import assuranceServicesImage from '../images/svc-due-diligence.png';
+import dprPreparationImage from '../images/services-dpr-preparation.png';
+import feasibilityStudiesImage from '../images/services-feasibility-studies.jpg';
+import preBidEngineeringImage from '../images/services-pre-bid-engineering.png';
+import pmcImage from '../images/services-pmc.png';
+import authorityEngineerImage from '../images/services-authority-independent-engineer.png';
+import surveyTestingImage from '../images/services-survey-investigation-testing.png';
+import transactionAdvisoryImage from '../images/services-transaction-advisory.png';
+import engineeringDesignImage from '../images/services-engineering-design-supervision.png';
+import assuranceServicesImage from '../images/services-assurance-services.png';
 import roadSafetyImage from '../images/svc-road-safety-audit.png';
 
 export interface Service {
@@ -85,7 +87,7 @@ export const SERVICES: Service[] = [
     "Multidisciplinary engineering design and supervision across infrastructure sectors.",
     "We provide multidisciplinary engineering design and supervision services across highways, bridges, urban infrastructure, railways and water, sanitation and sewerage systems — ensuring quality execution, technical compliance and optimal performance throughout the project lifecycle.",
     ["Multidisciplinary detailed design", "Construction supervision", "Technical compliance review", "Lifecycle performance assurance"],
-    engineeringImage
+    engineeringDesignImage
   ),
   service(
     "assurance-services",
@@ -102,5 +104,13 @@ export const SERVICES: Service[] = [
     "We provide end-to-end road safety solutions including road safety audits, safety engineering, black spot studies, traffic studies, signage and marking design, and awareness programmes — to enhance road user safety and reduce accidents.",
     ["Road safety audits (RSA)", "Black spot identification & rectification", "Traffic studies", "Signage & marking design", "Road safety awareness programmes"],
     roadSafetyImage
+  ),
+  service(
+    "pre-bid-engineering",
+    "Pre-bid Engineering & Cost Estimation",
+    "Tendering assistance, RFQ/RFP review, cost estimation and bid financial modelling.",
+    "Our pre-bid engineering services provide tendering assistance for the procurement of orders — including bidding assistance and review of the client's RFQ/RFP documents and their details. We analyse technical requirements, strategise cost optimisation through value engineering, develop the bill of quantities and identify material sources. Support extends across all phases of bidding to ensure a competitive submission, including traffic surveys, revenue potential assessment and project financial modelling with IRR and sensitivity analysis for BOT / Annuity basis offers.",
+    ["Bidding assistance & RFQ/RFP document review", "Technical requirements analysis & recommendations", "Cost strategy & value engineering", "Bill of quantities (BOQ) preparation & material sourcing", "Project cost estimation", "Traffic surveys & revenue potential analysis", "Project IRR with sensitivity analysis", "BOT / Annuity basis offer preparation & contract finalisation support"],
+    preBidEngineeringImage
   )
 ];
