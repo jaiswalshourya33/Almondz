@@ -26,16 +26,21 @@ export const CorporateGovernancePage: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const headerRef = useRef<HTMLDivElement | null>(null);
   const cardsRef = useRef<HTMLDivElement | null>(null);
+  const returnsRef = useRef<HTMLDivElement | null>(null);
   const stackRef = useRef<HTMLDivElement | null>(null);
 
   // Annual Return: paginated, view-only list.
   const [returnsPage, setReturnsPage] = useState(0);
   const [activeReturn, setActiveReturn] = useState<AnnualReturnFiling | null>(null);
 
+  // Composition of Committees: master–detail, one committee shown at a time.
+  const [activeCommittee, setActiveCommittee] = useState(0);
+
   // Reset transient state when navigating between governance pages.
   useEffect(() => {
     setReturnsPage(0);
     setActiveReturn(null);
+    setActiveCommittee(0);
   }, [slug]);
 
   // Scroll-triggered reveal. Keyed off the heading block's own position so it
@@ -46,7 +51,7 @@ export const CorporateGovernancePage: React.FC = () => {
   useEffect(() => {
     return revealSectionOnScroll(
       sectionRef.current,
-      [headerRef.current, stackRef.current, cardsRef.current],
+      [headerRef.current, stackRef.current, returnsRef.current, cardsRef.current],
       { threshold: 0.4, onReveal: () => stackRef.current?.classList.add('is-visible') },
     );
   }, [slug]);
@@ -106,6 +111,9 @@ export const CorporateGovernancePage: React.FC = () => {
   const returnsStart = currentReturnsPage * RETURNS_PER_PAGE;
   const visibleReturns = annualReturns.slice(returnsStart, returnsStart + RETURNS_PER_PAGE);
 
+  const committeeIndex = committees.length ? Math.min(activeCommittee, committees.length - 1) : 0;
+  const currentCommittee = committees[committeeIndex];
+
   return (
     <div className="about-dropdown-page flex flex-col min-h-screen bg-[#F1F3F5] pt-24">
       <PageHeroBanner
@@ -115,7 +123,7 @@ export const CorporateGovernancePage: React.FC = () => {
       />
 
       <section ref={sectionRef} className="about-subnav-section py-20 bg-[#F1F3F5]">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div ref={headerRef} className="about-subnav-header text-center mb-14">
             <span className="text-xs font-mono tracking-widest text-[#A49050] uppercase">{item.eyebrow}</span>
             <h2 className="text-3xl font-serif font-bold text-[#18253A] mt-1">{item.navLabel}</h2>
@@ -124,68 +132,126 @@ export const CorporateGovernancePage: React.FC = () => {
             )}
           </div>
 
-          {/* --- Composition of Committees --- */}
-          {committees.length > 0 && (
-            <div ref={stackRef} className="committee-stack flex flex-col gap-8">
-              {committees.map((committee, i) => (
-                <article
-                  key={committee.name}
-                  style={{ ['--i' as string]: i }}
-                  className="committee-card bg-white border border-[#A49050]/20 rounded-2xl shadow-[0_2px_14px_rgba(24,37,58,0.06)] overflow-hidden"
-                >
-                  <header className="flex items-center gap-4 px-6 sm:px-8 py-5 bg-[#18253A]">
-                    <span className="text-[11px] font-mono font-bold tracking-[0.25em] text-[#D6C489]">
-                      {String(i + 1).padStart(2, '0')}
-                    </span>
-                    <span className="h-4 w-px bg-white/20" />
-                    <h3 className="text-base sm:text-lg font-serif font-bold text-white leading-tight">
-                      {committee.name}
-                    </h3>
-                    <span className="ml-auto shrink-0 text-[10px] font-mono tracking-widest text-white/45 uppercase">
-                      {committee.members.length} {committee.members.length === 1 ? 'Member' : 'Members'}
-                    </span>
-                  </header>
+          {/* --- Composition of Committees — master / detail --- */}
+          {committees.length > 0 && currentCommittee && (
+            <div
+              ref={stackRef}
+              className="committee-board grid gap-5 lg:gap-8 items-start lg:grid-cols-[minmax(0,300px)_minmax(0,1fr)]"
+            >
+              {/* Rail — pick a committee */}
+              <div
+                role="tablist"
+                aria-label="Board and management committees"
+                aria-orientation="vertical"
+                className="committee-rail flex lg:flex-col gap-3 overflow-x-auto lg:overflow-visible -mx-4 px-4 pb-1 lg:mx-0 lg:px-0 lg:pb-0 snap-x"
+              >
+                {committees.map((committee, i) => {
+                  const isActive = i === committeeIndex;
+                  const leads = committee.members.filter((m) => isLeadRole(m.role)).length;
+                  return (
+                    <button
+                      key={committee.name}
+                      type="button"
+                      role="tab"
+                      aria-selected={isActive}
+                      style={{ ['--i' as string]: i }}
+                      onClick={() => setActiveCommittee(i)}
+                      className={`committee-tab snap-start shrink-0 lg:shrink text-left rounded-xl border px-4 py-3.5 lg:px-5 lg:py-4 min-w-[210px] lg:min-w-0 transition-all duration-300 ${
+                        isActive
+                          ? 'bg-[#18253A] border-[#18253A] shadow-[0_14px_34px_rgba(24,37,58,0.20)] lg:translate-x-1'
+                          : 'bg-white border-[#A49050]/20 hover:border-[#D96B33]/40 hover:shadow-md hover:-translate-y-0.5'
+                      }`}
+                    >
+                      <span
+                        className={`block text-[10px] font-mono font-bold tracking-[0.3em] ${
+                          isActive ? 'text-[#D6C489]' : 'text-[#A49050]'
+                        }`}
+                      >
+                        {String(i + 1).padStart(2, '0')}
+                      </span>
+                      <span
+                        className={`mt-1 block font-serif font-bold leading-snug text-sm lg:text-[15px] ${
+                          isActive ? 'text-white' : 'text-[#18253A]'
+                        }`}
+                      >
+                        {committee.name}
+                      </span>
+                      <span
+                        className={`mt-1.5 block text-[10px] font-mono uppercase tracking-[0.16em] ${
+                          isActive ? 'text-white/45' : 'text-[#18253A]/40'
+                        }`}
+                      >
+                        {committee.members.length} {committee.members.length === 1 ? 'Member' : 'Members'}
+                        {leads > 0 && <span className={isActive ? 'text-[#D6C489]/70' : 'text-[#D96B33]/70'}> · Chaired</span>}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
 
-                  <ul className="divide-y divide-[#A49050]/15">
-                    {committee.members.map((member) => {
-                      const lead = isLeadRole(member.role);
-                      return (
-                        <li
-                          key={`${member.name}-${member.role}`}
-                          className="flex items-center gap-4 px-6 sm:px-8 py-4 hover:bg-[#F1F3F5]/70 transition-colors"
+              {/* Detail — the selected committee */}
+              <div
+                key={committeeIndex}
+                role="tabpanel"
+                className="committee-panel relative bg-white border border-[#A49050]/20 rounded-2xl shadow-[0_2px_22px_rgba(24,37,58,0.07)] overflow-hidden"
+              >
+                <div className="relative px-6 sm:px-9 pt-8 pb-4">
+                  <span className="text-[10px] font-mono font-bold tracking-[0.3em] text-[#A49050] uppercase">
+                    Committee {String(committeeIndex + 1).padStart(2, '0')} of {String(committees.length).padStart(2, '0')}
+                  </span>
+                  <h3 className="committee-panel__title mt-2 text-2xl sm:text-[28px] font-serif font-bold text-[#18253A] leading-tight">
+                    {currentCommittee.name}
+                  </h3>
+                  <span className="committee-panel__rule mt-3 block h-[3px] w-14 rounded-full bg-[#D6C489]" />
+                </div>
+
+                <ul className="relative px-2 sm:px-4 pb-5">
+                  {currentCommittee.members.map((member, i) => {
+                    const lead = isLeadRole(member.role);
+                    return (
+                      <li
+                        key={`${member.name}-${member.role}`}
+                        style={{ ['--i' as string]: i }}
+                        className="committee-member flex items-center gap-4 rounded-xl px-4 sm:px-5 py-3.5 hover:bg-[#F1F3F5]/80 transition-colors"
+                      >
+                        <span
+                          className={`shrink-0 w-11 h-11 rounded-full flex items-center justify-center text-[12px] font-bold tracking-wide ${
+                            lead
+                              ? 'bg-[#18253A] text-[#D6C489] ring-2 ring-[#D6C489]/40'
+                              : 'bg-[#F1F3F5] text-[#18253A] ring-1 ring-[#A49050]/25'
+                          }`}
+                          aria-hidden="true"
                         >
-                          <span
-                            className={`w-9 h-9 rounded-full flex items-center justify-center text-[11px] font-bold tracking-wide shrink-0 ${
-                              lead
-                                ? 'bg-[#18253A] text-[#D6C489] border border-[#18253A]'
-                                : 'bg-[#F1F3F5] text-[#18253A] border border-[#A49050]/25'
-                            }`}
-                            aria-hidden="true"
-                          >
-                            {initialsOf(member.name)}
-                          </span>
-                          <span className="min-w-0 flex-1 text-sm sm:text-[15px] font-medium text-[#18253A]">
+                          {initialsOf(member.name)}
+                        </span>
+                        <div className="min-w-0 flex-1">
+                          <p className="text-sm sm:text-[15px] font-semibold text-[#18253A] truncate">
                             {member.name}
-                          </span>
-                          <span
-                            className={`shrink-0 text-right text-[11px] sm:text-xs font-mono tracking-wide ${
-                              lead ? 'text-[#D96B33] font-bold uppercase' : 'text-[#18253A]/55'
+                          </p>
+                          <p
+                            className={`mt-0.5 text-[11px] font-mono uppercase tracking-[0.16em] ${
+                              lead ? 'text-[#D96B33] font-bold' : 'text-[#18253A]/45'
                             }`}
                           >
                             {member.role}
+                          </p>
+                        </div>
+                        {lead && (
+                          <span className="shrink-0 text-[9px] font-mono font-bold tracking-[0.2em] uppercase text-[#D96B33] bg-[#D96B33]/10 border border-[#D96B33]/25 rounded-full px-2.5 py-1">
+                            Lead
                           </span>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </article>
-              ))}
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
             </div>
           )}
 
           {/* --- Annual Return filings (paginated, view-only) --- */}
           {annualReturns.length > 0 && (
-            <div ref={cardsRef} className="annual-return-list">
+            <div ref={returnsRef} className="annual-return-list">
               <div className="flex items-baseline justify-between gap-4 mb-5">
                 <span className="text-[11px] font-mono uppercase tracking-[0.22em] text-[#18253A]/45">
                   {annualReturns.length} Filings

@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { ScrollToTop } from './components/ScrollToTop';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
@@ -23,6 +23,38 @@ import { ContactPage } from './pages/ContactPage';
 import { CorporateGovernancePage } from './pages/CorporateGovernancePage';
 import { NotFoundPage } from './pages/NotFoundPage';
 
+/**
+ * Keyed by pathname so every navigation fully remounts the page component (its
+ * whole subtree included). That re-runs every mount effect, so all
+ * scroll-triggered / entrance animations replay on each visit — even between
+ * two URLs that render the same component (e.g. /sectors/roads → /sectors/water).
+ * Query-string-only changes keep the same key, so filter/search UIs aren't reset.
+ */
+function AppRoutes() {
+  const { pathname } = useLocation();
+  return (
+    <React.Fragment key={pathname}>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<AboutOverview />} />
+        <Route path="/about/mission-vision" element={<MissionVision />} />
+        <Route path="/about/leadership" element={<LeadershipPage />} />
+        <Route path="/about/management-team" element={<ManagementTeamPage />} />
+        <Route path="/about/certifications" element={<CertificationsPage />} />
+        <Route path="/about/careers" element={<CareersPage />} />
+        <Route path="/sectors" element={<SectorsPage />} />
+        <Route path="/sectors/:slug" element={<SectorDetail />} />
+        <Route path="/services" element={<ServicesPage />} />
+        <Route path="/projects" element={<ProjectsPage />} />
+        <Route path="/projects/:filter" element={<ProjectsPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/corporate-governance/:slug" element={<CorporateGovernancePage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </React.Fragment>
+  );
+}
+
 export default function App() {
   return (
     <Router>
@@ -30,23 +62,7 @@ export default function App() {
       <div className="min-h-screen flex flex-col bg-[#F1F3F5] text-[#18253A] font-sans">
         <Navbar />
         <main className="flex-grow">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<AboutOverview />} />
-            <Route path="/about/mission-vision" element={<MissionVision />} />
-            <Route path="/about/leadership" element={<LeadershipPage />} />
-            <Route path="/about/management-team" element={<ManagementTeamPage />} />
-            <Route path="/about/certifications" element={<CertificationsPage />} />
-            <Route path="/about/careers" element={<CareersPage />} />
-            <Route path="/sectors" element={<SectorsPage />} />
-            <Route path="/sectors/:slug" element={<SectorDetail />} />
-            <Route path="/services" element={<ServicesPage />} />
-            <Route path="/projects" element={<ProjectsPage />} />
-            <Route path="/projects/:filter" element={<ProjectsPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/corporate-governance/:slug" element={<CorporateGovernancePage />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
+          <AppRoutes />
         </main>
         <Footer />
       </div>

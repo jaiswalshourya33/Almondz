@@ -302,26 +302,71 @@
   .about-subnav-section.is-visible .about-subnav-card:nth-child(2) { animation-delay: 800ms; }
   .about-subnav-section.is-visible .about-subnav-card:nth-child(3) { animation-delay: 1350ms; }
 
-  /* Corporate Governance — "Composition of Committees" stack. Same
-     IntersectionObserver + .is-visible + inline --i convention as the
-     leadership grid above; each committee card fades up in reading order. */
-  .committee-stack .committee-card {
+  /* Corporate Governance — "Composition of Committees" master/detail board.
+     .committee-board gets .is-visible from the section's IntersectionObserver
+     (see revealSectionOnScroll onReveal). The rail tabs slide in from the left
+     one after another; the detail panel fades/rises in. Because the panel is
+     keyed by the active index it remounts on every tab change, so both the
+     panel-swap and the staggered member reveal replay each time a new
+     committee is picked. */
+  .committee-board .committee-tab {
     opacity: 0;
-    translate: 0 28px;
+    translate: -28px 0;
   }
 
-  .committee-stack.is-visible .committee-card {
-    animation: committee-card-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
-    animation-delay: calc(var(--i, 0) * 140ms);
+  .committee-board.is-visible .committee-tab {
+    animation: committee-tab-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(var(--i, 0) * 90ms);
+  }
+
+  .committee-board .committee-panel {
+    opacity: 0;
+    translate: 0 18px;
+  }
+
+  .committee-board.is-visible .committee-panel {
+    animation: committee-panel-swap 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .committee-board .committee-panel__title {
+    opacity: 0;
+    translate: 0 12px;
+  }
+
+  .committee-board.is-visible .committee-panel__title {
+    animation: committee-card-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: 0.12s;
+  }
+
+  .committee-board .committee-panel__rule {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  .committee-board.is-visible .committee-panel__rule {
+    animation: committee-rule-grow 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: 0.28s;
+  }
+
+  .committee-board .committee-member {
+    opacity: 0;
+    translate: 0 10px;
+  }
+
+  .committee-board.is-visible .committee-member {
+    animation: committee-card-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(0.2s + var(--i, 0) * 0.07s);
   }
 
   /* Corporate Governance — "Annual Return" paginated list. The section gets
-     .is-visible from the same IntersectionObserver; each filing row slides in
-     from the left, one after another, via the inline --i index. Replays on
-     page change because the rows are keyed by file and remount. */
+     .is-visible from the same IntersectionObserver; each filing row rises in,
+     one after another, via the inline --i index. Replays on page change
+     because the rows are keyed by file and remount. Reveal is vertical only —
+     a horizontal slide left the rows visibly offset from the list header
+     whenever the animation hadn't finished. */
   .about-subnav-section .annual-return-row {
     opacity: 0;
-    translate: -56px 0;
+    translate: 0 22px;
   }
 
   .about-subnav-section.is-visible .annual-return-row {
@@ -1666,10 +1711,27 @@
   to { opacity: 1; translate: 0 0; }
 }
 
-/* Annual Return rows enter one by one, sliding in from the left. */
+/* Annual Return rows enter one by one, rising into place. */
 @keyframes annual-return-row-in {
-  from { opacity: 0; translate: -56px 0; }
+  from { opacity: 0; translate: 0 22px; }
   to { opacity: 1; translate: 0 0; }
+}
+
+/* Composition of Committees — rail tabs slide in from the left, the detail
+   panel lifts in, its accent rule grows out from the left edge. */
+@keyframes committee-tab-in {
+  from { opacity: 0; translate: -32px 0; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+@keyframes committee-panel-swap {
+  from { opacity: 0; translate: 0 18px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+@keyframes committee-rule-grow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
 }
 
 /* View-only PDF reader (PdfViewerModal) — used by the Corporate Governance
