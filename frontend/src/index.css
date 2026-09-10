@@ -1859,9 +1859,37 @@
   height: 0 !important;
 }
 
+/* Running Carousel Animation for Institutional Empanelments & Clients — Single Row Pure Logos */
+@keyframes client-logo-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.client-logo-marquee {
+  position: relative !important;
+  width: 100% !important;
+  overflow: hidden !important;
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
+.client-logo-marquee__track {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  width: max-content !important;
+  gap: 1.25rem !important;
+  animation: client-logo-scroll 24s linear infinite !important;
+}
+
+.client-logo-marquee:hover .client-logo-marquee__track {
+  animation-play-state: paused !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .partner-marquee__track,
+  .client-logo-marquee__track,
   main section :is(h1, h2, p, .group) { animation: none; }
   .sector-showcase,
   .sector-showcase__card,

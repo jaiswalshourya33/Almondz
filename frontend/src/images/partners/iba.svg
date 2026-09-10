@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 90" width="100%" height="100%">
+  <g fill="none">
+    <!-- Emblem -->
+    <circle cx="45" cy="45" r="32" stroke="#0C3866" stroke-width="3" fill="#FAF9F5" />
+    <circle cx="45" cy="45" r="26" stroke="#C5A85A" stroke-width="1.5" fill="none" />
+    <path d="M30 52 L30 40 M36 52 L36 36 M45 52 L45 32 M54 52 L54 36 M60 52 L60 40" stroke="#0C3866" stroke-width="2.5" stroke-linecap="round" />
+    <path d="M26 56 L64 56" stroke="#0C3866" stroke-width="3" stroke-linecap="round" />
+    <path d="M26 34 L45 23 L64 34 Z" fill="#0C3866" />
+    
+    <!-- Text -->
+    <text x="88" y="44" font-family="'Cinzel', 'Playfair Display', Georgia, serif" font-weight="800" font-size="28" fill="#0C3866" letter-spacing="2">IBA</text>
+    <text x="89" y="60" font-family="'Inter', 'Segoe UI', system-ui, sans-serif" font-weight="700" font-size="11" fill="#18253A" letter-spacing="0.5">Indian Banks' Association</text>
+    <text x="89" y="72" font-family="'Inter', 'Segoe UI', system-ui, sans-serif" font-weight="600" font-size="8" fill="#A49050" letter-spacing="1.5" text-transform="uppercase">ESTD. 1946 • APEX BANKING BODY</text>
+  </g>
+</svg>

@@ -1,11 +1,11 @@
-import ablImage from '../images/abl.jpg';
-import sudhakar from '../images/Sudhakar.jpg';
-import vijai from '../images/vijai.jpg';
-import sinha from '../images/sinha_(1).jpg';
-import sankha from '../images/Sankha-das-Gupta.jpg';
-import sanjeet from '../images/sanjeet.jpg';
-import shabad from '../images/Shabad singh sobti.jpg';
-import amitabh from '../images/amitabh.jpg';
+import ablImage from '../images/abl.png';
+import sudhakar from '../images/sudhakar-singh.png';
+import vijai from '../images/vijai.png';
+import sinha from '../images/satish-chandra-sinha.png';
+import sankha from '../images/Sankha-das-Gupta.png';
+import sanjeet from '../images/sanjeet.png';
+import shabad from '../images/shabad-singh-sobti.png';
+import amitabh from '../images/amitabh.png';
 
 export interface Leader {
   name: string;

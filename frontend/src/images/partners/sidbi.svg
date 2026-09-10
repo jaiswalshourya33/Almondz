@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 90" width="100%" height="100%">
+  <g fill="none" fill-rule="evenodd">
+    <!-- SIDBI Leaf / Growth Graphic -->
+    <path d="M42 16 C54 24, 58 40, 52 56 C46 72, 30 78, 20 74 C16 72, 14 68, 16 64 C22 50, 36 30, 42 16 Z" fill="#78BE20" />
+    <path d="M44 26 C40 38, 30 52, 22 58 C28 44, 38 32, 44 26 Z" fill="#005A9C" opacity="0.4" />
+    <path d="M26 34 C38 42, 44 56, 38 68 C34 76, 26 78, 22 74 C20 72, 22 66, 26 56 C28 48, 28 40, 26 34 Z" fill="#005A9C" />
+    
+    <!-- SIDBI Wordmark -->
+    <text x="68" y="58" font-family="'Inter', 'Segoe UI', system-ui, sans-serif" font-weight="900" font-size="44" fill="#005A9C" letter-spacing="-1">sidbi</text>
+    
+    <!-- Subtitles -->
+    <text x="70" y="72" font-family="'Inter', 'Segoe UI', system-ui, sans-serif" font-weight="700" font-size="8.5" fill="#4B5563" letter-spacing="0.5">भारतीय लघु उद्योग विकास बैंक</text>
+    <text x="70" y="82" font-family="'Inter', 'Segoe UI', system-ui, sans-serif" font-weight="600" font-size="7" fill="#6B7280" letter-spacing="0.2">SMALL INDUSTRIES DEVELOPMENT BANK OF INDIA</text>
+  </g>
+</svg>

@@ -1,10 +1,11 @@
-import tiwari from '../images/CP_Tiwari.jpg';
-import nirmal from '../images/nirmala kumar sinha.jpg';
-import gaurav from '../images/sharma.jpg';
+import tiwari from '../images/CP_Tiwari.png';
+import nirmal from '../images/nirmal-kumar-sinha.png';
+import gaurav from '../images/sharma.png';
 import rahul from '../images/rahul.jpg';
-import rashmi from '../images/rashmi.jpg';
-import sunny from '../images/sunny.jpg';
-import sanjeev from '../images/sanjeev-jain.jpg'
+import rashmi from '../images/rashmi.png';
+import sunny from '../images/sunny.png';
+import sanjeev from '../images/sanjeev-jain.png';
+import sushmita from '../images/sushmita.png';
 
 export interface ManagementMember {
   id: string;
@@ -347,5 +348,16 @@ export const MANAGEMENT_TEAM: ManagementMember[] = [
     email: COMPANY_EMAIL,
     department: "Executive Leadership",
     competencies: ["Human Resources"]
+  },
+  {
+    id: "sushmita",
+    name: "Sushmita",
+    title: "Compliance",
+    qualification: "",
+    experienceYears: 0,
+    bio: "Sushmita is part of AGICL's Compliance function.",
+    image: sushmita,
+    email: COMPANY_EMAIL,
+    competencies: ["Compliance"]
   },
 ];
