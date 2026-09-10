@@ -1,6 +1,7 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { PROJECTS, Project } from '../data/projects';
+import { ROADS_SUPERVISION_PROJECTS } from '../data/roadsSupervisionProjects';
 import { SECTORS } from '../data/sectors';
 import { ProjectCard } from '../components/ProjectCard';
 import { ProjectVideoModal } from '../components/ProjectVideoModal';
@@ -9,6 +10,11 @@ import { Search, Filter, ChevronLeft, ChevronRight } from 'lucide-react';
 import cleanEnergyHero from '../images/hero/clean-energy-infra.jpg';
 
 const PROJECTS_PER_PAGE = 6;
+
+// The Projects page lists the core PROJECTS plus the detailed Roads, Bridges,
+// Highways & Tunnels supervision assignments (each already carries its own
+// "Ongoing" / "Completed" status). They also remain on the Roads sector page.
+const ALL_PROJECTS: Project[] = [...PROJECTS, ...ROADS_SUPERVISION_PROJECTS];
 
 export const ProjectsPage: React.FC = () => {
   const { filter } = useParams<{ filter?: string }>();
@@ -49,7 +55,7 @@ export const ProjectsPage: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
-  const filteredProjects = PROJECTS.filter((proj) => {
+  const filteredProjects = ALL_PROJECTS.filter((proj) => {
     const matchesStatus = selectedStatus === 'All' || proj.status === selectedStatus;
     const matchesSector = selectedSector === 'All' || proj.sector === selectedSector;
     const matchesSearch = proj.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
@@ -122,7 +128,7 @@ export const ProjectsPage: React.FC = () => {
           
           {/* Status Tabs */}
           <div className="flex flex-wrap gap-2">
-             {['All', 'Recently Awarded', 'Ongoing', 'Completed'].map((status) => (
+             {['All', 'Ongoing', 'Completed'].map((status) => (
               <button
                 key={status}
                 onClick={() => setSelectedStatus(status)}

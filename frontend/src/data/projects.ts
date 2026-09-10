@@ -1,6 +1,55 @@
-import washTreatmentImage from '../images/water-treatment-plant.png';
-import tripuraCommandCentreImage from '../images/urban-command-centre.png';
-import kosiRiverModelImage from '../images/sector-water.jpg';
+// Actual site photographs supplied by the client for three ongoing assignments
+// (folder "RP - Project Photograph": Bihar Kosi / TUDA / WASH). They replace the
+// generic stock imagery for those three projects only; every other project keeps
+// its existing image. Per project: `image` (card) + `detailImage` (dialog photo)
+// + `gallery` — up to three *distinct*, text-free "Site Photographs" (any frame
+// still carrying a burned-in "GPS Map Camera" / WhatsApp stamp is left out).
+// See Project_Photograph_Image_Mapping.md for the full rationale.
+import kosiPhoto01 from '../images/projects/kosi-01-barrage-guide-bunds.jpeg';
+import kosiPhoto03 from '../images/projects/kosi-03-tail-gate-krm.jpeg';
+import kosiPhoto05 from '../images/projects/kosi-05-wrd-officials-meeting.jpeg';
+import kosiPhoto06 from '../images/projects/kosi-06-wrd-felicitation.jpeg';
+import tudaPhoto01 from '../images/projects/tuda-01-ohr-750kl-mohanpur.jpeg';
+import tudaPhoto03 from '../images/projects/tuda-03-chobimura-site-visit-dm.jpeg';
+import tudaPhoto05 from '../images/projects/tuda-05-chabimura-tourism-minister-visit.jpeg';
+import tudaPhoto06 from '../images/projects/tuda-06-adb-mission-chabimura.jpeg';
+import tudaPhoto07 from '../images/projects/tuda-07-adb-mission-ttdcl-chabimura.jpeg';
+import washPhoto01 from '../images/projects/wash-01-cleanliness-drive.jpg';
+import washPhoto02 from '../images/projects/wash-02-independence-day-cleanliness-sepahijala.jpg';
+import washPhoto03 from '../images/projects/wash-03-block-level-orientation-swm-rules.jpeg';
+import washPhoto06 from '../images/projects/wash-06-community-sanitary-complex-jubrajnagar.jpeg';
+// Railways & Metro Rail site photographs supplied by the client
+// ("Railway Project details and photographs.docx"). Ten ongoing railway
+// assignments; each project keeps only its OWN site photos — card `image`,
+// dialog `detailImage`, and up to three `gallery` frames — in the exact order
+// they appear under that project's heading in the source document. No photo is
+// shared between two projects.
+import railDduPssaFobRampImage from '../images/projects/rail-ddu-pssa-01-fob-ramp-steel-beam-durgauti.jpg';
+import railDduPssaPfShedImage from '../images/projects/rail-ddu-pssa-02-pf-shed-sheet-fixing-haidar-nagar.jpg';
+import railDduGcRampFoundationImage from '../images/projects/rail-ddu-gc-01-ramp-foundation-steel-binding-bhabhua-road.jpg';
+import railDduGcFobArchImage from '../images/projects/rail-ddu-gc-02-fob-arch-fixing-bhabhua-road.jpg';
+import railRatlamFootingImage from '../images/projects/rail-ratlam-pssa-01-footing-concrete-works.jpg';
+import railRatlamMajorBridgeImage from '../images/projects/rail-ratlam-pssa-02-major-bridge-construction.jpg';
+import railRatlamDeckSlabImage from '../images/projects/rail-ratlam-pssa-03-deck-slab-concreting.jpg';
+import railVijayawadaGunadalaImage from '../images/projects/rail-vijayawada-pssa-01-platform-shelter-gunadala.jpg';
+import railVijayawadaGudivadaImage from '../images/projects/rail-vijayawada-pssa-02-platform-shelter-gudivada.jpg';
+import railVijayawadaMachilipatnamImage from '../images/projects/rail-vijayawada-pssa-03-station-building-machilipatnam.jpg';
+import railTindivanamFootingImage from '../images/projects/rail-tindivanam-nagari-01-bridge-footing-steel-checking.jpg';
+import railTindivanamCompactionImage from '../images/projects/rail-tindivanam-nagari-02-subgrade-compaction-rollers.jpg';
+import railTindivanamWallReinfImage from '../images/projects/rail-tindivanam-nagari-03-wall-reinforcement-shuttering.jpg';
+import railBhopalKotaPedestalImage from '../images/projects/rail-bhopal-kota-scada-01-fob-pedestal-concreting.jpg';
+import railBhopalKotaCableImage from '../images/projects/rail-bhopal-kota-scada-02-signal-telecom-cable-marking.jpg';
+import railHyderabadStaircaseImage from '../images/projects/rail-hyderabad-pssa-01-pf-staircase-ms-sheet-placement.jpg';
+import railHyderabadPccAImage from '../images/projects/rail-hyderabad-pssa-02-foundation-pcc-laying-a.jpg';
+import railHyderabadPccBImage from '../images/projects/rail-hyderabad-pssa-03-foundation-pcc-laying-b.jpg';
+import railMysuruQuartersImage from '../images/projects/rail-mysuru-pms-01-railway-quarters.jpg';
+import railMysuruServiceBuildingImage from '../images/projects/rail-mysuru-pms-02-service-building.jpg';
+import railJiribamStationImage from '../images/projects/rail-jiribam-imphal-01-completed-station-hill-section.jpg';
+import railJiribamTunnelLiningImage from '../images/projects/rail-jiribam-imphal-02-tunnel-lining-works.jpg';
+import railJiribamViaductPiersImage from '../images/projects/rail-jiribam-imphal-03-viaduct-piers.jpg';
+import railJiribamTunnelPortalImage from '../images/projects/rail-jiribam-imphal-04-tunnel-portal-works.jpg';
+import railGoddaRmcFoundationImage from '../images/projects/rail-godda-mahagama-01-rmc-plant-foundation.jpg';
+import railGoddaSiteClearanceImage from '../images/projects/rail-godda-mahagama-02-site-clearance-levelling.jpg';
 import gisSurveyMappingImage from '../images/services-survey-investigation-testing.png';
 import himachalHillTownImage from '../images/himachal-ropeway.jpg';
 import agraTransitTodImage from '../images/sector-railways.jpg';
@@ -15,11 +64,14 @@ import dholeraSupervisionImage from '../images/services-engineering-design-super
 import natureBasedPmcImage from '../images/services-pmc.png';
 
 // `detailImage` is an optional second photograph shown in the project details
-// dialog (distinct from the card `image`). The trailing optional fields
+// dialog (distinct from the card `image`). `imagePosition` is an optional CSS
+// `object-position` value (e.g. "center 30%") applied to the card / modal photo
+// so a tall subject isn't cropped through the middle by the wide card banner.
+// The trailing optional fields
 // (authorityEngineer … commercialOperationDate) carry supervision-assignment
 // specifics; they render as extra rows in the project details dialog and are
 // simply absent on projects that don't set them.
-export interface Project { id: string; title: string; slug: string; sector: string; sectorSlug: string; status: "Recently Awarded" | "Ongoing" | "Completed"; location: string; coordinates: string; image: string; detailImage?: string; youtubeUrl?: string; role: string; client: string; description: string; impact: string; servicesProvided: string[]; authorityEngineer?: string; contractor?: string; totalLength?: string; totalCost?: string; physicalProgress?: string; financialProgress?: string; commercialOperationDate?: string; }
+export interface Project { id: string; title: string; slug: string; sector: string; sectorSlug: string; status: "Recently Awarded" | "Ongoing" | "Completed"; location: string; coordinates: string; image: string; detailImage?: string; gallery?: string[]; imagePosition?: string; youtubeUrl?: string; role: string; client: string; description: string; impact: string; servicesProvided: string[]; authorityEngineer?: string; contractor?: string; totalLength?: string; totalCost?: string; physicalProgress?: string; financialProgress?: string; commercialOperationDate?: string; }
 
 // Project records below are sourced from the client's project brief workbook
 // ("Prject breif details _04092026.xlsx" / Project_Brief_Details_04092026.md).
@@ -39,7 +91,12 @@ export const PROJECTS: Project[] = [
     status: "Ongoing",
     location: "Tripura, India",
     coordinates: "India",
-    image: washTreatmentImage,
+    image: washPhoto06,
+    detailImage: washPhoto03,
+    gallery: [washPhoto01, washPhoto02],
+    // Keep the crew's faces and the sanitary-complex building in frame on the
+    // wide card banner (the bottom caption strip is cropped out).
+    imagePosition: "center 42%",
     role: `State & District WASH Programme Management Units (PMU)`,
     client: `DWS, Reg. Division`,
     description: `The WASH Project, Tripura focuses on improving Water, Sanitation and Hygiene services across the state. The project supports urban and rural local bodies in planning, implementing and monitoring sanitation and waste-management initiatives, including: • Solid Waste Management (SWM)  • Liquid Waste Management (LWM)  • Plastic Waste Management (PWM)  • Faecal Sludge Management (FSM)  • Water supply and sanitation improvement  • Preparation of surveys, assessments, DPRs, plans and strategies  • Technical support, capacity building and monitoring of WASH activities  • Coordination with State/District WASH PMUs, ULBs, Gram Panchayats and other stakeholders The project aims to strengthen sanitation infrastructure and services and improve overall public health, hygiene and environmental cleanliness in Tripura.`,
@@ -82,7 +139,9 @@ export const PROJECTS: Project[] = [
     status: "Ongoing",
     location: "Tripura, India",
     coordinates: "India",
-    image: tripuraCommandCentreImage,
+    image: tudaPhoto01,
+    detailImage: tudaPhoto06,
+    gallery: [tudaPhoto03, tudaPhoto05, tudaPhoto07],
     role: `Project Management & Supervision Consultant (PMSC)`,
     client: `Tripura Urban Planning &Development Autl6rity (TUDA), Urban Development Department, Government of Tripura`,
     description: `The Tripura Urban and Tourism Development Project (TUTDP) is an ADB-assisted project of the Government of Tripura aimed at improving urban infrastructure, municipal services, and tourism facilities across the state. The project focuses on 12 Urban Local Bodies (ULBs), with investments in water supply, roads, storm-water drainage, climate-resilient infrastructure, and improved urban service delivery.  The tourism component focuses on upgrading selected tourist destinations, improving visitor facilities, and strengthening the capacity of Tripura Tourism Development Corporation Limited (TTDCL) through tourism planning, business planning, and marketing strategies.  The Project Management & Supervision Consultant (PMSC) provides technical and management support to the Project Management Unit (PMU) and Project Implementation Units (PIUs) for effective project implementation, including procurement, contract management, design/DPR review, construction supervision, safeguards, quality control, monitoring, reporting, and institutional capacity building Project Management & Supervision Consultancy (PMSC) for the ADB-assisted Tripura Urban & Tourism Development Project (TUTDP), supporting the Government of Tripura in implementation of urban infrastructure and tourism development initiatives, including water supply, roads, storm-water drainage, climate-resilient infrastructure, municipal services, tourism destination development, procurement, contract management, supervision, safeguards, and institutional capacity building.`,
@@ -110,7 +169,9 @@ export const PROJECTS: Project[] = [
     status: "Ongoing",
     location: "Birpur, Supaul, Bihar, India",
     coordinates: "India",
-    image: kosiRiverModelImage,
+    image: kosiPhoto01,
+    detailImage: kosiPhoto03,
+    gallery: [kosiPhoto05, kosiPhoto06],
     role: `Fabrication, Simulation & 5-Year O&M Consultant`,
     client: `Water Resource Department (Govt. of Bihar)`,
     description: `The project involves fabrication, operation, hydraulic simulation, and maintenance of physical models of the Kosi River and Kosi Barrage at the Physical Modelling Centre (PMC), Centre of Excellence (COE), Birpur, Supaul, Bihar. The models will be used to study river flow, sediment behaviour, barrage hydraulics, flood management, and related hydraulic conditions. The scope also includes operation and maintenance (O&M) of the physical models for five years to support technical studies and informed decision-making for effective management of the Kosi River and Barrage.`,
@@ -371,6 +432,243 @@ export const PROJECTS: Project[] = [
       `b) Approval of Draft Master Plan (DA Board)`
     ]
   },
+
+  // ---------------------------------------------------------------------------
+  // Railways & Metro Rail — ten ongoing assignments from the client's
+  // "Railway Project details and photographs.docx". Content (project name,
+  // location, project value, brief) and site photographs are taken verbatim
+  // from that document; nothing is shared between two projects.
+  // ---------------------------------------------------------------------------
+  {
+    id: "ddu-pssa-gati-shakti-project-supervision",
+    title: `DDU-PSSA – Project Supervision Services Agency for Gati Shakti DDU Unit`,
+    slug: "ddu-pssa-gati-shakti-project-supervision",
+    sector: "Railways & Metro Rail",
+    sectorSlug: "railways-metro",
+    status: "Ongoing",
+    location: "Uttar Pradesh & Bihar, India",
+    coordinates: "India",
+    image: railDduPssaFobRampImage,
+    detailImage: railDduPssaPfShedImage,
+    role: `Project Supervision Services Agency (PSSA)`,
+    client: `Gati Shakti Unit, DDU Division (Indian Railways)`,
+    description: `The project involves providing Project Supervision Services for various railway infrastructure works including Station redevelopments under ABSS, Construction of FOBs, ROBs, RUBs under the Gati Shakti Unit, DDU Division.`,
+    impact: `Ongoing project supervision assignment for railway infrastructure works under the Gati Shakti Unit, DDU Division, spanning sites across Uttar Pradesh and Bihar. Site activities in progress include FOB ramp steel beam shifting and welding works at Durgauti (DGO) station and platform-shed sheet fixing works at Haidar Nagar (HND) station.`,
+    servicesProvided: [
+      `Project Supervision Services for station redevelopment under the Amrit Bharat Station Scheme (ABSS)`,
+      `Supervision of construction of Foot Over Bridges (FOBs), Road Over Bridges (ROBs) and Road Under Bridges (RUBs)`,
+      `Coordination among contractors and railway authorities for efficient and timely execution of works`
+    ]
+  },
+  {
+    id: "ddu-gc-general-consultancy-gati-shakti",
+    title: `DDU-GC – General Consultancy Services for Gati Shakti Units, East Central Railway, DDU Division`,
+    slug: "ddu-gc-general-consultancy-gati-shakti",
+    sector: "Railways & Metro Rail",
+    sectorSlug: "railways-metro",
+    status: "Ongoing",
+    location: "Deen Dayal Upadhyaya Nagar, Uttar Pradesh, India",
+    coordinates: "India",
+    image: railDduGcRampFoundationImage,
+    detailImage: railDduGcFobArchImage,
+    role: `General Consultancy Services (GC)`,
+    client: `East Central Railway – Gati Shakti Units, DDU Division`,
+    description: `The project involves providing General Consultancy Services for railway infrastructure works under the Gati Shakti Units of East Central Railway, DDU Division. The scope includes technical review, site inspections, progress monitoring and quality assessment of ongoing works. The consultancy services support effective project coordination and implementation in accordance with approved technical requirements.`,
+    impact: `Ongoing general consultancy assignment supporting railway infrastructure works under the Gati Shakti Units of East Central Railway, DDU Division. Current site activities include ramp foundation steel binding work and FOB arch fixing works at Bhabhua Road (BBU) station.`,
+    servicesProvided: [
+      `Technical review of railway infrastructure works under the Gati Shakti Units, DDU Division`,
+      `Site inspections, progress monitoring and quality assessment of ongoing works`,
+      `Project coordination and implementation support in accordance with approved technical requirements`
+    ]
+  },
+  {
+    id: "ratlam-pssa-gati-shakti-western-railway",
+    title: `Ratlam-PSSA – Project Supervision Services for Various Construction Works, Gati Shakti Unit, Western Railway`,
+    slug: "ratlam-pssa-gati-shakti-western-railway",
+    sector: "Railways & Metro Rail",
+    sectorSlug: "railways-metro",
+    status: "Ongoing",
+    location: "Ratlam, Madhya Pradesh, India",
+    coordinates: "India",
+    image: railRatlamFootingImage,
+    detailImage: railRatlamMajorBridgeImage,
+    gallery: [railRatlamDeckSlabImage],
+    role: `Project Supervision Services Agency (PSSA)`,
+    client: `Western Railway – Gati Shakti Unit, Ratlam`,
+    description: `The project covers Project Supervision Services for various railway construction works under the Gati Shakti Unit, Ratlam, Western Railway. The scope involves monitoring construction activities at different project locations, including inspection of workmanship, materials and work progress. The PSSA team coordinates with the executing agencies and railway officials to facilitate proper and timely completion of the works.`,
+    impact: `Ongoing project supervision assignment under the Gati Shakti Unit, Ratlam, Western Railway. Current site activities include footing concrete works, construction of major bridges and deck-slab concreting over major bridges.`,
+    totalCost: "₹212 Crore (project value)",
+    servicesProvided: [
+      `Monitoring of railway construction activities at multiple project locations`,
+      `Inspection of workmanship, materials and work progress`,
+      `Coordination with executing agencies and railway officials for proper and timely completion of works`
+    ]
+  },
+  {
+    id: "vijayawada-pssa-amrit-bharat-station-scheme",
+    title: `Vijayawada-PSSA – Project Supervision Services for Works under Amrit Bharat Station Scheme, Gati Shakti Unit, Vijayawada Division`,
+    slug: "vijayawada-pssa-amrit-bharat-station-scheme",
+    sector: "Railways & Metro Rail",
+    sectorSlug: "railways-metro",
+    status: "Ongoing",
+    location: "Vijayawada, Andhra Pradesh, India",
+    coordinates: "India",
+    image: railVijayawadaGunadalaImage,
+    detailImage: railVijayawadaGudivadaImage,
+    gallery: [railVijayawadaMachilipatnamImage],
+    role: `Project Supervision Services Agency (PSSA)`,
+    client: `Gati Shakti Unit, Vijayawada Division (Indian Railways)`,
+    description: `The project involves supervision of railway station development and related infrastructure works under the Amrit Bharat Station Scheme in Vijayawada Division. The PSSA services cover monitoring of civil, structural and associated works, along with quality and progress assessment. The scope also includes site coordination and inspection to support the systematic execution of station improvement works.`,
+    impact: `Ongoing project supervision assignment for station development under the Amrit Bharat Station Scheme, Vijayawada Division. Current site activities include platform shelter works at Gunadala and Gudivada stations and station building works at Machilipatnam.`,
+    totalCost: "₹1,600 Crore (project value)",
+    servicesProvided: [
+      `Supervision of railway station development and related infrastructure works under the Amrit Bharat Station Scheme`,
+      `Monitoring of civil, structural and associated works with quality and progress assessment`,
+      `Site coordination and inspection to support systematic execution of station improvement works`
+    ]
+  },
+  {
+    id: "tindivanam-nagari-new-bg-line-pssa-southern-railway",
+    title: `Project Supervision Services for Various Construction Projects under Deputy Chief Engineer/CN/TBM, Southern Railway (Tindivanam–Nagari New Broad Gauge Line)`,
+    slug: "tindivanam-nagari-new-bg-line-pssa-southern-railway",
+    sector: "Railways & Metro Rail",
+    sectorSlug: "railways-metro",
+    status: "Ongoing",
+    location: "Thindivanam–Walajah–Nagari, Tamil Nadu, India",
+    coordinates: "India",
+    image: railTindivanamFootingImage,
+    detailImage: railTindivanamCompactionImage,
+    gallery: [railTindivanamWallReinfImage],
+    role: `Project Supervision Services Agency (PSSA)`,
+    client: `Southern Railway – Deputy Chief Engineer/CN/TBM`,
+    description: `AGICL has been awarded a Project Supervision Services Agency (PSSA) assignment by Southern Railway for the Tindivanam–Nagari New Broad Gauge Line Project, with a consultancy contract value of approximately ₹12.13 Crore. Under this assignment, AGICL provides comprehensive supervision and monitoring services for the construction of 29 Road Over Bridges (ROBs), 25 Major Bridges, 33 Minor Bridges, station buildings, platforms, yards, Foot Over Bridges (FOBs), staff quarters, service buildings, and other associated railway infrastructure works. The scope also includes supervision of development works at Tindivanam and Walajah Road stations.`,
+    impact: `The project represents a significant milestone in enhancing regional rail connectivity and infrastructure development. This achievement further strengthens AGICL's presence in the railway sector and demonstrates the Company's proven capabilities in project supervision, quality assurance, and infrastructure management for large-scale transportation projects. Current site activities include major bridges footing steel checking works, compaction of sub-grade using pneumatic rollers, and wall reinforcement and shuttering work.`,
+    totalCost: "₹3,634.13 Crore (project value); consultancy contract ≈ ₹12.13 Crore",
+    servicesProvided: [
+      `Supervision and monitoring of construction of 29 Road Over Bridges (ROBs)`,
+      `Supervision of 25 Major Bridges and 33 Minor Bridges`,
+      `Supervision of station buildings, platforms, yards, Foot Over Bridges (FOBs), staff quarters and service buildings`,
+      `Supervision of development works at Tindivanam and Walajah Road stations`
+    ]
+  },
+  {
+    id: "bhopal-kota-2x25kv-at-feeding-scada-pms",
+    title: `Project Management Services for 2×25 kV AT Feeding System and SCADA Works – Bhopal & Kota Divisions, West Central Railway`,
+    slug: "bhopal-kota-2x25kv-at-feeding-scada-pms",
+    sector: "Railways & Metro Rail",
+    sectorSlug: "railways-metro",
+    status: "Ongoing",
+    location: "Bhopal & Kota Divisions, Madhya Pradesh & Rajasthan, India",
+    coordinates: "India",
+    image: railBhopalKotaPedestalImage,
+    detailImage: railBhopalKotaCableImage,
+    role: `Project Management Consultant (PMC)`,
+    client: `West Central Railway – Bhopal & Kota Divisions`,
+    description: `The assignment encompasses design review, project management, supervision, and monitoring of the design, supply, erection, testing, and commissioning of critical traction power infrastructure, including 132/55 kV Scott Connected Traction Substations, Switching Posts, 2×25 kV AT Feeding Systems, and the upgradation of SCADA systems. The project covers key railway sections, namely Suwasra–Bina, Etarsi–Suwasra, Etarsi–Khandwa, Bina–Ruthiyai, and Kota–Ruthiyai.`,
+    impact: `This strategic project will contribute significantly to strengthening the railway traction network, enhancing operational reliability, and supporting increased freight loading capacity across the region. The award reinforces AGICL's growing leadership in railway electrification and project management consultancy services. Current site activities include pedestal concreting works for FOB and signal and telecom cable marking.`,
+    totalCost: "₹352.67 Crore (project value)",
+    servicesProvided: [
+      `Design review, project management, supervision and monitoring of design, supply, erection, testing and commissioning of traction power infrastructure`,
+      `132/55 kV Scott Connected Traction Substations, Switching Posts and 2×25 kV AT Feeding Systems`,
+      `Upgradation of SCADA systems`,
+      `Coverage of Suwasra–Bina, Etarsi–Suwasra, Etarsi–Khandwa, Bina–Ruthiyai and Kota–Ruthiyai sections`
+    ]
+  },
+  {
+    id: "hyderabad-pssa-gati-shakti-unit",
+    title: `Hyderabad-PSSA – Project Supervision Services for CPM/Gati Shakti/Hyderabad Unit`,
+    slug: "hyderabad-pssa-gati-shakti-unit",
+    sector: "Railways & Metro Rail",
+    sectorSlug: "railways-metro",
+    status: "Ongoing",
+    location: "Hyderabad, Telangana, India",
+    coordinates: "India",
+    image: railHyderabadStaircaseImage,
+    detailImage: railHyderabadPccAImage,
+    gallery: [railHyderabadPccBImage],
+    role: `Project Supervision Services Agency (PSSA)`,
+    client: `CPM/Gati Shakti/Hyderabad Unit (Indian Railways)`,
+    description: `The project involves providing Project Supervision Services for various railway infrastructure works including Station redevelopments under ABSS, Construction of FOBs, ROBs, RUBs under the Gati Shakti Unit. The PSSA team supports coordination among contractors and railway authorities for efficient and timely execution of the works.`,
+    impact: `Ongoing project supervision assignment for railway infrastructure works under the Gati Shakti/Hyderabad Unit. Current site activities include platform staircase base MS sheet placement work and foundation PCC laying work.`,
+    totalCost: "₹464 Crore (project value)",
+    servicesProvided: [
+      `Project Supervision Services for station redevelopment under the Amrit Bharat Station Scheme (ABSS)`,
+      `Supervision of construction of Foot Over Bridges (FOBs), Road Over Bridges (ROBs) and Road Under Bridges (RUBs)`,
+      `Coordination among contractors and railway authorities for efficient and timely execution of works`
+    ]
+  },
+  {
+    id: "mysuru-pms-railway-station-development",
+    title: `Mysuru-PMS – Project Management Services for Development of Mysuru Railway Station`,
+    slug: "mysuru-pms-railway-station-development",
+    sector: "Railways & Metro Rail",
+    sectorSlug: "railways-metro",
+    status: "Ongoing",
+    location: "Mysuru, Karnataka, India",
+    coordinates: "India",
+    image: railMysuruQuartersImage,
+    detailImage: railMysuruServiceBuildingImage,
+    role: `Project Management Services (PMS)`,
+    client: `Indian Railways – Mysuru Railway Station Development (EPC mode)`,
+    description: `The project involves Project Management Services for the development of Mysuru Railway Station through EPC mode. The scope covers civil, electrical, railway electrification, Signal & Telecom works, including construction of quarters and service buildings, dismantling of existing structures and earthwork. It also includes supervision of bridge extensions, retaining walls and other allied infrastructure works associated with the station development.`,
+    impact: `Ongoing project management assignment for the EPC-mode redevelopment of Mysuru Railway Station, covering civil, electrical, railway electrification and Signal & Telecom works along with quarters and service buildings.`,
+    totalCost: "₹356 Crore (project value)",
+    servicesProvided: [
+      `Project Management Services for development of Mysuru Railway Station through EPC mode`,
+      `Civil, electrical, railway electrification and Signal & Telecom works`,
+      `Construction of quarters and service buildings, dismantling of existing structures and earthwork`,
+      `Supervision of bridge extensions, retaining walls and other allied infrastructure works`
+    ]
+  },
+  {
+    id: "jiribam-imphal-new-bg-railway-line-gc",
+    title: `Jiribam–Imphal New Broad Gauge Railway Line Project – General Consultancy Services`,
+    slug: "jiribam-imphal-new-bg-railway-line-gc",
+    sector: "Railways & Metro Rail",
+    sectorSlug: "railways-metro",
+    status: "Ongoing",
+    location: "Jiribam (Assam) to Imphal (Manipur), India",
+    coordinates: "India",
+    image: railJiribamStationImage,
+    detailImage: railJiribamTunnelLiningImage,
+    gallery: [railJiribamViaductPiersImage, railJiribamTunnelPortalImage],
+    role: `General Consultancy Services (GC)`,
+    client: `Northeast Frontier Railway – Dy.CE/CON/Jiribam (Silchar & Imphal)`,
+    description: `The project involves providing General Consultancy Services for the construction of the new Broad Gauge railway line between Jiribam and Imphal under Northeast Frontier Railway. The consultancy scope supports implementation of railway infrastructure works along the new line, including technical supervision, project monitoring and coordination. The services are provided in connection with the Office of DY.CE/CON/Jiribam at Silchar and Imphal.`,
+    impact: `Ongoing general consultancy assignment for the new Broad Gauge line between Jiribam and Imphal under Northeast Frontier Railway, including technical supervision of the completed hill-section station, tunnel lining and portal works, and viaduct piers along the new line.`,
+    totalCost: "₹22,500 Crore (project value)",
+    servicesProvided: [
+      `General Consultancy Services for construction of the new Broad Gauge railway line between Jiribam and Imphal`,
+      `Technical supervision, project monitoring and coordination of railway infrastructure works along the new line`,
+      `Services rendered in connection with the Office of DY.CE/CON/Jiribam at Silchar and Imphal`
+    ]
+  },
+  {
+    id: "godda-mahagama-pms-new-rail-line",
+    title: `Godda–Mahagama-PMS – Project Management Services for New Rail Line Project`,
+    slug: "godda-mahagama-pms-new-rail-line",
+    sector: "Railways & Metro Rail",
+    sectorSlug: "railways-metro",
+    status: "Ongoing",
+    location: "Godda–Mahagama, Jharkhand, India",
+    coordinates: "India",
+    image: railGoddaRmcFoundationImage,
+    detailImage: railGoddaSiteClearanceImage,
+    // Bias the wide card crop upward so the foundation pedestals stay in frame
+    // and the burned-in date/name strip along the bottom edge is cropped out.
+    imagePosition: "center 38%",
+    role: `Project Management Services (PMS)`,
+    client: `Eastern Railway – Pirpainti–Jasidih New Rail Project`,
+    description: `The project involves providing Project Management Services for construction of the new railway line between Godda Station and Mahagama Station from Km 32.439 to Km 60.00. The scope covers Civil, P-Way, Electrification, Signal and Telecom works forming part of the new rail line development. The project is being undertaken in connection with the Pirpainti–Jasidih New Rail Project of Eastern Railway.`,
+    impact: `Ongoing project management assignment for the new railway line between Godda and Mahagama stations (Km 32.439 to Km 60.00), covering Civil, P-Way, Electrification and Signal & Telecom works. Current site activities include construction of the RMC plant foundation and site clearance and levelling work.`,
+    totalCost: "₹531.23 Crore (project value)",
+    servicesProvided: [
+      `Project Management Services for construction of the new railway line between Godda Station and Mahagama Station (Km 32.439 to Km 60.00)`,
+      `Civil, P-Way, Electrification, Signal and Telecom works`,
+      `Undertaken in connection with the Pirpainti–Jasidih New Rail Project of Eastern Railway`
+    ]
+  },
+
   {
     id: "assam-30-ulb-solid-waste-management",
     title: `Esatblishing complain Soli waste Management projects, in 30 ULB of Assam in accordance under  swach Bharat Mission 2.0 Guideline of solid waste Management  Rules 2016, Assam`,
@@ -381,6 +679,9 @@ export const PROJECTS: Project[] = [
     location: "Assam, India",
     coordinates: "India",
     image: solidWasteFieldImage,
+    // Tall subjects (field-test crew) — bias the wide card crop upward so faces
+    // and the test apparatus show instead of a mid-body slice.
+    imagePosition: "center 22%",
     role: `Solid Waste Management Project Consultant (DPR & Tender)`,
     client: `Swachh Bharat Mission,Urban`,
     description: `Establishment and implementation of Solid Waste Management projects in 30 ULBs of Assam in accordance with Swachh Bharat Mission 2.0 guidelines and the Solid Waste Management Rules, 2016, covering waste collection, segregation, transportation, processing, and scientific disposal.`,

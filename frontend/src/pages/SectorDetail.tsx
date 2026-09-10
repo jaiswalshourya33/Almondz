@@ -231,6 +231,7 @@ export const SectorDetail: React.FC = () => {
                         src={proj.image}
                         alt={proj.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                        style={proj.imagePosition ? { objectPosition: proj.imagePosition } : undefined}
                         referrerPolicy="no-referrer"
                         loading="lazy"
                       />

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Project } from '../data/projects';
 import { X, MapPin, Building2, Play } from 'lucide-react';
 
@@ -15,6 +15,15 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
   onClose,
   onOpenVideo,
 }) => {
+  // "Scope of Services" starts collapsed to the first few bullets; reset that
+  // whenever a different project is opened.
+  const SERVICES_PREVIEW_COUNT = 6;
+  const [showAllServices, setShowAllServices] = useState(false);
+
+  useEffect(() => {
+    setShowAllServices(false);
+  }, [project, isOpen]);
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
@@ -31,6 +40,11 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
 
   if (!isOpen || !project) return null;
 
+  const hasMoreServices = project.servicesProvided.length > SERVICES_PREVIEW_COUNT;
+  const visibleServices = showAllServices
+    ? project.servicesProvided
+    : project.servicesProvided.slice(0, SERVICES_PREVIEW_COUNT);
+
   const statusColors = {
     "Recently Awarded": "bg-[#AB4E23] text-white",
     "Ongoing": "bg-[#18253A] text-white",
@@ -41,6 +55,12 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
   const cleanLocation = project.coordinates && project.coordinates !== 'India' && project.coordinates !== project.location
     ? `${project.location} (${project.coordinates})`
     : project.location;
+
+  // "Site Photographs" strip: only genuinely additional photos — never repeat the
+  // header photo or the card thumbnail here — and at most three.
+  const galleryPhotos = (project.gallery ?? [])
+    .filter((src) => src !== project.image && src !== project.detailImage)
+    .slice(0, 3);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/70 animate-fade-in">
@@ -102,16 +122,19 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
             </div>
           </div>
 
-          {/* Upper Section: Photo + Specifications Table (Equal Height) */}
+          {/* Upper Section: Photo + Specifications Table (equal height) */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 pt-2 items-stretch">
-            
-            {/* Left: Photograph with Scale Hover Animation */}
+
+            {/* Left: Photograph — the frame stretches to match the specifications
+                table on the right; the photo sits inside it in full, centred,
+                never cropped or distorted (object-contain). */}
             <div className="md:col-span-5 flex flex-col h-full">
-              <div className="group border border-gray-300 hover:border-[#18253A]/40 rounded-sm overflow-hidden bg-gray-100 shadow-sm flex-1 flex flex-col min-h-[240px] transition-colors duration-300">
+              <div className="group relative flex-1 min-h-[240px] w-full overflow-hidden rounded-sm border border-gray-300 hover:border-[#18253A]/40 bg-gray-100 shadow-sm transition-colors duration-300">
                 <img
                   src={project.detailImage ?? project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover flex-1 transition-transform duration-500 ease-out group-hover:scale-108"
+                  className="absolute inset-0 w-full h-full object-contain transition-transform duration-500 ease-out group-hover:scale-105"
+                  style={!project.detailImage && project.imagePosition ? { objectPosition: project.imagePosition } : undefined}
                   referrerPolicy="no-referrer"
                 />
               </div>
@@ -262,6 +285,32 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
 
           </div>
 
+          {/* Site Photographs — extra photos only (never the header photo or the
+              card thumbnail), at most three. Hidden when there are none. */}
+          {galleryPhotos.length > 0 && (
+            <div className="space-y-2 pt-2">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-[#18253A] border-b border-gray-200 pb-1.5">
+                Site Photographs
+              </h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+                {galleryPhotos.map((src, gIdx) => (
+                  <div
+                    key={gIdx}
+                    className="group/photo relative aspect-[4/3] overflow-hidden rounded-sm border border-gray-200 bg-gray-100"
+                  >
+                    <img
+                      src={src}
+                      alt={`${project.title} — site photograph ${gIdx + 1}`}
+                      className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover/photo:scale-105"
+                      referrerPolicy="no-referrer"
+                      loading="lazy"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Section 1: Project Overview (Clean Editorial Typography) */}
           <div className="space-y-2 pt-3">
             <h3 className="text-xs font-bold uppercase tracking-wider text-[#18253A] border-b border-gray-200 pb-1.5">
@@ -278,13 +327,22 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
               Scope of Services
             </h3>
             <ul className="space-y-1.5 text-xs text-gray-700">
-              {project.servicesProvided.map((service, sIdx) => (
+              {visibleServices.map((service, sIdx) => (
                 <li key={sIdx} className="flex items-start gap-2">
                   <span className="text-[#D96B33] font-bold text-sm leading-none mt-0.5">•</span>
                   <span className="font-medium text-gray-800 leading-relaxed">{service}</span>
                 </li>
               ))}
             </ul>
+            {hasMoreServices && (
+              <button
+                type="button"
+                onClick={() => setShowAllServices((v) => !v)}
+                className="mt-1 text-xs font-semibold text-[#D96B33] hover:text-[#C25A28] hover:underline transition-colors"
+              >
+                {showAllServices ? 'Show less' : 'Show more'}
+              </button>
+            )}
           </div>
 
           {/* Section 3: Key Highlights & Impact (Clean Editorial Callout) */}

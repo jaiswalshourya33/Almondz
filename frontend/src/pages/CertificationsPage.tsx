@@ -1,9 +1,67 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { CERTIFICATIONS, EMPANELMENTS, Certification } from '../data/certifications';
-import { Award, ShieldCheck, Eye, X, Building2, ChevronLeft, ChevronRight } from 'lucide-react';
+import {
+  Award,
+  Eye,
+  X,
+  Building2,
+  Building,
+  Landmark,
+  Globe2,
+  Banknote,
+  Milestone,
+  ChevronLeft,
+  ChevronRight,
+} from 'lucide-react';
 import { PageHeroBanner } from '../components/PageHeroBanner';
+import RadialOrbitalTimeline from '../components/ui/radial-orbital-timeline';
 
 const CERTS_PER_PAGE = 6;
+
+// Per-empanelment presentation metadata for the radial orbital timeline.
+// The underlying facts (name + description) still come straight from
+// EMPANELMENTS in ../data/certifications — nothing is dropped or rephrased;
+// this only adds the icon / grouping label / node "energy" the orbital
+// visual needs. Keyed by the exact `name` in that data.
+const EMPANELMENT_ORBIT_META: Record<
+  string,
+  { tag: string; category: string; icon: React.ElementType; energy: number }
+> = {
+  NHAI: { tag: 'CENTRAL GOVT', category: 'Government Body', icon: Milestone, energy: 100 },
+  MoRTH: { tag: 'MINISTRY', category: 'Government Body', icon: Landmark, energy: 96 },
+  'World Bank': { tag: 'MULTILATERAL', category: 'Multilateral', icon: Globe2, energy: 100 },
+  'Asian Development Bank (ADB)': { tag: 'MULTILATERAL', category: 'Multilateral', icon: Globe2, energy: 92 },
+  SIDBI: { tag: 'SCHEDULED BANK', category: 'Banking / DFI', icon: Banknote, energy: 88 },
+  "Indian Banks' Association (IBA)": { tag: 'BANK BODY', category: 'Banking / DFI', icon: Building2, energy: 84 },
+  NaBFID: { tag: 'DFI', category: 'Banking / DFI', icon: Building, energy: 90 },
+};
+
+// Links each node to its neighbours so the "Connected Nodes" panel keeps the
+// government / multilateral / banking clusters visibly related.
+const EMPANELMENT_ORBIT_RELATED: Record<number, number[]> = {
+  1: [2],
+  2: [1, 3],
+  3: [2, 4],
+  4: [3, 5],
+  5: [4, 6],
+  6: [5, 7],
+  7: [6],
+};
+
+const empanelmentTimelineData = EMPANELMENTS.map((emp, index) => {
+  const meta = EMPANELMENT_ORBIT_META[emp.name];
+  return {
+    id: index + 1,
+    title: emp.name,
+    date: meta.tag,
+    content: emp.desc,
+    category: meta.category,
+    icon: meta.icon,
+    relatedIds: EMPANELMENT_ORBIT_RELATED[index + 1] ?? [],
+    status: 'completed' as const,
+    energy: meta.energy,
+  };
+});
 
 export const CertificationsPage: React.FC = () => {
   const [selectedCert, setSelectedCert] = useState<Certification | null>(null);
@@ -235,43 +293,13 @@ export const CertificationsPage: React.FC = () => {
             </p>
           </div>
 
-          {/* Same auto-scrolling marquee technique as the landing page's
-              sector-figures section (index.css .partner-marquee), just with
-              a wider card-shaped item instead of a plain stat tile. Pauses
-              on hover; the list is duplicated so the loop is seamless. */}
-          <div className="partner-marquee" aria-label="Institutional empanelments">
-            <div className="partner-marquee__track">
-              {[...EMPANELMENTS, ...EMPANELMENTS].map((emp, idx) => (
-                <div
-                  key={`${emp.name}-${idx}`}
-                  className="partner-marquee__item partner-marquee__item--empanelment group"
-                >
-                  <div className="flex items-start gap-4">
-                    {emp.logo ? (
-                      <div className="w-14 h-14 bg-white border border-[#A49050]/20 rounded-xl shadow-sm shrink-0 flex items-center justify-center p-2 group-hover:border-[#D96B33]/40 group-hover:shadow-md transition-all duration-300">
-                        <img
-                          src={emp.logo}
-                          alt={`${emp.name} logo`}
-                          className="max-w-full max-h-full object-contain"
-                          referrerPolicy="no-referrer"
-                        />
-                      </div>
-                    ) : (
-                      <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#D96B33]/15 to-[#D96B33]/5 text-[#D96B33] flex items-center justify-center shrink-0 group-hover:from-[#D96B33] group-hover:to-[#C25A28] group-hover:text-white transition-all duration-300 shadow-sm group-hover:shadow-md">
-                        <Building2 className="w-6 h-6" />
-                      </div>
-                    )}
-                    <div className="flex flex-col">
-                      <div className="flex items-center gap-2">
-                        <h4 className="text-base font-serif font-bold text-[#18253A]">{emp.name}</h4>
-                        <ShieldCheck className="w-4 h-4 text-[#D96B33]" />
-                      </div>
-                      <p className="text-xs text-[#18253A]/70 mt-2 leading-relaxed">{emp.desc}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+          {/* Radial orbital timeline: every institution in EMPANELMENTS becomes
+              an orbiting node. It auto-rotates; click a node to pause, pull it
+              to the front and reveal a card with just its name and description.
+              Themed to match the site (light ground, navy text, gold/orange
+              accents). */}
+          <div className="rounded-2xl overflow-hidden border border-[#A49050]/20 shadow-sm bg-[#F1F3F5]">
+            <RadialOrbitalTimeline timelineData={empanelmentTimelineData} />
           </div>
         </div>
       </section>

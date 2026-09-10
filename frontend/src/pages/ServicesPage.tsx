@@ -3,12 +3,13 @@ import { useSearchParams } from 'react-router-dom';
 import { SERVICES, Service } from '../data/services';
 import { CheckCircle2, Eye, X, Download, ChevronLeft, ChevronRight } from 'lucide-react';
 import { PageHeroBanner } from '../components/PageHeroBanner';
+import { downloadServiceBriefPdf } from '../lib/serviceBriefPdf';
 
 const SERVICES_PER_PAGE = 6;
 
 export const ServicesPage: React.FC = () => {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
-  const [downloadNotice, setDownloadNotice] = useState<string | null>(null);
+  const [downloadNotice, setDownloadNotice] = useState<{ title: string; ok: boolean } | null>(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const [currentPage, setCurrentPage] = useState<number>(1);
   const heroHeadingRef = useRef<HTMLHeadingElement | null>(null);
@@ -44,8 +45,16 @@ export const ServicesPage: React.FC = () => {
     divisionsSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  const handleDownloadBrochure = (title: string) => {
-    setDownloadNotice(title);
+  const handleDownloadBrochure = async (service: Service) => {
+    let ok = true;
+    try {
+      await downloadServiceBriefPdf(service);
+    } catch (err) {
+      ok = false;
+      // eslint-disable-next-line no-console
+      console.error('Service brief PDF generation failed', err);
+    }
+    setDownloadNotice({ title: service.title, ok });
     setTimeout(() => {
       setDownloadNotice(null);
     }, 3500);
@@ -94,11 +103,21 @@ export const ServicesPage: React.FC = () => {
 
       {/* Download Toast Notification */}
       {downloadNotice && (
-        <div className="fixed bottom-8 right-8 z-50 bg-[#18253A] text-white px-6 py-4 border border-[#3E4C60] shadow-2xl flex items-center gap-3 animate-fade-in rounded-md">
-          <CheckCircle2 className="w-5 h-5 text-[#D6C489]" />
+        <div className={`fixed bottom-8 right-8 z-50 text-white px-6 py-4 border shadow-2xl flex items-center gap-3 animate-fade-in rounded-md ${downloadNotice.ok ? 'bg-[#18253A] border-[#3E4C60]' : 'bg-[#7A2E22] border-[#A5442F]'}`}>
+          {downloadNotice.ok ? (
+            <CheckCircle2 className="w-5 h-5 text-[#D6C489] shrink-0" />
+          ) : (
+            <X className="w-5 h-5 text-white shrink-0" />
+          )}
           <div>
-            <p className="text-xs font-mono font-bold">SERVICE BROCHURE DOWNLOADED</p>
-            <p className="text-xs text-white/80">{downloadNotice} documentation PDF saved.</p>
+            <p className="text-xs font-mono font-bold">
+              {downloadNotice.ok ? 'SERVICE BRIEF DOWNLOADED' : 'DOWNLOAD FAILED'}
+            </p>
+            <p className="text-xs text-white/80">
+              {downloadNotice.ok
+                ? `${downloadNotice.title} — PDF saved to your device.`
+                : `Could not generate the ${downloadNotice.title} PDF. Please try again.`}
+            </p>
           </div>
         </div>
       )}
@@ -160,10 +179,10 @@ export const ServicesPage: React.FC = () => {
                         <span>View Details</span>
                       </button>
                       <button
-                        onClick={() => handleDownloadBrochure(service.title)}
-                        className="p-2.5 bg-[#F1F3F5] hover:bg-[#A49050]/20 text-[#18253A] border border-[#A49050]/30 transition-all duration-300 rounded-md hover:border-[#18253A]"
+                        onClick={() => handleDownloadBrochure(service)}
+                        className="p-2.5 bg-[#F1F3F5] hover:bg-[#A49050]/20 text-[#18253A] border border-[#A49050]/30 transition-all duration-300 rounded-md hover:border-[#18253A] cursor-pointer"
                         title="Download PDF Brief"
-                        aria-label="Download PDF Brief"
+                        aria-label={`Download ${service.title} PDF brief`}
                       >
                         <Download className="w-4 h-4" />
                       </button>
@@ -377,11 +396,11 @@ export const ServicesPage: React.FC = () => {
                   Close
                 </button>
                 <button
-                  onClick={() => handleDownloadBrochure(selectedService.title)}
+                  onClick={() => handleDownloadBrochure(selectedService)}
                   className="px-6 py-2.5 bg-[#3E4C60] hover:bg-[#18253A] text-white hover:text-[#D6C489] text-sm font-medium rounded-full shadow-md hover:shadow-lg transition-all flex items-center gap-2 border border-[#A49050]/30 cursor-pointer"
                 >
                   <Download className="w-4 h-4 text-[#D6C489]" />
-                  <span>Download Service Brief</span>
+                  <span>Download Service Brief (PDF)</span>
                 </button>
               </div>
             </div>

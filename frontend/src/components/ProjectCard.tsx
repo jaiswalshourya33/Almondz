@@ -33,10 +33,11 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenDetails
     <div className="group project-card bg-white border border-gray-200/80 rounded-xl overflow-hidden flex flex-col justify-between shadow-[0_2px_10px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_20px_rgba(62,76,96,0.14)] hover:border-[#3E4C60] transition-all duration-300 hover:-translate-y-0.5">
       {/* Compact Top Image Banner */}
       <div className="relative h-36 sm:h-40 overflow-hidden bg-slate-100">
-        <img 
-          src={project.image} 
+        <img
+          src={project.image}
           alt={project.title}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+          style={project.imagePosition ? { objectPosition: project.imagePosition } : undefined}
           referrerPolicy="no-referrer"
           loading="lazy"
         />
