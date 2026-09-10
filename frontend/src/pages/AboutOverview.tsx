@@ -4,6 +4,7 @@ import { COMPANY_STATS } from '../data/company';
 import { ShieldCheck, Award, ArrowRight, Target, Users, TrendingUp, Leaf } from 'lucide-react';
 import heritageImage from '../images/about-heritage.jpg';
 import strengthsImage from '../images/hero/wind-energy.jpg';
+import aboutOverviewHero from '../images/hero/about-overview.jpg';
 import { GroupCompaniesGraphic } from '../components/GroupCompaniesGraphic';
 import { PageHeroBanner } from '../components/PageHeroBanner';
 import { revealSectionOnScroll } from '../lib/revealOnScroll';
@@ -113,11 +114,12 @@ export const AboutOverview: React.FC = () => {
 
   return (
     <div className="about-overview-page flex flex-col min-h-screen bg-[#F1F3F5] pt-24">
-      {/* Header Banner with Clean Energy Infrastructure Background */}
+      {/* Header Banner */}
       <PageHeroBanner
         line1="ENGINEERING EXCELLENCE."
         line2="INSTITUTIONAL TRUST."
         description="Almondz Global Infra Consultant Limited (AGICL) is a premier infrastructure consultancy delivering end-to-end engineering, advisory, and sustainable nation-building solutions."
+        backgroundImage={aboutOverviewHero}
       />
 
       {/* Main Content */}
@@ -145,7 +147,7 @@ export const AboutOverview: React.FC = () => {
                   <div className="text-xs font-mono text-[#18253A]/60 mt-1">Employees</div>
                 </div>
                 <div>
-                  <div className="text-xl font-serif font-bold text-[#18253A]">7+</div>
+                  <div className="text-xl font-serif font-bold text-[#18253A]">8+</div>
                   <div className="text-xs font-mono text-[#18253A]/60 mt-1">Sectors</div>
                 </div>
                 <div>

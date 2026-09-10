@@ -21,7 +21,7 @@ export const LEADERSHIP: Leader[] = [
     name: "A B L SRIVASTAVA",
     title: "Chairman and Director",
     experience: "45+ Years",
-    bio: "Mr. Srivastava is M.Com, FCA, MBF having almost 4 decades experience of about 15 years in Central Power Sector (REC and NHPC from October 1999 to 15 September 2014).He was former CMD in NHPC Ltd. He has expertise in Project Management, Project Execution, raising resources through innovative financial products, Corporate restructuring, fund management, raising funds from Bonds, External Commercial Borrowings (ECB), Infrastructure Bonds and dealing with State Electricity Boards. He is also a certified Project Director level A from International Project Management Association (IPMA), Swedan.",
+    bio: "CA (Dr.) A. B. L. Srivastava, Non-Executive Chairman, Almondz Global Infra-Consultant Limited, is a Chartered Accountant with an MBF and a Ph.D. in Arbitration & Dispute Resolution, and an IPMA Level A Certified Project Management Professional with 45+ years of experience in finance, power and infrastructure, including 12 years at Almondz; he has held senior roles including Chairman & Managing Director of NHPC, alongside REC, NHDC, PTC India and PTC India Financial Services, and as Chairman of AGICL now provides strategic and governance leadership driving the company's institutional growth, notable for pioneering the Buyback of Shares concept in a CPSU and for being the only non-engineer in India to hold IPMA's top-tier project management certification, with honours including the ICAI Special Achiever Award (2010) and Outstanding Individual Contribution to Power Sector Award (2013).",
     image: ablImage,
     category: "Board of Directors"
   },
@@ -29,7 +29,7 @@ export const LEADERSHIP: Leader[] = [
     name: "SUDHAKAR SINGH",
     title: "Whole Time Director",
     experience: "35+ Years",
-    bio: "Mr. Sudhakar Singh is a B. Tech (Hons.) in Civil Engineering and having more than 35 years of experience in India and overseas in Civil Engineering/ Contract Management companies Roads/ Highways/ Smart Cities Projects of all magnitude. He has good managerial, Interpersonal Communications and teamwork skills. Presently, Mr. Sudhakar Singh is involved in Business Development/ Execution of Engineering services for Highways and Smart Cities. He has greatly contributed to building up the organization to its present level.",
+    bio: "Mr. Sudhakar Singh, Whole Time Director, Almondz Global Infra Consultant Ltd., is a Civil Engineering graduate (B. Tech Hons., NITK Surathkal) and Life Member of the Indian Roads Congress, with 35+ years of experience in highway and road infrastructure, particularly Project Construction Management of BOT, Turnkey and Item Rate Projects; associated with AGICL since July 2016, he is involved in Business Development and Execution of Engineering services for Highways and Smart Cities, with expertise covering project management, contract administration, construction supervision, FIDIC contracts and PPP Concession Agreements. He has held key roles at NHAI (Project Director-cum-DGM Technical), The Louis Berger Group USA (9+ years on World Bank/ADB projects), IRCON International and Feedback Infrastructure Services, with notable project experience including the Gurgaon–Kotputli–Jaipur six-laning, the Kanpur East–West Corridor bridge over the Ganga, Ganga Expressway (Package-I), and rehabilitation of the Kabul–Doshi Highway in Afghanistan.",
     image: sudhakar,
     category: "Board of Directors"
   },
@@ -52,8 +52,8 @@ export const LEADERSHIP: Leader[] = [
   {
     name: "SANKHA DAS GUPTA",
     title: "Whole Time Director",
-    experience: "35+ Years",
-    bio: "Mr. Sankha has earned a B.COM from Delhi University and Post Graduate Diploma in Management from Xavier Institute of Management, Bhubaneshwar (XIMB). He is also a Certified Fraud Examiner (CFE) from ACFE (USA). He has experience of more than 20 years in the field of Corporate Finance, fund raising, financial restructuring and asset monitoring activities. He has advised various clients both Public and Private Sector for in raising funds through Project finance and Domestic Bond Market. He has also carried out various financial restructuring assignments for various Government and Private sector companies in India. Sankha has vast experience in the infrastructure sector especially like Power, renewable energy, roads and highways etc. He has been instrumental in closing large number of transactions in manufacturing, infrastructure and services sector. Further, he is also involved in asset & cash monitoring advisory to various Banks and Institutions for better credit management.",
+    experience: "25+ Years",
+    bio: "Mr. Sankha Dasgupta, Whole Time Director, Almondz Global Infra-Consultant Limited, holds a Post Graduate Diploma in Management from XIM Bhubaneswar and a B.Com from the University of Delhi, and is a Certified Fraud Examiner (CFE) with certifications in PPP and ESG, bringing 25+ years of experience in infrastructure consultancy, financial advisory, project management, PPP projects, transaction advisory and business development; associated with AGICL since 1998, his expertise spans financial feasibility and modelling, PPP structuring, transaction advisory, project appraisal, bid process management, RFP/RFQ and concession agreement preparation, and project due diligence. He has advised Government departments, public sector organisations and infrastructure authorities across sectors including urban infrastructure, tourism, healthcare, water, transportation and food-grain storage, with notable assignments for the Food Corporation of India, Punjab Infrastructure Development Board, Himachal Pradesh Infrastructure Development Board and Jammu & Kashmir Housing Board.",
     image: sankha,
     category: "Board of Directors"
   },
@@ -69,7 +69,7 @@ export const LEADERSHIP: Leader[] = [
     name: "SANJEET KUMAR AHLAWAT",
     title: "Whole Time Director",
     experience: "20+ Years",
-    bio: "Mr. Sanjeet Kumar Ahlawat is Masters in Planning with specialization in Regional Planning from School of Planning and Architecture, New Delhi; Masters of Science in Geography from Kurukshetra University, Diploma in Geo-informatics. He is having more than 17 years of experience International Business Development in Urban & Regional Planning, Urban Infrastructure, Highways & Roads, Power, Agro and Allied Services, Environmental and Social sectoras well as project execution, coordination and management of projects in Infrastructure and Physical Planning, Tourism. He has travelled to Zambia, Nigeria, Senegal, Gambia, Gabon, Yemen, Nepal etc for execution of assignments and contract negotiation of the projects.",
+    bio: "Mr. Sanjeet Kumar Ahlawat, Whole-time Director, Almondz Global Infra Consultant Limited, holds a Master of Planning (Regional Planning) from SPA New Delhi and a Master's in Geography from Kurukshetra University (Gold Medallist), and is an Associate Life Member of ITPI, with 20+ years of experience in international business development across infrastructure and urban planning. At Almondz, he leads Business Development, securing around ₹150 Crore in road-sector business, 2 World Bank-funded projects, and 14 international road projects across Nigeria, Zambia, Kenya, Somaliland and Uganda, alongside a strong domestic portfolio with NHAI, NHIDCL and state PWDs, and GIS-based AMRUT master plans for multiple states.",
     image: sanjeet,
     category: "Board of Directors"
   },

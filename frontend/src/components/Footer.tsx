@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Logo } from './Logo';
-import { ArrowRight, Linkedin, Youtube, Mail, MapPin, Phone } from 'lucide-react';
+import { ArrowRight, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   return (
@@ -25,11 +25,8 @@ export const Footer: React.FC = () => {
               </div>
             </div>
             <div className="flex items-center gap-2.5">
-              <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-white/5 hover:bg-[#A49050] flex items-center justify-center text-white transition-all duration-300 hover:-translate-y-0.5" aria-label="LinkedIn">
+              <a href="https://www.linkedin.com/company/almondz-global-infra-consultant-ltd" target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-white/5 hover:bg-[#A49050] flex items-center justify-center text-white transition-all duration-300 hover:-translate-y-0.5" aria-label="LinkedIn">
                 <Linkedin className="w-3.5 h-3.5" />
-              </a>
-              <a href="https://youtube.com" target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-white/5 hover:bg-[#A49050] flex items-center justify-center text-white transition-all duration-300 hover:-translate-y-0.5" aria-label="YouTube">
-                <Youtube className="w-3.5 h-3.5" />
               </a>
             </div>
           </div>

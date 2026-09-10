@@ -5,12 +5,15 @@ export interface PageHeroBannerProps {
   line1: string;
   line2: string;
   description: string;
+  /** Optional section-specific background image; falls back to the shared clean-energy panorama. */
+  backgroundImage?: string;
 }
 
 export const PageHeroBanner: React.FC<PageHeroBannerProps> = ({
   line1,
   line2,
   description,
+  backgroundImage,
 }) => {
   const heroStatementRef = useRef<HTMLElement | null>(null);
 
@@ -50,7 +53,7 @@ export const PageHeroBanner: React.FC<PageHeroBannerProps> = ({
       {/* Panoramic Infrastructure Background Image with Balanced Dark Film */}
       <div className="absolute inset-0 z-0">
         <img
-          src={cleanEnergyHero}
+          src={backgroundImage ?? cleanEnergyHero}
           alt={line1}
           className="w-full h-full object-cover object-center"
         />

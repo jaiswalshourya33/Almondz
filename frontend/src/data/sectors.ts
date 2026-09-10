@@ -1,15 +1,16 @@
-import himachalRopewayImage from '../images/himachal-ropeway.jpg';
 import roadsSectorImage from '../images/sector-roads.jpg';
-import railwaysSectorImage from '../images/sector-railways.jpg';
-import urbanSectorImage from '../images/sector-urban.jpg';
-import waterSectorImage from '../images/sector-water.jpg';
-import miningSectorImage from '../images/sector-mining.jpg';
-import renewableSectorImage from '../images/sector-renewable.jpg';
+import railwaysSectorImage from '../images/hero/sector-railways-metro.jpg';
+import bankingFinanceImage from '../images/hero/sector-banking-finance.jpg';
+import urbanSectorImage from '../images/hero/sector-urban-infra.jpg';
+import waterSectorImage from '../images/hero/sector-water-sanitation.jpg';
+import miningSectorImage from '../images/hero/sector-mining-industry.jpg';
+import renewableSectorImage from '../images/hero/sector-renewable-power.jpg';
+import tourismSectorImage from '../images/hero/sector-tourism.jpg';
 
 export interface Sector { id: string; title: string; slug: string; shortDesc: string; description: string; image: string; services: string[]; featuredProjects: string[]; metrics: { label: string; value: string }[]; imagePosition?: string; }
 
 const images = {
-  roads: roadsSectorImage, rail: railwaysSectorImage, monitoring: "https://almondzglobalinfra.com/media/product/1514813843_agency-for-specialized-monitoring-(asm)1.jpg", smart: urbanSectorImage, water: waterSectorImage, tourism: himachalRopewayImage, mining: miningSectorImage, renewable: renewableSectorImage
+  roads: roadsSectorImage, rail: railwaysSectorImage, monitoring: bankingFinanceImage, smart: urbanSectorImage, water: waterSectorImage, tourism: tourismSectorImage, mining: miningSectorImage, renewable: renewableSectorImage
 };
 const sector = (id: string, title: string, shortDesc: string, description: string, image: string, services: string[], featuredProjects: string[] = [], imagePosition?: string): Sector => ({ id, title, slug: id, shortDesc, description, image, services, featuredProjects, metrics: [], imagePosition });
 

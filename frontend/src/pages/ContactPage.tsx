@@ -2,7 +2,9 @@ import React, { useLayoutEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Mail, MapPin, Phone, Send, CheckCircle2, Building2, ArrowRight, X } from 'lucide-react';
 import { PageHeroBanner } from '../components/PageHeroBanner';
+import { TeamGallerySlideshow } from '../components/TeamGallerySlideshow';
 import { SECTORS } from '../data/sectors';
+import { submitContactForm, fileToBase64, type ContactFormType } from '../lib/submitContactForm';
 
 interface ContactNavState {
   formType?: 'inquiry' | 'vendor' | 'career';
@@ -14,6 +16,10 @@ export const ContactPage: React.FC = () => {
   const navState = (location.state ?? {}) as ContactNavState;
 
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [resumeFile, setResumeFile] = useState<File | null>(null);
+  const [honeypot, setHoneypot] = useState(''); // bot trap — real users never fill this
   const [activeTab, setActiveTab] = useState<'headquarters' | 'regional' | 'leadership'>('headquarters');
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [activeFormType, setActiveFormType] = useState<'inquiry' | 'vendor' | 'career'>(navState.formType ?? 'inquiry');
@@ -68,19 +74,42 @@ export const ContactPage: React.FC = () => {
     setTimeout(() => setCopiedField(null), 2500);
   };
 
+  const sendForm = async (type: ContactFormType, payload: Record<string, unknown>) => {
+    setSubmitError(null);
+    setSubmitting(true);
+    try {
+      await submitContactForm(type, { ...payload, company_website: honeypot });
+      setSubmitted(true);
+    } catch {
+      setSubmitError('Could not submit right now. Please try again, or email info@almondz.com directly.');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    sendForm('inquiry', { ...formData });
   };
 
   const handleVendorSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    sendForm('vendor', { ...vendorFormData });
   };
 
-  const handleCareerSubmit = (e: React.FormEvent) => {
+  const handleCareerSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSubmitError(null);
+    let resume: Record<string, unknown> = {};
+    if (resumeFile) {
+      try {
+        resume = await fileToBase64(resumeFile);
+      } catch (err) {
+        setSubmitError(err instanceof Error ? err.message : 'Could not read the resume file.');
+        return;
+      }
+    }
+    sendForm('career', { ...careerFormData, ...resume });
   };
 
   const selectFormType = (type: 'inquiry' | 'vendor' | 'career') => {
@@ -90,6 +119,10 @@ export const ContactPage: React.FC = () => {
 
   const handleReset = () => {
     setSubmitted(false);
+    setSubmitError(null);
+    setSubmitting(false);
+    setResumeFile(null);
+    setHoneypot('');
     if (activeFormType === 'inquiry') {
       setFormData({ name: '', email: '', phone: '', organization: '', inquiryType: 'Independent Engineering', sector: SECTORS[0].title, message: '' });
     } else if (activeFormType === 'vendor') {
@@ -523,12 +556,21 @@ export const ContactPage: React.FC = () => {
                     ></textarea>
                   </div>
 
+                  <input type="text" name="company_website" tabIndex={-1} autoComplete="off" aria-hidden="true"
+                    value={honeypot} onChange={(e) => setHoneypot(e.target.value)}
+                    className="absolute left-[-9999px] top-0 w-px h-px opacity-0" />
+
+                  {submitError && (
+                    <p className="text-xs font-mono text-red-600 bg-red-50 border border-red-200 rounded-md px-3 py-2">{submitError}</p>
+                  )}
+
                   <button
                     type="submit"
-                    className="group bg-[#A49050] hover:bg-[#8A7942] text-white py-4 px-6 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 active:translate-y-0 flex items-center justify-center gap-3 rounded-md"
+                    disabled={submitting}
+                    className="group bg-[#A49050] hover:bg-[#8A7942] text-white py-4 px-6 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 active:translate-y-0 flex items-center justify-center gap-3 rounded-md disabled:opacity-60 disabled:pointer-events-none disabled:translate-y-0"
                   >
                     <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    <span>TRANSMIT CONSULTANCY BRIEFING</span>
+                    <span>{submitting ? 'TRANSMITTING…' : 'TRANSMIT CONSULTANCY BRIEFING'}</span>
                     <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 -ml-2 group-hover:ml-0 transition-all" />
                   </button>
 
@@ -642,12 +684,21 @@ export const ContactPage: React.FC = () => {
                     ></textarea>
                   </div>
 
+                  <input type="text" name="company_website" tabIndex={-1} autoComplete="off" aria-hidden="true"
+                    value={honeypot} onChange={(e) => setHoneypot(e.target.value)}
+                    className="absolute left-[-9999px] top-0 w-px h-px opacity-0" />
+
+                  {submitError && (
+                    <p className="text-xs font-mono text-red-600 bg-red-50 border border-red-200 rounded-md px-3 py-2">{submitError}</p>
+                  )}
+
                   <button
                     type="submit"
-                    className="group bg-[#A49050] hover:bg-[#8A7942] text-white py-4 px-6 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 active:translate-y-0 flex items-center justify-center gap-3 rounded-md"
+                    disabled={submitting}
+                    className="group bg-[#A49050] hover:bg-[#8A7942] text-white py-4 px-6 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 active:translate-y-0 flex items-center justify-center gap-3 rounded-md disabled:opacity-60 disabled:pointer-events-none disabled:translate-y-0"
                   >
                     <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    <span>SUBMIT VENDOR REGISTRATION</span>
+                    <span>{submitting ? 'SUBMITTING…' : 'SUBMIT VENDOR REGISTRATION'}</span>
                     <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 -ml-2 group-hover:ml-0 transition-all" />
                   </button>
 
@@ -744,7 +795,11 @@ export const ContactPage: React.FC = () => {
                       type="file"
                       required
                       accept=".pdf,.doc,.docx"
-                      onChange={(e) => setCareerFormData({ ...careerFormData, resumeFileName: e.target.files?.[0]?.name || '' })}
+                      onChange={(e) => {
+                        const file = e.target.files?.[0] ?? null;
+                        setResumeFile(file);
+                        setCareerFormData({ ...careerFormData, resumeFileName: file?.name || '' });
+                      }}
                       className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#18253A] focus:outline-none focus:border-[#A49050] rounded-md transition-colors cursor-pointer file:mr-4 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-[10px] file:font-mono file:font-bold file:uppercase file:bg-[#18253A] file:text-white hover:file:bg-[#A49050] file:cursor-pointer"
                     />
                   </div>
@@ -760,12 +815,21 @@ export const ContactPage: React.FC = () => {
                     ></textarea>
                   </div>
 
+                  <input type="text" name="company_website" tabIndex={-1} autoComplete="off" aria-hidden="true"
+                    value={honeypot} onChange={(e) => setHoneypot(e.target.value)}
+                    className="absolute left-[-9999px] top-0 w-px h-px opacity-0" />
+
+                  {submitError && (
+                    <p className="text-xs font-mono text-red-600 bg-red-50 border border-red-200 rounded-md px-3 py-2">{submitError}</p>
+                  )}
+
                   <button
                     type="submit"
-                    className="group bg-[#A49050] hover:bg-[#8A7942] text-white py-4 px-6 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 active:translate-y-0 flex items-center justify-center gap-3 rounded-md"
+                    disabled={submitting}
+                    className="group bg-[#A49050] hover:bg-[#8A7942] text-white py-4 px-6 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 active:translate-y-0 flex items-center justify-center gap-3 rounded-md disabled:opacity-60 disabled:pointer-events-none disabled:translate-y-0"
                   >
                     <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    <span>SUBMIT APPLICATION</span>
+                    <span>{submitting ? 'SUBMITTING…' : 'SUBMIT APPLICATION'}</span>
                     <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 -ml-2 group-hover:ml-0 transition-all" />
                   </button>
 
@@ -777,6 +841,9 @@ export const ContactPage: React.FC = () => {
 
         </div>
       </section>
+
+      {/* Full-bleed team gallery slideshow */}
+      <TeamGallerySlideshow />
     </div>
   );
 };

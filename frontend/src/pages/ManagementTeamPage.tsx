@@ -2,6 +2,7 @@ import React, { useState, useMemo, useEffect, useLayoutEffect, useRef } from 're
 import { MANAGEMENT_TEAM, ManagementMember } from '../data/management';
 import { CountUpValue } from '../components/CountUpValue';
 import { PageHeroBanner } from '../components/PageHeroBanner';
+import managementTeamHero from '../images/hero/management-team.jpg';
 import {
   Users,
   Award,
@@ -140,11 +141,12 @@ export const ManagementTeamPage: React.FC = () => {
 
   return (
     <div className="about-dropdown-page flex flex-col min-h-screen bg-[#F1F3F5] pt-24">
-      {/* Header Banner with Clean Energy Infrastructure Background */}
+      {/* Header Banner */}
       <PageHeroBanner
         line1="EXECUTIVE LEADERSHIP."
         line2="MANAGEMENT TEAM."
         description="Decades of multidisciplinary engineering wisdom, financial acumen, and public sector stewardship driving Almondz Global Infra-Consultant Limited toward nation-building excellence."
+        backgroundImage={managementTeamHero}
       />
 
       {/* Highlights Bar */}

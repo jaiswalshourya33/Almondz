@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { FileText, ArrowRight, Eye, ChevronLeft, ChevronRight, UserMinus, LogOut } from 'lucide-react';
 import { CORPORATE_GOVERNANCE, type AnnualReturnFiling } from '../data/corporateGovernance';
 import { PageHeroBanner } from '../components/PageHeroBanner';
+import corporateGovernanceHero from '../images/hero/corporate-governance.jpg';
 import { PdfViewerModal } from '../components/PdfViewerModal';
 import { CommitteeComposition } from '../components/CommitteeComposition';
 import { AnnualReturnSection } from '../components/AnnualReturnSection';
@@ -110,6 +111,7 @@ export const CorporateGovernancePage: React.FC = () => {
         line1="CORPORATE GOVERNANCE."
         line2={item.heroLine}
         description="Statutory disclosures and corporate governance records of Almondz Global Infra-Consultant Limited."
+        backgroundImage={corporateGovernanceHero}
       />
 
       <section ref={sectionRef} className="about-subnav-section py-20 bg-[#F1F3F5]">

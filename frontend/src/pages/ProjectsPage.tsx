@@ -1,20 +1,19 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { PROJECTS, Project } from '../data/projects';
-import { ROADS_SUPERVISION_PROJECTS } from '../data/roadsSupervisionProjects';
+import { Project } from '../data/projects';
+import { ALL_ARCHED_PROJECTS } from '../data/archedVaultProjects';
 import { SECTORS } from '../data/sectors';
 import { ProjectCard } from '../components/ProjectCard';
 import { ProjectVideoModal } from '../components/ProjectVideoModal';
 import { ProjectDetailsModal } from '../components/ProjectDetailsModal';
 import { Search, Filter, ChevronLeft, ChevronRight } from 'lucide-react';
-import cleanEnergyHero from '../images/hero/clean-energy-infra.jpg';
+import cleanEnergyHero from '../images/hero/projects.jpg';
 
 const PROJECTS_PER_PAGE = 6;
 
-// The Projects page lists the core PROJECTS plus the detailed Roads, Bridges,
-// Highways & Tunnels supervision assignments (each already carries its own
-// "Ongoing" / "Completed" status). They also remain on the Roads sector page.
-const ALL_PROJECTS: Project[] = [...PROJECTS, ...ROADS_SUPERVISION_PROJECTS];
+// The Projects page shows ONLY the 26 projects reconciled 1:1 against the Arched
+// Vault → Technical section (see ALL_ARCHED_PROJECTS).
+const ALL_PROJECTS: Project[] = ALL_ARCHED_PROJECTS;
 
 export const ProjectsPage: React.FC = () => {
   const { filter } = useParams<{ filter?: string }>();

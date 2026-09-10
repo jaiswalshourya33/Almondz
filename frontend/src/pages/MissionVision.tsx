@@ -1,6 +1,7 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Check } from 'lucide-react';
 import missionVisionHero from '../images/hero/mumbai-skyline.jpg';
+import missionVisionBanner from '../images/hero/mission-vision.jpg';
 import { PageHeroBanner } from '../components/PageHeroBanner';
 
 const mapRange = (value: number, inMin: number, inMax: number, outMin: number, outMax: number) => {
@@ -157,11 +158,12 @@ export const MissionVision: React.FC = () => {
 
   return (
     <div className="about-dropdown-page flex flex-col min-h-screen bg-[#F1F3F5] pt-24">
-      {/* Header Banner with Clean Energy Infrastructure Background */}
+      {/* Header Banner */}
       <PageHeroBanner
         line1="OUR GUIDING PURPOSE."
         line2="MISSION & VISION."
         description="Guiding principles and enduring core values steering Almondz Global Infra-Consultant Limited toward sustainable engineering excellence and national progress."
+        backgroundImage={missionVisionBanner}
       />
 
       {/* Scroll-driven image zoom, then Mission (left) and Vision (right) cards

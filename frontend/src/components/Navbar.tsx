@@ -90,7 +90,7 @@ export const Navbar: React.FC = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" onClick={closeDropdowns} className="group">
+        <Link to="/" onClick={closeDropdowns} className="group lg:-ml-4">
           <Logo light={true} />
         </Link>
 
@@ -224,6 +224,40 @@ export const Navbar: React.FC = () => {
             )}
           </div>
 
+          {/* DIGITALIZATION Dropdown */}
+          <div
+            className="relative"
+            onMouseEnter={() => setActiveDropdown('digitalization')}
+            onMouseLeave={closeDropdowns}
+          >
+            <button
+              type="button"
+              onClick={() => setActiveDropdown('digitalization')}
+              className="flex items-center gap-1.5 text-sm font-medium tracking-wide text-white/90 hover:text-[#D96B33] transition-colors py-1 group"
+            >
+              DIGITALIZATION
+              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === 'digitalization' ? 'rotate-180 text-[#D96B33]' : ''}`} />
+            </button>
+
+            {activeDropdown === 'digitalization' && (
+              <div className="absolute top-full left-0 w-80 bg-[#18253A] border border-[#A49050]/30 shadow-2xl py-3 px-1 z-50 animate-fade-in">
+                {[
+                  { name: "Geospatial Web Portal", path: "/digitalization/geospatial-web-portal" },
+                  { name: "AI-Powered Project Finance Tool", path: "/digitalization/ai-project-finance-tool" },
+                ].map((item, idx) => (
+                  <Link
+                    key={idx}
+                    to={item.path}
+                    onClick={closeDropdowns}
+                    className="block px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/10 transition-colors border-l-2 border-transparent hover:border-[#D96B33]"
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+
           <Link
             to="/projects"
             onClick={closeDropdowns}
@@ -266,7 +300,7 @@ export const Navbar: React.FC = () => {
         </nav>
 
         {/* CTA Button */}
-        <div className="hidden lg:flex items-center gap-4">
+        <div className="hidden lg:flex items-center gap-4 lg:-mr-4">
           <Link
             to="/contact"
             className="bg-[#D96B33] hover:bg-[#C25A28] text-white px-5 py-2.5 text-xs font-mono font-bold tracking-widest uppercase transition-all shadow-md flex items-center gap-2 rounded-md"
@@ -366,6 +400,23 @@ export const Navbar: React.FC = () => {
                       {srv.title}
                     </Link>
                   ))}
+                </div>
+              )}
+            </div>
+
+            {/* Digitalization Mobile */}
+            <div>
+              <button
+                onClick={() => setMobileSubmenu(mobileSubmenu === 'digitalization' ? null : 'digitalization')}
+                className="flex items-center justify-between w-full text-base font-medium text-white hover:text-[#D96B33] py-2 border-b border-white/10"
+              >
+                <span>Digitalization</span>
+                <ChevronDown className={`w-4 h-4 transition-transform ${mobileSubmenu === 'digitalization' ? 'rotate-180' : ''}`} />
+              </button>
+              {mobileSubmenu === 'digitalization' && (
+                <div className="pl-4 py-2 flex flex-col gap-2 bg-[#101A29] mt-1">
+                  <Link to="/digitalization/geospatial-web-portal" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80 py-1.5">Geospatial Web Portal</Link>
+                  <Link to="/digitalization/ai-project-finance-tool" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80 py-1.5">AI-Powered Project Finance Tool</Link>
                 </div>
               )}
             </div>

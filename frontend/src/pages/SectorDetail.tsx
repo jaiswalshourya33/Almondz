@@ -2,8 +2,8 @@ import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { SECTORS } from '../data/sectors';
-import { PROJECTS, Project } from '../data/projects';
-import { ROADS_SUPERVISION_PROJECTS } from '../data/roadsSupervisionProjects';
+import { Project } from '../data/projects';
+import { ALL_ARCHED_PROJECTS } from '../data/archedVaultProjects';
 import { ProjectVideoModal } from '../components/ProjectVideoModal';
 import { ProjectDetailsModal } from '../components/ProjectDetailsModal';
 import { SectorScopeShowcase } from '../components/SectorScopeShowcase';
@@ -44,12 +44,10 @@ export const SectorDetail: React.FC = () => {
     );
   }
 
-  // Roads, Bridges, Highways & Tunnels shows the detailed supervision assignments
-  // (SS_Team_Project_Details.md) in the carousel; every other sector shows its
-  // related entries from PROJECTS.
-  const relatedProjects = sector.slug === 'roads-highways'
-    ? ROADS_SUPERVISION_PROJECTS
-    : PROJECTS.filter((p) => p.sectorSlug === sector.slug || p.sector.toLowerCase().includes(sector.title.toLowerCase().substring(0, 6)));
+  // Each sector shows ONLY its own slice of the 26 Arched-verified projects,
+  // matched strictly on sectorSlug so a project never appears under a sector it
+  // does not belong to.
+  const relatedProjects = ALL_ARCHED_PROJECTS.filter((p) => p.sectorSlug === sector.slug);
 
   const statusOptions = ['All', 'Completed', 'Ongoing', 'Recently Awarded'] as const;
 
@@ -111,11 +109,12 @@ export const SectorDetail: React.FC = () => {
 
   return (
     <div className="dropdown-content-page flex flex-col min-h-screen bg-[#F1F3F5] pt-24">
-      {/* Header Banner with Clean Energy Infrastructure Background */}
+      {/* Header Banner — each sector shows its own domain imagery. */}
       <PageHeroBanner
         line1="SECTOR DOMAIN & EXPERTISE."
         line2={`${sector.title.toUpperCase()}.`}
         description={sector.description}
+        backgroundImage={sector.image}
       />
 
       {/* Services & Scope of Work + Consultation — scroll story with sliding imagery */}

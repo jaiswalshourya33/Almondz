@@ -1,7 +1,8 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { LEADERSHIP, Leader } from '../data/leadership';
-import { X, Linkedin } from 'lucide-react';
+import { X } from 'lucide-react';
 import { PageHeroBanner } from '../components/PageHeroBanner';
+import leadershipHero from '../images/hero/leadership-board.jpg';
 
 // The board grouped by role: the Chairman sits alone in the first row, the
 // Independent Directors share the second row, and the Whole-Time Directors
@@ -101,11 +102,12 @@ export const LeadershipPage: React.FC = () => {
 
   return (
     <div className="leadership-page flex flex-col min-h-screen bg-[#F1F3F5] pt-24">
-      {/* Header Banner with Clean Energy Infrastructure Background */}
+      {/* Header Banner */}
       <PageHeroBanner
         line1="VISIONARY STEWARDSHIP."
         line2="BOARD OF DIRECTORS."
         description="Decades of combined engineering wisdom, financial acumen, and public sector governance guiding Almondz Global Infra-Consultant Limited."
+        backgroundImage={leadershipHero}
       />
 
       {/* Leadership grid — every director on one page, grouped by role */}
@@ -166,15 +168,6 @@ export const LeadershipPage: React.FC = () => {
                   {selectedLeader.name}
                 </h2>
                 <p className="text-lg text-[#18253A]/70 -mt-1">{selectedLeader.title}</p>
-                <a
-                  href="https://www.linkedin.com/company/almondz-global-securities-limited/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex w-8 h-8 items-center justify-center rounded bg-[#0A66C2] text-white transition-transform hover:scale-110"
-                  aria-label={`${selectedLeader.name} on LinkedIn`}
-                >
-                  <Linkedin className="w-4 h-4" />
-                </a>
                 <p className="text-[11px] font-mono tracking-widest text-[#A49050] uppercase">
                   Experience: {selectedLeader.experience}
                 </p>

@@ -33,10 +33,11 @@ const SECTOR_FIGURES = [
 // One icon per lifecycle stage, matched by index to LIFECYCLE_STAGES.
 const LIFECYCLE_ICONS = [Compass, FileText, PenTool, TrendingUp, Building2, CheckCircle2];
 
-// Terse labels for the "Sectors We Serve" filter row, kept short so all chips sit
-// on a single line; index-matched to SECTORS (same order as the site Sectors menu).
+// Terse labels for the "Sectors We Serve" filter row, kept short (the row scrolls
+// horizontally when needed); index-matched to SECTORS (same order as the site
+// Sectors menu).
 const SECTOR_FILTER_LABELS = [
-  'Roads', 'Railways', 'Banking', 'Smart Cities',
+  'Roads', 'Railways', 'Banking', 'Urban Infrastructure',
   'Water', 'Tourism', 'Mining', 'Renewable',
 ];
 
@@ -502,16 +503,6 @@ export const Home: React.FC = () => {
                 >
                   OUR SERVICES
                 </Link>
-
-                <button
-                  onClick={() => handleOpenVideo("https://www.youtube.com/embed/dQw4w9WgXcQ", "Almondz Corporate Overview")}
-                  className="group flex items-center gap-3 text-xs font-mono font-bold text-white hover:text-[#D6C489] transition-all px-2 py-2 cursor-pointer"
-                >
-                  <div className="w-10 h-10 rounded-full border border-[#D6C489]/60 group-hover:border-[#D6C489] flex items-center justify-center text-[#D6C489] bg-[#D6C489]/10 group-hover:bg-[#D6C489]/25 transition-all shadow-md group-hover:scale-110">
-                    <Play className="w-4 h-4 fill-[#D6C489] ml-0.5" />
-                  </div>
-                  <span>WATCH SHOWCASE</span>
-                </button>
               </div>
             </div>
 
@@ -532,7 +523,7 @@ export const Home: React.FC = () => {
                   <div className="text-xs text-white/70 font-mono mt-1">Employees</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-serif font-bold text-[#D6C489]">7+</div>
+                  <div className="text-2xl font-serif font-bold text-[#D6C489]">8+</div>
                   <div className="text-xs text-white/70 font-mono mt-1">Sectors</div>
                 </div>
                 <div>

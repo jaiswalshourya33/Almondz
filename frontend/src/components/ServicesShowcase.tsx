@@ -37,9 +37,9 @@ export const ServicesShowcase: React.FC = () => {
   return (
     <section className="pt-16 pb-12 bg-[#F1F3F5]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8">
+        <div className="text-center max-w-3xl mx-auto mb-10">
           <span className="text-xs font-mono tracking-widest text-[#A49050] uppercase">WHAT WE DO</span>
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#18253A] mt-1">Services We Provide</h2>
+          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#18253A] mt-2">Services We Provide</h2>
         </div>
 
         <div
@@ -107,13 +107,6 @@ export const ServicesShowcase: React.FC = () => {
                         : 'border border-transparent lg:hover:bg-white/60'
                     }`}
                   >
-                    <span
-                      className={`shrink-0 font-mono text-xs font-bold tabular-nums transition-colors ${
-                        isActive ? 'text-[#A49050]' : 'text-[#18253A]/40'
-                      }`}
-                    >
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
                     <span
                       className={`flex-1 font-serif leading-snug truncate transition-colors ${
                         isActive
