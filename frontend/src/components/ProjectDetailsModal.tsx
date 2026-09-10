@@ -47,7 +47,7 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
 
   const statusColors = {
     "Recently Awarded": "bg-[#AB4E23] text-white",
-    "Ongoing": "bg-[#18253A] text-white",
+    "Ongoing": "bg-[#2A4C72] text-white",
     "Completed": "bg-emerald-800 text-white"
   };
 
@@ -69,7 +69,7 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
       <div className="relative w-full max-w-4xl max-h-[92vh] bg-white border border-gray-300 shadow-2xl overflow-hidden z-10 rounded-sm flex flex-col">
         
         {/* Window Titlebar */}
-        <div className="sticky top-0 z-20 bg-[#18253A] text-white px-5 py-3 flex items-center justify-between border-b border-gray-700 select-none">
+        <div className="sticky top-0 z-20 bg-[#2A4C72] text-white px-5 py-3 flex items-center justify-between border-b border-gray-700 select-none">
           <div className="flex items-center gap-2.5">
             <span className="w-2 h-2 bg-[#D96B33] inline-block"></span>
             <span className="text-xs font-bold tracking-wider uppercase text-white">
@@ -106,17 +106,17 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
             <span className="text-xs font-semibold text-[#D96B33] uppercase tracking-wider block mb-1">
               {project.sector}
             </span>
-            <h2 className="text-xl sm:text-2xl font-serif font-bold text-[#18253A] leading-snug">
+            <h2 className="text-xl sm:text-2xl font-serif font-bold text-[#2A4C72] leading-snug">
               {project.title}
             </h2>
             <div className="flex flex-wrap items-center gap-y-1 gap-x-4 text-xs text-gray-600 mt-2.5 font-medium">
               <span className="flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5 text-[#18253A] shrink-0" />
+                <MapPin className="w-3.5 h-3.5 text-[#2A4C72] shrink-0" />
                 <span>{cleanLocation}</span>
               </span>
               <span className="text-gray-300 hidden sm:inline">•</span>
               <span className="flex items-center gap-1.5">
-                <Building2 className="w-3.5 h-3.5 text-[#18253A] shrink-0" />
+                <Building2 className="w-3.5 h-3.5 text-[#2A4C72] shrink-0" />
                 <span>Client: <strong className="text-gray-900">{project.client}</strong></span>
               </span>
             </div>
@@ -129,7 +129,7 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
                 table on the right; the photo sits inside it in full, centred,
                 never cropped or distorted (object-contain). */}
             <div className="md:col-span-5 flex flex-col h-full">
-              <div className="group relative flex-1 min-h-[240px] w-full overflow-hidden rounded-sm border border-gray-300 hover:border-[#18253A]/40 bg-gray-100 shadow-sm transition-colors duration-300">
+              <div className="group relative flex-1 min-h-[240px] w-full overflow-hidden rounded-sm border border-gray-300 hover:border-[#2A4C72]/40 bg-gray-100 shadow-sm transition-colors duration-300">
                 <img
                   src={project.detailImage ?? project.image}
                   alt={project.title}
@@ -142,7 +142,7 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
               {project.youtubeUrl && (
                 <button
                   onClick={() => onOpenVideo(project.youtubeUrl || "", project.title)}
-                  className="mt-2.5 shrink-0 w-full flex items-center justify-center gap-2 bg-[#18253A] hover:bg-[#D96B33] text-white text-xs font-medium py-2.5 px-4 rounded-sm transition-colors shadow-sm"
+                  className="mt-2.5 shrink-0 w-full flex items-center justify-center gap-2 bg-[#2A4C72] hover:bg-[#D96B33] text-white text-xs font-medium py-2.5 px-4 rounded-sm transition-colors shadow-sm"
                 >
                   <Play className="w-3.5 h-3.5 fill-current text-[#D96B33]" />
                   <span>Watch Project Video</span>
@@ -153,7 +153,7 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
             {/* Right: Clean Specifications Table */}
             <div className="md:col-span-7 flex flex-col h-full">
               <div className="border border-gray-200 rounded-sm overflow-hidden bg-white shadow-sm h-full flex flex-col">
-                <div className="bg-gray-100 px-3.5 py-2.5 text-xs font-bold text-[#18253A] uppercase tracking-wider border-b border-gray-200 shrink-0">
+                <div className="bg-gray-100 px-3.5 py-2.5 text-xs font-bold text-[#2A4C72] uppercase tracking-wider border-b border-gray-200 shrink-0">
                   Project Specifications
                 </div>
                 <table className="w-full text-xs text-left border-collapse flex-1 h-full">
@@ -289,7 +289,7 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
               card thumbnail), at most three. Hidden when there are none. */}
           {galleryPhotos.length > 0 && (
             <div className="space-y-2 pt-2">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-[#18253A] border-b border-gray-200 pb-1.5">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-[#2A4C72] border-b border-gray-200 pb-1.5">
                 Site Photographs
               </h3>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
@@ -313,7 +313,7 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
 
           {/* Section 1: Project Overview (Clean Editorial Typography) */}
           <div className="space-y-2 pt-3">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-[#18253A] border-b border-gray-200 pb-1.5">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-[#2A4C72] border-b border-gray-200 pb-1.5">
               Project Overview
             </h3>
             <p className="text-xs sm:text-sm text-gray-700 leading-relaxed">
@@ -323,7 +323,7 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
 
           {/* Section 2: Scope of Services (Natural Bullet List) */}
           <div className="space-y-2 pt-2">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-[#18253A] border-b border-gray-200 pb-1.5">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-[#2A4C72] border-b border-gray-200 pb-1.5">
               Scope of Services
             </h3>
             <ul className="space-y-1.5 text-xs text-gray-700">
@@ -347,7 +347,7 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
 
           {/* Section 3: Key Highlights & Impact (Clean Editorial Callout) */}
           <div className="space-y-2 pt-2">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-[#18253A] border-b border-gray-200 pb-1.5">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-[#2A4C72] border-b border-gray-200 pb-1.5">
               Key Highlights & Impact
             </h3>
             <p className="text-xs sm:text-sm text-gray-700 leading-relaxed bg-[#F1F3F5] p-3.5 rounded-sm">
@@ -374,7 +374,7 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
             )}
             <button
               onClick={onClose}
-              className="px-5 py-1.5 bg-[#18253A] hover:bg-[#101A29] text-white text-xs font-semibold tracking-wider uppercase transition-colors rounded-sm shadow-sm"
+              className="px-5 py-1.5 bg-[#2A4C72] hover:bg-[#101A29] text-white text-xs font-semibold tracking-wider uppercase transition-colors rounded-sm shadow-sm"
             >
               Close
             </button>

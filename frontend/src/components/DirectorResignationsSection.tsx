@@ -54,7 +54,7 @@ export const DirectorResignationsSection: React.FC<DirectorResignationsSectionPr
         </div>
         <div>
           <div className="flex items-center gap-2">
-            <h3 className="text-2xl sm:text-3xl font-serif font-bold text-[#18253A] leading-tight">
+            <h3 className="text-2xl sm:text-3xl font-serif font-bold text-[#2A4C72] leading-tight">
               Resignation of Directors
             </h3>
             <span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-mono font-bold tracking-[0.2em] uppercase text-[#A49050] bg-[#A49050]/12 border border-[#A49050]/30 rounded-full px-3 py-1">
@@ -62,7 +62,7 @@ export const DirectorResignationsSection: React.FC<DirectorResignationsSectionPr
               Official Records
             </span>
           </div>
-          <p className="text-[11px] font-mono uppercase tracking-[0.22em] text-[#18253A]/50 mt-1 flex items-center gap-2">
+          <p className="text-[11px] font-mono uppercase tracking-[0.22em] text-[#2A4C72]/50 mt-1 flex items-center gap-2">
             <span>{directorResignations.length} Financial Years</span>
             <span className="w-1 h-1 rounded-full bg-[#A49050]/40" />
             <span>{totalDirectors} {totalDirectors === 1 ? 'Director' : 'Directors'} Resigned</span>
@@ -87,7 +87,7 @@ export const DirectorResignationsSection: React.FC<DirectorResignationsSectionPr
               <div className="relative bg-gradient-to-r from-white via-[#FCFAF5] to-[#FAF5EB] border border-[#A49050]/30 rounded-2xl p-4 sm:p-5 shadow-[0_4px_16px_rgba(164,144,80,0.08)] mb-4 flex items-center justify-between gap-4 flex-wrap">
                 <div className="flex items-center gap-3">
                   <Calendar className="w-4 h-4 text-[#A49050]" />
-                  <h4 className="text-xl sm:text-2xl font-serif font-bold text-[#18253A]">
+                  <h4 className="text-xl sm:text-2xl font-serif font-bold text-[#2A4C72]">
                     Financial Year {yearBlock.period}
                   </h4>
                 </div>
@@ -119,10 +119,10 @@ export const DirectorResignationsSection: React.FC<DirectorResignationsSectionPr
 
                       {/* Director Name */}
                       <div className="min-w-0">
-                        <h5 className="text-base sm:text-lg font-serif font-bold text-[#18253A] group-hover:text-[#A49050] transition-colors truncate">
+                        <h5 className="text-base sm:text-lg font-serif font-bold text-[#2A4C72] group-hover:text-[#A49050] transition-colors truncate">
                           {name}
                         </h5>
-                        <p className="text-[10px] font-mono uppercase tracking-wider text-[#18253A]/45">
+                        <p className="text-[10px] font-mono uppercase tracking-wider text-[#2A4C72]/45">
                           Board of Directors Resignation
                         </p>
                       </div>

@@ -39,7 +39,7 @@ export const ServicesShowcase: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-10">
           <span className="text-xs font-mono tracking-widest text-[#A49050] uppercase">WHAT WE DO</span>
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#18253A] mt-2">Services We Provide</h2>
+          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#2A4C72] mt-2">Services We Provide</h2>
         </div>
 
         <div
@@ -49,7 +49,7 @@ export const ServicesShowcase: React.FC = () => {
           {/* LEFT — preview image of the currently focused service */}
           <Link
             to={`/services?service=${activeService.slug}`}
-            className="services-spotlight__media group relative block overflow-hidden rounded-2xl shadow-[0_14px_36px_rgba(13,27,42,0.18)] ring-1 ring-[#18253A]/10 min-h-[380px] h-full"
+            className="services-spotlight__media group relative block overflow-hidden rounded-2xl shadow-[0_14px_36px_rgba(13,27,42,0.18)] ring-1 ring-[#2A4C72]/10 min-h-[380px] h-full"
             aria-label={`Open ${activeService.title}`}
           >
             {SERVICES.map((service, index) => (
@@ -90,7 +90,7 @@ export const ServicesShowcase: React.FC = () => {
           </Link>
 
           {/* RIGHT — full list of service names fitted compactly into one section */}
-          <ul className="services-spotlight__list flex flex-col justify-between border-y border-[#18253A]/10 divide-y divide-[#18253A]/10 lg:border-none lg:divide-y-0 lg:gap-1.5">
+          <ul className="services-spotlight__list flex flex-col justify-between border-y border-[#2A4C72]/10 divide-y divide-[#2A4C72]/10 lg:border-none lg:divide-y-0 lg:gap-1.5">
             {SERVICES.map((service, index) => {
               const isActive = index === activeIndex;
               return (
@@ -110,8 +110,8 @@ export const ServicesShowcase: React.FC = () => {
                     <span
                       className={`flex-1 font-serif leading-snug truncate transition-colors ${
                         isActive
-                          ? 'text-sm sm:text-base font-bold text-[#18253A]'
-                          : 'text-sm sm:text-base font-medium text-[#18253A]/70 group-hover:text-[#18253A]'
+                          ? 'text-sm sm:text-base font-bold text-[#2A4C72]'
+                          : 'text-sm sm:text-base font-medium text-[#2A4C72]/70 group-hover:text-[#2A4C72]'
                       }`}
                     >
                       {service.title}
@@ -120,7 +120,7 @@ export const ServicesShowcase: React.FC = () => {
                       className={`h-4 w-4 shrink-0 transition-all duration-200 ${
                         isActive
                           ? 'translate-x-0 text-[#A49050] opacity-100'
-                          : '-translate-x-1 text-[#18253A]/30 opacity-0 group-hover:translate-x-0 group-hover:opacity-100'
+                          : '-translate-x-1 text-[#2A4C72]/30 opacity-0 group-hover:translate-x-0 group-hover:opacity-100'
                       }`}
                     />
                   </Link>

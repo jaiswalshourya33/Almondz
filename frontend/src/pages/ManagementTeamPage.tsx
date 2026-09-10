@@ -187,8 +187,8 @@ export const ManagementTeamPage: React.FC = () => {
                   onClick={() => setSelectedDepartment(dept)}
                   className={`px-2.5 py-1.5 text-[10px] font-mono font-bold uppercase whitespace-nowrap transition-all duration-300 rounded-md shadow-sm hover:shadow ${
                     selectedDepartment === dept
-                      ? 'bg-[#18253A] text-white border border-[#18253A] shadow-md -translate-y-0.5'
-                      : 'bg-[#F1F3F5] text-[#18253A] border border-[#A49050]/30 hover:border-[#D96B33] hover:bg-[#A49050]/10 hover:-translate-y-0.5 active:translate-y-0'
+                      ? 'bg-[#2A4C72] text-white border border-[#2A4C72] shadow-md -translate-y-0.5'
+                      : 'bg-[#F1F3F5] text-[#2A4C72] border border-[#A49050]/30 hover:border-[#D96B33] hover:bg-[#A49050]/10 hover:-translate-y-0.5 active:translate-y-0'
                   }`}
                 >
                   {dept}
@@ -204,7 +204,7 @@ export const ManagementTeamPage: React.FC = () => {
                 placeholder="Search by name, role, or skill..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 bg-[#F1F3F5] border border-transparent rounded-full text-xs text-[#18253A] placeholder-gray-400 focus:outline-none focus:border-[#D96B33] focus:bg-white transition-all"
+                className="w-full pl-10 pr-4 py-2.5 bg-[#F1F3F5] border border-transparent rounded-full text-xs text-[#2A4C72] placeholder-gray-400 focus:outline-none focus:border-[#D96B33] focus:bg-white transition-all"
               />
               {searchQuery && (
                 <button
@@ -235,17 +235,17 @@ export const ManagementTeamPage: React.FC = () => {
                       className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                       referrerPolicy="no-referrer"
                     />
-                    <span className="absolute top-2.5 left-2.5 text-[9px] font-mono uppercase tracking-widest text-white bg-[#18253A]/85 backdrop-blur-sm px-2 py-0.5 rounded-full border border-white/10">
+                    <span className="absolute top-2.5 left-2.5 text-[9px] font-mono uppercase tracking-widest text-white bg-[#2A4C72]/85 backdrop-blur-sm px-2 py-0.5 rounded-full border border-white/10">
                       {member.department ?? 'Management'}
                     </span>
-                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#18253A]/85 to-transparent px-3 pb-2 pt-8 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#2A4C72]/85 to-transparent px-3 pb-2 pt-8 opacity-0 group-hover:opacity-100 transition-opacity">
                       <span className="text-[9px] font-mono uppercase tracking-widest text-white/90">View Profile</span>
                     </div>
                   </div>
 
                   {/* Name & Title */}
                   <div className="p-3.5 flex flex-col gap-0.5">
-                    <h3 className="text-base font-serif font-bold text-[#18253A] leading-snug group-hover:text-[#D96B33] transition-colors">
+                    <h3 className="text-base font-serif font-bold text-[#2A4C72] leading-snug group-hover:text-[#D96B33] transition-colors">
                       {member.name}
                     </h3>
                     <p className="text-xs font-medium text-[#A49050]">{member.title}</p>
@@ -253,7 +253,7 @@ export const ManagementTeamPage: React.FC = () => {
                     {(member.competencies?.length ?? 0) > 0 && (
                       <div className="flex flex-wrap gap-1.5 mt-2 pt-2 border-t border-gray-100">
                         {member.competencies!.slice(0, 3).map((comp, idx) => (
-                          <span key={idx} className="text-[10px] font-medium bg-[#18253A] text-white px-2 py-1 rounded-full">
+                          <span key={idx} className="text-[10px] font-medium bg-[#2A4C72] text-white px-2 py-1 rounded-full">
                             {comp}
                           </span>
                         ))}
@@ -331,7 +331,7 @@ export const ManagementTeamPage: React.FC = () => {
 
               {/* Desktop / Tablet Pagination View (sm and above) */}
               <div className="hidden sm:flex items-center justify-between w-full">
-                <span className="text-xs text-[#18253A]/70 font-medium">
+                <span className="text-xs text-[#2A4C72]/70 font-medium">
                   Showing <strong className="text-gray-900">{startIndex + 1}–{endIndex}</strong> of <strong className="text-gray-900">{filteredMembers.length}</strong> team members • Page <strong className="text-gray-900">{safePage}</strong> of <strong className="text-gray-900">{totalPages}</strong>
                 </span>
 
@@ -391,13 +391,13 @@ export const ManagementTeamPage: React.FC = () => {
           {filteredMembers.length === 0 && (
             <div className="text-center py-20 bg-white border border-[#A49050]/30 p-8">
               <Users className="w-12 h-12 text-[#A49050] mx-auto mb-4 opacity-50" />
-              <h3 className="text-lg font-serif font-bold text-[#18253A]">No management team members found</h3>
+              <h3 className="text-lg font-serif font-bold text-[#2A4C72]">No management team members found</h3>
               <p className="text-xs text-gray-500 mt-1 max-w-md mx-auto">
                 No team members match your current filter or search criteria. Try clearing search filters.
               </p>
               <button
                 onClick={() => { setSelectedDepartment('All'); setSearchQuery(''); }}
-                className="mt-4 px-4 py-2 bg-[#18253A] text-white text-xs font-mono hover:bg-[#D96B33] transition-colors"
+                className="mt-4 px-4 py-2 bg-[#2A4C72] text-white text-xs font-mono hover:bg-[#D96B33] transition-colors"
               >
                 Reset Filters
               </button>
@@ -421,7 +421,7 @@ export const ManagementTeamPage: React.FC = () => {
               className="gov-banner__image absolute inset-0 w-full h-full object-cover"
               referrerPolicy="no-referrer"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#18253A]/15 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#2A4C72]/15 via-transparent to-transparent" />
 
             {/* Floating content card — in normal flow (via margin, not
                 absolute centering) so its natural height sets the banner's
@@ -431,45 +431,45 @@ export const ManagementTeamPage: React.FC = () => {
               <div className="gov-banner__card w-full max-w-2xl bg-white rounded-2xl shadow-2xl ring-1 ring-black/5 border-t-4 border-[#A49050] p-6 sm:p-8 flex flex-col gap-4">
               <div>
                 <span className="text-xs font-mono tracking-widest text-[#A49050] uppercase">EXECUTIVE GOVERNANCE</span>
-                <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#18253A] mt-2">Pillars of Management Leadership</h2>
-                <p className="text-sm text-[#18253A]/70 mt-3 leading-relaxed">
+                <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#2A4C72] mt-2">Pillars of Management Leadership</h2>
+                <p className="text-sm text-[#2A4C72]/70 mt-3 leading-relaxed">
                   Our executive leadership adheres to rigorous institutional protocols, ensuring total accountability, transparent governance, and technical excellence across all client mandates.
                 </p>
               </div>
 
               <div className="flex flex-col gap-4">
                 <div className="space-y-1.5">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#18253A] border-b border-gray-200 pb-1.5">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#2A4C72] border-b border-gray-200 pb-1.5">
                     Technical Rigor
                   </h3>
-                  <p className="text-xs text-[#18253A]/70 leading-relaxed">
+                  <p className="text-xs text-[#2A4C72]/70 leading-relaxed">
                     Zero compromise on engineering safety, structural load validations, and international ISO quality standards.
                   </p>
                 </div>
 
                 <div className="space-y-1.5">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#18253A] border-b border-gray-200 pb-1.5">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#2A4C72] border-b border-gray-200 pb-1.5">
                     Fiscal Integrity
                   </h3>
-                  <p className="text-xs text-[#18253A]/70 leading-relaxed">
+                  <p className="text-xs text-[#2A4C72]/70 leading-relaxed">
                     Transparent transaction advisory, risk-mitigated PPP models, and prudent financial capital allocation.
                   </p>
                 </div>
 
                 <div className="space-y-1.5">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#18253A] border-b border-gray-200 pb-1.5">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#2A4C72] border-b border-gray-200 pb-1.5">
                     BIM & GIS Innovation
                   </h3>
-                  <p className="text-xs text-[#18253A]/70 leading-relaxed">
+                  <p className="text-xs text-[#2A4C72]/70 leading-relaxed">
                     Pioneering 3D digital twin modeling, automated pavement audits, and drone-based spatial mapping.
                   </p>
                 </div>
 
                 <div className="space-y-1.5">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#18253A] border-b border-gray-200 pb-1.5">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#2A4C72] border-b border-gray-200 pb-1.5">
                     ESG & Stewardship
                   </h3>
-                  <p className="text-xs text-[#18253A]/70 leading-relaxed">
+                  <p className="text-xs text-[#2A4C72]/70 leading-relaxed">
                     Embedding environmental protection, carbon footprint auditing, and social safeguards into every master plan.
                   </p>
                 </div>
@@ -484,7 +484,7 @@ export const ManagementTeamPage: React.FC = () => {
           the Leadership profile dialog (LeadershipPage.tsx). */}
       {activeModalMember && (
         <div
-          className="fixed inset-0 z-50 overflow-y-auto bg-[#18253A]/70 backdrop-blur-sm p-4 sm:p-10 animate-fade-in"
+          className="fixed inset-0 z-50 overflow-y-auto bg-[#2A4C72]/70 backdrop-blur-sm p-4 sm:p-10 animate-fade-in"
           onClick={() => setActiveModalMember(null)}
         >
           <div className="min-h-full flex items-center justify-center">
@@ -495,7 +495,7 @@ export const ManagementTeamPage: React.FC = () => {
           >
             <button
               onClick={() => setActiveModalMember(null)}
-              className="absolute top-5 right-5 z-20 p-2.5 bg-white/95 hover:bg-white text-[#18253A] rounded-full shadow-lg transition-colors"
+              className="absolute top-5 right-5 z-20 p-2.5 bg-white/95 hover:bg-white text-[#2A4C72] rounded-full shadow-lg transition-colors"
               aria-label="Close profile"
             >
               <X className="w-5 h-5" />
@@ -521,7 +521,7 @@ export const ManagementTeamPage: React.FC = () => {
                   <span className="inline-flex w-fit items-center text-[11px] font-mono uppercase tracking-widest text-[#D96B33] bg-[#D96B33]/10 border border-[#D96B33]/20 px-3 py-1.5 rounded-full mb-3">
                     {activeModalMember.department ?? 'Management'}
                   </span>
-                  <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#18253A] leading-tight">
+                  <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#2A4C72] leading-tight">
                     {activeModalMember.name}
                   </h2>
                   <p className="mt-1.5 text-sm font-semibold text-[#A49050]">{activeModalMember.title}</p>
@@ -533,7 +533,7 @@ export const ManagementTeamPage: React.FC = () => {
                     <GraduationCap className="w-5 h-5 text-[#D96B33]" />
                   </div>
                   <div>
-                    <p className="text-sm text-[#18253A]">{activeModalMember.qualification}</p>
+                    <p className="text-sm text-[#2A4C72]">{activeModalMember.qualification}</p>
                     <p className="text-xs font-semibold text-[#D96B33] mt-1">{activeModalMember.experienceYears}+ Years Experience</p>
                   </div>
                 </div>
@@ -541,12 +541,12 @@ export const ManagementTeamPage: React.FC = () => {
                 {/* Professional Background */}
                 <div className="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
                   <div className="flex items-center gap-2.5 mb-2.5">
-                    <div className="w-8 h-8 rounded-lg bg-[#18253A]/8 flex items-center justify-center">
-                      <Briefcase className="w-4 h-4 text-[#18253A]" />
+                    <div className="w-8 h-8 rounded-lg bg-[#2A4C72]/8 flex items-center justify-center">
+                      <Briefcase className="w-4 h-4 text-[#2A4C72]" />
                     </div>
-                    <h4 className="text-sm font-semibold text-[#18253A]">Professional Background</h4>
+                    <h4 className="text-sm font-semibold text-[#2A4C72]">Professional Background</h4>
                   </div>
-                  <p className="text-sm text-[#18253A]/70 leading-relaxed">{activeModalMember.bio}</p>
+                  <p className="text-sm text-[#2A4C72]/70 leading-relaxed">{activeModalMember.bio}</p>
                 </div>
 
                 {/* Key Projects Supervised */}
@@ -556,13 +556,13 @@ export const ManagementTeamPage: React.FC = () => {
                       <div className="w-8 h-8 rounded-lg bg-[#A49050]/15 flex items-center justify-center">
                         <Award className="w-4 h-4 text-[#A49050]" />
                       </div>
-                      <h4 className="text-sm font-semibold text-[#18253A]">Key Projects Supervised</h4>
+                      <h4 className="text-sm font-semibold text-[#2A4C72]">Key Projects Supervised</h4>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {activeModalMember.keyProjects!.map((proj, idx) => (
                         <div key={idx} className="flex items-start gap-2.5 bg-[#F1F3F5] rounded-xl p-3 border border-[#A49050]/15">
                           <CheckCircle2 className="w-4 h-4 text-[#D96B33] shrink-0 mt-0.5" />
-                          <span className="text-sm text-[#18253A]">{proj}</span>
+                          <span className="text-sm text-[#2A4C72]">{proj}</span>
                         </div>
                       ))}
                     </div>
@@ -581,7 +581,7 @@ export const ManagementTeamPage: React.FC = () => {
                 </a>
                 <button
                   onClick={() => setActiveModalMember(null)}
-                  className="px-5 py-2.5 text-sm font-medium text-[#18253A] hover:bg-gray-100 rounded-full transition-colors"
+                  className="px-5 py-2.5 text-sm font-medium text-[#2A4C72] hover:bg-gray-100 rounded-full transition-colors"
                 >
                   Close
                 </button>

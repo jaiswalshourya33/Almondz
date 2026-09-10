@@ -48,7 +48,7 @@ export const PageHeroBanner: React.FC<PageHeroBannerProps> = ({
   return (
     <section
       ref={heroStatementRef}
-      className="projects-hero-statement relative -mt-24 min-h-[520px] sm:min-h-[600px] flex items-center justify-center pt-48 pb-16 sm:pt-56 sm:pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#18253A]"
+      className="projects-hero-statement relative -mt-24 min-h-[520px] sm:min-h-[600px] flex items-center justify-center pt-48 pb-16 sm:pt-56 sm:pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#2A4C72]"
     >
       {/* Panoramic Infrastructure Background Image with Balanced Dark Film */}
       <div className="absolute inset-0 z-0">
@@ -57,7 +57,7 @@ export const PageHeroBanner: React.FC<PageHeroBannerProps> = ({
           alt={line1}
           className="w-full h-full object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#101A29]/75 via-[#18253A]/55 to-[#101A29]/80 backdrop-brightness-[0.9]"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-[#101A29]/75 via-[#2A4C72]/55 to-[#101A29]/80 backdrop-brightness-[0.9]"></div>
       </div>
 
       {/* Floating Text Directly Over Image */}

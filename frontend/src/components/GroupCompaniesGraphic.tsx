@@ -179,7 +179,7 @@ export const GroupCompaniesGraphic: React.FC = () => {
   return (
     <section ref={sectionRef} className="group-companies pt-20 pb-8 bg-white overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="gc-reveal text-3xl sm:text-4xl font-serif font-bold text-[#18253A] text-center">
+        <h2 className="gc-reveal text-3xl sm:text-4xl font-serif font-bold text-[#2A4C72] text-center">
           Services Facilitation Through Group Companies
         </h2>
 

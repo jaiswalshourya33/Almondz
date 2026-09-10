@@ -1,7 +1,7 @@
 import { Service } from '../data/services';
 
 // Brand palette (mirrors the site's Tailwind tokens used across the Services page)
-const NAVY = '#18253A';
+const NAVY = '#2A4C72';
 const GOLD = '#A49050';
 const GOLD_LIGHT = '#D6C489';
 const INK = '#1F2933';
