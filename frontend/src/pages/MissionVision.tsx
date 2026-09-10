@@ -181,7 +181,7 @@ export const MissionVision: React.FC = () => {
             className="absolute inset-0 w-full h-full object-cover object-[center_65%]"
             style={{ transform: `scale(${imageScale})`, transition: 'transform 60ms linear' }}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#2A4C72]/45 via-[#2A4C72]/15 to-[#2A4C72]/55" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#2B4A6D]/45 via-[#2B4A6D]/15 to-[#2B4A6D]/55" />
 
           {/* Centered responsive container holding Mission and Vision with guaranteed central spacing */}
           <div className="absolute inset-0 top-24 bottom-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between pointer-events-none gap-6 sm:gap-8 lg:gap-12">

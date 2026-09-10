@@ -15,24 +15,24 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
     >
       <div className="service-card__body flex flex-col gap-4">
         <div className="service-card__top flex justify-end items-start">
-          <span className="text-[10px] font-mono font-bold tracking-widest text-[#2A4C72] uppercase">
+          <span className="text-[10px] font-mono font-bold tracking-widest text-[#2B4A6D] uppercase">
             CONSULTANCY
           </span>
         </div>
 
-        <h3 className="service-card__title text-lg font-serif text-[#2A4C72] group-hover:text-[#A49050] transition-colors leading-snug">
+        <h3 className="service-card__title text-lg font-serif text-[#2B4A6D] group-hover:text-[#A49050] transition-colors leading-snug">
           {service.title}
         </h3>
 
-        <p className="service-card__copy text-sm text-[#2A4C72] leading-relaxed">
+        <p className="service-card__copy text-sm text-[#2B4A6D] leading-relaxed">
           {service.shortDesc}
         </p>
 
         <div className="service-card__list pt-4 border-t border-[#A49050]/20">
-          <span className="text-[10px] font-mono font-bold tracking-widest text-[#2A4C72] uppercase">Key deliverables</span>
+          <span className="text-[10px] font-mono font-bold tracking-widest text-[#2B4A6D] uppercase">Key deliverables</span>
           <ul className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
             {service.deliverables.map((item, idx) => (
-              <li key={idx} className="flex items-start gap-2 text-xs text-[#2A4C72]">
+              <li key={idx} className="flex items-start gap-2 text-xs text-[#2B4A6D]">
                 <CheckCircle2 className="mt-0.5 w-3.5 h-3.5 text-[#A49050] shrink-0" />
                 <span>{item}</span>
               </li>
@@ -41,13 +41,13 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
         </div>
 
         <div className="service-card__methodology bg-[#F1F3F5] px-3 py-2.5 rounded-sm">
-          <span className="block text-[10px] font-mono font-bold tracking-widest text-[#2A4C72] uppercase">Delivery approach</span>
-          <p className="mt-1 text-xs leading-relaxed text-[#2A4C72]">{service.methodology}</p>
+          <span className="block text-[10px] font-mono font-bold tracking-widest text-[#2B4A6D] uppercase">Delivery approach</span>
+          <p className="mt-1 text-xs leading-relaxed text-[#2B4A6D]">{service.methodology}</p>
         </div>
       </div>
 
       <div className="service-card__footer pt-6 mt-4 border-t border-gray-100 flex items-center justify-between">
-        <span className="text-xs font-mono font-bold text-[#2A4C72] group-hover:text-[#A49050] transition-colors">
+        <span className="text-xs font-mono font-bold text-[#2B4A6D] group-hover:text-[#A49050] transition-colors">
           VIEW CAPABILITIES
         </span>
         <ArrowRight className="w-4 h-4 text-[#A49050] group-hover:translate-x-1 transition-transform" />

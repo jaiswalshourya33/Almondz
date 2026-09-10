@@ -182,10 +182,10 @@ export default function RadialOrbitalTimeline({
             transform: `translate(${centerOffset.x}px, ${centerOffset.y}px)`,
           }}
         >
-          <div className="absolute w-20 h-20 rounded-full bg-gradient-to-br from-[#2A4C72] via-[#2E4057] to-[#D96B33] animate-pulse flex items-center justify-center z-10">
-            <div className="absolute w-28 h-28 rounded-full border border-[#2A4C72]/20 animate-ping opacity-70"></div>
+          <div className="absolute w-20 h-20 rounded-full bg-gradient-to-br from-[#2B4A6D] via-[#2E4057] to-[#D96B33] animate-pulse flex items-center justify-center z-10">
+            <div className="absolute w-28 h-28 rounded-full border border-[#2B4A6D]/20 animate-ping opacity-70"></div>
             <div
-              className="absolute w-36 h-36 rounded-full border border-[#2A4C72]/10 animate-ping opacity-50"
+              className="absolute w-36 h-36 rounded-full border border-[#2B4A6D]/10 animate-ping opacity-50"
               style={{ animationDelay: "0.5s" }}
             ></div>
             <div className="w-10 h-10 rounded-full bg-white/90 backdrop-blur-md"></div>
@@ -230,9 +230,9 @@ export default function RadialOrbitalTimeline({
             };
 
             const iconWrapStyle = isExpanded
-              ? { backgroundColor: "#2A4C72", color: "#ffffff" }
+              ? { backgroundColor: "#2B4A6D", color: "#ffffff" }
               : isRelated
-              ? { backgroundColor: "rgba(217,107,51,0.15)", color: "#2A4C72" }
+              ? { backgroundColor: "rgba(217,107,51,0.15)", color: "#2B4A6D" }
               : { backgroundColor: idleBg, color: idleFg };
 
             return (
@@ -287,22 +287,22 @@ export default function RadialOrbitalTimeline({
                 `}
                   style={{
                     color: isExpanded
-                      ? "#2A4C72"
-                      : `rgba(24, 37, 58, ${(0.6 + 0.35 * d).toFixed(3)})`,
+                      ? "#2B4A6D"
+                      : `rgba(43, 74, 109, ${(0.6 + 0.35 * d).toFixed(3)})`,
                   }}
                 >
                   {item.title}
                 </div>
 
                 {isExpanded && (
-                  <Card className="absolute top-24 left-1/2 -translate-x-1/2 w-72 bg-white border border-[#A49050]/30 rounded-md shadow-xl shadow-[#2A4C72]/10 overflow-visible">
+                  <Card className="absolute top-24 left-1/2 -translate-x-1/2 w-72 bg-white border border-[#A49050]/30 rounded-md shadow-xl shadow-[#2B4A6D]/10 overflow-visible">
                     <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-px h-4 bg-[#A49050]/50"></div>
                     <CardHeader className="p-4 pb-2">
-                      <CardTitle className="text-base font-serif font-bold text-[#2A4C72] leading-snug">
+                      <CardTitle className="text-base font-serif font-bold text-[#2B4A6D] leading-snug">
                         {item.title}
                       </CardTitle>
                     </CardHeader>
-                    <CardContent className="px-4 pb-4 text-sm text-[#2A4C72]/70 leading-relaxed">
+                    <CardContent className="px-4 pb-4 text-sm text-[#2B4A6D]/70 leading-relaxed">
                       <p>{item.content}</p>
                     </CardContent>
                   </Card>

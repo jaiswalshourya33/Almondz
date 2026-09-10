@@ -11,7 +11,7 @@ export const SectorCard: React.FC<SectorCardProps> = ({ sector }) => {
   return (
     <Link 
       to={`/sectors/${sector.slug}`}
-      className="group relative bg-[#2A4C72] border border-[#A49050]/20 overflow-hidden flex flex-col justify-between h-[380px] shadow-lg hover:border-[#D96B33] transition-all duration-300"
+      className="group relative bg-[#2B4A6D] border border-[#A49050]/20 overflow-hidden flex flex-col justify-between h-[380px] shadow-lg hover:border-[#D96B33] transition-all duration-300"
     >
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
@@ -22,7 +22,7 @@ export const SectorCard: React.FC<SectorCardProps> = ({ sector }) => {
           style={{ objectPosition: sector.imagePosition }}
           referrerPolicy="no-referrer"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#2A4C72] via-[#2A4C72]/40 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#2B4A6D] via-[#2B4A6D]/40 to-transparent"></div>
       </div>
 
       {/* Top Tag */}

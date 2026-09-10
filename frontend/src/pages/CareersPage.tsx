@@ -74,33 +74,33 @@ export const CareersPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div ref={openingsHeaderRef} className="about-subnav-header text-center mb-12">
             <span className="text-xs font-mono tracking-widest text-[#A49050] uppercase">CURRENT OPENINGS</span>
-            <h2 className="text-3xl font-serif font-bold text-[#2A4C72] mt-1">Open Positions</h2>
+            <h2 className="text-3xl font-serif font-bold text-[#2B4A6D] mt-1">Open Positions</h2>
           </div>
 
           <div ref={openingsCardsRef} className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {OPEN_ROLES.map((role, idx) => (
               <div key={idx} className="about-subnav-card bg-white rounded-2xl border border-[#A49050]/20 shadow-sm hover:shadow-xl hover:border-[#D96B33]/50 hover:-translate-y-2 hover:scale-[1.03] transition-all duration-300 p-8 flex flex-col justify-between group">
                 <div className="flex flex-col gap-4">
-                  <div className="w-14 h-14 rounded-full bg-[#F1F3F5] border border-[#A49050]/20 flex items-center justify-center text-[#2A4C72] group-hover:text-[#D96B33] group-hover:border-[#D96B33]/40 transition-colors">
+                  <div className="w-14 h-14 rounded-full bg-[#F1F3F5] border border-[#A49050]/20 flex items-center justify-center text-[#2B4A6D] group-hover:text-[#D96B33] group-hover:border-[#D96B33]/40 transition-colors">
                     <Briefcase className="w-6 h-6" />
                   </div>
                   <div className="border-t border-[#A49050]/15" />
                   <span className="text-[10px] font-mono tracking-widest bg-[#D96B33]/10 text-[#D96B33] px-2.5 py-1 w-fit rounded-full">
                     {role.department}
                   </span>
-                  <h3 className="text-xl font-serif font-bold text-[#2A4C72]">{role.title}</h3>
-                  <div className="flex items-center gap-4 text-xs font-mono text-[#2A4C72]/60">
+                  <h3 className="text-xl font-serif font-bold text-[#2B4A6D]">{role.title}</h3>
+                  <div className="flex items-center gap-4 text-xs font-mono text-[#2B4A6D]/60">
                     <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5" /> {role.location}</span>
                     <span>• {role.experience}</span>
                   </div>
-                  <p className="text-xs text-[#2A4C72]/70 leading-relaxed">{role.description}</p>
+                  <p className="text-xs text-[#2B4A6D]/70 leading-relaxed">{role.description}</p>
                 </div>
 
                 <div className="pt-6 mt-6 border-t border-gray-100">
                   <Link
                     to="/contact"
                     state={{ formType: 'career', position: role.title }}
-                    className="w-full bg-[#2A4C72] hover:bg-[#D96B33] text-white py-3.5 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 rounded-md"
+                    className="w-full bg-[#2B4A6D] hover:bg-[#D96B33] text-white py-3.5 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 rounded-md"
                   >
                     <span>Apply Now</span>
                     <ArrowRight className="w-3.5 h-3.5" />

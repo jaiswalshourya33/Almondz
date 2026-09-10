@@ -5,11 +5,11 @@ import { ArrowLeft } from 'lucide-react';
 export const NotFoundPage: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-[80vh] bg-[#F1F3F5] px-4 text-center">
-      <div className="w-20 h-20 bg-[#2A4C72] text-[#D96B33] flex items-center justify-center font-mono text-3xl font-bold mb-6">
+      <div className="w-20 h-20 bg-[#2B4A6D] text-[#D96B33] flex items-center justify-center font-mono text-3xl font-bold mb-6">
         404
       </div>
-      <h1 className="text-3xl sm:text-4xl font-serif font-bold text-[#2A4C72]">Page Not Found</h1>
-      <p className="text-sm text-[#2A4C72]/70 max-w-md mt-3 leading-relaxed">
+      <h1 className="text-3xl sm:text-4xl font-serif font-bold text-[#2B4A6D]">Page Not Found</h1>
+      <p className="text-sm text-[#2B4A6D]/70 max-w-md mt-3 leading-relaxed">
         The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
       </p>
       <Link

@@ -34,9 +34,9 @@ const LeaderCard: React.FC<CardProps> = ({ leader, order, onOpen }) => (
       />
     </div>
     <div className="p-5 flex flex-col gap-1.5">
-      <h3 className="text-lg font-serif font-bold text-[#2A4C72] leading-snug">{leader.name}</h3>
+      <h3 className="text-lg font-serif font-bold text-[#2B4A6D] leading-snug">{leader.name}</h3>
       <p className="text-sm font-semibold text-[#A49050]">{leader.title}</p>
-      <p className="text-xs italic text-[#2A4C72]/50">Experience: {leader.experience}</p>
+      <p className="text-xs italic text-[#2B4A6D]/50">Experience: {leader.experience}</p>
     </div>
   </button>
 );
@@ -141,7 +141,7 @@ export const LeadershipPage: React.FC = () => {
 
       {selectedLeader && (
         <div
-          className="fixed inset-0 z-50 overflow-y-auto bg-[#2A4C72]/70 backdrop-blur-sm p-4 sm:p-8 animate-fade-in"
+          className="fixed inset-0 z-50 overflow-y-auto bg-[#2B4A6D]/70 backdrop-blur-sm p-4 sm:p-8 animate-fade-in"
           role="dialog"
           aria-modal="true"
           aria-labelledby="leader-profile-title"
@@ -156,7 +156,7 @@ export const LeadershipPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setSelectedLeader(null)}
-                className="absolute top-4 right-4 z-20 p-2.5 bg-white/90 hover:bg-white text-[#2A4C72] rounded-full shadow-md transition-colors"
+                className="absolute top-4 right-4 z-20 p-2.5 bg-white/90 hover:bg-white text-[#2B4A6D] rounded-full shadow-md transition-colors"
                 aria-label="Close profile"
               >
                 <X className="w-5 h-5" />
@@ -164,14 +164,14 @@ export const LeadershipPage: React.FC = () => {
 
               {/* Left: content — sized to fit, no internal scrollbar */}
               <div className="leader-modal-content-panel flex-1 min-w-0 p-7 sm:p-9 flex flex-col gap-3.5">
-                <h2 id="leader-profile-title" className="text-2xl sm:text-3xl font-serif font-bold text-[#2A4C72] leading-tight">
+                <h2 id="leader-profile-title" className="text-2xl sm:text-3xl font-serif font-bold text-[#2B4A6D] leading-tight">
                   {selectedLeader.name}
                 </h2>
-                <p className="text-lg text-[#2A4C72]/70 -mt-1">{selectedLeader.title}</p>
+                <p className="text-lg text-[#2B4A6D]/70 -mt-1">{selectedLeader.title}</p>
                 <p className="text-[11px] font-mono tracking-widest text-[#A49050] uppercase">
                   Experience: {selectedLeader.experience}
                 </p>
-                <p className="text-[13px] sm:text-sm leading-[1.65] text-[#2A4C72]/75 border-t border-gray-100 pt-3.5">
+                <p className="text-[13px] sm:text-sm leading-[1.65] text-[#2B4A6D]/75 border-t border-gray-100 pt-3.5">
                   {selectedLeader.bio}
                 </p>
               </div>

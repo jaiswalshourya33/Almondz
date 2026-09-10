@@ -84,8 +84,8 @@ export const Navbar: React.FC = () => {
       ref={navRef}
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
         isScrolled
-          ? 'bg-[#2A4C72] shadow-xl py-3 border-b border-white/10'
-          : 'bg-gradient-to-b from-[#2A4C72]/90 via-[#2A4C72]/40 to-transparent py-5'
+          ? 'bg-[#2B4A6D] shadow-xl py-3 border-b border-white/10'
+          : 'bg-gradient-to-b from-[#2B4A6D]/90 via-[#2B4A6D]/40 to-transparent py-5'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
@@ -120,7 +120,7 @@ export const Navbar: React.FC = () => {
             </button>
 
             {activeDropdown === 'about' && (
-              <div className="absolute top-full left-0 w-72 bg-[#2A4C72] border border-[#A49050]/30 shadow-2xl py-3 px-1 z-50 animate-fade-in">
+              <div className="absolute top-full left-0 w-72 bg-[#2B4A6D] border border-[#A49050]/30 shadow-2xl py-3 px-1 z-50 animate-fade-in">
                 {[
                   { name: "Overview", path: "/about" },
                   { name: "Mission & Vision", path: "/about/mission-vision" },
@@ -158,7 +158,7 @@ export const Navbar: React.FC = () => {
             </button>
 
             {activeDropdown === 'sectors' && (
-              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[min(850px,90vw)] bg-[#2A4C72] border border-[#A49050]/30 shadow-2xl p-6 z-50 grid grid-cols-2 gap-4 animate-fade-in">
+              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[min(850px,90vw)] bg-[#2B4A6D] border border-[#A49050]/30 shadow-2xl p-6 z-50 grid grid-cols-2 gap-4 animate-fade-in">
                 <div className="col-span-2 pb-2 border-b border-white/10">
                   <span className="text-xs font-mono tracking-widest text-[#D96B33]">SPECIALIZED INFRASTRUCTURE DOMAINS ({String(SECTORS.length).padStart(3, '0')})</span>
                 </div>
@@ -198,7 +198,7 @@ export const Navbar: React.FC = () => {
             </button>
 
             {activeDropdown === 'services' && (
-              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[min(850px,90vw)] bg-[#2A4C72] border border-[#A49050]/30 shadow-2xl p-6 z-50 grid grid-cols-2 gap-3 animate-fade-in">
+              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[min(850px,90vw)] bg-[#2B4A6D] border border-[#A49050]/30 shadow-2xl p-6 z-50 grid grid-cols-2 gap-3 animate-fade-in">
                 <div className="col-span-2 pb-2 border-b border-white/10 flex justify-between items-center">
                   <span className="text-xs font-mono tracking-widest text-[#D96B33]">END-TO-END CONSULTANCY SERVICES</span>
                   <Link to="/services" onClick={closeDropdowns} className="text-xs font-mono text-white/70 hover:text-white flex items-center gap-1">
@@ -241,7 +241,7 @@ export const Navbar: React.FC = () => {
             </button>
 
             {activeDropdown === 'digitalization' && (
-              <div className="absolute top-full left-0 w-80 bg-[#2A4C72] border border-[#A49050]/30 shadow-2xl py-3 px-1 z-50 animate-fade-in">
+              <div className="absolute top-full left-0 w-80 bg-[#2B4A6D] border border-[#A49050]/30 shadow-2xl py-3 px-1 z-50 animate-fade-in">
                 {[
                   { name: "Geospatial Web Portal", path: "/digitalization/geospatial-web-portal" },
                   { name: "AI-Powered Project Finance Tool", path: "/digitalization/ai-project-finance-tool" },
@@ -285,7 +285,7 @@ export const Navbar: React.FC = () => {
             </button>
 
             {activeDropdown === 'governance' && (
-              <div className="absolute top-full right-0 w-72 bg-[#2A4C72] border border-[#A49050]/30 shadow-2xl py-3 px-1 z-50 animate-fade-in">
+              <div className="absolute top-full right-0 w-72 bg-[#2B4A6D] border border-[#A49050]/30 shadow-2xl py-3 px-1 z-50 animate-fade-in">
                 {CORPORATE_GOVERNANCE.map((item) => (
                   <Link
                     key={item.slug}
@@ -333,7 +333,7 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 right-0 bg-[#2A4C72] border-b border-[#A49050]/30 shadow-2xl px-6 py-6 max-h-[85vh] overflow-y-auto animate-fade-in z-50">
+        <div className="lg:hidden absolute top-full left-0 right-0 bg-[#2B4A6D] border-b border-[#A49050]/30 shadow-2xl px-6 py-6 max-h-[85vh] overflow-y-auto animate-fade-in z-50">
           <div className="flex flex-col gap-4">
             <Link 
               to="/" 
