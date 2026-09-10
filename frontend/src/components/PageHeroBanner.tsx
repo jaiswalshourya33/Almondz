@@ -60,25 +60,25 @@ export const PageHeroBanner: React.FC<PageHeroBannerProps> = ({
         <div className="absolute inset-0 bg-gradient-to-b from-[#101A29]/75 via-[#2A4C72]/55 to-[#101A29]/80 backdrop-brightness-[0.9]"></div>
       </div>
 
-      {/* Floating Text Directly Over Image */}
-      <div className="relative z-10 w-full max-w-4xl mx-auto text-center flex flex-col items-center">
+      {/* Floating Text Directly Over Image — everything centered */}
+      <div className="relative z-10 w-full max-w-5xl mx-auto text-center flex flex-col items-center">
         {/* Top decorative accent rule */}
-        <span className="brand-statement__rule block h-[2.5px] w-28 sm:w-36 bg-[#D6C489] mb-6 sm:mb-8 rounded-full shadow-sm" aria-hidden="true" />
+        <span className="brand-statement__rule block h-[2.5px] w-28 sm:w-36 bg-[#D6C489] mb-6 sm:mb-8 rounded-full shadow-sm mx-auto" aria-hidden="true" />
 
         {/* Main Content with Staggered Image 4 Animation */}
-        <div className="space-y-3 sm:space-y-4">
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-sans font-bold tracking-tight leading-tight">
+        <div className="w-full space-y-3 sm:space-y-4 text-center">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-sans font-bold tracking-tight leading-tight text-center">
             <span className="brand-statement__line block text-white drop-shadow-md">{line1}</span>
             <span className="brand-statement__line block text-[#D6C489] drop-shadow-md">{line2}</span>
           </h1>
 
-          <p className="brand-statement__line text-sm sm:text-base lg:text-lg text-white/90 max-w-2xl mx-auto leading-relaxed font-normal pt-2 drop-shadow-sm">
+          <p className="brand-statement__line text-sm sm:text-base lg:text-lg text-white/90 max-w-2xl mx-auto text-center leading-relaxed font-normal pt-2 drop-shadow-sm">
             {description}
           </p>
         </div>
 
         {/* Bottom decorative accent rule */}
-        <span className="brand-statement__rule block h-[2.5px] w-28 sm:w-36 bg-[#D6C489] mt-6 sm:mt-8 rounded-full shadow-sm" aria-hidden="true" />
+        <span className="brand-statement__rule block h-[2.5px] w-28 sm:w-36 bg-[#D6C489] mt-6 sm:mt-8 rounded-full shadow-sm mx-auto" aria-hidden="true" />
       </div>
     </section>
   );
