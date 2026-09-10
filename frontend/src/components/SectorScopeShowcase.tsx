@@ -3,6 +3,21 @@ import { Link } from 'react-router-dom';
 import { ChevronRight, Mail, Phone, MapPin } from 'lucide-react';
 import type { Sector } from '../data/sectors';
 import waterTreatmentBanner from '../images/water-treatment-banner.jpg';
+import ctaRoadsHighways from '../images/cta-roads-highways.png';
+import ctaRailwaysMetro from '../images/cta-railways-metro.png';
+import ctaTourismInfra from '../images/cta-tourism-infrastructure.png';
+import ctaMining from '../images/cta-mining.png';
+import ctaRenewableEnergy from '../images/cta-renewable-energy.png';
+
+// "Need Sector Consultation?" banner photo, per sector. Sectors not listed
+// here fall back to the shared water-treatment panorama.
+const CONSULTATION_BANNERS: Record<string, string> = {
+  'roads-highways': ctaRoadsHighways,
+  'railways-metro': ctaRailwaysMetro,
+  'tourism-infrastructure': ctaTourismInfra,
+  mining: ctaMining,
+  'renewable-energy': ctaRenewableEnergy,
+};
 
 /* Sector "Services & Scope of Work" + "Need Sector Consultation?":
      Row 1 — compact scope copy (left) + sector photo stretched to equal height (right)
@@ -127,10 +142,10 @@ export const SectorScopeShowcase: React.FC<Props> = ({ sector }) => {
 
         {/* ROW 2 — Panoramic Banner with Floating White Consultation Card (Image 1 Style) */}
         <div ref={row2Ref} className="gov-banner relative rounded-3xl shadow-2xl overflow-hidden">
-          {/* Full-width background image */}
+          {/* Full-width background image — sector-specific where available */}
           <img
-            src={waterTreatmentBanner}
-            alt="Infrastructure facilities and water treatment plant"
+            src={CONSULTATION_BANNERS[sector.slug] ?? waterTreatmentBanner}
+            alt={`${sector.title} — sector consultation`}
             className="gov-banner__image absolute inset-0 w-full h-full object-cover object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-l from-[#2A4C72]/25 via-transparent to-transparent" />
