@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import gsap from 'gsap';
-import { FileText, Eye, ChevronLeft, ChevronRight, FileCheck2, Sparkles } from 'lucide-react';
+import { FileText, Eye, ChevronLeft, ChevronRight, FileCheck2 } from 'lucide-react';
 import type { AnnualReturnFiling } from '../data/corporateGovernance';
 
 interface AnnualReturnSectionProps {
@@ -103,8 +103,8 @@ export const AnnualReturnSection: React.FC<AnnualReturnSectionProps> = ({
                         {filing.period}
                       </h3>
 
-                      <span className="inline-flex items-center gap-1 text-[10px] font-mono font-bold tracking-[0.2em] uppercase text-[#A49050] bg-[#A49050]/12 border border-[#A49050]/30 rounded-full px-3 py-1 shadow-xs">
-                        <Sparkles className="w-2.5 h-2.5 text-[#A49050]" />
+                      <span className="inline-flex items-center gap-1.5 text-[11px] font-mono font-bold tracking-wider uppercase text-[#8A7942] bg-[#FAF6EE] border border-[#D6C489]/70 rounded-full px-3 py-1 shadow-2xs">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#A49050]" />
                         Form {filing.form}
                       </span>
                     </div>

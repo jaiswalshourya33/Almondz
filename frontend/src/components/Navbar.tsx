@@ -224,7 +224,8 @@ export const Navbar: React.FC = () => {
             )}
           </div>
 
-          {/* DIGITALIZATION Dropdown */}
+          {/* DIGITALIZATION Dropdown (Commented Out) */}
+          {/*
           <div
             className="relative"
             onMouseEnter={() => setActiveDropdown('digitalization')}
@@ -257,6 +258,7 @@ export const Navbar: React.FC = () => {
               </div>
             )}
           </div>
+          */}
 
           <Link
             to="/projects"
@@ -404,7 +406,8 @@ export const Navbar: React.FC = () => {
               )}
             </div>
 
-            {/* Digitalization Mobile */}
+            {/* Digitalization Mobile (Commented Out) */}
+            {/*
             <div>
               <button
                 onClick={() => setMobileSubmenu(mobileSubmenu === 'digitalization' ? null : 'digitalization')}
@@ -420,6 +423,7 @@ export const Navbar: React.FC = () => {
                 </div>
               )}
             </div>
+            */}
 
             <Link
               to="/projects"

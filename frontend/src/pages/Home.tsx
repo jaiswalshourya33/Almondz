@@ -540,9 +540,13 @@ export const Home: React.FC = () => {
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-[#A49050]/25 flex items-center justify-between text-xs font-mono text-white/60">
-                <span>PUBLIC LIMITED COMPANY</span>
-                <span className="text-[#D6C489] font-bold">SUBSIDIARY OF AGSL (LISTED)</span>
+              <div className="pt-3 border-t border-[#A49050]/25 flex items-center justify-between text-xs font-mono">
+                <span className="text-[#D6C489] font-bold tracking-wider uppercase">
+                  SUBSIDIARY OF AGSL
+                </span>
+                <span className="text-white/70 text-[11px] text-right">
+                  Almondz Global Securities Limited
+                </span>
               </div>
             </div>
 
@@ -666,7 +670,6 @@ export const Home: React.FC = () => {
                     <span className="sector-showcase__tag bg-[#D96B33] px-3 py-1.5 text-[10px] font-mono tracking-widest text-white">
                       INFRASTRUCTURE SECTOR
                     </span>
-                    <span className="text-4xl font-serif text-white/50 sm:text-6xl">{String(index + 1).padStart(2, '0')}</span>
                   </div>
 
                   <div className="sector-showcase__content max-w-3xl">

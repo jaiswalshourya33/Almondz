@@ -1,67 +1,35 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { CERTIFICATIONS, EMPANELMENTS, Certification } from '../data/certifications';
+import { CERTIFICATIONS, Certification } from '../data/certifications';
 import {
   Award,
   Eye,
   X,
-  Building2,
-  Building,
-  Landmark,
-  Globe2,
-  Banknote,
-  Milestone,
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react';
 import { PageHeroBanner } from '../components/PageHeroBanner';
-import RadialOrbitalTimeline from '../components/ui/radial-orbital-timeline';
+
+// Authentic, verified official institutional client & partner logos
+import nhaiLogo from '../images/partners/nhai.jpg';
+import morthLogo from '../images/partners/morth.svg';
+import worldBankLogo from '../images/partners/world-bank.svg';
+import adbLogo from '../images/partners/adb.svg';
+import nitiAayogLogo from '../images/partners/niti-aayog.svg';
+import ddaLogo from '../images/partners/dda.png';
+import mmrdaLogo from '../images/partners/mmrda.png';
 
 const CERTS_PER_PAGE = 6;
 
-// Per-empanelment presentation metadata for the radial orbital timeline.
-// The underlying facts (name + description) still come straight from
-// EMPANELMENTS in ../data/certifications — nothing is dropped or rephrased;
-// this only adds the icon / grouping label / node "energy" the orbital
-// visual needs. Keyed by the exact `name` in that data.
-const EMPANELMENT_ORBIT_META: Record<
-  string,
-  { tag: string; category: string; icon: React.ElementType; energy: number }
-> = {
-  NHAI: { tag: 'CENTRAL GOVT', category: 'Government Body', icon: Milestone, energy: 100 },
-  MoRTH: { tag: 'MINISTRY', category: 'Government Body', icon: Landmark, energy: 96 },
-  'World Bank': { tag: 'MULTILATERAL', category: 'Multilateral', icon: Globe2, energy: 100 },
-  'Asian Development Bank (ADB)': { tag: 'MULTILATERAL', category: 'Multilateral', icon: Globe2, energy: 92 },
-  SIDBI: { tag: 'SCHEDULED BANK', category: 'Banking / DFI', icon: Banknote, energy: 88 },
-  "Indian Banks' Association (IBA)": { tag: 'BANK BODY', category: 'Banking / DFI', icon: Building2, energy: 84 },
-  NaBFID: { tag: 'DFI', category: 'Banking / DFI', icon: Building, energy: 90 },
-};
-
-// Links each node to its neighbours so the "Connected Nodes" panel keeps the
-// government / multilateral / banking clusters visibly related.
-const EMPANELMENT_ORBIT_RELATED: Record<number, number[]> = {
-  1: [2],
-  2: [1, 3],
-  3: [2, 4],
-  4: [3, 5],
-  5: [4, 6],
-  6: [5, 7],
-  7: [6],
-};
-
-const empanelmentTimelineData = EMPANELMENTS.map((emp, index) => {
-  const meta = EMPANELMENT_ORBIT_META[emp.name];
-  return {
-    id: index + 1,
-    title: emp.name,
-    date: meta.tag,
-    content: emp.desc,
-    category: meta.category,
-    icon: meta.icon,
-    relatedIds: EMPANELMENT_ORBIT_RELATED[index + 1] ?? [],
-    status: 'completed' as const,
-    energy: meta.energy,
-  };
-});
+// 100% Genuine Verified Institutional Client Logos
+const AUTHENTIC_CLIENT_LOGOS = [
+  { id: 'nhai', name: 'National Highways Authority of India (NHAI)', logo: nhaiLogo },
+  { id: 'morth', name: 'Ministry of Road Transport & Highways (MoRTH)', logo: morthLogo },
+  { id: 'worldbank', name: 'World Bank Group', logo: worldBankLogo },
+  { id: 'adb', name: 'Asian Development Bank (ADB)', logo: adbLogo },
+  { id: 'nitiaayog', name: 'NITI Aayog (Government of India)', logo: nitiAayogLogo },
+  { id: 'dda', name: 'Delhi Development Authority (DDA)', logo: ddaLogo },
+  { id: 'mmrda', name: 'Mumbai Metropolitan Region Development Authority (MMRDA)', logo: mmrdaLogo },
+];
 
 export const CertificationsPage: React.FC = () => {
   const [selectedCert, setSelectedCert] = useState<Certification | null>(null);
@@ -114,6 +82,14 @@ export const CertificationsPage: React.FC = () => {
     certsSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
+  // Single Row of Authentic Client Logos duplicated for seamless infinite loop
+  const marqueeLogos = [
+    ...AUTHENTIC_CLIENT_LOGOS,
+    ...AUTHENTIC_CLIENT_LOGOS,
+    ...AUTHENTIC_CLIENT_LOGOS,
+    ...AUTHENTIC_CLIENT_LOGOS,
+  ];
+
   return (
     <div className="about-dropdown-page flex flex-col min-h-screen bg-[#F1F3F5] pt-24">
       {/* Header Banner with Clean Energy Infrastructure Background */}
@@ -152,7 +128,7 @@ export const CertificationsPage: React.FC = () => {
                 <div className="pt-6 mt-6 border-t border-gray-100">
                   <button
                     onClick={() => setSelectedCert(cert)}
-                    className="w-full bg-[#18253A] hover:bg-[#1E2D44] text-white py-2.5 px-4 text-xs font-mono font-bold tracking-wider uppercase transition-all duration-300 flex items-center justify-center gap-2 rounded-md shadow hover:shadow-md"
+                    className="w-full bg-[#18253A] hover:bg-[#1E2D44] text-white py-2.5 px-4 text-xs font-mono font-bold tracking-wider uppercase transition-all duration-300 flex items-center justify-center gap-2 rounded-md shadow hover:shadow-md cursor-pointer"
                   >
                     <Eye className="w-3.5 h-3.5 text-[#D96B33]" />
                     <span>View Certificate</span>
@@ -162,7 +138,7 @@ export const CertificationsPage: React.FC = () => {
             ))}
           </div>
 
-          {/* Cursor & Page-based Responsive Pagination — same styling/behavior as the Sector Detail page */}
+          {/* Cursor & Page-based Responsive Pagination */}
           {totalPages > 1 && (
             <div className="mt-12 pt-6 border-t border-gray-300/80">
               {/* Mobile Pagination View (< sm) */}
@@ -282,24 +258,42 @@ export const CertificationsPage: React.FC = () => {
         </div>
       </section>
 
-      {/* INSTITUTIONAL EMPANELMENTS SECTION */}
-      <section className="pt-10 pb-20 bg-[#18253A]/5">
+      {/* INSTITUTIONAL EMPANELMENTS & CLIENTS MARQUEE (PURE VERIFIED LOGOS ONLY - SINGLE ROW) */}
+      <section className="pt-10 pb-20 bg-[#18253A]/5 border-t border-[#A49050]/20 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div ref={empanelmentsHeaderRef} className="empanelments-header text-center max-w-3xl mx-auto mb-10">
             <span className="text-xs font-mono tracking-widest text-[#D96B33] uppercase">GOVERNMENT & MULTILATERAL RECOGNITION</span>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#18253A] mt-2">Institutional Empanelments</h2>
+            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#18253A] mt-1">
+              Empanelled with Premier Authorities & Financial Institutions
+            </h2>
             <p className="text-xs sm:text-sm text-[#18253A]/70 mt-3 leading-relaxed">
-              Almondz Global Infra-Consultant Limited is officially empanelled as an independent engineer, technical advisor, and design consultant with premier national and international authorities — spanning central government bodies, state governments and development authorities, and national scheduled banks.
+              Almondz Global Infra-Consultant Limited (AGICL) is officially empanelled as an Independent Engineer, Technical Consultant, and Transaction Advisor across India and international multilateral agencies.
             </p>
           </div>
+        </div>
 
-          {/* Radial orbital timeline: every institution in EMPANELMENTS becomes
-              an orbiting node. It auto-rotates; click a node to pause, pull it
-              to the front and reveal a card with just its name and description.
-              Themed to match the site (light ground, navy text, gold/orange
-              accents). */}
-          <div className="rounded-2xl overflow-hidden border border-[#A49050]/20 shadow-sm bg-[#F1F3F5]">
-            <RadialOrbitalTimeline timelineData={empanelmentTimelineData} />
+        {/* Ultra-Smooth Single-Row Continuous Running Marquee (Pure Authentic Logos Only) with Edge Blurs */}
+        <div className="client-logo-marquee relative w-full overflow-hidden py-3">
+          {/* Subtle Edge Blur & Gradient Fade Overlays on both ends (constrained to marquee only) */}
+          <div className="absolute inset-y-0 left-0 w-16 sm:w-28 bg-gradient-to-r from-[#F1F3F5] via-[#F1F3F5]/80 to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-16 sm:w-28 bg-gradient-to-l from-[#F1F3F5] via-[#F1F3F5]/80 to-transparent z-10 pointer-events-none" />
+
+          {/* Running Track (Single Continuous Infinite Scrolling Row) */}
+          <div className="client-logo-marquee__track flex flex-row flex-nowrap items-center">
+            {marqueeLogos.map((client, idx) => (
+              <div
+                key={`single-${client.id}-${idx}`}
+                className="h-14 sm:h-16 w-36 sm:w-44 shrink-0 bg-white border border-[#A49050]/20 hover:border-[#D96B33] rounded-xl px-4 py-2 shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:shadow-[0_6px_16px_rgba(24,37,58,0.1)] flex items-center justify-center transition-all duration-300 hover:scale-105 group cursor-default"
+                title={client.name}
+              >
+                <img
+                  src={client.logo}
+                  alt={client.name}
+                  className="max-h-7 sm:max-h-8 max-w-[75%] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                  loading="lazy"
+                />
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -310,7 +304,7 @@ export const CertificationsPage: React.FC = () => {
           <div className="bg-white border border-[#A49050] w-full max-w-3xl max-h-[90vh] overflow-y-auto p-8 shadow-2xl relative rounded-md flex flex-col gap-6">
             <button
               onClick={() => setSelectedCert(null)}
-              className="absolute top-4 right-4 p-2 text-gray-500 hover:text-[#18253A] bg-gray-100 hover:bg-gray-200 transition-colors rounded-md"
+              className="absolute top-4 right-4 p-2 text-gray-500 hover:text-[#18253A] bg-gray-100 hover:bg-gray-200 transition-colors rounded-md cursor-pointer"
               aria-label="Close modal"
             >
               <X className="w-5 h-5" />
@@ -326,11 +320,7 @@ export const CertificationsPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Original Certificate Image — a fixed-height preview box (not tied to
-                the image's own resolution) so every certificate previews at the
-                same, standard size. object-contain scales the image down (or up)
-                to fit fully within the box with no cropping; shrink-0 stops the
-                flex-column modal from squeezing this box smaller than h-[65vh]. */}
+            {/* Original Certificate Image Preview Box */}
             <div className="bg-[#F1F3F5] border border-[#A49050]/30 rounded-md overflow-hidden flex items-center justify-center shrink-0 h-[65vh]">
               <img
                 src={selectedCert.image}
@@ -343,7 +333,7 @@ export const CertificationsPage: React.FC = () => {
             <div className="flex items-center justify-end pt-4 border-t border-gray-100">
               <button
                 onClick={() => setSelectedCert(null)}
-                className="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 text-[#18253A] text-xs font-mono font-bold tracking-wider uppercase transition-colors rounded-md"
+                className="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 text-[#18253A] text-xs font-mono font-bold tracking-wider uppercase transition-colors rounded-md cursor-pointer"
               >
                 Close Preview
               </button>

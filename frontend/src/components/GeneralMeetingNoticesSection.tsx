@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
 import gsap from 'gsap';
-import { FileText, Calendar, Eye, Sparkles, Building2 } from 'lucide-react';
+import { FileText, Calendar, Eye, Building2 } from 'lucide-react';
 import type { GeneralMeetingCategory } from '../data/corporateGovernance';
 
 interface GeneralMeetingNoticesSectionProps {

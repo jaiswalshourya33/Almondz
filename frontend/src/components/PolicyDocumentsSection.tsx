@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
 import gsap from 'gsap';
-import { FileText, ArrowRight, ShieldCheck, Sparkles } from 'lucide-react';
+import { FileText, ArrowRight, ShieldCheck } from 'lucide-react';
 import type { GovernanceDocument } from '../data/corporateGovernance';
 
 interface PolicyDocumentsSectionProps {
@@ -45,8 +45,8 @@ export const PolicyDocumentsSection: React.FC<PolicyDocumentsSectionProps> = ({ 
             <h3 className="text-2xl sm:text-3xl font-serif font-bold text-[#18253A] leading-tight">
               Board-Approved Policies
             </h3>
-            <span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-mono font-bold tracking-[0.2em] uppercase text-[#A49050] bg-[#A49050]/12 border border-[#A49050]/30 rounded-full px-3 py-1">
-              <Sparkles className="w-2.5 h-2.5 text-[#A49050]" />
+            <span className="hidden sm:inline-flex items-center gap-1.5 text-[10px] font-mono font-bold tracking-[0.18em] uppercase text-[#8A7942] bg-[#FAF6EE] border border-[#D6C489]/70 rounded-full px-3 py-1 shadow-2xs">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#A49050]" />
               Compliance
             </span>
           </div>

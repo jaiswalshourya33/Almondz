@@ -102,22 +102,26 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
         >
           
           {/* Project Title & Context Header */}
-          <div>
-            <span className="text-xs font-semibold text-[#D96B33] uppercase tracking-wider block mb-1">
-              {project.sector}
-            </span>
-            <h2 className="text-xl sm:text-2xl font-serif font-bold text-[#18253A] leading-snug">
+          <div className="bg-[#FAF9F5]/70 p-3 sm:p-3.5 rounded-lg border border-[#A49050]/20 shadow-2xs">
+            <div className="flex items-center gap-2 mb-1.5">
+              <span className="inline-flex items-center text-[9px] font-mono font-bold tracking-wider uppercase px-2 py-0.5 rounded-full bg-[#D96B33]/10 text-[#D96B33] border border-[#D96B33]/25">
+                {project.sector}
+              </span>
+            </div>
+
+            <h2 className="text-[11.5px] sm:text-xs md:text-[13px] font-serif font-bold text-[#18253A] leading-snug">
               {project.title}
             </h2>
-            <div className="flex flex-wrap items-center gap-y-1 gap-x-4 text-xs text-gray-600 mt-2.5 font-medium">
+
+            <div className="flex flex-wrap items-center gap-y-1 gap-x-3 text-[10.5px] sm:text-[11.5px] text-gray-600 mt-2 pt-2 border-t border-[#A49050]/15 font-medium">
               <span className="flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5 text-[#18253A] shrink-0" />
+                <MapPin className="w-3 h-3 text-[#D96B33] shrink-0" />
                 <span>{cleanLocation}</span>
               </span>
               <span className="text-gray-300 hidden sm:inline">•</span>
               <span className="flex items-center gap-1.5">
-                <Building2 className="w-3.5 h-3.5 text-[#18253A] shrink-0" />
-                <span>Client: <strong className="text-gray-900">{project.client}</strong></span>
+                <Building2 className="w-3 h-3 text-[#18253A] shrink-0" />
+                <span>Client: <strong className="text-gray-900 font-semibold">{project.client}</strong></span>
               </span>
             </div>
           </div>
@@ -125,15 +129,13 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
           {/* Upper Section: Photo + Specifications Table (equal height) */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 pt-2 items-stretch">
 
-            {/* Left: Photograph — the frame stretches to match the specifications
-                table on the right; the photo sits inside it in full, centred,
-                never cropped or distorted (object-contain). */}
+            {/* Left: Photograph — fills the left card completely with no empty space */}
             <div className="md:col-span-5 flex flex-col h-full">
               <div className="group relative flex-1 min-h-[240px] w-full overflow-hidden rounded-sm border border-gray-300 hover:border-[#18253A]/40 bg-gray-100 shadow-sm transition-colors duration-300">
                 <img
                   src={project.detailImage ?? project.image}
                   alt={project.title}
-                  className="absolute inset-0 w-full h-full object-contain transition-transform duration-500 ease-out group-hover:scale-105"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                   style={!project.detailImage && project.imagePosition ? { objectPosition: project.imagePosition } : undefined}
                   referrerPolicy="no-referrer"
                 />

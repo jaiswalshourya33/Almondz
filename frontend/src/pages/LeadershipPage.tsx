@@ -29,7 +29,7 @@ const LeaderCard: React.FC<CardProps> = ({ leader, order, onOpen }) => (
       <img
         src={leader.image}
         alt={leader.name}
-        className="h-full w-full object-cover"
+        className="h-full w-full object-cover object-top"
         referrerPolicy="no-referrer"
       />
     </div>
@@ -181,7 +181,7 @@ export const LeadershipPage: React.FC = () => {
                 <img
                   src={selectedLeader.image}
                   alt={selectedLeader.name}
-                  className="h-56 md:h-full w-full object-cover"
+                  className="h-56 md:h-full w-full object-cover object-top"
                   referrerPolicy="no-referrer"
                 />
               </div>

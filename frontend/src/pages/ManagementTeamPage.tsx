@@ -103,10 +103,16 @@ export const ManagementTeamPage: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
-  const departments =['All', 'Executive Leadership', 'Engineering & Technical', 'Financial Advisory', 'Project Management', 'Environmental & ESG'];
+  // Only members with a real photograph get a card; initials placeholders are
+  // hidden until a photo is added to their entry in data/management.ts.
+  const visibleMembers = MANAGEMENT_TEAM.filter(member => !member.image.includes('ui-avatars.com'));
+
+  // Hide department filters that would show no cards.
+  const departments = ['All', ...['Executive Leadership', 'Engineering & Technical', 'Financial Advisory', 'Project Management', 'Environmental & ESG']
+    .filter(dept => visibleMembers.some(member => member.department === dept))];
 
   const filteredMembers = useMemo(() => {
-    return MANAGEMENT_TEAM.filter(member => {
+    return visibleMembers.filter(member => {
       const matchesDept = selectedDepartment === 'All' || member.department === selectedDepartment;
       const matchesSearch = searchQuery.trim() === '' || 
         member.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -534,7 +540,9 @@ export const ManagementTeamPage: React.FC = () => {
                   </div>
                   <div>
                     <p className="text-sm text-[#18253A]">{activeModalMember.qualification}</p>
-                    <p className="text-xs font-semibold text-[#D96B33] mt-1">{activeModalMember.experienceYears}+ Years Experience</p>
+                    {activeModalMember.experienceYears > 0 && (
+                      <p className="text-xs font-semibold text-[#D96B33] mt-1">{activeModalMember.experienceYears}+ Years Experience</p>
+                    )}
                   </div>
                 </div>
 
