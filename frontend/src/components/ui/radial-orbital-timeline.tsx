@@ -20,7 +20,7 @@ interface RadialOrbitalTimelineProps {
 
 // Orbit radius in px — shared by node placement and the "scroll the open card
 // into view" maths below.
-const RING_RADIUS = 280;
+const RING_RADIUS = 240;
 
 export default function RadialOrbitalTimeline({
   timelineData,
@@ -123,7 +123,7 @@ export default function RadialOrbitalTimeline({
       const rect = el.getBoundingClientRect();
       // active node sits at (container centre − radius); the card body is
       // roughly another ~210px below that.
-      const cardCentreWithin = rect.height / 2 - RING_RADIUS + 210;
+      const cardCentreWithin = rect.height / 2 - RING_RADIUS + 190;
       const target =
         window.scrollY + rect.top + cardCentreWithin - window.innerHeight / 2;
       window.scrollTo({ top: Math.max(0, target), behavior: "smooth" });
@@ -182,16 +182,16 @@ export default function RadialOrbitalTimeline({
             transform: `translate(${centerOffset.x}px, ${centerOffset.y}px)`,
           }}
         >
-          <div className="absolute w-24 h-24 rounded-full bg-gradient-to-br from-[#18253A] via-[#2E4057] to-[#D96B33] animate-pulse flex items-center justify-center z-10">
-            <div className="absolute w-32 h-32 rounded-full border border-[#18253A]/20 animate-ping opacity-70"></div>
+          <div className="absolute w-20 h-20 rounded-full bg-gradient-to-br from-[#18253A] via-[#2E4057] to-[#D96B33] animate-pulse flex items-center justify-center z-10">
+            <div className="absolute w-28 h-28 rounded-full border border-[#18253A]/20 animate-ping opacity-70"></div>
             <div
-              className="absolute w-40 h-40 rounded-full border border-[#18253A]/10 animate-ping opacity-50"
+              className="absolute w-36 h-36 rounded-full border border-[#18253A]/10 animate-ping opacity-50"
               style={{ animationDelay: "0.5s" }}
             ></div>
-            <div className="w-12 h-12 rounded-full bg-white/90 backdrop-blur-md"></div>
+            <div className="w-10 h-10 rounded-full bg-white/90 backdrop-blur-md"></div>
           </div>
 
-          <div className="absolute w-[560px] h-[560px] rounded-full border border-[#A49050]/30"></div>
+          <div className="absolute w-[480px] h-[480px] rounded-full border border-[#A49050]/30"></div>
 
           {timelineData.map((item, index) => {
             const position = calculateNodePosition(index, timelineData.length);
@@ -252,16 +252,16 @@ export default function RadialOrbitalTimeline({
                   }`}
                   style={{
                     background: `radial-gradient(circle, rgba(217,107,51,0.22) 0%, rgba(217,107,51,0) 70%)`,
-                    width: `${item.energy * 0.6 + 64}px`,
-                    height: `${item.energy * 0.6 + 64}px`,
-                    left: `-${(item.energy * 0.6 + 64 - 64) / 2}px`,
-                    top: `-${(item.energy * 0.6 + 64 - 64) / 2}px`,
+                    width: `${item.energy * 0.5 + 56}px`,
+                    height: `${item.energy * 0.5 + 56}px`,
+                    left: `-${(item.energy * 0.5 + 56 - 56) / 2}px`,
+                    top: `-${(item.energy * 0.5 + 56 - 56) / 2}px`,
                   }}
                 ></div>
 
                 <div
                   className={`
-                  w-16 h-16 rounded-full flex items-center justify-center
+                  w-14 h-14 rounded-full flex items-center justify-center
                   border-2
                   ${
                     isExpanded
@@ -275,12 +275,12 @@ export default function RadialOrbitalTimeline({
                 `}
                   style={iconWrapStyle}
                 >
-                  <Icon size={28} />
+                  <Icon size={24} />
                 </div>
 
                 <div
                   className={`
-                  absolute top-[4.75rem] left-1/2 -translate-x-1/2 whitespace-nowrap
+                  absolute top-[4.25rem] left-1/2 -translate-x-1/2 whitespace-nowrap
                   text-sm font-semibold tracking-wider
                   transition-all duration-300
                   ${isExpanded ? "scale-125" : ""}
@@ -295,14 +295,14 @@ export default function RadialOrbitalTimeline({
                 </div>
 
                 {isExpanded && (
-                  <Card className="absolute top-28 left-1/2 -translate-x-1/2 w-80 bg-white border border-[#A49050]/30 rounded-md shadow-xl shadow-[#18253A]/10 overflow-visible">
+                  <Card className="absolute top-24 left-1/2 -translate-x-1/2 w-72 bg-white border border-[#A49050]/30 rounded-md shadow-xl shadow-[#18253A]/10 overflow-visible">
                     <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-px h-4 bg-[#A49050]/50"></div>
-                    <CardHeader className="p-5 pb-2">
-                      <CardTitle className="text-lg font-serif font-bold text-[#18253A] leading-snug">
+                    <CardHeader className="p-4 pb-2">
+                      <CardTitle className="text-base font-serif font-bold text-[#18253A] leading-snug">
                         {item.title}
                       </CardTitle>
                     </CardHeader>
-                    <CardContent className="px-5 pb-5 text-sm text-[#18253A]/70 leading-relaxed">
+                    <CardContent className="px-4 pb-4 text-sm text-[#18253A]/70 leading-relaxed">
                       <p>{item.content}</p>
                     </CardContent>
                   </Card>
