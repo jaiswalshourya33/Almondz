@@ -88,8 +88,8 @@ export const CommitteeComposition: React.FC<CommitteeCompositionProps> = ({
                 transition={{ type: 'spring', stiffness: 350, damping: 25 }}
                 className={`relative text-left rounded-2xl p-4 lg:p-5 transition-all duration-300 snap-start shrink-0 lg:shrink min-w-[240px] lg:min-w-0 border ${
                   isActive
-                    ? 'border-[#A49050]/40 shadow-[0_12px_32px_-8px_rgba(164,144,80,0.22),0_4px_12px_rgba(164,144,80,0.08)] text-[#18253A]'
-                    : 'bg-white/80 backdrop-blur-sm border-[#A49050]/20 hover:border-[#A49050]/40 hover:bg-white hover:shadow-md text-[#18253A]/80'
+                    ? 'border-[#A49050]/40 shadow-[0_12px_32px_-8px_rgba(164,144,80,0.22),0_4px_12px_rgba(164,144,80,0.08)] text-[#2A4C72]'
+                    : 'bg-white/80 backdrop-blur-sm border-[#A49050]/20 hover:border-[#A49050]/40 hover:bg-white hover:shadow-md text-[#2A4C72]/80'
                 }`}
               >
                 {/* Active Light Background Pill with Framer Motion layoutId */}
@@ -114,14 +114,14 @@ export const CommitteeComposition: React.FC<CommitteeCompositionProps> = ({
 
                   <h4
                     className={`mt-2 font-serif font-bold text-base lg:text-[17px] leading-snug transition-colors ${
-                      isActive ? 'text-[#18253A]' : 'text-[#18253A]/90'
+                      isActive ? 'text-[#2A4C72]' : 'text-[#2A4C72]/90'
                     }`}
                   >
                     {committee.name}
                   </h4>
 
                   <div className="mt-3 flex items-center justify-between pt-2.5 border-t border-[#A49050]/15">
-                    <span className="text-[11px] font-mono uppercase tracking-wider text-[#18253A]/60 flex items-center gap-1.5">
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-[#2A4C72]/60 flex items-center gap-1.5">
                       <Users className="w-3.5 h-3.5 text-[#A49050]" />
                       {committee.members.length} {committee.members.length === 1 ? 'Member' : 'Members'}
                     </span>
@@ -160,13 +160,13 @@ export const CommitteeComposition: React.FC<CommitteeCompositionProps> = ({
                     {String(committees.length).padStart(2, '0')}
                   </span>
 
-                  <span className="text-[11px] font-mono text-[#18253A]/50 tracking-wider flex items-center gap-1.5">
+                  <span className="text-[11px] font-mono text-[#2A4C72]/50 tracking-wider flex items-center gap-1.5">
                     <ShieldCheck className="w-4 h-4 text-[#A49050]" />
                     Statutory Board Governance
                   </span>
                 </div>
 
-                <h3 className="gsap-committee-title mt-3 text-2xl sm:text-3xl font-serif font-bold text-[#18253A] tracking-tight">
+                <h3 className="gsap-committee-title mt-3 text-2xl sm:text-3xl font-serif font-bold text-[#2A4C72] tracking-tight">
                   {currentCommittee.name}
                 </h3>
 
@@ -182,7 +182,7 @@ export const CommitteeComposition: React.FC<CommitteeCompositionProps> = ({
               {/* Committee Members List */}
               <div className="mt-6">
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-[11px] font-mono uppercase tracking-[0.2em] font-semibold text-[#18253A]/50">
+                  <span className="text-[11px] font-mono uppercase tracking-[0.2em] font-semibold text-[#2A4C72]/50">
                     Committee Members ({currentCommittee.members.length})
                   </span>
                 </div>
@@ -208,7 +208,7 @@ export const CommitteeComposition: React.FC<CommitteeCompositionProps> = ({
                             className={`shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center font-bold text-sm tracking-wider shadow-sm transition-transform duration-300 group-hover:scale-105 ${
                               isLead
                                 ? 'bg-gradient-to-br from-[#FAF6EE] to-[#F3ECD8] text-[#A49050] border border-[#A49050]/40 shadow-[0_4px_12px_rgba(164,144,80,0.15)]'
-                                : 'bg-gradient-to-br from-[#F8FAFC] to-[#F1F3F5] text-[#18253A] border border-[#A49050]/25'
+                                : 'bg-gradient-to-br from-[#F8FAFC] to-[#F1F3F5] text-[#2A4C72] border border-[#A49050]/25'
                             }`}
                           >
                             {initialsOf(member.name)}
@@ -217,7 +217,7 @@ export const CommitteeComposition: React.FC<CommitteeCompositionProps> = ({
                           {/* Name and Role */}
                           <div className="min-w-0 flex-1">
                             <div className="flex items-center gap-2">
-                              <h5 className="text-base sm:text-[17px] font-serif font-bold text-[#18253A] group-hover:text-[#A49050] transition-colors truncate">
+                              <h5 className="text-base sm:text-[17px] font-serif font-bold text-[#2A4C72] group-hover:text-[#A49050] transition-colors truncate">
                                 {member.name}
                               </h5>
                             </div>
@@ -225,7 +225,7 @@ export const CommitteeComposition: React.FC<CommitteeCompositionProps> = ({
                             <div className="mt-1 flex items-center gap-2 flex-wrap">
                               <span
                                 className={`text-[11px] font-mono font-semibold uppercase tracking-[0.16em] ${
-                                  isLead ? 'text-[#A49050]' : 'text-[#18253A]/60'
+                                  isLead ? 'text-[#A49050]' : 'text-[#2A4C72]/60'
                                 }`}
                               >
                                 {member.role}
@@ -241,7 +241,7 @@ export const CommitteeComposition: React.FC<CommitteeCompositionProps> = ({
                             <span>Lead</span>
                           </div>
                         ) : (
-                          <div className="shrink-0 text-[#18253A]/30 group-hover:text-[#A49050]/60 transition-colors">
+                          <div className="shrink-0 text-[#2A4C72]/30 group-hover:text-[#A49050]/60 transition-colors">
                             <UserCheck className="w-4 h-4" />
                           </div>
                         )}

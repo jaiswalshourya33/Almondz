@@ -9,7 +9,7 @@
     
     <!-- Text -->
     <text x="88" y="44" font-family="'Cinzel', 'Playfair Display', Georgia, serif" font-weight="800" font-size="28" fill="#0C3866" letter-spacing="2">IBA</text>
-    <text x="89" y="60" font-family="'Inter', 'Segoe UI', system-ui, sans-serif" font-weight="700" font-size="11" fill="#18253A" letter-spacing="0.5">Indian Banks' Association</text>
+    <text x="89" y="60" font-family="'Inter', 'Segoe UI', system-ui, sans-serif" font-weight="700" font-size="11" fill="#2A4C72" letter-spacing="0.5">Indian Banks' Association</text>
     <text x="89" y="72" font-family="'Inter', 'Segoe UI', system-ui, sans-serif" font-weight="600" font-size="8" fill="#A49050" letter-spacing="1.5" text-transform="uppercase">ESTD. 1946 • APEX BANKING BODY</text>
   </g>
 </svg>

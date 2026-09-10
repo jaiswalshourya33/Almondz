@@ -35,9 +35,9 @@ export const SectorDetail: React.FC = () => {
   if (!sector) {
     return (
       <div className="min-h-screen bg-[#F1F3F5] pt-32 pb-20 text-center">
-        <h2 className="text-3xl font-serif text-[#18253A]">Sector Not Found</h2>
-        <p className="text-sm text-[#18253A]/70 mt-2">The requested sector could not be located.</p>
-        <Link to="/sectors" className="mt-6 inline-block bg-[#18253A] hover:bg-[#3E4C60] text-white px-6 py-3 text-xs font-mono font-bold tracking-widest uppercase shadow-md hover:shadow-lg transition-all duration-300 rounded-md">
+        <h2 className="text-3xl font-serif text-[#2A4C72]">Sector Not Found</h2>
+        <p className="text-sm text-[#2A4C72]/70 mt-2">The requested sector could not be located.</p>
+        <Link to="/sectors" className="mt-6 inline-block bg-[#2A4C72] hover:bg-[#3E4C60] text-white px-6 py-3 text-xs font-mono font-bold tracking-widest uppercase shadow-md hover:shadow-lg transition-all duration-300 rounded-md">
           Back to Sectors
         </Link>
       </div>
@@ -131,11 +131,11 @@ export const SectorDetail: React.FC = () => {
                 <span className="text-xs font-bold text-[#A49050] uppercase tracking-wider block mb-1">
                   Project Portfolio
                 </span>
-                <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#18253A] leading-snug">
+                <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#2A4C72] leading-snug">
                   <span className="block">Representative Projects in</span>
-                  <span className="block text-[#18253A]">{sector.title}</span>
+                  <span className="block text-[#2A4C72]">{sector.title}</span>
                 </h2>
-                <p className="text-xs text-[#18253A]/65 mt-2 font-medium">
+                <p className="text-xs text-[#2A4C72]/65 mt-2 font-medium">
                   {filteredProjects.length} Key Infrastructure {filteredProjects.length === 1 ? 'Asset' : 'Assets'} — scroll sideways to explore
                 </p>
               </div>
@@ -181,7 +181,7 @@ export const SectorDetail: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => scrollProjects('left')}
-                    className="w-8 h-8 rounded-full bg-white border border-gray-300 hover:border-[#18253A] hover:bg-[#18253A] hover:text-white flex items-center justify-center text-gray-700 transition-all duration-200 shadow-2xs cursor-pointer focus:outline-none"
+                    className="w-8 h-8 rounded-full bg-white border border-gray-300 hover:border-[#2A4C72] hover:bg-[#2A4C72] hover:text-white flex items-center justify-center text-gray-700 transition-all duration-200 shadow-2xs cursor-pointer focus:outline-none"
                     aria-label="Previous Projects"
                     title="Scroll left"
                   >
@@ -190,7 +190,7 @@ export const SectorDetail: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => scrollProjects('right')}
-                    className="w-8 h-8 rounded-full bg-white border border-gray-300 hover:border-[#18253A] hover:bg-[#18253A] hover:text-white flex items-center justify-center text-gray-700 transition-all duration-200 shadow-2xs cursor-pointer focus:outline-none"
+                    className="w-8 h-8 rounded-full bg-white border border-gray-300 hover:border-[#2A4C72] hover:bg-[#2A4C72] hover:text-white flex items-center justify-center text-gray-700 transition-all duration-200 shadow-2xs cursor-pointer focus:outline-none"
                     aria-label="Next Projects"
                     title="Scroll right"
                   >
@@ -207,7 +207,7 @@ export const SectorDetail: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setSelectedStatus('All')}
-                  className="mt-4 px-4 py-2 bg-[#18253A] hover:bg-[#3E4C60] text-white text-xs font-semibold uppercase tracking-wider transition-colors rounded-sm"
+                  className="mt-4 px-4 py-2 bg-[#2A4C72] hover:bg-[#3E4C60] text-white text-xs font-semibold uppercase tracking-wider transition-colors rounded-sm"
                 >
                   View All Projects
                 </button>
@@ -237,7 +237,7 @@ export const SectorDetail: React.FC = () => {
                     </div>
                     <div className="flex-1 flex items-center justify-center px-2.5 py-2.5">
                       <h3
-                        className="text-[11px] font-semibold text-center text-[#18253A] leading-snug line-clamp-2 group-hover:text-[#3E4C60] transition-colors"
+                        className="text-[11px] font-semibold text-center text-[#2A4C72] leading-snug line-clamp-2 group-hover:text-[#3E4C60] transition-colors"
                         title={proj.title}
                       >
                         {proj.title}

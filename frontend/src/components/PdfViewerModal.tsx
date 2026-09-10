@@ -56,7 +56,7 @@ export const PdfViewerModal: React.FC<PdfViewerModalProps> = ({
         aria-label="Close viewer background"
       />
 
-      <div className="pdf-viewer-modal__panel relative z-10 flex h-[92vh] w-full max-w-6xl flex-col overflow-hidden rounded-xl border border-[#A49050]/30 bg-[#18253A] shadow-2xl">
+      <div className="pdf-viewer-modal__panel relative z-10 flex h-[92vh] w-full max-w-6xl flex-col overflow-hidden rounded-xl border border-[#A49050]/30 bg-[#2A4C72] shadow-2xl">
         {/* Header */}
         <div className="flex items-center justify-between gap-4 border-b border-white/10 bg-[#101A29] px-5 py-4 sm:px-7">
           <div className="flex min-w-0 items-center gap-3.5">
