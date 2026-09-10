@@ -430,7 +430,7 @@ export const Home: React.FC = () => {
     <div className="flex flex-col min-h-screen bg-[#F1F3F5]">
       
       {/* HERO SECTION */}
-      <section className="projects-hero-statement is-visible relative group min-h-[92vh] flex items-center justify-center bg-[#2A4C72] text-white overflow-hidden pt-28 pb-16">
+      <section className="projects-hero-statement is-visible relative group min-h-[92vh] flex items-center justify-center bg-[#18253A] text-white overflow-hidden pt-28 pb-16">
         {/* Background Slideshow with Balanced Dark Film */}
         <div className="absolute inset-0 z-0">
           {backgroundImages.map((img, idx) => (
@@ -447,7 +447,7 @@ export const Home: React.FC = () => {
               />
             </div>
           ))}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#101A29]/85 via-[#101A29]/70 to-[#101A29]/50 backdrop-brightness-[0.9] z-20"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#101A29]/85 via-[#18253A]/70 to-[#101A29]/50 backdrop-brightness-[0.9] z-20"></div>
 
           {/* Slideshow indicators / caption badge */}
           <div className="absolute bottom-6 right-6 z-30 hidden sm:flex items-center gap-2 bg-[#101A29]/80 backdrop-blur-md px-4 py-2 border border-[#A49050]/40 rounded-lg shadow-xl">
@@ -491,7 +491,7 @@ export const Home: React.FC = () => {
               <div className="brand-statement__line flex flex-wrap items-center gap-4 pt-2">
                 <Link
                   to="/projects"
-                  className="bg-[#D6C489] hover:bg-white text-[#2A4C72] px-7 py-3.5 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-xl hover:shadow-[#D6C489]/40 hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-3 rounded-lg border border-[#D6C489]"
+                  className="bg-[#D6C489] hover:bg-white text-[#18253A] px-7 py-3.5 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-xl hover:shadow-[#D6C489]/40 hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-3 rounded-lg border border-[#D6C489]"
                 >
                   <span>EXPLORE PROJECTS</span>
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -507,7 +507,7 @@ export const Home: React.FC = () => {
             </div>
 
             {/* Hero Quick Metrics Panel */}
-            <div className="hero-summary-entry lg:col-span-4 bg-[#16304C]/90 border border-[#A49050]/40 p-6 sm:p-8 backdrop-blur-md shadow-2xl rounded-2xl flex flex-col gap-6 ring-1 ring-white/10">
+            <div className="hero-summary-entry lg:col-span-4 bg-[#101A29]/85 border border-[#A49050]/40 p-6 sm:p-8 backdrop-blur-md shadow-2xl rounded-2xl flex flex-col gap-6 ring-1 ring-white/10">
               <div className="border-b border-[#A49050]/25 pb-4">
                 <span className="text-xs font-mono tracking-widest text-[#A49050] uppercase font-bold">AT A GLANCE</span>
                 <h3 className="text-xl font-serif text-white mt-1 font-bold">Institutional Excellence</h3>
@@ -583,7 +583,7 @@ export const Home: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <span className="text-xs font-mono tracking-widest text-[#A49050] uppercase">TRACK RECORD BY SECTOR</span>
-            <h2 className="text-2xl font-serif font-bold text-[#2A4C72] mt-1">Delivered Value Across India's Infrastructure Sectors</h2>
+            <h2 className="text-2xl font-serif font-bold text-[#18253A] mt-1">Delivered Value Across India's Infrastructure Sectors</h2>
           </div>
         </div>
         <div ref={sectorFiguresSectionRef} className="partner-marquee" aria-label="Sector-wise delivered project figures">
@@ -604,7 +604,7 @@ export const Home: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-10">
             <span className="text-xs font-mono tracking-widest text-[#D96B33] uppercase">OUR DOMAINS</span>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#2A4C72] mt-1">Sectors We Serve</h2>
+            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#18253A] mt-1">Sectors We Serve</h2>
 
             <div
               className="mt-6 flex flex-nowrap items-center gap-1.5 sm:gap-2 overflow-x-auto"
@@ -620,8 +620,8 @@ export const Home: React.FC = () => {
                   onClick={() => selectSectorFromFilter(index)}
                   className={`shrink-0 whitespace-nowrap rounded-full border px-3 py-1.5 text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider transition-colors duration-200 ${
                     activeSectorIndex === index
-                      ? 'bg-[#2A4C72] border-[#2A4C72] text-white'
-                      : 'bg-white border-[#2A4C72]/15 text-[#2A4C72]/70 hover:bg-[#3E4C60] hover:border-[#3E4C60] hover:text-white'
+                      ? 'bg-[#18253A] border-[#18253A] text-white'
+                      : 'bg-white border-[#18253A]/15 text-[#18253A]/70 hover:bg-[#3E4C60] hover:border-[#3E4C60] hover:text-white'
                   }`}
                 >
                   {SECTOR_FILTER_LABELS[index]}
@@ -659,7 +659,7 @@ export const Home: React.FC = () => {
                   style={{ objectPosition: sector.imagePosition }}
                   referrerPolicy="no-referrer"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#101A29] via-[#2A4C72]/40 to-[#2A4C72]/10" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#101A29] via-[#18253A]/40 to-[#18253A]/10" />
 
                 <div className="relative flex h-full flex-col justify-between p-7 sm:p-10 lg:p-14">
                   <div className="flex items-start justify-between gap-6">
@@ -687,7 +687,7 @@ export const Home: React.FC = () => {
       {/* BRAND STATEMENT */}
       <section
         ref={brandStatementRef}
-        className="brand-statement relative min-h-[460px] sm:min-h-[540px] flex items-center justify-center py-20 sm:py-28 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#2A4C72]"
+        className="brand-statement relative min-h-[460px] sm:min-h-[540px] flex items-center justify-center py-20 sm:py-28 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#18253A]"
       >
         {/* Panoramic Infrastructure Background Image with Balanced Dark Film */}
         <div className="absolute inset-0 z-0">
@@ -696,7 +696,7 @@ export const Home: React.FC = () => {
             alt="National highway and bridge infrastructure"
             className="w-full h-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#101A29]/75 via-[#2A4C72]/55 to-[#101A29]/80 backdrop-brightness-[0.9]"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-[#101A29]/75 via-[#18253A]/55 to-[#101A29]/80 backdrop-brightness-[0.9]"></div>
         </div>
 
         {/* Floating Text Directly Over Image */}
@@ -736,7 +736,7 @@ export const Home: React.FC = () => {
             alt="End-to-End Infrastructure Engineering Capability"
             className="w-full h-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#101A29]/55 via-[#2A4C72]/40 to-[#101A29]/60 backdrop-brightness-[0.9]"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-[#101A29]/55 via-[#18253A]/40 to-[#101A29]/60 backdrop-brightness-[0.9]"></div>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -816,7 +816,7 @@ export const Home: React.FC = () => {
                         cx={activeX2}
                         cy={activeY2}
                         r="4"
-                        fill="#2A4C72"
+                        fill="#18253A"
                         stroke="#D96B33"
                         strokeWidth="2.5"
                         style={{ filter: 'drop-shadow(0 0 8px #D96B33) drop-shadow(0 0 14px #D96B33)' }}
@@ -835,7 +835,7 @@ export const Home: React.FC = () => {
                 <div
                   key={idx}
                   ref={(element) => { cardElementRefs.current[idx] = element; }}
-                  className={`lifecycle-showcase__card relative z-10 w-full bg-white border border-[#2A4C72]/10 rounded-2xl shadow-md p-2.5 sm:p-3 group transition-all duration-300 lg:w-[310px] ${
+                  className={`lifecycle-showcase__card relative z-10 w-full bg-white border border-[#18253A]/10 rounded-2xl shadow-md p-2.5 sm:p-3 group transition-all duration-300 lg:w-[310px] ${
                     idx % 2 === 0 ? 'lg:self-start card-odd' : 'lg:self-end card-even'
                   } ${isVisible ? 'is-card-visible' : ''}`}
                 >
@@ -850,11 +850,11 @@ export const Home: React.FC = () => {
                     {stage.step}
                   </div>
                   <div className="rounded-xl bg-[#F8F9FA] p-4 sm:p-5 pt-6 flex flex-col gap-2">
-                    <div className="w-8 h-8 rounded-full bg-white shadow-sm border border-black/5 flex items-center justify-center text-[#2A4C72]">
+                    <div className="w-8 h-8 rounded-full bg-white shadow-sm border border-black/5 flex items-center justify-center text-[#18253A]">
                       <StageIcon className="w-4 h-4" />
                     </div>
                     <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#A49050]">{stage.category}</span>
-                    <h3 className="text-base sm:text-lg font-serif font-bold text-[#2A4C72] leading-snug">{stage.title}</h3>
+                    <h3 className="text-base sm:text-lg font-serif font-bold text-[#18253A] leading-snug">{stage.title}</h3>
                     <p className="text-xs text-gray-500 leading-relaxed">{stage.description}</p>
                   </div>
                 </div>

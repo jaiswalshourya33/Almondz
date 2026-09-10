@@ -47,7 +47,7 @@ export const GeneralMeetingNoticesSection: React.FC<GeneralMeetingNoticesSection
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="text-2xl sm:text-3xl font-serif font-bold text-[#2A4C72] leading-tight">
+                <h3 className="text-2xl sm:text-3xl font-serif font-bold text-[#18253A] leading-tight">
                   {group.category}
                 </h3>
                 <span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-mono font-bold tracking-[0.2em] uppercase text-[#A49050] bg-[#A49050]/12 border border-[#A49050]/30 rounded-full px-3 py-1">
@@ -55,7 +55,7 @@ export const GeneralMeetingNoticesSection: React.FC<GeneralMeetingNoticesSection
                   Shareholder Disclosures
                 </span>
               </div>
-              <p className="text-[11px] font-mono uppercase tracking-[0.22em] text-[#2A4C72]/50 mt-1">
+              <p className="text-[11px] font-mono uppercase tracking-[0.22em] text-[#18253A]/50 mt-1">
                 {group.years.length} Financial {group.years.length === 1 ? 'Year' : 'Years'} on Record
               </p>
             </div>
@@ -78,7 +78,7 @@ export const GeneralMeetingNoticesSection: React.FC<GeneralMeetingNoticesSection
                   <div className="relative bg-gradient-to-r from-white via-[#FCFAF5] to-[#FAF5EB] border border-[#A49050]/30 rounded-2xl p-4 sm:p-5 shadow-[0_4px_16px_rgba(164,144,80,0.08)] mb-4 flex items-center justify-between gap-4 flex-wrap">
                     <div className="flex items-center gap-3">
                       <Calendar className="w-4 h-4 text-[#A49050]" />
-                      <h4 className="text-xl sm:text-2xl font-serif font-bold text-[#2A4C72]">
+                      <h4 className="text-xl sm:text-2xl font-serif font-bold text-[#18253A]">
                         {year.period}
                       </h4>
                     </div>
@@ -107,10 +107,10 @@ export const GeneralMeetingNoticesSection: React.FC<GeneralMeetingNoticesSection
                           </div>
 
                           <div className="min-w-0">
-                            <h5 className="text-base sm:text-lg font-serif font-bold text-[#2A4C72] group-hover:text-[#A49050] transition-colors truncate">
+                            <h5 className="text-base sm:text-lg font-serif font-bold text-[#18253A] group-hover:text-[#A49050] transition-colors truncate">
                               {notice.label}
                             </h5>
-                            <p className="text-[10px] font-mono uppercase tracking-wider text-[#2A4C72]/45">
+                            <p className="text-[10px] font-mono uppercase tracking-wider text-[#18253A]/45">
                               Companies Act Statutory Meeting Notice
                             </p>
                           </div>
@@ -123,7 +123,7 @@ export const GeneralMeetingNoticesSection: React.FC<GeneralMeetingNoticesSection
                             onClick={() => onSelectNotice(notice.file, notice.label)}
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className="shrink-0 inline-flex items-center gap-2 bg-gradient-to-r from-[#2A4C72] to-[#2C3E50] hover:from-[#A49050] hover:to-[#8C7A3E] text-white px-4 sm:px-5 py-2.5 text-[11px] font-mono font-bold tracking-widest uppercase rounded-xl shadow-xs transition-all duration-300"
+                            className="shrink-0 inline-flex items-center gap-2 bg-gradient-to-r from-[#18253A] to-[#2C3E50] hover:from-[#A49050] hover:to-[#8C7A3E] text-white px-4 sm:px-5 py-2.5 text-[11px] font-mono font-bold tracking-widest uppercase rounded-xl shadow-xs transition-all duration-300"
                           >
                             <Eye className="w-3.5 h-3.5 text-[#C5A85A] group-hover:text-white transition-colors" />
                             <span>View</span>

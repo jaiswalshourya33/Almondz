@@ -67,7 +67,7 @@ export const AnnualReturnSection: React.FC<AnnualReturnSectionProps> = ({
           </span>
         </div>
 
-        <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#2A4C72]/50">
+        <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#18253A]/50">
           Showing {startIndex + 1}&ndash;{startIndex + visibleFilings.length} of {annualReturns.length}
         </span>
       </div>
@@ -99,7 +99,7 @@ export const AnnualReturnSection: React.FC<AnnualReturnSectionProps> = ({
                   {/* Title & Metadata */}
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-3 flex-wrap">
-                      <h3 className="text-xl sm:text-2xl font-serif font-bold text-[#2A4C72] group-hover:text-[#A49050] transition-colors leading-tight">
+                      <h3 className="text-xl sm:text-2xl font-serif font-bold text-[#18253A] group-hover:text-[#A49050] transition-colors leading-tight">
                         {filing.period}
                       </h3>
 
@@ -109,7 +109,7 @@ export const AnnualReturnSection: React.FC<AnnualReturnSectionProps> = ({
                       </span>
                     </div>
 
-                    <p className="text-[11px] sm:text-xs text-[#2A4C72]/55 mt-1 font-mono uppercase tracking-wider flex items-center gap-2">
+                    <p className="text-[11px] sm:text-xs text-[#18253A]/55 mt-1 font-mono uppercase tracking-wider flex items-center gap-2">
                       <span>Registrar of Companies Filing</span>
                       <span className="w-1 h-1 rounded-full bg-[#A49050]/40" />
                       <span>Section 92 Disclosure</span>
@@ -123,7 +123,7 @@ export const AnnualReturnSection: React.FC<AnnualReturnSectionProps> = ({
                   onClick={() => onSelectFiling(filing)}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="shrink-0 inline-flex items-center gap-2.5 bg-gradient-to-r from-[#2A4C72] to-[#2C3E50] hover:from-[#A49050] hover:to-[#8C7A3E] text-white px-5 sm:px-7 py-3.5 text-xs font-mono font-bold tracking-widest uppercase rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
+                  className="shrink-0 inline-flex items-center gap-2.5 bg-gradient-to-r from-[#18253A] to-[#2C3E50] hover:from-[#A49050] hover:to-[#8C7A3E] text-white px-5 sm:px-7 py-3.5 text-xs font-mono font-bold tracking-widest uppercase rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
                   aria-label={`View Annual Return ${filing.period} (Form ${filing.form})`}
                 >
                   <Eye className="w-4 h-4 text-[#C5A85A] group-hover:text-white transition-colors" />
@@ -196,7 +196,7 @@ export const AnnualReturnSection: React.FC<AnnualReturnSectionProps> = ({
 
           {/* Desktop / Tablet Pagination View (sm and above) */}
           <div className="hidden sm:flex items-center justify-between w-full">
-            <span className="text-xs text-[#2A4C72]/70 font-medium">
+            <span className="text-xs text-[#18253A]/70 font-medium">
               Showing <strong className="text-gray-900">{startIndex + 1}&ndash;{endIndex}</strong> of <strong className="text-gray-900">{annualReturns.length}</strong> filings • Page <strong className="text-gray-900">{safePage}</strong> of <strong className="text-gray-900">{totalPages}</strong>
             </span>
 

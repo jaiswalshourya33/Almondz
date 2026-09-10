@@ -42,7 +42,7 @@ export const PolicyDocumentsSection: React.FC<PolicyDocumentsSectionProps> = ({ 
         </div>
         <div>
           <div className="flex items-center gap-2">
-            <h3 className="text-2xl sm:text-3xl font-serif font-bold text-[#2A4C72] leading-tight">
+            <h3 className="text-2xl sm:text-3xl font-serif font-bold text-[#18253A] leading-tight">
               Board-Approved Policies
             </h3>
             <span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-mono font-bold tracking-[0.2em] uppercase text-[#A49050] bg-[#A49050]/12 border border-[#A49050]/30 rounded-full px-3 py-1">
@@ -50,7 +50,7 @@ export const PolicyDocumentsSection: React.FC<PolicyDocumentsSectionProps> = ({ 
               Compliance
             </span>
           </div>
-          <p className="text-[11px] font-mono uppercase tracking-[0.22em] text-[#2A4C72]/50 mt-1">
+          <p className="text-[11px] font-mono uppercase tracking-[0.22em] text-[#18253A]/50 mt-1">
             {documents.length} Published Policy Documents
           </p>
         </div>
@@ -75,11 +75,11 @@ export const PolicyDocumentsSection: React.FC<PolicyDocumentsSectionProps> = ({ 
 
               <div className="h-[2px] w-12 bg-gradient-to-r from-[#A49050] to-[#C5A85A] rounded-full" />
 
-              <h4 className="text-xl font-serif font-bold text-[#2A4C72] group-hover:text-[#A49050] transition-colors leading-snug">
+              <h4 className="text-xl font-serif font-bold text-[#18253A] group-hover:text-[#A49050] transition-colors leading-snug">
                 {doc.title}
               </h4>
 
-              <p className="text-xs text-[#2A4C72]/70 leading-relaxed font-sans">
+              <p className="text-xs text-[#18253A]/70 leading-relaxed font-sans">
                 {doc.summary}
               </p>
             </div>
@@ -89,7 +89,7 @@ export const PolicyDocumentsSection: React.FC<PolicyDocumentsSectionProps> = ({ 
                 href={doc.file}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full bg-gradient-to-r from-[#2A4C72] to-[#2C3E50] hover:from-[#A49050] hover:to-[#8C7A3E] text-white py-3.5 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 rounded-xl"
+                className="w-full bg-gradient-to-r from-[#18253A] to-[#2C3E50] hover:from-[#A49050] hover:to-[#8C7A3E] text-white py-3.5 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 rounded-xl"
               >
                 <span>View Policy PDF</span>
                 <ArrowRight className="w-4 h-4 text-[#C5A85A] group-hover:text-white transition-colors" />

@@ -129,38 +129,38 @@ export const AboutOverview: React.FC = () => {
             
             <div className="about-heritage-copy lg:col-span-6 flex flex-col gap-6">
               <span className="text-xs font-mono tracking-widest text-[#D96B33] uppercase">OUR HERITAGE</span>
-              <h2 className="text-3xl font-serif font-bold text-[#2A4C72]">A Legacy of Precision, Integrity, and Nation-Building</h2>
-              <p className="text-sm text-[#2A4C72]/80 leading-relaxed">
+              <h2 className="text-3xl font-serif font-bold text-[#18253A]">A Legacy of Precision, Integrity, and Nation-Building</h2>
+              <p className="text-sm text-[#18253A]/80 leading-relaxed">
                 Founded in 2013, Almondz Global Infra Consultant Limited has over a decade of experience in infrastructure consultancy, backed by the larger Almondz Group's legacy since 1994. AGICL has successfully delivered over 50+ major infrastructure projects and maintains more than 100+ active engagements across India and abroad.
               </p>
-              <p className="text-sm text-[#2A4C72]/80 leading-relaxed">
+              <p className="text-sm text-[#18253A]/80 leading-relaxed">
                 Our multidisciplinary teams comprise seasoned civil engineers, geotechnical experts, urban planners, financial analysts, and environmental scientists who work in synergy to deliver turnkey consultancy from concept to commissioning.
               </p>
 
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4 border-t border-[#A49050]/30">
                 <div>
-                  <div className="text-xl font-serif font-bold text-[#2A4C72]">₹500Cr+</div>
-                  <div className="text-xs font-mono text-[#2A4C72]/60 mt-1">Active Order Book</div>
+                  <div className="text-xl font-serif font-bold text-[#18253A]">₹500Cr+</div>
+                  <div className="text-xs font-mono text-[#18253A]/60 mt-1">Active Order Book</div>
                 </div>
                 <div>
                   <div className="text-xl font-serif font-bold text-[#D96B33]">500+</div>
-                  <div className="text-xs font-mono text-[#2A4C72]/60 mt-1">Employees</div>
+                  <div className="text-xs font-mono text-[#18253A]/60 mt-1">Employees</div>
                 </div>
                 <div>
-                  <div className="text-xl font-serif font-bold text-[#2A4C72]">8+</div>
-                  <div className="text-xs font-mono text-[#2A4C72]/60 mt-1">Sectors</div>
+                  <div className="text-xl font-serif font-bold text-[#18253A]">8+</div>
+                  <div className="text-xs font-mono text-[#18253A]/60 mt-1">Sectors</div>
                 </div>
                 <div>
-                  <div className="text-xl font-serif font-bold text-[#2A4C72]">100+</div>
-                  <div className="text-xs font-mono text-[#2A4C72]/60 mt-1">Completed Projects</div>
+                  <div className="text-xl font-serif font-bold text-[#18253A]">100+</div>
+                  <div className="text-xs font-mono text-[#18253A]/60 mt-1">Completed Projects</div>
                 </div>
                 <div>
-                  <div className="text-xl font-serif font-bold text-[#2A4C72]">200+</div>
-                  <div className="text-xs font-mono text-[#2A4C72]/60 mt-1">Ongoing Engagements</div>
+                  <div className="text-xl font-serif font-bold text-[#18253A]">200+</div>
+                  <div className="text-xs font-mono text-[#18253A]/60 mt-1">Ongoing Engagements</div>
                 </div>
                 <div>
                   <div className="text-xl font-serif font-bold text-[#D96B33]">80+</div>
-                  <div className="text-xs font-mono text-[#2A4C72]/60 mt-1">Empanelments</div>
+                  <div className="text-xs font-mono text-[#18253A]/60 mt-1">Empanelments</div>
                 </div>
               </div>
             </div>
@@ -197,7 +197,7 @@ export const AboutOverview: React.FC = () => {
 
           <div className="strengths-showcase__content">
             <span className="strengths-showcase__eyebrow block text-xs font-mono tracking-widest text-[#A49050] uppercase">Why Almondz</span>
-            <h2 className="strengths-showcase__title text-3xl font-serif font-bold text-[#2A4C72] mt-1">Our Core Strengths</h2>
+            <h2 className="strengths-showcase__title text-3xl font-serif font-bold text-[#18253A] mt-1">Our Core Strengths</h2>
 
             <div className="strengths-grid">
               {STRENGTH_PILLARS.map((pillar) => (
@@ -219,13 +219,13 @@ export const AboutOverview: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div ref={subNavHeaderRef} className="about-subnav-header text-center mb-12">
             <span className="text-sm font-mono tracking-widest text-[#A49050] uppercase">EXPLORE FURTHER</span>
-            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#2A4C72] mt-2">Corporate Governance & Leadership</h2>
+            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#18253A] mt-2">Corporate Governance & Leadership</h2>
           </div>
 
           <div ref={subNavCardsRef} className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <Link to="/about/mission-vision" className="about-subnav-card p-8 bg-white rounded-2xl border border-[#A49050]/20 shadow-sm hover:shadow-xl hover:border-[#D96B33]/50 hover:-translate-y-2 hover:scale-[1.03] transition-all duration-300 group">
-              <h3 className="text-xl font-serif font-bold text-[#2A4C72] group-hover:text-[#D96B33] transition-colors">Mission & Vision</h3>
-              <p className="text-xs text-[#2A4C72]/70 mt-2 leading-relaxed">Our core pillars of sustainable engineering, innovation, and ethical infrastructure stewardship.</p>
+              <h3 className="text-xl font-serif font-bold text-[#18253A] group-hover:text-[#D96B33] transition-colors">Mission & Vision</h3>
+              <p className="text-xs text-[#18253A]/70 mt-2 leading-relaxed">Our core pillars of sustainable engineering, innovation, and ethical infrastructure stewardship.</p>
               <div className="mt-6 flex items-center gap-2 text-xs font-mono font-bold text-[#D96B33]">
                 <span>Read More</span>
                 <ArrowRight className="w-4 h-4" />
@@ -233,8 +233,8 @@ export const AboutOverview: React.FC = () => {
             </Link>
 
             <Link to="/about/leadership" className="about-subnav-card p-8 bg-white rounded-2xl border border-[#A49050]/20 shadow-sm hover:shadow-xl hover:border-[#D96B33]/50 hover:-translate-y-2 hover:scale-[1.03] transition-all duration-300 group">
-              <h3 className="text-xl font-serif font-bold text-[#2A4C72] group-hover:text-[#D96B33] transition-colors">Leadership & Board</h3>
-              <p className="text-xs text-[#2A4C72]/70 mt-2 leading-relaxed">Meet our Board of Directors, managing directors, and technical practice leaders.</p>
+              <h3 className="text-xl font-serif font-bold text-[#18253A] group-hover:text-[#D96B33] transition-colors">Leadership & Board</h3>
+              <p className="text-xs text-[#18253A]/70 mt-2 leading-relaxed">Meet our Board of Directors, managing directors, and technical practice leaders.</p>
               <div className="mt-6 flex items-center gap-2 text-xs font-mono font-bold text-[#D96B33]">
                 <span>Meet the Team</span>
                 <ArrowRight className="w-4 h-4" />
@@ -242,8 +242,8 @@ export const AboutOverview: React.FC = () => {
             </Link>
 
             <Link to="/about/certifications" className="about-subnav-card p-8 bg-white rounded-2xl border border-[#A49050]/20 shadow-sm hover:shadow-xl hover:border-[#D96B33]/50 hover:-translate-y-2 hover:scale-[1.03] transition-all duration-300 group">
-              <h3 className="text-xl font-serif font-bold text-[#2A4C72] group-hover:text-[#D96B33] transition-colors">Certifications & Empanelments</h3>
-              <p className="text-xs text-[#2A4C72]/70 mt-2 leading-relaxed">View our ISO accreditations and official empanelments with NHAI, MoRTH, and World Bank.</p>
+              <h3 className="text-xl font-serif font-bold text-[#18253A] group-hover:text-[#D96B33] transition-colors">Certifications & Empanelments</h3>
+              <p className="text-xs text-[#18253A]/70 mt-2 leading-relaxed">View our ISO accreditations and official empanelments with NHAI, MoRTH, and World Bank.</p>
               <div className="mt-6 flex items-center gap-2 text-xs font-mono font-bold text-[#D96B33]">
                 <span>View Credentials</span>
                 <ArrowRight className="w-4 h-4" />
