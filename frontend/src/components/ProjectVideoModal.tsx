@@ -44,7 +44,7 @@ export const ProjectVideoModal: React.FC<ProjectVideoModalProps> = ({
         aria-label="Close modal background"
       />
       
-      <div className="relative w-full max-w-5xl bg-[#18253A] border border-[#A49050]/30 shadow-2xl overflow-hidden z-10">
+      <div className="relative w-full max-w-5xl bg-[#2B4A6D] border border-[#A49050]/30 shadow-2xl overflow-hidden z-10">
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-[#101A29]">
           <div className="flex items-center gap-3">

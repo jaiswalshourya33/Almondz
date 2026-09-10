@@ -87,11 +87,11 @@ export const CorporateGovernancePage: React.FC = () => {
   if (!item) {
     return (
       <div className="min-h-screen bg-[#F1F3F5] pt-32 pb-20 text-center">
-        <h2 className="text-3xl font-serif text-[#18253A]">Page Not Found</h2>
-        <p className="text-sm text-[#18253A]/70 mt-2">The requested corporate governance page could not be located.</p>
+        <h2 className="text-3xl font-serif text-[#2B4A6D]">Page Not Found</h2>
+        <p className="text-sm text-[#2B4A6D]/70 mt-2">The requested corporate governance page could not be located.</p>
         <Link
           to="/"
-          className="mt-6 inline-block bg-[#18253A] hover:bg-[#3E4C60] text-white px-6 py-3 text-xs font-mono font-bold tracking-widest uppercase shadow-md hover:shadow-lg transition-all duration-300 rounded-md"
+          className="mt-6 inline-block bg-[#2B4A6D] hover:bg-[#3E4C60] text-white px-6 py-3 text-xs font-mono font-bold tracking-widest uppercase shadow-md hover:shadow-lg transition-all duration-300 rounded-md"
         >
           Back to Home
         </Link>
@@ -118,9 +118,9 @@ export const CorporateGovernancePage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div ref={headerRef} className="about-subnav-header text-center mb-14">
             <span className="text-xs font-mono tracking-widest text-[#A49050] uppercase">{item.eyebrow}</span>
-            <h2 className="text-3xl font-serif font-bold text-[#18253A] mt-1">{item.navLabel}</h2>
+            <h2 className="text-3xl font-serif font-bold text-[#2B4A6D] mt-1">{item.navLabel}</h2>
             {item.intro && (
-              <p className="text-sm text-[#18253A]/70 leading-relaxed max-w-3xl mx-auto mt-4">{item.intro}</p>
+              <p className="text-sm text-[#2B4A6D]/70 leading-relaxed max-w-3xl mx-auto mt-4">{item.intro}</p>
             )}
           </div>
 
@@ -142,14 +142,14 @@ export const CorporateGovernancePage: React.FC = () => {
           {directorResignations.length > 0 && (
             <div ref={cardsRef} className="director-resignations">
               <div className="flex items-center gap-4 mb-12">
-                <span className="shrink-0 w-11 h-11 rounded-xl bg-[#18253A] flex items-center justify-center text-[#D6C489]">
+                <span className="shrink-0 w-11 h-11 rounded-xl bg-[#2B4A6D] flex items-center justify-center text-[#D6C489]">
                   <UserMinus className="w-5 h-5" />
                 </span>
                 <div>
-                  <h3 className="text-xl sm:text-2xl font-serif font-bold text-[#18253A] leading-tight">
+                  <h3 className="text-xl sm:text-2xl font-serif font-bold text-[#2B4A6D] leading-tight">
                     Resignation of Director
                   </h3>
-                  <p className="text-[11px] font-mono uppercase tracking-[0.22em] text-[#18253A]/45 mt-1">
+                  <p className="text-[11px] font-mono uppercase tracking-[0.22em] text-[#2B4A6D]/45 mt-1">
                     {directorResignations.length} Financial{' '}
                     {directorResignations.length === 1 ? 'Year' : 'Years'} on Record
                   </p>
@@ -169,12 +169,12 @@ export const CorporateGovernancePage: React.FC = () => {
                       {/* timeline node */}
                       <span
                         aria-hidden="true"
-                        className="absolute left-[3px] top-1 w-3.5 h-3.5 rounded-full bg-[#18253A] ring-4 ring-[#F1F3F5] shadow-[0_0_0_1px_rgba(164,144,80,0.5)]"
+                        className="absolute left-[3px] top-1 w-3.5 h-3.5 rounded-full bg-[#2B4A6D] ring-4 ring-[#F1F3F5] shadow-[0_0_0_1px_rgba(164,144,80,0.5)]"
                       />
 
                       {/* year heading */}
                       <div className="flex items-baseline justify-between gap-4 border-b border-[#A49050]/25 pb-3 mb-3">
-                        <h4 className="text-2xl sm:text-[30px] font-serif font-bold text-[#18253A] leading-none">
+                        <h4 className="text-2xl sm:text-[30px] font-serif font-bold text-[#2B4A6D] leading-none">
                           {year.period}
                         </h4>
                         <span className="shrink-0 text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.22em] text-[#A49050]">
@@ -195,15 +195,15 @@ export const CorporateGovernancePage: React.FC = () => {
                               {String(j + 1).padStart(2, '0')}
                             </span>
                             <span
-                              className="shrink-0 w-9 h-9 rounded-full border border-[#A49050]/30 bg-white flex items-center justify-center text-[11px] font-bold text-[#18253A] group-hover/row:border-[#D96B33]/45 group-hover/row:text-[#D96B33] transition-colors"
+                              className="shrink-0 w-9 h-9 rounded-full border border-[#A49050]/30 bg-white flex items-center justify-center text-[11px] font-bold text-[#2B4A6D] group-hover/row:border-[#D96B33]/45 group-hover/row:text-[#D96B33] transition-colors"
                               aria-hidden="true"
                             >
                               {initialsOf(name)}
                             </span>
-                            <span className="min-w-0 flex-1 text-[15px] sm:text-base font-serif text-[#18253A]">
+                            <span className="min-w-0 flex-1 text-[15px] sm:text-base font-serif text-[#2B4A6D]">
                               {name}
                             </span>
-                            <span className="shrink-0 inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-[0.18em] text-[#18253A]/40">
+                            <span className="shrink-0 inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-[0.18em] text-[#2B4A6D]/40">
                               <LogOut className="w-3 h-3" aria-hidden="true" />
                               Resigned
                             </span>
@@ -223,14 +223,14 @@ export const CorporateGovernancePage: React.FC = () => {
               {generalMeetings.map((group) => (
                 <div key={group.category} className="gm-category">
                   <div className="flex items-center gap-4 mb-12">
-                    <span className="shrink-0 w-11 h-11 rounded-xl bg-[#18253A] flex items-center justify-center text-[11px] font-mono font-bold tracking-[0.15em] text-[#D6C489]">
+                    <span className="shrink-0 w-11 h-11 rounded-xl bg-[#2B4A6D] flex items-center justify-center text-[11px] font-mono font-bold tracking-[0.15em] text-[#D6C489]">
                       {group.abbr}
                     </span>
                     <div>
-                      <h3 className="text-xl sm:text-2xl font-serif font-bold text-[#18253A] leading-tight">
+                      <h3 className="text-xl sm:text-2xl font-serif font-bold text-[#2B4A6D] leading-tight">
                         {group.category}
                       </h3>
-                      <p className="text-[11px] font-mono uppercase tracking-[0.22em] text-[#18253A]/45 mt-1">
+                      <p className="text-[11px] font-mono uppercase tracking-[0.22em] text-[#2B4A6D]/45 mt-1">
                         {group.years.length} Financial{' '}
                         {group.years.length === 1 ? 'Year' : 'Years'} on Record
                       </p>
@@ -250,12 +250,12 @@ export const CorporateGovernancePage: React.FC = () => {
                           {/* timeline node */}
                           <span
                             aria-hidden="true"
-                            className="absolute left-[3px] top-1 w-3.5 h-3.5 rounded-full bg-[#18253A] ring-4 ring-[#F1F3F5] shadow-[0_0_0_1px_rgba(164,144,80,0.5)]"
+                            className="absolute left-[3px] top-1 w-3.5 h-3.5 rounded-full bg-[#2B4A6D] ring-4 ring-[#F1F3F5] shadow-[0_0_0_1px_rgba(164,144,80,0.5)]"
                           />
 
                           {/* year heading */}
                           <div className="flex items-baseline justify-between gap-4 border-b border-[#A49050]/25 pb-3 mb-3">
-                            <h4 className="text-2xl sm:text-[30px] font-serif font-bold text-[#18253A] leading-none">
+                            <h4 className="text-2xl sm:text-[30px] font-serif font-bold text-[#2B4A6D] leading-none">
                               {year.period}
                             </h4>
                             <span className="shrink-0 text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.22em] text-[#A49050]">
@@ -275,12 +275,12 @@ export const CorporateGovernancePage: React.FC = () => {
                                   {String(j + 1).padStart(2, '0')}
                                 </span>
                                 <span
-                                  className="shrink-0 w-9 h-9 rounded-full border border-[#A49050]/30 bg-white flex items-center justify-center text-[#18253A] group-hover/row:border-[#D96B33]/45 group-hover/row:text-[#D96B33] transition-colors"
+                                  className="shrink-0 w-9 h-9 rounded-full border border-[#A49050]/30 bg-white flex items-center justify-center text-[#2B4A6D] group-hover/row:border-[#D96B33]/45 group-hover/row:text-[#D96B33] transition-colors"
                                   aria-hidden="true"
                                 >
                                   <FileText className="w-4 h-4" />
                                 </span>
-                                <span className="min-w-0 flex-1 text-[15px] sm:text-base font-serif text-[#18253A]">
+                                <span className="min-w-0 flex-1 text-[15px] sm:text-base font-serif text-[#2B4A6D]">
                                   {notice.label}
                                 </span>
                               </li>
@@ -304,12 +304,12 @@ export const CorporateGovernancePage: React.FC = () => {
                   className="about-subnav-card bg-white rounded-2xl border border-[#A49050]/20 shadow-sm hover:shadow-xl hover:border-[#D96B33]/50 hover:-translate-y-2 hover:scale-[1.03] transition-all duration-300 p-8 flex flex-col justify-between group"
                 >
                   <div className="flex flex-col gap-4">
-                    <div className="w-14 h-14 rounded-full bg-[#F1F3F5] border border-[#A49050]/20 flex items-center justify-center text-[#18253A] group-hover:text-[#D96B33] group-hover:border-[#D96B33]/40 transition-colors">
+                    <div className="w-14 h-14 rounded-full bg-[#F1F3F5] border border-[#A49050]/20 flex items-center justify-center text-[#2B4A6D] group-hover:text-[#D96B33] group-hover:border-[#D96B33]/40 transition-colors">
                       <FileText className="w-6 h-6" />
                     </div>
                     <div className="border-t border-[#A49050]/15" />
-                    <h3 className="text-xl font-serif font-bold text-[#18253A]">{doc.title}</h3>
-                    <p className="text-xs text-[#18253A]/70 leading-relaxed">{doc.summary}</p>
+                    <h3 className="text-xl font-serif font-bold text-[#2B4A6D]">{doc.title}</h3>
+                    <p className="text-xs text-[#2B4A6D]/70 leading-relaxed">{doc.summary}</p>
                   </div>
 
                   <div className="pt-6 mt-6 border-t border-gray-100">
@@ -317,7 +317,7 @@ export const CorporateGovernancePage: React.FC = () => {
                       href={doc.file}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full bg-[#18253A] hover:bg-[#D96B33] text-white py-3.5 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 rounded-md"
+                      className="w-full bg-[#2B4A6D] hover:bg-[#D96B33] text-white py-3.5 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 rounded-md"
                     >
                       <span>View Policy</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -334,7 +334,7 @@ export const CorporateGovernancePage: React.FC = () => {
             annualReturns.length === 0 &&
             directorResignations.length === 0 &&
             generalMeetings.length === 0 && (
-              <p className="text-center text-sm text-[#18253A]/70 leading-relaxed">
+              <p className="text-center text-sm text-[#2B4A6D]/70 leading-relaxed">
                 Content for this page is being added.
               </p>
             )}

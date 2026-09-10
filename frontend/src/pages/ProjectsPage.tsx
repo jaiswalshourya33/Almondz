@@ -87,7 +87,7 @@ export const ProjectsPage: React.FC = () => {
       {/* Hero Banner with Clean Energy Infrastructure Background & Direct Overlay Text (Image 4 Animation) */}
       <section 
         ref={heroStatementRef}
-        className="projects-hero-statement relative -mt-24 min-h-[560px] sm:min-h-[640px] flex items-center justify-center pt-52 pb-16 sm:pt-60 sm:pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#18253A]"
+        className="projects-hero-statement relative -mt-24 min-h-[560px] sm:min-h-[640px] flex items-center justify-center pt-52 pb-16 sm:pt-60 sm:pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#2B4A6D]"
       >
         {/* Panoramic Infrastructure Background Image with Balanced Dark Film */}
         <div className="absolute inset-0 z-0">
@@ -96,7 +96,7 @@ export const ProjectsPage: React.FC = () => {
             alt="Infrastructure Projects" 
             className="w-full h-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#101A29]/75 via-[#18253A]/55 to-[#101A29]/80 backdrop-brightness-[0.9]"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-[#101A29]/75 via-[#2B4A6D]/55 to-[#101A29]/80 backdrop-brightness-[0.9]"></div>
         </div>
 
         {/* Floating Text Directly Over Image */}
@@ -133,8 +133,8 @@ export const ProjectsPage: React.FC = () => {
                 onClick={() => setSelectedStatus(status)}
                 className={`px-4 py-2.5 text-xs font-mono font-bold uppercase transition-all duration-300 rounded-md shadow-sm hover:shadow ${
                   selectedStatus === status 
-                    ? 'bg-[#18253A] text-white border border-[#18253A] shadow-md -translate-y-0.5' 
-                    : 'bg-[#F1F3F5] text-[#18253A] border border-[#A49050]/30 hover:border-[#D96B33] hover:bg-[#A49050]/10 hover:-translate-y-0.5 active:translate-y-0'
+                    ? 'bg-[#2B4A6D] text-white border border-[#2B4A6D] shadow-md -translate-y-0.5' 
+                    : 'bg-[#F1F3F5] text-[#2B4A6D] border border-[#A49050]/30 hover:border-[#D96B33] hover:bg-[#A49050]/10 hover:-translate-y-0.5 active:translate-y-0'
                 }`}
               >
                 {status}
@@ -150,7 +150,7 @@ export const ProjectsPage: React.FC = () => {
               placeholder="Search projects, client, location..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-[#F1F3F5] border border-[#A49050]/30 pl-10 pr-4 py-2 text-xs text-[#18253A] placeholder-gray-500 focus:outline-none focus:border-[#D96B33] rounded-md"
+              className="w-full bg-[#F1F3F5] border border-[#A49050]/30 pl-10 pr-4 py-2 text-xs text-[#2B4A6D] placeholder-gray-500 focus:outline-none focus:border-[#D96B33] rounded-md"
             />
           </div>
 
@@ -162,7 +162,7 @@ export const ProjectsPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {filteredProjects.length === 0 ? (
             <div className="text-center py-20 bg-white border border-[#A49050]/30 rounded-lg">
-              <h3 className="text-xl font-serif text-[#18253A]">No projects found matching your criteria.</h3>
+              <h3 className="text-xl font-serif text-[#2B4A6D]">No projects found matching your criteria.</h3>
               <p className="text-xs text-gray-500 mt-2">Try adjusting your filter or search query.</p>
               <button
                 onClick={() => { setSelectedStatus('All'); setSelectedSector('All'); setSearchQuery(''); }}
@@ -244,7 +244,7 @@ export const ProjectsPage: React.FC = () => {
 
                   {/* Desktop / Tablet Pagination View (sm and above) */}
                   <div className="hidden sm:flex items-center justify-between w-full">
-                    <span className="text-xs text-[#18253A]/70 font-medium">
+                    <span className="text-xs text-[#2B4A6D]/70 font-medium">
                       Showing <strong className="text-gray-900">{startIndex + 1}–{endIndex}</strong> of <strong className="text-gray-900">{filteredProjects.length}</strong> projects • Page <strong className="text-gray-900">{safePage}</strong> of <strong className="text-gray-900">{totalPages}</strong>
                     </span>
 

@@ -69,11 +69,11 @@ export const SectorScopeShowcase: React.FC<Props> = ({ sector }) => {
         <div ref={row1Ref} className="scope-row grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 items-stretch">
           <div className="scope-card lg:col-span-7 bg-white border border-[#A49050]/15 rounded-2xl p-6 sm:p-7 shadow-[0_8px_30px_rgba(13,27,42,0.06)] flex flex-col justify-between">
             <div>
-              <h3 className="scope-reveal text-xl sm:text-2xl font-serif font-bold text-[#18253A]" style={{ ['--i' as string]: 0 }}>
+              <h3 className="scope-reveal text-xl sm:text-2xl font-serif font-bold text-[#2B4A6D]" style={{ ['--i' as string]: 0 }}>
                 Services &amp; Scope of Work
               </h3>
               <div className="scope-reveal w-12 h-0.5 bg-[#A49050] rounded-full mt-2 mb-4" style={{ ['--i' as string]: 1 }} />
-              <p className="scope-reveal text-xs sm:text-[13.5px] text-[#18253A]/75 leading-relaxed mb-5" style={{ ['--i' as string]: 2 }}>
+              <p className="scope-reveal text-xs sm:text-[13.5px] text-[#2B4A6D]/75 leading-relaxed mb-5" style={{ ['--i' as string]: 2 }}>
                 Almondz Global Infra-Consultant Limited provides end-to-end consulting and advisory
                 solutions for {sector.title}. Our multidisciplinary engineering teams deliver
                 technical rigor, statutory adherence, and value engineering for central, state, and
@@ -89,7 +89,7 @@ export const SectorScopeShowcase: React.FC<Props> = ({ sector }) => {
                       style={{ ['--bullet-i' as string]: idx }}
                     >
                       <ChevronRight className="w-3.5 h-3.5 text-[#A49050] shrink-0 mt-0.5 transition-transform group-hover:translate-x-0.5" />
-                      <span className="text-xs sm:text-[13px] font-medium text-[#18253A]/85 leading-snug group-hover:text-[#18253A] transition-colors">
+                      <span className="text-xs sm:text-[13px] font-medium text-[#2B4A6D]/85 leading-snug group-hover:text-[#2B4A6D] transition-colors">
                         {srv}
                       </span>
                     </li>
@@ -99,11 +99,11 @@ export const SectorScopeShowcase: React.FC<Props> = ({ sector }) => {
             </div>
 
             <div
-              className="scope-reveal mt-5 pt-3.5 border-t border-[#A49050]/15 flex flex-col sm:flex-row sm:items-center justify-between text-[11px] text-[#18253A]/55 gap-1.5"
+              className="scope-reveal mt-5 pt-3.5 border-t border-[#A49050]/15 flex flex-col sm:flex-row sm:items-center justify-between text-[11px] text-[#2B4A6D]/55 gap-1.5"
               style={{ ['--i' as string]: 4 }}
             >
               <span>
-                Sector Domain: <strong className="text-[#18253A]/80 font-semibold">{sector.title}</strong>
+                Sector Domain: <strong className="text-[#2B4A6D]/80 font-semibold">{sector.title}</strong>
               </span>
               <span>ISO 9001:2015 Certified Delivery</span>
             </div>
@@ -133,7 +133,7 @@ export const SectorScopeShowcase: React.FC<Props> = ({ sector }) => {
             alt="Infrastructure facilities and water treatment plant"
             className="gov-banner__image absolute inset-0 w-full h-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-l from-[#18253A]/25 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-l from-[#2B4A6D]/25 via-transparent to-transparent" />
 
           {/* Floating content card on the right */}
           <div className="relative m-4 sm:m-6 lg:m-8 flex justify-end">
@@ -142,10 +142,10 @@ export const SectorScopeShowcase: React.FC<Props> = ({ sector }) => {
                 <span className="text-xs font-mono tracking-widest text-[#A49050] uppercase">
                   EXECUTIVE CONSULTATION
                 </span>
-                <h4 className="text-2xl sm:text-3xl font-serif font-bold text-[#18253A] mt-2">
+                <h4 className="text-2xl sm:text-3xl font-serif font-bold text-[#2B4A6D] mt-2">
                   Need Sector Consultation?
                 </h4>
-                <p className="text-sm text-[#18253A]/70 mt-3 leading-relaxed">
+                <p className="text-sm text-[#2B4A6D]/70 mt-3 leading-relaxed">
                   Speak directly with our senior infrastructure directors and domain experts regarding
                   project feasibility, DPR preparation, or transaction advisory.
                 </p>
@@ -157,12 +157,12 @@ export const SectorScopeShowcase: React.FC<Props> = ({ sector }) => {
                     <Mail className="w-4 h-4" strokeWidth={2} />
                   </div>
                   <div>
-                    <span className="text-[9px] text-[#18253A]/45 uppercase font-semibold tracking-wide block">
+                    <span className="text-[9px] text-[#2B4A6D]/45 uppercase font-semibold tracking-wide block">
                       Email Inquiry
                     </span>
                     <a
                       href="mailto:info@almondz.com"
-                      className="text-xs font-medium text-[#18253A] hover:text-[#A49050] transition-colors"
+                      className="text-xs font-medium text-[#2B4A6D] hover:text-[#A49050] transition-colors"
                     >
                       info@almondz.com
                     </a>
@@ -174,10 +174,10 @@ export const SectorScopeShowcase: React.FC<Props> = ({ sector }) => {
                     <Phone className="w-4 h-4" strokeWidth={2} />
                   </div>
                   <div>
-                    <span className="text-[9px] text-[#18253A]/45 uppercase font-semibold tracking-wide block">
+                    <span className="text-[9px] text-[#2B4A6D]/45 uppercase font-semibold tracking-wide block">
                       Telephone
                     </span>
-                    <span className="text-xs font-medium text-[#18253A]">+91 11 4350 0100</span>
+                    <span className="text-xs font-medium text-[#2B4A6D]">+91 11 4350 0100</span>
                   </div>
                 </div>
 
@@ -186,10 +186,10 @@ export const SectorScopeShowcase: React.FC<Props> = ({ sector }) => {
                     <MapPin className="w-4 h-4" strokeWidth={2} />
                   </div>
                   <div>
-                    <span className="text-[9px] text-[#18253A]/45 uppercase font-semibold tracking-wide block">
+                    <span className="text-[9px] text-[#2B4A6D]/45 uppercase font-semibold tracking-wide block">
                       Corporate Office
                     </span>
-                    <span className="text-xs font-medium text-[#18253A]">New Delhi, India</span>
+                    <span className="text-xs font-medium text-[#2B4A6D]">New Delhi, India</span>
                   </div>
                 </div>
               </div>
@@ -197,7 +197,7 @@ export const SectorScopeShowcase: React.FC<Props> = ({ sector }) => {
               <div className="pt-2">
                 <Link
                   to="/contact"
-                  className="inline-flex items-center gap-2 bg-[#18253A] hover:bg-[#3E4C60] hover:text-[#D6C489] text-white py-3 px-6 text-xs font-bold uppercase tracking-wider transition-all duration-200 rounded-lg shadow-md w-fit"
+                  className="inline-flex items-center gap-2 bg-[#2B4A6D] hover:bg-[#3E4C60] hover:text-[#D6C489] text-white py-3 px-6 text-xs font-bold uppercase tracking-wider transition-all duration-200 rounded-lg shadow-md w-fit"
                 >
                   <span>Contact Us</span>
                   <span aria-hidden>&rarr;</span>

@@ -194,7 +194,7 @@ export const ContactPage: React.FC = () => {
 
       {/* Toast Notification */}
       {copiedField && (
-        <div className="fixed bottom-8 right-8 z-50 bg-[#18253A] text-white px-6 py-4 border border-[#A49050] shadow-2xl flex items-center gap-3 animate-fade-in rounded-lg">
+        <div className="fixed bottom-8 right-8 z-50 bg-[#2B4A6D] text-white px-6 py-4 border border-[#A49050] shadow-2xl flex items-center gap-3 animate-fade-in rounded-lg">
           <CheckCircle2 className="w-5 h-5 text-[#A49050]" />
           <div>
             <p className="text-xs font-mono font-bold">COPIED TO CLIPBOARD</p>
@@ -220,7 +220,7 @@ export const ContactPage: React.FC = () => {
             <div className="lg:col-span-5 flex flex-col gap-8">
               
               {/* Tabs for Office Types */}
-              <div className="flex bg-[#18253A] p-1.5 rounded-lg border border-[#A49050]/30 shadow-md">
+              <div className="flex bg-[#2B4A6D] p-1.5 rounded-lg border border-[#A49050]/30 shadow-md">
                 <button
                   onClick={() => setActiveTab('headquarters')}
                   className={`flex-1 py-2.5 px-3 text-xs font-mono font-bold uppercase transition-all rounded-md ${
@@ -249,7 +249,7 @@ export const ContactPage: React.FC = () => {
 
               {/* Headquarters Tab Content */}
               {activeTab === 'headquarters' && (
-                <div className="bg-[#18253A] text-white p-8 rounded-lg border border-[#A49050]/40 shadow-xl flex flex-col gap-6 animate-fade-in group hover:border-[#A49050] transition-all duration-500">
+                <div className="bg-[#2B4A6D] text-white p-8 rounded-lg border border-[#A49050]/40 shadow-xl flex flex-col gap-6 animate-fade-in group hover:border-[#A49050] transition-all duration-500">
                   <div className="flex items-center justify-between border-b border-white/10 pb-4">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-[#A49050]/20 text-[#A49050] flex items-center justify-center rounded-md border border-[#A49050]/30">
@@ -310,13 +310,13 @@ export const ContactPage: React.FC = () => {
                       className="bg-white p-5 rounded-lg border border-[#A49050]/30 shadow-sm hover:border-[#A49050] hover:shadow-md transition-all duration-300 cursor-pointer group"
                     >
                       <div className="flex items-center justify-between mb-2">
-                        <h4 className="text-xs font-mono font-bold text-[#18253A] uppercase flex items-center gap-2">
+                        <h4 className="text-xs font-mono font-bold text-[#2B4A6D] uppercase flex items-center gap-2">
                           <MapPin className="w-4 h-4 text-[#A49050] group-hover:scale-110 transition-transform" />
                           {office.city}
                         </h4>
                         <span className="text-[10px] font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Active Cell</span>
                       </div>
-                      <p className="text-xs text-[#18253A]/80 font-light mb-2">{office.address}</p>
+                      <p className="text-xs text-[#2B4A6D]/80 font-light mb-2">{office.address}</p>
                       <div className="flex items-center justify-between text-[11px] font-mono text-[#A49050] pt-2 border-t border-gray-100">
                         <span>{office.phone}</span>
                         <span className="group-hover:text-[#A49050] transition-colors">Click to copy →</span>
@@ -332,7 +332,7 @@ export const ContactPage: React.FC = () => {
                   {corporateOffices.map((office, idx) => (
                     <div
                       key={idx}
-                      className="bg-[#18253A] text-white p-8 rounded-lg border border-[#A49050]/40 shadow-xl flex flex-col gap-6 group hover:border-[#A49050] transition-all duration-500"
+                      className="bg-[#2B4A6D] text-white p-8 rounded-lg border border-[#A49050]/40 shadow-xl flex flex-col gap-6 group hover:border-[#A49050] transition-all duration-500"
                     >
                       <div className="flex items-center justify-between border-b border-white/10 pb-4">
                         <div className="flex items-center gap-3">
@@ -388,7 +388,7 @@ export const ContactPage: React.FC = () => {
                   type="button"
                   onClick={() => selectFormType('inquiry')}
                   className={`flex-1 py-2.5 px-3 text-xs font-mono font-bold uppercase transition-all rounded-md ${
-                    activeFormType === 'inquiry' ? 'bg-[#A49050] text-white shadow' : 'text-[#18253A]/70 hover:bg-[#A49050]/10 hover:text-[#A49050]'
+                    activeFormType === 'inquiry' ? 'bg-[#A49050] text-white shadow' : 'text-[#2B4A6D]/70 hover:bg-[#A49050]/10 hover:text-[#A49050]'
                   }`}
                 >
                   Inquiry
@@ -397,7 +397,7 @@ export const ContactPage: React.FC = () => {
                   type="button"
                   onClick={() => selectFormType('vendor')}
                   className={`flex-1 py-2.5 px-3 text-xs font-mono font-bold uppercase transition-all rounded-md ${
-                    activeFormType === 'vendor' ? 'bg-[#A49050] text-white shadow' : 'text-[#18253A]/70 hover:bg-[#A49050]/10 hover:text-[#A49050]'
+                    activeFormType === 'vendor' ? 'bg-[#A49050] text-white shadow' : 'text-[#2B4A6D]/70 hover:bg-[#A49050]/10 hover:text-[#A49050]'
                   }`}
                 >
                   Vendor
@@ -406,7 +406,7 @@ export const ContactPage: React.FC = () => {
                   type="button"
                   onClick={() => selectFormType('career')}
                   className={`flex-1 py-2.5 px-3 text-xs font-mono font-bold uppercase transition-all rounded-md ${
-                    activeFormType === 'career' ? 'bg-[#A49050] text-white shadow' : 'text-[#18253A]/70 hover:bg-[#A49050]/10 hover:text-[#A49050]'
+                    activeFormType === 'career' ? 'bg-[#A49050] text-white shadow' : 'text-[#2B4A6D]/70 hover:bg-[#A49050]/10 hover:text-[#A49050]'
                   }`}
                 >
                   Career
@@ -422,32 +422,32 @@ export const ContactPage: React.FC = () => {
                     <span className="text-xs font-mono text-[#A49050] uppercase tracking-widest font-bold">TRANSMISSION SUCCESSFUL</span>
                     {activeFormType === 'inquiry' && (
                       <>
-                        <h3 className="text-3xl font-serif font-bold text-[#18253A]">Consultancy Dossier Dispatched</h3>
+                        <h3 className="text-3xl font-serif font-bold text-[#2B4A6D]">Consultancy Dossier Dispatched</h3>
                         <p className="text-xs sm:text-sm text-gray-600 max-w-md mx-auto leading-relaxed font-light">
-                          Thank you, <strong className="text-[#18253A]">{formData.name}</strong>. Our principal infrastructure practice director for <strong className="text-[#18253A]">{formData.sector}</strong> has been assigned to your mandate. Expect a secure briefing within 24 hours.
+                          Thank you, <strong className="text-[#2B4A6D]">{formData.name}</strong>. Our principal infrastructure practice director for <strong className="text-[#2B4A6D]">{formData.sector}</strong> has been assigned to your mandate. Expect a secure briefing within 24 hours.
                         </p>
                       </>
                     )}
                     {activeFormType === 'vendor' && (
                       <>
-                        <h3 className="text-3xl font-serif font-bold text-[#18253A]">Vendor Registration Received</h3>
+                        <h3 className="text-3xl font-serif font-bold text-[#2B4A6D]">Vendor Registration Received</h3>
                         <p className="text-xs sm:text-sm text-gray-600 max-w-md mx-auto leading-relaxed font-light">
-                          Thank you, <strong className="text-[#18253A]">{vendorFormData.contactPerson || vendorFormData.companyName}</strong>. Our procurement team will review your submission and reach out if there is an empanelment fit.
+                          Thank you, <strong className="text-[#2B4A6D]">{vendorFormData.contactPerson || vendorFormData.companyName}</strong>. Our procurement team will review your submission and reach out if there is an empanelment fit.
                         </p>
                       </>
                     )}
                     {activeFormType === 'career' && (
                       <>
-                        <h3 className="text-3xl font-serif font-bold text-[#18253A]">Application Received</h3>
+                        <h3 className="text-3xl font-serif font-bold text-[#2B4A6D]">Application Received</h3>
                         <p className="text-xs sm:text-sm text-gray-600 max-w-md mx-auto leading-relaxed font-light">
-                          Thank you, <strong className="text-[#18253A]">{careerFormData.name}</strong>. Our HR team will review your application for <strong className="text-[#18253A]">{careerFormData.position || 'the role'}</strong> and contact you if shortlisted.
+                          Thank you, <strong className="text-[#2B4A6D]">{careerFormData.name}</strong>. Our HR team will review your application for <strong className="text-[#2B4A6D]">{careerFormData.position || 'the role'}</strong> and contact you if shortlisted.
                         </p>
                       </>
                     )}
                   </div>
                   <button
                     onClick={handleReset}
-                    className="mt-4 bg-[#18253A] hover:bg-[#A49050] text-white px-8 py-3.5 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-md hover:shadow-lg rounded-md"
+                    className="mt-4 bg-[#2B4A6D] hover:bg-[#A49050] text-white px-8 py-3.5 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-md hover:shadow-lg rounded-md"
                   >
                     {activeFormType === 'inquiry' && 'Submit Another Inquiry'}
                     {activeFormType === 'vendor' && 'Submit Another Registration'}
@@ -458,13 +458,13 @@ export const ContactPage: React.FC = () => {
                 <form onSubmit={handleSubmit} className="flex flex-col gap-6">
                   <div>
                     <span className="text-[10px] font-mono tracking-widest text-[#A49050] uppercase font-bold">SECURE SUBMISSION</span>
-                    <h3 className="text-2xl sm:text-3xl font-serif font-bold text-[#18253A] mt-1">Initiate Consultancy Inquiry</h3>
-                    <p className="text-xs text-[#18253A]/70 mt-1">Complete the briefing details below for direct routing to our practice leads.</p>
+                    <h3 className="text-2xl sm:text-3xl font-serif font-bold text-[#2B4A6D] mt-1">Initiate Consultancy Inquiry</h3>
+                    <p className="text-xs text-[#2B4A6D]/70 mt-1">Complete the briefing details below for direct routing to our practice leads.</p>
                   </div>
 
                   {/* Inquiry Type Selector Pills */}
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs font-mono font-bold text-[#18253A] uppercase">Inquiry Category *</label>
+                    <label className="text-xs font-mono font-bold text-[#2B4A6D] uppercase">Inquiry Category *</label>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                       {['Independent Engineering', 'Lender\'s Engineer', 'TEV & Advisory', 'Project Supervision'].map((type) => (
                         <button
@@ -473,8 +473,8 @@ export const ContactPage: React.FC = () => {
                           onClick={() => setFormData({ ...formData, inquiryType: type })}
                           className={`py-2 px-3 text-[11px] font-mono font-bold uppercase transition-all rounded-md border ${
                             formData.inquiryType === type 
-                              ? 'bg-[#18253A] text-white border-[#18253A] shadow' 
-                              : 'bg-[#F1F3F5] text-[#18253A] border-[#A49050]/30 hover:border-[#A49050]'
+                              ? 'bg-[#2B4A6D] text-white border-[#2B4A6D] shadow' 
+                              : 'bg-[#F1F3F5] text-[#2B4A6D] border-[#A49050]/30 hover:border-[#A49050]'
                           }`}
                         >
                           {type}
@@ -485,58 +485,58 @@ export const ContactPage: React.FC = () => {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="flex flex-col gap-2">
-                      <label className="text-xs font-mono font-bold text-[#18253A] uppercase">Full Name *</label>
+                      <label className="text-xs font-mono font-bold text-[#2B4A6D] uppercase">Full Name *</label>
                       <input
                         type="text"
                         required
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         placeholder="Shri / Mr. / Dr. ..."
-                        className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#18253A] focus:outline-none focus:border-[#A49050] rounded-md transition-colors"
+                        className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#2B4A6D] focus:outline-none focus:border-[#A49050] rounded-md transition-colors"
                       />
                     </div>
                     <div className="flex flex-col gap-2">
-                      <label className="text-xs font-mono font-bold text-[#18253A] uppercase">Corporate Email *</label>
+                      <label className="text-xs font-mono font-bold text-[#2B4A6D] uppercase">Corporate Email *</label>
                       <input
                         type="email"
                         required
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="name@organization.com"
-                        className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#18253A] focus:outline-none focus:border-[#A49050] rounded-md transition-colors"
+                        className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#2B4A6D] focus:outline-none focus:border-[#A49050] rounded-md transition-colors"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="flex flex-col gap-2">
-                      <label className="text-xs font-mono font-bold text-[#18253A] uppercase">Phone Number</label>
+                      <label className="text-xs font-mono font-bold text-[#2B4A6D] uppercase">Phone Number</label>
                       <input
                         type="tel"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         placeholder="+91 98765 43210"
-                        className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#18253A] focus:outline-none focus:border-[#A49050] rounded-md transition-colors"
+                        className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#2B4A6D] focus:outline-none focus:border-[#A49050] rounded-md transition-colors"
                       />
                     </div>
                     <div className="flex flex-col gap-2">
-                      <label className="text-xs font-mono font-bold text-[#18253A] uppercase">Organization / Authority</label>
+                      <label className="text-xs font-mono font-bold text-[#2B4A6D] uppercase">Organization / Authority</label>
                       <input
                         type="text"
                         value={formData.organization}
                         onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
                         placeholder="NHAI / Bank / Private Concessionaire"
-                        className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#18253A] focus:outline-none focus:border-[#A49050] rounded-md transition-colors"
+                        className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#2B4A6D] focus:outline-none focus:border-[#A49050] rounded-md transition-colors"
                       />
                     </div>
                   </div>
 
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs font-mono font-bold text-[#18253A] uppercase">Sector of Infrastructure *</label>
+                    <label className="text-xs font-mono font-bold text-[#2B4A6D] uppercase">Sector of Infrastructure *</label>
                     <select
                       value={formData.sector}
                       onChange={(e) => setFormData({ ...formData, sector: e.target.value })}
-                      className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#18253A] focus:outline-none focus:border-[#A49050] rounded-md transition-colors cursor-pointer"
+                      className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#2B4A6D] focus:outline-none focus:border-[#A49050] rounded-md transition-colors cursor-pointer"
                     >
                       {SECTORS.map((sector) => (
                         <option key={sector.id}>{sector.title}</option>
@@ -545,14 +545,14 @@ export const ContactPage: React.FC = () => {
                   </div>
 
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs font-mono font-bold text-[#18253A] uppercase">Mandate Description / Scope *</label>
+                    <label className="text-xs font-mono font-bold text-[#2B4A6D] uppercase">Mandate Description / Scope *</label>
                     <textarea
                       required
                       rows={5}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       placeholder="Please describe project capacity, estimated outlay, technical audit requirements, or financial appraisal scope..."
-                      className="bg-[#F1F3F5] border border-[#A49050]/30 p-4 text-xs text-[#18253A] focus:outline-none focus:border-[#A49050] rounded-md transition-colors"
+                      className="bg-[#F1F3F5] border border-[#A49050]/30 p-4 text-xs text-[#2B4A6D] focus:outline-none focus:border-[#A49050] rounded-md transition-colors"
                     ></textarea>
                   </div>
 
@@ -579,67 +579,67 @@ export const ContactPage: React.FC = () => {
                 <form onSubmit={handleVendorSubmit} className="flex flex-col gap-6">
                   <div>
                     <span className="text-[10px] font-mono tracking-widest text-[#A49050] uppercase font-bold">VENDOR ONBOARDING</span>
-                    <h3 className="text-2xl sm:text-3xl font-serif font-bold text-[#18253A] mt-1">Register as a Vendor</h3>
-                    <p className="text-xs text-[#18253A]/70 mt-1">Share your company details for empanelment consideration in our supplier and contractor network.</p>
+                    <h3 className="text-2xl sm:text-3xl font-serif font-bold text-[#2B4A6D] mt-1">Register as a Vendor</h3>
+                    <p className="text-xs text-[#2B4A6D]/70 mt-1">Share your company details for empanelment consideration in our supplier and contractor network.</p>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="flex flex-col gap-2">
-                      <label className="text-xs font-mono font-bold text-[#18253A] uppercase">Company Name *</label>
+                      <label className="text-xs font-mono font-bold text-[#2B4A6D] uppercase">Company Name *</label>
                       <input
                         type="text"
                         required
                         value={vendorFormData.companyName}
                         onChange={(e) => setVendorFormData({ ...vendorFormData, companyName: e.target.value })}
                         placeholder="Registered business name"
-                        className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#18253A] focus:outline-none focus:border-[#A49050] rounded-md transition-colors"
+                        className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#2B4A6D] focus:outline-none focus:border-[#A49050] rounded-md transition-colors"
                       />
                     </div>
                     <div className="flex flex-col gap-2">
-                      <label className="text-xs font-mono font-bold text-[#18253A] uppercase">Contact Person *</label>
+                      <label className="text-xs font-mono font-bold text-[#2B4A6D] uppercase">Contact Person *</label>
                       <input
                         type="text"
                         required
                         value={vendorFormData.contactPerson}
                         onChange={(e) => setVendorFormData({ ...vendorFormData, contactPerson: e.target.value })}
                         placeholder="Authorized representative"
-                        className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#18253A] focus:outline-none focus:border-[#A49050] rounded-md transition-colors"
+                        className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#2B4A6D] focus:outline-none focus:border-[#A49050] rounded-md transition-colors"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="flex flex-col gap-2">
-                      <label className="text-xs font-mono font-bold text-[#18253A] uppercase">Business Email *</label>
+                      <label className="text-xs font-mono font-bold text-[#2B4A6D] uppercase">Business Email *</label>
                       <input
                         type="email"
                         required
                         value={vendorFormData.email}
                         onChange={(e) => setVendorFormData({ ...vendorFormData, email: e.target.value })}
                         placeholder="name@company.com"
-                        className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#18253A] focus:outline-none focus:border-[#A49050] rounded-md transition-colors"
+                        className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#2B4A6D] focus:outline-none focus:border-[#A49050] rounded-md transition-colors"
                       />
                     </div>
                     <div className="flex flex-col gap-2">
-                      <label className="text-xs font-mono font-bold text-[#18253A] uppercase">Phone Number *</label>
+                      <label className="text-xs font-mono font-bold text-[#2B4A6D] uppercase">Phone Number *</label>
                       <input
                         type="tel"
                         required
                         value={vendorFormData.phone}
                         onChange={(e) => setVendorFormData({ ...vendorFormData, phone: e.target.value })}
                         placeholder="+91 98765 43210"
-                        className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#18253A] focus:outline-none focus:border-[#A49050] rounded-md transition-colors"
+                        className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#2B4A6D] focus:outline-none focus:border-[#A49050] rounded-md transition-colors"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="flex flex-col gap-2">
-                      <label className="text-xs font-mono font-bold text-[#18253A] uppercase">Vendor Category *</label>
+                      <label className="text-xs font-mono font-bold text-[#2B4A6D] uppercase">Vendor Category *</label>
                       <select
                         value={vendorFormData.vendorCategory}
                         onChange={(e) => setVendorFormData({ ...vendorFormData, vendorCategory: e.target.value })}
-                        className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#18253A] focus:outline-none focus:border-[#A49050] rounded-md transition-colors cursor-pointer"
+                        className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#2B4A6D] focus:outline-none focus:border-[#A49050] rounded-md transition-colors cursor-pointer"
                       >
                         <option>Materials Supplier</option>
                         <option>Equipment & Machinery</option>
@@ -650,37 +650,37 @@ export const ContactPage: React.FC = () => {
                       </select>
                     </div>
                     <div className="flex flex-col gap-2">
-                      <label className="text-xs font-mono font-bold text-[#18253A] uppercase">GST / Registration Number</label>
+                      <label className="text-xs font-mono font-bold text-[#2B4A6D] uppercase">GST / Registration Number</label>
                       <input
                         type="text"
                         value={vendorFormData.gstNumber}
                         onChange={(e) => setVendorFormData({ ...vendorFormData, gstNumber: e.target.value })}
                         placeholder="22AAAAA0000A1Z5"
-                        className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#18253A] focus:outline-none focus:border-[#A49050] rounded-md transition-colors"
+                        className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#2B4A6D] focus:outline-none focus:border-[#A49050] rounded-md transition-colors"
                       />
                     </div>
                   </div>
 
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs font-mono font-bold text-[#18253A] uppercase">Years in Operation</label>
+                    <label className="text-xs font-mono font-bold text-[#2B4A6D] uppercase">Years in Operation</label>
                     <input
                       type="text"
                       value={vendorFormData.yearsInOperation}
                       onChange={(e) => setVendorFormData({ ...vendorFormData, yearsInOperation: e.target.value })}
                       placeholder="e.g. 8 years"
-                      className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#18253A] focus:outline-none focus:border-[#A49050] rounded-md transition-colors"
+                      className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#2B4A6D] focus:outline-none focus:border-[#A49050] rounded-md transition-colors"
                     />
                   </div>
 
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs font-mono font-bold text-[#18253A] uppercase">Proposal / Capability Summary *</label>
+                    <label className="text-xs font-mono font-bold text-[#2B4A6D] uppercase">Proposal / Capability Summary *</label>
                     <textarea
                       required
                       rows={5}
                       value={vendorFormData.message}
                       onChange={(e) => setVendorFormData({ ...vendorFormData, message: e.target.value })}
                       placeholder="Describe your products, services, capacity, and past projects..."
-                      className="bg-[#F1F3F5] border border-[#A49050]/30 p-4 text-xs text-[#18253A] focus:outline-none focus:border-[#A49050] rounded-md transition-colors"
+                      className="bg-[#F1F3F5] border border-[#A49050]/30 p-4 text-xs text-[#2B4A6D] focus:outline-none focus:border-[#A49050] rounded-md transition-colors"
                     ></textarea>
                   </div>
 
@@ -707,67 +707,67 @@ export const ContactPage: React.FC = () => {
                 <form onSubmit={handleCareerSubmit} className="flex flex-col gap-6">
                   <div>
                     <span className="text-[10px] font-mono tracking-widest text-[#A49050] uppercase font-bold">JOIN OUR TEAM</span>
-                    <h3 className="text-2xl sm:text-3xl font-serif font-bold text-[#18253A] mt-1">Submit Your Application</h3>
-                    <p className="text-xs text-[#18253A]/70 mt-1">Share your details and resume for consideration against current and upcoming openings.</p>
+                    <h3 className="text-2xl sm:text-3xl font-serif font-bold text-[#2B4A6D] mt-1">Submit Your Application</h3>
+                    <p className="text-xs text-[#2B4A6D]/70 mt-1">Share your details and resume for consideration against current and upcoming openings.</p>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="flex flex-col gap-2">
-                      <label className="text-xs font-mono font-bold text-[#18253A] uppercase">Full Name *</label>
+                      <label className="text-xs font-mono font-bold text-[#2B4A6D] uppercase">Full Name *</label>
                       <input
                         type="text"
                         required
                         value={careerFormData.name}
                         onChange={(e) => setCareerFormData({ ...careerFormData, name: e.target.value })}
                         placeholder="Your full name"
-                        className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#18253A] focus:outline-none focus:border-[#A49050] rounded-md transition-colors"
+                        className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#2B4A6D] focus:outline-none focus:border-[#A49050] rounded-md transition-colors"
                       />
                     </div>
                     <div className="flex flex-col gap-2">
-                      <label className="text-xs font-mono font-bold text-[#18253A] uppercase">Email Address *</label>
+                      <label className="text-xs font-mono font-bold text-[#2B4A6D] uppercase">Email Address *</label>
                       <input
                         type="email"
                         required
                         value={careerFormData.email}
                         onChange={(e) => setCareerFormData({ ...careerFormData, email: e.target.value })}
                         placeholder="name@example.com"
-                        className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#18253A] focus:outline-none focus:border-[#A49050] rounded-md transition-colors"
+                        className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#2B4A6D] focus:outline-none focus:border-[#A49050] rounded-md transition-colors"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="flex flex-col gap-2">
-                      <label className="text-xs font-mono font-bold text-[#18253A] uppercase">Phone Number *</label>
+                      <label className="text-xs font-mono font-bold text-[#2B4A6D] uppercase">Phone Number *</label>
                       <input
                         type="tel"
                         required
                         value={careerFormData.phone}
                         onChange={(e) => setCareerFormData({ ...careerFormData, phone: e.target.value })}
                         placeholder="+91 98765 43210"
-                        className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#18253A] focus:outline-none focus:border-[#A49050] rounded-md transition-colors"
+                        className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#2B4A6D] focus:outline-none focus:border-[#A49050] rounded-md transition-colors"
                       />
                     </div>
                     <div className="flex flex-col gap-2">
-                      <label className="text-xs font-mono font-bold text-[#18253A] uppercase">Position Applied For *</label>
+                      <label className="text-xs font-mono font-bold text-[#2B4A6D] uppercase">Position Applied For *</label>
                       <input
                         type="text"
                         required
                         value={careerFormData.position}
                         onChange={(e) => setCareerFormData({ ...careerFormData, position: e.target.value })}
                         placeholder="e.g. Structural Engineer"
-                        className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#18253A] focus:outline-none focus:border-[#A49050] rounded-md transition-colors"
+                        className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#2B4A6D] focus:outline-none focus:border-[#A49050] rounded-md transition-colors"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="flex flex-col gap-2">
-                      <label className="text-xs font-mono font-bold text-[#18253A] uppercase">Years of Experience</label>
+                      <label className="text-xs font-mono font-bold text-[#2B4A6D] uppercase">Years of Experience</label>
                       <select
                         value={careerFormData.experience}
                         onChange={(e) => setCareerFormData({ ...careerFormData, experience: e.target.value })}
-                        className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#18253A] focus:outline-none focus:border-[#A49050] rounded-md transition-colors cursor-pointer"
+                        className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#2B4A6D] focus:outline-none focus:border-[#A49050] rounded-md transition-colors cursor-pointer"
                       >
                         <option value="">Select range</option>
                         <option>Fresher (0-1 years)</option>
@@ -778,19 +778,19 @@ export const ContactPage: React.FC = () => {
                       </select>
                     </div>
                     <div className="flex flex-col gap-2">
-                      <label className="text-xs font-mono font-bold text-[#18253A] uppercase">LinkedIn / Portfolio URL</label>
+                      <label className="text-xs font-mono font-bold text-[#2B4A6D] uppercase">LinkedIn / Portfolio URL</label>
                       <input
                         type="url"
                         value={careerFormData.portfolio}
                         onChange={(e) => setCareerFormData({ ...careerFormData, portfolio: e.target.value })}
                         placeholder="https://linkedin.com/in/..."
-                        className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#18253A] focus:outline-none focus:border-[#A49050] rounded-md transition-colors"
+                        className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#2B4A6D] focus:outline-none focus:border-[#A49050] rounded-md transition-colors"
                       />
                     </div>
                   </div>
 
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs font-mono font-bold text-[#18253A] uppercase">Resume / CV *</label>
+                    <label className="text-xs font-mono font-bold text-[#2B4A6D] uppercase">Resume / CV *</label>
                     <input
                       type="file"
                       required
@@ -800,18 +800,18 @@ export const ContactPage: React.FC = () => {
                         setResumeFile(file);
                         setCareerFormData({ ...careerFormData, resumeFileName: file?.name || '' });
                       }}
-                      className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#18253A] focus:outline-none focus:border-[#A49050] rounded-md transition-colors cursor-pointer file:mr-4 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-[10px] file:font-mono file:font-bold file:uppercase file:bg-[#18253A] file:text-white hover:file:bg-[#A49050] file:cursor-pointer"
+                      className="bg-[#F1F3F5] border border-[#A49050]/30 px-4 py-3 text-xs text-[#2B4A6D] focus:outline-none focus:border-[#A49050] rounded-md transition-colors cursor-pointer file:mr-4 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-[10px] file:font-mono file:font-bold file:uppercase file:bg-[#2B4A6D] file:text-white hover:file:bg-[#A49050] file:cursor-pointer"
                     />
                   </div>
 
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs font-mono font-bold text-[#18253A] uppercase">Cover Letter / Message</label>
+                    <label className="text-xs font-mono font-bold text-[#2B4A6D] uppercase">Cover Letter / Message</label>
                     <textarea
                       rows={5}
                       value={careerFormData.message}
                       onChange={(e) => setCareerFormData({ ...careerFormData, message: e.target.value })}
                       placeholder="Tell us why you'd be a good fit for this role..."
-                      className="bg-[#F1F3F5] border border-[#A49050]/30 p-4 text-xs text-[#18253A] focus:outline-none focus:border-[#A49050] rounded-md transition-colors"
+                      className="bg-[#F1F3F5] border border-[#A49050]/30 p-4 text-xs text-[#2B4A6D] focus:outline-none focus:border-[#A49050] rounded-md transition-colors"
                     ></textarea>
                   </div>
 

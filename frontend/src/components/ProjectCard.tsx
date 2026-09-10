@@ -18,7 +18,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenDetails
       text: "Recently Awarded"
     },
     "Ongoing": {
-      bg: "bg-blue-50 border-blue-200/80 text-[#18253A]",
+      bg: "bg-blue-50 border-blue-200/80 text-[#2B4A6D]",
       dot: "bg-blue-600",
       text: "Ongoing"
     },
@@ -71,7 +71,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenDetails
           </span>
 
           <h3
-            className="mt-2.5 text-xs sm:text-[13px] font-serif font-medium text-[#18253A] group-hover:text-[#3E4C60] transition-colors leading-snug line-clamp-3"
+            className="mt-2.5 text-xs sm:text-[13px] font-serif font-medium text-[#2B4A6D] group-hover:text-[#3E4C60] transition-colors leading-snug line-clamp-3"
             title={project.title}
           >
             {project.title}
@@ -97,7 +97,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenDetails
             <button
               type="button"
               onClick={handleOpenDetails}
-              className="w-full py-2 px-3 bg-[#18253A] hover:bg-[#3E4C60] hover:text-[#D6C489] text-white text-[10.5px] font-bold tracking-wider uppercase rounded-md transition-all duration-200 flex items-center justify-center gap-1 shadow-xs hover:shadow-sm cursor-pointer active:scale-[0.99]"
+              className="w-full py-2 px-3 bg-[#2B4A6D] hover:bg-[#3E4C60] hover:text-[#D6C489] text-white text-[10.5px] font-bold tracking-wider uppercase rounded-md transition-all duration-200 flex items-center justify-center gap-1 shadow-xs hover:shadow-sm cursor-pointer active:scale-[0.99]"
             >
               <span>View Details</span>
               <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
@@ -105,7 +105,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenDetails
           ) : (
             <Link
               to="/projects"
-              className="w-full py-2 px-3 bg-[#18253A] hover:bg-[#3E4C60] hover:text-[#D6C489] text-white text-[10.5px] font-bold tracking-wider uppercase rounded-md transition-all duration-200 flex items-center justify-center gap-1 shadow-xs hover:shadow-sm active:scale-[0.99]"
+              className="w-full py-2 px-3 bg-[#2B4A6D] hover:bg-[#3E4C60] hover:text-[#D6C489] text-white text-[10.5px] font-bold tracking-wider uppercase rounded-md transition-all duration-200 flex items-center justify-center gap-1 shadow-xs hover:shadow-sm active:scale-[0.99]"
             >
               <span>View Details</span>
               <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
