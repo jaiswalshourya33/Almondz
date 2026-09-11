@@ -4,8 +4,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Logo } from './Logo';
 import { SECTORS } from '../data/sectors';
 import { SERVICES } from '../data/services';
-import { CORPORATE_GOVERNANCE } from '../data/corporateGovernance';
-import { Menu, X, ChevronDown, ArrowRight, Phone } from 'lucide-react';
+import { Menu, X, ChevronDown, ArrowRight } from 'lucide-react';
 import { getSectorIcon } from './SectorSvgIcons';
 import { getServiceIcon } from './ServiceSvgIcons';
 
@@ -457,10 +456,22 @@ export const Navbar: React.FC = () => {
         <div className="hidden lg:flex items-center gap-4 lg:-mr-4">
           <Link
             to="/contact"
-            className="bg-[#D96B33] hover:bg-[#C25A28] text-white px-5 py-2.5 text-xs font-mono font-bold tracking-widest uppercase transition-all shadow-md hover:shadow-lg flex items-center gap-2 rounded-md active:scale-95"
+            className="bg-[#D96B33] hover:bg-[#C25A28] text-white px-5 py-2.5 text-xs font-mono font-bold tracking-widest uppercase transition-all shadow-md hover:shadow-lg flex items-center gap-2 rounded-md active:scale-95 group"
           >
-            <Phone className="w-3.5 h-3.5" />
-            CONTACT US
+            <span>CONTACT US</span>
+            <svg 
+              className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="currentColor" 
+              strokeWidth="2.5" 
+              strokeLinecap="round" 
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
           </Link>
         </div>
 
@@ -928,10 +939,22 @@ export const Navbar: React.FC = () => {
                 <Link
                   to="/contact"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="mt-3 bg-[#D96B33] hover:bg-[#C25A28] text-white py-3.5 text-center text-xs font-mono font-bold tracking-widest uppercase rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 active:scale-[0.98]"
+                  className="mt-3 bg-[#D96B33] hover:bg-[#C25A28] text-white py-3.5 text-center text-xs font-mono font-bold tracking-widest uppercase rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 active:scale-[0.98] group"
                 >
-                  <Phone className="w-3.5 h-3.5" />
-                  Contact Us
+                  <span>Contact Us</span>
+                  <svg 
+                    className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="2.5" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </svg>
                 </Link>
               </div>
             </motion.div>
