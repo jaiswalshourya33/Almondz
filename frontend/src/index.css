@@ -1264,24 +1264,25 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 26px;
-  border: 1px solid rgba(255, 255, 255, 0.38);
-  border-radius: 999px;
-  background: #2B4A6D;
+  gap: 8px;
+  padding: 13px 28px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  background: #D96B33;
   color: #fff;
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  box-shadow: 0 14px 30px rgba(13, 27, 42, 0.25);
+  box-shadow: 0 10px 24px rgba(217, 107, 51, 0.35);
   transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1), background-color 300ms ease, box-shadow 300ms ease;
 }
 
 .cta-showcase__button:hover {
-  background: #101A29;
-  box-shadow: 0 20px 38px rgba(13, 27, 42, 0.34);
-  transform: translateY(-5px);
+  background: #C45B25;
+  box-shadow: 0 16px 32px rgba(217, 107, 51, 0.45);
+  transform: translateY(-3px);
 }
 
 .cta-showcase__button:focus-visible {

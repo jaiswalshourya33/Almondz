@@ -893,21 +893,34 @@ export const Home: React.FC = () => {
       <section ref={ctaSectionRef} className="cta-showcase py-16 sm:py-20 text-white">
         <div className="cta-showcase__orb cta-showcase__orb--one" aria-hidden="true" />
         <div className="cta-showcase__orb cta-showcase__orb--two" aria-hidden="true" />
-        <div className="cta-showcase__inner max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
-          <div className="cta-showcase__copy flex flex-col gap-2.5 max-w-3xl">
-            <h2 className="cta-showcase__title text-3xl sm:text-4xl lg:text-[2.65rem] font-sans font-normal tracking-tight text-white/95 leading-[1.2]">
+        <div className="cta-showcase__inner max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center">
+          <div className="cta-showcase__copy flex flex-col items-center gap-3 max-w-3xl mx-auto">
+            <h2 className="cta-showcase__title text-3xl sm:text-4xl lg:text-[2.65rem] font-sans font-normal tracking-tight text-white/95 leading-[1.25]">
               Ready to Engineer Your Next Mega Infrastructure Project?
             </h2>
-            <p className="cta-showcase__description text-sm sm:text-base lg:text-[17px] text-white/95 font-normal leading-relaxed max-w-2xl">
+            <p className="cta-showcase__description text-sm sm:text-base lg:text-[17px] text-white/90 font-normal leading-relaxed max-w-2xl mx-auto">
               From vision and planning to engineering and execution, partner with Almondz to turn ambitious ideas into infrastructure that creates lasting impact.
             </p>
           </div>
-          <div className="shrink-0 flex items-center justify-center md:justify-end">
+          <div className="mt-7 sm:mt-8 flex items-center justify-center">
             <Link
               to="/contact"
               className="cta-showcase__button group"
             >
-              <span>CONTACT US</span>
+              <span className="tracking-wider uppercase font-bold text-xs sm:text-[13px]">CONTACT US</span>
+              <svg 
+                className="w-4 h-4 ml-2 transition-transform duration-200 group-hover:translate-x-1" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2.5" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
             </Link>
           </div>
         </div>
