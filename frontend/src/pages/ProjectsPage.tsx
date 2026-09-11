@@ -121,8 +121,8 @@ export const ProjectsPage: React.FC = () => {
       </section>
 
       {/* Filters & Search */}
-      <section className="py-10 bg-[#F1F3F5]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+      <section className="pt-6 sm:pt-8 pb-3 sm:pb-4 bg-[#F1F3F5]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6">
           
           {/* Status Tabs */}
           <div className="flex flex-wrap gap-2">
@@ -130,9 +130,9 @@ export const ProjectsPage: React.FC = () => {
               <button
                 key={status}
                 onClick={() => setSelectedStatus(status)}
-                className={`px-4 py-2.5 text-xs font-mono font-bold uppercase transition-all duration-300 rounded-md shadow-sm hover:shadow ${
+                className={`px-4 py-2 text-xs font-mono font-bold uppercase transition-all duration-300 rounded-md shadow-xs hover:shadow-sm ${
                   selectedStatus === status 
-                    ? 'bg-[#2B4A6D] text-white border border-[#2B4A6D] shadow-md -translate-y-0.5' 
+                    ? 'bg-[#2B4A6D] text-white border border-[#2B4A6D] shadow-sm -translate-y-0.5' 
                     : 'bg-[#F1F3F5] text-[#2B4A6D] border border-[#A49050]/30 hover:border-[#D96B33] hover:bg-[#A49050]/10 hover:-translate-y-0.5 active:translate-y-0'
                 }`}
               >
@@ -157,7 +157,7 @@ export const ProjectsPage: React.FC = () => {
       </section>
 
       {/* Projects Grid */}
-      <section ref={gridSectionRef} className="dropdown-scroll-content py-16 scroll-mt-24">
+      <section ref={gridSectionRef} className="dropdown-scroll-content pt-2 sm:pt-3 pb-12 sm:pb-16 scroll-mt-24 bg-[#F1F3F5]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {filteredProjects.length === 0 ? (
             <div className="text-center py-20 bg-white border border-[#A49050]/30 rounded-lg">
