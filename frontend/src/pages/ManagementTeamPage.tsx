@@ -534,43 +534,69 @@ export const ManagementTeamPage: React.FC = () => {
                 </div>
 
                 {/* Qualification & Experience */}
-                <div className="flex items-start gap-3 bg-[#F1F3F5] rounded-2xl p-4 border border-[#A49050]/15">
-                  <div className="w-10 h-10 rounded-xl bg-[#D96B33]/10 flex items-center justify-center shrink-0">
-                    <GraduationCap className="w-5 h-5 text-[#D96B33]" />
+                <div className="flex items-start gap-3.5 bg-[#F8FAFC] rounded-lg p-4 border border-[#1E3654]/15 shadow-xs">
+                  <div className="w-10 h-10 rounded-lg bg-[#1E3654]/5 border border-[#1E3654]/10 flex items-center justify-center shrink-0">
+                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M12 3L2 8.5L12 14L22 8.5L12 3Z" stroke="#D96B33" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+                      <path d="M6 10.7V16.5C6 16.5 8.5 19.5 12 19.5C15.5 19.5 18 16.5 18 16.5V10.7" stroke="#1E3654" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      <path d="M22 8.5V16M20.5 16H23.5" stroke="#D6C489" strokeWidth="1.5" strokeLinecap="round" />
+                      <circle cx="12" cy="8.5" r="1.25" fill="#D96B33" />
+                    </svg>
                   </div>
-                  <div>
-                    <p className="text-sm text-[#2B4A6D]">{activeModalMember.qualification}</p>
+                  <div className="min-w-0">
+                    <span className="text-[11px] font-mono tracking-normal text-[#D96B33] uppercase font-bold block mb-0.5">
+                      ACADEMIC QUALIFICATION & CREDENTIALS
+                    </span>
+                    <p className="text-sm font-medium text-[#1E3654] leading-snug">{activeModalMember.qualification || 'Domain Specialist & Engineering Practice Leader'}</p>
                     {activeModalMember.experienceYears > 0 && (
-                      <p className="text-xs font-semibold text-[#D96B33] mt-1">{activeModalMember.experienceYears}+ Years Experience</p>
+                      <p className="text-xs font-mono font-bold text-[#D96B33] mt-1.5 flex items-center gap-1.5">
+                        <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#D96B33]"></span>
+                        {activeModalMember.experienceYears}+ Years Track Record
+                      </p>
                     )}
                   </div>
                 </div>
 
                 {/* Professional Background */}
-                <div className="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
+                <div className="bg-white rounded-lg border border-[#1E3654]/15 p-4 sm:p-5 shadow-xs">
                   <div className="flex items-center gap-2.5 mb-2.5">
-                    <div className="w-8 h-8 rounded-lg bg-[#2B4A6D]/8 flex items-center justify-center">
-                      <Briefcase className="w-4 h-4 text-[#2B4A6D]" />
+                    <div className="w-8 h-8 rounded-lg bg-[#1E3654]/5 border border-[#1E3654]/10 flex items-center justify-center shrink-0">
+                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <rect x="3" y="7" width="18" height="13" rx="2" stroke="#1E3654" strokeWidth="1.75" />
+                        <path d="M8 7V5C8 3.9 8.9 3 10 3H14C15.1 3 16 3.9 16 5V7" stroke="#D96B33" strokeWidth="1.5" strokeLinecap="round" />
+                        <path d="M3 12H9M15 12H21" stroke="#D6C489" strokeWidth="1.2" strokeLinecap="round" />
+                        <rect x="9" y="10.5" width="6" height="3" rx="0.5" fill="#D96B33" fillOpacity="0.25" stroke="#D96B33" strokeWidth="1.2" />
+                      </svg>
                     </div>
-                    <h4 className="text-sm font-semibold text-[#2B4A6D]">Professional Background</h4>
+                    <div>
+                      <span className="text-[11px] font-mono tracking-normal text-[#1E3654]/65 uppercase font-bold block">CAREER PROFILE</span>
+                      <h4 className="text-sm font-serif font-bold text-[#1E3654]">Professional Background</h4>
+                    </div>
                   </div>
-                  <p className="text-sm text-[#2B4A6D]/70 leading-relaxed">{activeModalMember.bio}</p>
+                  <p className="text-[13px] sm:text-sm text-[#1E3654]/80 leading-relaxed text-justify">{activeModalMember.bio}</p>
                 </div>
 
                 {/* Key Projects Supervised */}
                 {(activeModalMember.keyProjects?.length ?? 0) > 0 && (
                   <div>
                     <div className="flex items-center gap-2.5 mb-3">
-                      <div className="w-8 h-8 rounded-lg bg-[#A49050]/15 flex items-center justify-center">
-                        <Award className="w-4 h-4 text-[#A49050]" />
+                      <div className="w-8 h-8 rounded-lg bg-[#1E3654]/5 border border-[#1E3654]/10 flex items-center justify-center shrink-0">
+                        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                          <circle cx="12" cy="8" r="5" stroke="#D96B33" strokeWidth="1.75" />
+                          <path d="M9.5 8L11 9.5L14.5 6.5" stroke="#D96B33" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                          <path d="M8.2 14L7 21L12 18L17 21L15.8 14" stroke="#1E3654" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
                       </div>
-                      <h4 className="text-sm font-semibold text-[#2B4A6D]">Key Projects Supervised</h4>
+                      <div>
+                        <span className="text-[11px] font-mono tracking-normal text-[#1E3654]/65 uppercase font-bold block">PORTFOLIO</span>
+                        <h4 className="text-sm font-serif font-bold text-[#1E3654]">Key Projects Supervised</h4>
+                      </div>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {activeModalMember.keyProjects!.map((proj, idx) => (
-                        <div key={idx} className="flex items-start gap-2.5 bg-[#F1F3F5] rounded-xl p-3 border border-[#A49050]/15">
+                        <div key={idx} className="flex items-start gap-2.5 bg-[#F8FAFC] rounded-lg p-3 border border-[#1E3654]/15">
                           <CheckCircle2 className="w-4 h-4 text-[#D96B33] shrink-0 mt-0.5" />
-                          <span className="text-sm text-[#2B4A6D]">{proj}</span>
+                          <span className="text-xs sm:text-sm text-[#1E3654]">{proj}</span>
                         </div>
                       ))}
                     </div>

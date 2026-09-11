@@ -81,7 +81,7 @@ export const ContactPage: React.FC = () => {
       await submitContactForm(type, { ...payload, company_website: honeypot });
       setSubmitted(true);
     } catch {
-      setSubmitError('Could not submit right now. Please try again, or email info@almondz.com directly.');
+      setSubmitError('Could not submit right now. Please try again, or email delhi@almondz.com directly.');
     } finally {
       setSubmitting(false);
     }
@@ -287,13 +287,13 @@ export const ContactPage: React.FC = () => {
                     </div>
 
                     <div
-                      onClick={() => handleCopy("contact@almondzglobalinfra.com", "Email Address")}
+                      onClick={() => handleCopy("delhi@almondz.com", "Email Address")}
                       className="flex items-center gap-3.5 p-3.5 bg-white/5 hover:bg-white/10 rounded-md border border-white/10 cursor-pointer transition-colors group/item"
                     >
                       <Mail className="w-5 h-5 text-[#A49050] shrink-0 group-hover/item:scale-110 transition-transform" />
                       <div className="flex-1 text-xs font-mono">
                         <span className="text-white/60 block text-[10px] uppercase">Official Email</span>
-                        <span className="text-white">contact@almondzglobalinfra.com</span>
+                        <span className="text-white">delhi@almondz.com</span>
                       </div>
                     </div>
                   </div>

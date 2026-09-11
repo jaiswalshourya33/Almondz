@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight, ChevronRight, MapPin, Play } from 'lucide-react'
 import { Project } from '../data/projects';
 import { ALL_ARCHED_PROJECTS } from '../data/archedVaultProjects';
 import { ProjectVideoModal } from '../components/ProjectVideoModal';
+import { ExpandableProjectTitle } from '../components/ExpandableProjectTitle';
 
 // The data keeps internal source notes ("per Arched vault", "Arched vault
 // record") for traceability; they are stripped here so visitors never see them.
@@ -97,26 +98,16 @@ export const ProjectDetailPage: React.FC = () => {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#F1F3F5] pt-24">
-      {/* Page banner */}
-      <section className="relative -mt-24 pt-32 pb-8 sm:pt-40 sm:pb-10 bg-[#18253A] overflow-hidden">
-        <img
-          src={photos[0]}
-          alt=""
-          aria-hidden="true"
-          className="absolute inset-0 w-full h-full object-cover opacity-25"
-          referrerPolicy="no-referrer"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#101A29] via-[#18253A]/90 to-[#18253A]/60" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-1 text-[11.5px] sm:text-[12px] leading-5 text-white/60">
-            <Link to="/" className="hover:text-white transition-colors">Home</Link>
-            <ChevronRight className="w-3 h-3" />
-            <Link to="/projects" className="hover:text-white transition-colors">Projects</Link>
-            <ChevronRight className="w-3 h-3" />
-            <Link to={`/sectors/${project.sectorSlug}`} className="hover:text-white transition-colors">
-              {project.sector}
+    <div className="flex flex-col min-h-screen bg-[#FAF9F5] pt-24 text-[#020617]">
+      {/* Header bar */}
+      <section className="bg-[#18253A] border-b border-[#A49050]/20 text-white py-6 sm:py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-[11px] sm:text-[12px] text-gray-400">
+            <Link to="/projects" className="hover:text-white transition-colors flex items-center gap-1">
+              <ArrowLeft className="w-3.5 h-3.5" /> All Projects
             </Link>
+            <ChevronRight className="w-3 h-3 text-gray-600" />
+            <span className="text-gray-300 truncate max-w-[220px] sm:max-w-none">{project.sector}</span>
           </nav>
           <p className="mt-3 text-[20px] sm:text-[24px] leading-tight font-medium text-white">{project.sector}</p>
           <div className="mt-3.5 h-[2px] w-10 bg-[#D96B33]" aria-hidden="true" />
@@ -134,9 +125,7 @@ export const ProjectDetailPage: React.FC = () => {
                 {project.status}
               </span>
             </div>
-            <h1 className="text-[19px] leading-[27px] sm:text-[23px] sm:leading-[32px] lg:text-[26px] lg:leading-[36px] font-semibold text-[#020617] tracking-tight">
-              {project.title}
-            </h1>
+            <ExpandableProjectTitle title={project.title} as="h1" />
             <p className="mt-4 mb-7 sm:mb-8 flex flex-wrap items-center gap-x-3 gap-y-2 text-[13px] sm:text-[14px] leading-6 text-gray-600">
               <span className="inline-flex items-center gap-1.5 font-medium text-gray-700">
                 <MapPin className="w-4 h-4 text-[#D96B33] shrink-0" /> {location}
@@ -146,12 +135,12 @@ export const ProjectDetailPage: React.FC = () => {
             </p>
 
             {/* Photograph */}
-            <figure className="bg-white border border-gray-200 p-1.5 sm:p-2 shadow-xs">
-              <div className="aspect-[3/2] sm:aspect-[2/1] overflow-hidden bg-gray-100">
+            <figure className="bg-white border border-gray-200 p-1.5 sm:p-2 shadow-xs rounded-lg overflow-hidden">
+              <div className="aspect-[16/10] sm:aspect-[16/9] max-h-[500px] overflow-hidden bg-gray-100 rounded">
                 <img
                   src={mainPhoto}
                   alt={project.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover object-center"
                   style={mainPhotoStyle}
                   referrerPolicy="no-referrer"
                 />

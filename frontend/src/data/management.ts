@@ -29,7 +29,7 @@ export interface ManagementMember {
 const avatarPlaceholder = (name: string) =>
   `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=16283D&color=F2834C&size=256&bold=true`;
 
-const COMPANY_EMAIL = "contact@almondzglobalinfra.com";
+const COMPANY_EMAIL = "delhi@almondz.com";
 
 export const MANAGEMENT_TEAM: ManagementMember[] = [
   {
@@ -315,14 +315,14 @@ export const MANAGEMENT_TEAM: ManagementMember[] = [
   {
     id: "rahul-pratap",
     name: "Rahul Pratap",
-    title: "Vice President (Business Development)",
+    title: "Vice President (Urban Development)",
     qualification: "Master's Degree in Delivery Management",
     experienceYears: 15,
-    bio: "Mr. Rahul Pratap is a professional having a Master's Degree in Delivery Management with over 15 years' experience in Business Development, Project Management, Bid Management, New Business, Business Planning & Strategy, Strategic Partnering & forming JVs/Consortiums, Contract Management, Client Relations, Government Proposals, People Management, Project Management and Client Expectations Management.",
+    bio: "Mr. Rahul Pratap is a professional having a Master's Degree in Delivery Management with over 15 years' experience in Urban Development, Project Management, Bid Management, New Business, Business Planning & Strategy, Strategic Partnering & forming JVs/Consortiums, Contract Management, Client Relations, Government Proposals, People Management, Project Management and Client Expectations Management.",
     image: rahul,
     email: COMPANY_EMAIL,
     department: "Project Management",
-    competencies: ["Business Development"],
+    competencies: ["Urban Development"],
     featured: true
   },
   {

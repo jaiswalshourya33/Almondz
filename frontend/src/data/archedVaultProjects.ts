@@ -37,6 +37,8 @@ import urbanCommandImage from '../images/urban-command-centre.png';
 import financeDeskImage from '../images/financial-advisory-desk.png';
 import himachalImage from '../images/himachal-ropeway.jpg';
 import railwaysSectorImage from '../images/sector-railways.jpg';
+import railVijayawadaImage from '../images/rail-vijayawada.jpg';
+import railVijayawada2Image from '../images/rail-vijayawada-2.png';
 import byrapuraChallakereImage from '../images/roads-sup-byrapura-challakere.png';
 import assamNhImage from '../images/roads-sup-assam-nh15-nh315.jpg';
 import assamNh2Image from '../images/roads-sup-assam-nh15-nh315-2.jpg';
@@ -519,7 +521,11 @@ export const ARCHED_VAULT_PROJECTS: Project[] = [
     status: 'Completed',
     location: 'Andhra Pradesh, India',
     coordinates: 'India',
-    image: railwaysSectorImage,
+    image: railVijayawadaImage,
+    gallery: [
+      railVijayawadaImage,
+      railVijayawada2Image,
+    ],
     role: 'Project Supervision Services',
     client: 'South Central Railway, Guntakal Division — Gati Shakti',
     totalCost: 'Consultancy assignment — project cost not disclosed in Arched vault',

@@ -194,10 +194,10 @@ export const SectorScopeShowcase: React.FC<Props> = ({ sector }) => {
                       Email Inquiry
                     </span>
                     <a
-                      href="mailto:info@almondz.com"
+                      href="mailto:delhi@almondz.com"
                       className="text-xs sm:text-[13px] font-medium text-white hover:text-[#D6C489] transition-colors"
                     >
-                      info@almondz.com
+                      delhi@almondz.com
                     </a>
                   </div>
                 </div>

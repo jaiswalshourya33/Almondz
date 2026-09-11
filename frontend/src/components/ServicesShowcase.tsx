@@ -101,10 +101,10 @@ export const ServicesShowcase: React.FC = () => {
                     onFocus={() => setActiveIndex(index)}
                     onTouchStart={() => setActiveIndex(index)}
                     aria-current={isActive ? 'true' : undefined}
-                    className={`group flex items-center gap-3.5 py-2 px-3 transition-all duration-200 lg:rounded-xl ${
+                    className={`group flex items-center gap-3.5 py-2.5 px-3.5 transition-all duration-200 lg:rounded-xl ${
                       isActive
-                        ? 'lg:bg-white lg:shadow-sm border border-[#A49050]/25'
-                        : 'border border-transparent lg:hover:bg-white/60'
+                        ? 'lg:bg-white/20 lg:border lg:border-[#2B4A6D]/[0.07]'
+                        : 'border border-transparent lg:hover:bg-white/10'
                     }`}
                   >
                     <span
@@ -119,7 +119,7 @@ export const ServicesShowcase: React.FC = () => {
                     <ArrowRight
                       className={`h-4 w-4 shrink-0 transition-all duration-200 ${
                         isActive
-                          ? 'translate-x-0 text-[#A49050] opacity-100'
+                          ? 'translate-x-0 text-[#D96B33] opacity-100'
                           : '-translate-x-1 text-[#2B4A6D]/30 opacity-0 group-hover:translate-x-0 group-hover:opacity-100'
                       }`}
                     />
