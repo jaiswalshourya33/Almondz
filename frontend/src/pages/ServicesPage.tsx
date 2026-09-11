@@ -1,7 +1,7 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import { SERVICES, Service } from '../data/services';
-import { CheckCircle2, Eye, X, Download, ChevronLeft, ChevronRight } from 'lucide-react';
+import { CheckCircle2, Eye, X, Download, ChevronLeft, ChevronRight, Info, Workflow, MessageSquare } from 'lucide-react';
 import { PageHeroBanner } from '../components/PageHeroBanner';
 import { downloadServiceBriefPdf } from '../lib/serviceBriefPdf';
 
@@ -131,62 +131,63 @@ export const ServicesPage: React.FC = () => {
             <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#2B4A6D] mt-1">Our Professional Divisions</h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7">
             {paginatedServices.map((service, index) => {
               const divisionNum = startIndex + index + 1;
               return (
                 <div
                   key={service.id}
                   id={`service-card-${service.slug}`}
-                  className="bg-white border border-[#A49050]/30 rounded-md overflow-hidden shadow-sm hover:shadow-2xl hover:border-[#3E4C60] transition-all duration-500 flex flex-col justify-between group hover:-translate-y-1.5 scroll-mt-28"
+                  className="group relative bg-white border border-[#A49050]/20 rounded-2xl p-6 sm:p-7 shadow-[0_8px_28px_rgba(15,32,52,0.06)] hover:shadow-[0_22px_48px_rgba(15,32,52,0.14)] hover:border-[#A49050]/45 hover:-translate-y-1.5 transition-all duration-500 flex flex-col gap-5 scroll-mt-28"
                 >
-                  {/* Image & Overlay Banner */}
-                  <div className="relative h-56 overflow-hidden bg-[#2B4A6D]">
-                    <img 
-                      src={service.image} 
-                      alt={service.title}
-                      className="w-full h-full object-cover transform scale-100 group-hover:scale-110 transition-transform duration-700 ease-out opacity-90 group-hover:opacity-100"
-                      referrerPolicy="no-referrer"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#2B4A6D] via-[#2B4A6D]/40 to-transparent opacity-80 group-hover:opacity-60 transition-opacity"></div>
-                    
-                    <div className="absolute top-4 left-4 z-10">
-                      <span className="text-[10px] font-mono bg-[#2B4A6D]/80 backdrop-blur-md text-[#D6C489] border border-[#A49050]/40 px-3 py-1 rounded font-bold uppercase tracking-widest">
-                        Division #{divisionNum < 10 ? `0${divisionNum}` : divisionNum}
-                      </span>
-                    </div>
-
-                    <div className="absolute bottom-4 left-4 right-4 z-10">
-                      <h3 className="text-xl font-serif font-bold text-white group-hover:text-[#D6C489] transition-colors leading-snug">
-                        {service.title}
-                      </h3>
-                    </div>
+                  {/* Badge row — numbered division + category tag, premium fintech-card style */}
+                  <div className="flex items-center gap-2.5">
+                    <span className="shrink-0 w-9 h-9 rounded-lg bg-[#D6C489]/20 border border-[#D6C489]/60 text-[#2B4A6D] text-xs font-mono font-bold flex items-center justify-center">
+                      {divisionNum < 10 ? `0${divisionNum}` : divisionNum}
+                    </span>
+                    <span className="text-[10px] font-mono font-bold tracking-widest uppercase text-[#A49050] bg-[#A49050]/10 border border-[#A49050]/25 px-2.5 py-1 rounded-full">
+                      {service.tag}
+                    </span>
                   </div>
 
-                  {/* Body Content */}
-                  <div className="p-6 flex flex-col flex-1 justify-between gap-6">
-                    <p className="text-xs sm:text-sm text-black leading-relaxed font-normal">
+                  {/* Headline + description */}
+                  <div>
+                    <h3 className="text-xl sm:text-[1.35rem] font-serif font-bold text-[#2B4A6D] leading-snug group-hover:text-[#1E354F] transition-colors">
+                      {service.title}
+                    </h3>
+                    <p className="mt-2 text-xs sm:text-sm text-gray-600 leading-relaxed">
                       {service.shortDesc}
                     </p>
+                  </div>
 
-                    {/* Actions */}
-                    <div className="pt-4 border-t border-gray-100 flex items-center gap-3">
-                      <button
-                        onClick={() => setSelectedService(service)}
-                        className="flex-1 bg-[#2B4A6D] hover:bg-[#3E4C60] hover:text-[#D6C489] text-white py-2.5 px-4 text-xs font-mono font-bold tracking-wider uppercase transition-all duration-300 flex items-center justify-center gap-2 rounded-md shadow hover:shadow-md group-hover:bg-[#3E4C60] group-hover:text-[#D6C489]"
-                      >
-                        <Eye className="w-3.5 h-3.5 text-[#D6C489] transition-colors" />
-                        <span>View Details</span>
-                      </button>
-                      <button
-                        onClick={() => handleDownloadBrochure(service)}
-                        className="p-2.5 bg-[#F1F3F5] hover:bg-[#A49050]/20 text-[#2B4A6D] border border-[#A49050]/30 transition-all duration-300 rounded-md hover:border-[#2B4A6D] cursor-pointer"
-                        title="Download PDF Brief"
-                        aria-label={`Download ${service.title} PDF brief`}
-                      >
-                        <Download className="w-4 h-4" />
-                      </button>
-                    </div>
+                  {/* Supporting visual panel */}
+                  <div className="relative h-40 sm:h-44 rounded-xl overflow-hidden ring-1 ring-black/5">
+                    <img
+                      src={service.image}
+                      alt={service.title}
+                      className="w-full h-full object-cover scale-100 group-hover:scale-110 transition-transform duration-700 ease-out"
+                      referrerPolicy="no-referrer"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#2B4A6D]/55 via-transparent to-transparent"></div>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="pt-1 flex items-center gap-3">
+                    <button
+                      onClick={() => setSelectedService(service)}
+                      className="flex-1 bg-[#2B4A6D] hover:bg-[#1E354F] text-white py-2.5 px-4 text-xs font-mono font-bold tracking-wider uppercase transition-all duration-300 flex items-center justify-center gap-2 rounded-lg shadow hover:shadow-md"
+                    >
+                      <Eye className="w-3.5 h-3.5 text-[#D6C489]" />
+                      <span>View Details</span>
+                    </button>
+                    <button
+                      onClick={() => handleDownloadBrochure(service)}
+                      className="p-2.5 bg-[#F1F3F5] hover:bg-[#A49050]/20 text-[#2B4A6D] border border-[#A49050]/30 transition-all duration-300 rounded-lg hover:border-[#2B4A6D] cursor-pointer"
+                      title="Download PDF Brief"
+                      aria-label={`Download ${service.title} PDF brief`}
+                    >
+                      <Download className="w-4 h-4" />
+                    </button>
                   </div>
                 </div>
               );
@@ -347,19 +348,25 @@ export const ServicesPage: React.FC = () => {
             <div className="service-modal-content-panel flex-1 flex flex-col justify-between overflow-hidden min-h-0">
               {/* Header */}
               <div className="px-4 pt-3 pb-2 sm:px-6 sm:pt-4 sm:pb-2.5 border-b border-gray-100 shrink-0 bg-white">
-                <span className="inline-flex w-fit items-center text-[9px] sm:text-[11px] font-mono font-bold text-[#A49050] bg-[#A49050]/10 border border-[#A49050]/30 px-2 py-0.5 rounded-full mb-1 sm:mb-1.5 uppercase tracking-wider">
-                  AGICL Practice Division
-                </span>
+                <div className="flex flex-wrap items-center gap-1.5 mb-1 sm:mb-1.5">
+                  <span className="inline-flex w-fit items-center text-[9px] sm:text-[11px] font-mono font-bold text-[#A49050] bg-[#A49050]/10 border border-[#A49050]/30 px-2 py-0.5 rounded-full uppercase tracking-wider">
+                    AGICL Practice Division
+                  </span>
+                  <span className="inline-flex w-fit items-center text-[9px] sm:text-[11px] font-mono font-bold text-[#2B4A6D] bg-[#D6C489]/20 border border-[#D6C489]/50 px-2 py-0.5 rounded-full uppercase tracking-wider">
+                    {selectedService.tag}
+                  </span>
+                </div>
                 <h3 className="text-base sm:text-xl md:text-2xl font-serif font-bold text-[#2B4A6D] leading-tight line-clamp-2 sm:line-clamp-none">
                   {selectedService.title}
                 </h3>
               </div>
 
               {/* Scrollable Content */}
-              <div className="px-4 py-2.5 sm:px-6 sm:py-3.5 overflow-y-auto space-y-2.5 sm:space-y-3.5 flex-1 min-h-0">
+              <div className="px-4 py-2.5 sm:px-6 sm:py-3.5 overflow-y-auto space-y-3 sm:space-y-4 flex-1 min-h-0">
                 {/* Section 1: Overview */}
-                <div className="space-y-1">
-                  <h4 className="text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider text-[#2B4A6D]/80 border-b border-gray-100 pb-0.5">
+                <div className="space-y-1.5">
+                  <h4 className="flex items-center gap-1.5 text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider text-[#2B4A6D]/80 border-b border-gray-100 pb-1">
+                    <Info className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#A49050]" />
                     Overview
                   </h4>
                   <p className="text-xs sm:text-sm text-gray-800 leading-relaxed font-normal">
@@ -367,15 +374,19 @@ export const ServicesPage: React.FC = () => {
                   </p>
                 </div>
 
-                {/* Section 2: Key Deliverables */}
-                <div className="space-y-1 pt-0.5">
-                  <h4 className="text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider text-[#2B4A6D]/80 border-b border-gray-100 pb-0.5">
-                    Key Deliverables
+                {/* Section 2: Key Deliverables — scannable checklist grid, not a plain bullet list */}
+                <div className="space-y-1.5 pt-0.5">
+                  <h4 className="flex items-center justify-between gap-1.5 text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider text-[#2B4A6D]/80 border-b border-gray-100 pb-1">
+                    <span className="flex items-center gap-1.5">
+                      <CheckCircle2 className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#A49050]" />
+                      Key Deliverables
+                    </span>
+                    <span className="text-[#A49050] normal-case font-semibold tracking-normal">{selectedService.deliverables.length} items</span>
                   </h4>
-                  <ul className="space-y-1 text-xs sm:text-sm">
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1.5 text-xs sm:text-sm">
                     {selectedService.deliverables.map((del, dIdx) => (
-                      <li key={dIdx} className="flex items-start gap-2">
-                        <span className="text-[#A49050] font-bold text-sm leading-none mt-0.5">•</span>
+                      <li key={dIdx} className="flex items-start gap-2 bg-[#F8FAFC] border border-gray-100 rounded-lg px-2.5 py-1.5">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-[#A49050] shrink-0 mt-0.5" />
                         <span className="font-normal text-gray-800 leading-relaxed">{del}</span>
                       </li>
                     ))}
@@ -383,8 +394,9 @@ export const ServicesPage: React.FC = () => {
                 </div>
 
                 {/* Section 3: How We Deliver It */}
-                <div className="space-y-1 pt-0.5">
-                  <h4 className="text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider text-[#2B4A6D]/80 border-b border-gray-100 pb-0.5">
+                <div className="space-y-1.5 pt-0.5">
+                  <h4 className="flex items-center gap-1.5 text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider text-[#2B4A6D]/80 border-b border-gray-100 pb-1">
+                    <Workflow className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#A49050]" />
                     How We Deliver It
                   </h4>
                   <p className="text-xs sm:text-sm text-gray-800 leading-relaxed bg-[#F8FAFC] p-2.5 sm:p-3 rounded-lg border border-gray-100 font-normal">
@@ -394,13 +406,21 @@ export const ServicesPage: React.FC = () => {
               </div>
 
               {/* Footer Buttons */}
-              <div className="flex items-center justify-end gap-2 px-4 py-2 sm:px-6 sm:py-3 border-t border-gray-100 bg-[#F8FAFC] shrink-0">
+              <div className="flex flex-wrap items-center justify-end gap-2 px-4 py-2 sm:px-6 sm:py-3 border-t border-gray-100 bg-[#F8FAFC] shrink-0">
                 <button
                   onClick={() => setSelectedService(null)}
                   className="px-3 py-1.5 text-xs font-medium text-[#2B4A6D] hover:bg-gray-200/60 rounded-full transition-colors cursor-pointer"
                 >
                   Close
                 </button>
+                <Link
+                  to="/contact"
+                  onClick={() => setSelectedService(null)}
+                  className="px-3.5 sm:px-4 py-1.5 sm:py-2 bg-white hover:bg-[#F1F3F5] text-[#2B4A6D] border border-[#A49050]/40 text-xs font-medium rounded-full shadow-sm hover:shadow transition-all flex items-center gap-1.5 cursor-pointer"
+                >
+                  <MessageSquare className="w-3.5 h-3.5 text-[#A49050]" />
+                  <span>Talk to an Expert</span>
+                </Link>
                 <button
                   onClick={() => handleDownloadBrochure(selectedService)}
                   className="px-3.5 sm:px-4 py-1.5 sm:py-2 bg-[#2B4A6D] hover:bg-[#1E354F] text-white text-xs font-medium rounded-full shadow-sm hover:shadow transition-all flex items-center gap-1.5 cursor-pointer"
