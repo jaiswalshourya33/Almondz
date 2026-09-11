@@ -73,9 +73,8 @@ export const TeamGallerySlideshow: React.FC = () => {
   };
 
   return (
-    // Footer-coloured band: heading above the photos, a short strip below so
-    // they don't sit directly on the footer content.
-    <div className="bg-[#2B4A6D] pb-4 sm:pb-5 mb-5 sm:mb-8 border-b border-[#A49050]/40 shadow-xs">
+    // Footer-coloured band: heading above the photos, seamlessly connecting into the footer
+    <div className="bg-[#2B4A6D]">
       <div className="px-4 sm:px-6 lg:px-8 pt-7 sm:pt-10 pb-5 sm:pb-6 text-center max-w-4xl mx-auto">
         <span className="text-[10px] sm:text-xs font-mono font-bold tracking-widest text-[#D6C489] uppercase block mb-1">
           ORGANISATIONAL HIGHLIGHTS

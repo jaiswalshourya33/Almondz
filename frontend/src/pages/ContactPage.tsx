@@ -842,10 +842,8 @@ export const ContactPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Full-bleed team gallery slideshow with clean separation from footer */}
-      <div className="pb-6 sm:pb-8 bg-[#F1F3F5]">
-        <TeamGallerySlideshow />
-      </div>
+      {/* Full-bleed team gallery slideshow */}
+      <TeamGallerySlideshow />
     </div>
   );
 };

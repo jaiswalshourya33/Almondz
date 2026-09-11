@@ -8,14 +8,6 @@ interface DirectorResignationsSectionProps {
   directorResignations: DirectorResignationYear[];
 }
 
-/** Extract initials from a full name, omitting honorifics (Mr./Mrs./Ms./Dr.) */
-const initialsOf = (full: string): string => {
-  const parts = full.replace(/^(Mr|Mrs|Ms|Dr)\.?\s+/i, '').trim().split(/\s+/);
-  const first = parts[0]?.[0] ?? '';
-  const last = parts.length > 1 ? parts[parts.length - 1][0] : '';
-  return (first + last).toUpperCase();
-};
-
 export const DirectorResignationsSection: React.FC<DirectorResignationsSectionProps> = ({
   directorResignations,
 }) => {
@@ -107,39 +99,35 @@ export const DirectorResignationsSection: React.FC<DirectorResignationsSectionPr
                     className="group relative flex items-center justify-between gap-4 bg-white/90 border border-[#A49050]/20 rounded-2xl p-4 sm:px-6 shadow-sm hover:border-[#A49050]/45 hover:shadow-md hover:bg-white transition-all duration-300"
                   >
                     <div className="flex items-center gap-4 min-w-0">
-                      {/* Step Index Number */}
-                      <span className="shrink-0 text-xs font-mono font-bold text-[#A49050]/70 tracking-wider">
-                        {String(j + 1).padStart(2, '0')}
-                      </span>
+                      <div className="flex items-center gap-4 min-w-0">
+                        {/* Index Number */}
+                        <span className="shrink-0 text-xs font-mono font-bold text-[#A49050]/80 tracking-wider">
+                          {String(j + 1).padStart(2, '0')}
+                        </span>
 
-                      {/* Initials Avatar */}
-                      <div className="shrink-0 w-11 h-11 rounded-2xl bg-gradient-to-br from-[#FAF6EE] to-[#F3ECD8] border border-[#A49050]/35 flex items-center justify-center font-bold text-xs text-[#A49050] shadow-xs group-hover:scale-105 transition-transform duration-300">
-                        {initialsOf(name)}
+                        {/* Director Name */}
+                        <div className="min-w-0">
+                          <h5 className="text-base sm:text-lg font-serif font-bold text-[#2B4A6D] group-hover:text-[#A49050] transition-colors truncate">
+                            {name}
+                          </h5>
+                          <p className="text-[11px] font-mono uppercase tracking-wider text-[#2B4A6D]/50">
+                            Director Resignation Record
+                          </p>
+                        </div>
                       </div>
 
-                      {/* Director Name */}
-                      <div className="min-w-0">
-                        <h5 className="text-base sm:text-lg font-serif font-bold text-[#2B4A6D] group-hover:text-[#A49050] transition-colors truncate">
-                          {name}
-                        </h5>
-                        <p className="text-[10px] font-mono uppercase tracking-wider text-[#2B4A6D]/45">
-                          Board of Directors Resignation
-                        </p>
+                      {/* Status Badge */}
+                      <div className="shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-[#A49050]/25 text-[#A49050] text-[10px] font-mono font-bold tracking-widest uppercase shadow-2xs">
+                        <LogOut className="w-3.5 h-3.5 text-[#A49050]" />
+                        <span>Resigned</span>
                       </div>
-                    </div>
-
-                    {/* Status Badge */}
-                    <div className="shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#A49050]/10 border border-[#A49050]/25 text-[#A49050] text-[10px] font-mono font-bold tracking-widest uppercase">
-                      <LogOut className="w-3.5 h-3.5 text-[#A49050]" />
-                      <span>Resigned</span>
-                    </div>
-                  </motion.div>
-                ))}
+                    </motion.div>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  };

@@ -15,16 +15,6 @@ import { revealSectionOnScroll } from '../lib/revealOnScroll';
 /** Annual Return filings shown per page in the paginated list. */
 const RETURNS_PER_PAGE = 5;
 
-/** Initials from a full name, ignoring the honorific (Mr./Mrs./Ms./Dr.). */
-const initialsOf = (full: string): string => {
-  const parts = full.replace(/^(Mr|Mrs|Ms|Dr)\.?\s+/i, '').trim().split(/\s+/);
-  const first = parts[0]?.[0] ?? '';
-  const last = parts.length > 1 ? parts[parts.length - 1][0] : '';
-  return (first + last).toUpperCase();
-};
-
-const isLeadRole = (role: string): boolean => /chair|presiding/i.test(role);
-
 export const CorporateGovernancePage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const item = CORPORATE_GOVERNANCE.find((c) => c.slug === slug);
@@ -189,22 +179,18 @@ export const CorporateGovernancePage: React.FC = () => {
                           <li
                             key={name}
                             style={{ ['--j' as string]: j }}
-                            className="gov-timeline-row group/row flex items-center gap-4 sm:gap-6 py-3.5 border-b border-[#A49050]/15 last:border-b-0"
+                            className="gov-timeline-row group/row flex items-center justify-between gap-4 sm:gap-6 py-3.5 border-b border-[#A49050]/15 last:border-b-0"
                           >
-                            <span className="shrink-0 w-6 text-[11px] font-mono font-bold tracking-wider text-[#A49050]/70 tabular-nums">
-                              {String(j + 1).padStart(2, '0')}
-                            </span>
-                            <span
-                              className="shrink-0 w-9 h-9 rounded-full border border-[#A49050]/30 bg-white flex items-center justify-center text-[11px] font-bold text-[#2B4A6D] group-hover/row:border-[#D96B33]/45 group-hover/row:text-[#D96B33] transition-colors"
-                              aria-hidden="true"
-                            >
-                              {initialsOf(name)}
-                            </span>
-                            <span className="min-w-0 flex-1 text-[15px] sm:text-base font-serif text-[#2B4A6D]">
-                              {name}
-                            </span>
-                            <span className="shrink-0 inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-[0.18em] text-[#2B4A6D]/40">
-                              <LogOut className="w-3 h-3" aria-hidden="true" />
+                            <div className="flex items-center gap-4 min-w-0">
+                              <span className="shrink-0 w-6 text-[11px] font-mono font-bold tracking-wider text-[#A49050]/70 tabular-nums">
+                                {String(j + 1).padStart(2, '0')}
+                              </span>
+                              <span className="min-w-0 text-[15px] sm:text-base font-serif font-medium text-[#2B4A6D]">
+                                {name}
+                              </span>
+                            </div>
+                            <span className="shrink-0 inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-[0.18em] text-[#2B4A6D]/50 bg-white border border-[#A49050]/20 px-2.5 py-1 rounded-md">
+                              <LogOut className="w-3 h-3 text-[#A49050]" aria-hidden="true" />
                               Resigned
                             </span>
                           </li>
