@@ -142,7 +142,10 @@ export const SectorDetail: React.FC = () => {
 
               {/* Status Filter Pills + Nav Controls */}
               <div className="flex items-center gap-3 self-start lg:self-auto flex-wrap">
-                <div className="shrink-0 max-w-full overflow-x-auto modal-scroll py-1">
+                <div 
+                  className="shrink-0 max-w-full overflow-x-auto no-scrollbar scrollbar-none py-1"
+                  style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                >
                   <div className="inline-flex items-center p-1 bg-white border border-gray-300 rounded-full shadow-2xs gap-1 flex-nowrap whitespace-nowrap">
                     {statusOptions.map((status) => {
                       const count = status === 'All'
@@ -215,7 +218,8 @@ export const SectorDetail: React.FC = () => {
             ) : (
               <div
                 ref={projectsTrackRef}
-                className="flex gap-3.5 overflow-x-auto modal-scroll pb-4 snap-x scroll-smooth cursor-grab active:cursor-grabbing"
+                className="flex gap-3.5 overflow-x-auto no-scrollbar scrollbar-none pb-4 snap-x scroll-smooth cursor-grab active:cursor-grabbing"
+                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
               >
                 {filteredProjects.map((proj) => (
                   <button

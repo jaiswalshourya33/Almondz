@@ -611,7 +611,8 @@ export const Home: React.FC = () => {
             <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#2B4A6D] mt-1">Sectors We Serve</h2>
 
             <div
-              className="mt-6 flex flex-nowrap items-center gap-1.5 sm:gap-2 overflow-x-auto"
+              className="mt-6 flex flex-nowrap items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar scrollbar-none py-1"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
               role="tablist"
               aria-label="Filter sectors"
             >
