@@ -4,7 +4,7 @@ import { Project } from '../data/projects';
 import { ALL_ARCHED_PROJECTS } from '../data/archedVaultProjects';
 import { SECTORS } from '../data/sectors';
 import { ProjectCard } from '../components/ProjectCard';
-import { Search, Filter, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Search, Filter, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import cleanEnergyHero from '../images/hero/projects.jpg';
 
 const PROJECTS_PER_PAGE = 6;
@@ -142,15 +142,25 @@ export const ProjectsPage: React.FC = () => {
           </div>
 
           {/* Search Bar */}
-          <div className="relative w-full md:w-72">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <div className="relative w-full md:w-80 lg:w-96">
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#2B4A6D]/60 pointer-events-none" />
             <input
               type="text"
               placeholder="Search projects, client, location..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-[#F1F3F5] border border-[#A49050]/30 pl-10 pr-4 py-2 text-xs text-[#2B4A6D] placeholder-gray-500 focus:outline-none focus:border-[#D96B33] rounded-md"
+              className="w-full bg-white border border-gray-300 hover:border-[#A49050]/60 focus:border-[#D96B33] pl-10 pr-9 py-2.5 sm:py-3 text-[13px] sm:text-[14px] leading-5 text-[#020617] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D96B33]/15 rounded-lg shadow-xs transition-all"
             />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery('')}
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-0.5 text-gray-400 hover:text-gray-700 transition-colors cursor-pointer"
+                aria-label="Clear search"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
           </div>
 
         </div>
