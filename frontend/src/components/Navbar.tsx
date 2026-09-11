@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Logo } from './Logo';
 import { SECTORS } from '../data/sectors';
 import { SERVICES } from '../data/services';
+import { CORPORATE_GOVERNANCE } from '../data/corporateGovernance';
 import { Menu, X, ChevronDown, ArrowRight } from 'lucide-react';
 import { getSectorIcon } from './SectorSvgIcons';
 import { getServiceIcon } from './ServiceSvgIcons';

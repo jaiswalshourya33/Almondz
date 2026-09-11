@@ -890,19 +890,19 @@ export const Home: React.FC = () => {
       </section>
 
       {/* CTA BANNER */}
-      <section ref={ctaSectionRef} className="cta-showcase py-16 sm:py-20 text-white">
+      <section ref={ctaSectionRef} className="cta-showcase py-10 sm:py-14 md:py-20 text-white">
         <div className="cta-showcase__orb cta-showcase__orb--one" aria-hidden="true" />
         <div className="cta-showcase__orb cta-showcase__orb--two" aria-hidden="true" />
         <div className="cta-showcase__inner max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center">
-          <div className="cta-showcase__copy flex flex-col items-center gap-3 max-w-3xl mx-auto">
-            <h2 className="cta-showcase__title text-3xl sm:text-4xl lg:text-[2.65rem] font-sans font-normal tracking-tight text-white/95 leading-[1.25]">
+          <div className="cta-showcase__copy flex flex-col items-center gap-2.5 sm:gap-3 max-w-3xl mx-auto">
+            <h2 className="cta-showcase__title text-xl sm:text-3xl md:text-4xl lg:text-[2.65rem] font-sans font-medium sm:font-normal tracking-tight text-white/95 leading-snug sm:leading-[1.25]">
               Ready to Engineer Your Next Mega Infrastructure Project?
             </h2>
-            <p className="cta-showcase__description text-sm sm:text-base lg:text-[17px] text-white/90 font-normal leading-relaxed max-w-2xl mx-auto">
+            <p className="cta-showcase__description text-xs sm:text-sm md:text-base lg:text-[17px] text-white/90 font-normal leading-relaxed max-w-2xl mx-auto px-2 sm:px-0">
               From vision and planning to engineering and execution, partner with Almondz to turn ambitious ideas into infrastructure that creates lasting impact.
             </p>
           </div>
-          <div className="mt-7 sm:mt-8 flex items-center justify-center">
+          <div className="mt-5 sm:mt-7 md:mt-8 flex items-center justify-center">
             <Link
               to="/contact"
               className="cta-showcase__button group"
