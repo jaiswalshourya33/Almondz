@@ -96,12 +96,17 @@ export const Navbar: React.FC = () => {
 
         {/* Desktop Nav */}
         <nav className="hidden lg:flex items-center gap-8">
+          {/* HOME */}
           <Link 
             to="/" 
-            className="text-sm font-medium tracking-wide text-white/90 hover:text-[#D96B33] transition-colors py-1 relative group"
+            className={`text-sm font-medium tracking-wide transition-colors py-1 relative group ${
+              location.pathname === '/' ? 'text-[#D96B33]' : 'text-white/90 hover:text-[#D96B33]'
+            }`}
           >
             HOME
-            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#D96B33] transition-all duration-300 group-hover:w-full"></span>
+            <span className={`absolute bottom-0 left-0 h-0.5 bg-[#D96B33] transition-all duration-300 ${
+              location.pathname === '/' ? 'w-full' : 'w-0 group-hover:w-full'
+            }`}></span>
           </Link>
 
           {/* ABOUT Dropdown */}
@@ -113,10 +118,14 @@ export const Navbar: React.FC = () => {
             <button
               type="button"
               onClick={() => setActiveDropdown('about')}
-              className="flex items-center gap-1.5 text-sm font-medium tracking-wide text-white/90 hover:text-[#D96B33] transition-colors py-1 group"
+              className={`flex items-center gap-1.5 text-sm font-medium tracking-wide transition-colors py-1 group ${
+                location.pathname.startsWith('/about') ? 'text-[#D96B33]' : 'text-white/90 hover:text-[#D96B33]'
+              }`}
             >
               ABOUT
-              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === 'about' ? 'rotate-180 text-[#D96B33]' : ''}`} />
+              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${
+                activeDropdown === 'about' ? 'rotate-180 text-[#D96B33]' : location.pathname.startsWith('/about') ? 'text-[#D96B33]' : ''
+              }`} />
             </button>
 
             {activeDropdown === 'about' && (
@@ -128,16 +137,23 @@ export const Navbar: React.FC = () => {
                   { name: "Management Team Members", path: "/about/management-team" },
                   { name: "Certifications & Empanelments", path: "/about/certifications" },
                   { name: "Careers", path: "/about/careers" },
-                ].map((item, idx) => (
-                  <Link
-                    key={idx}
-                    to={item.path}
-                    onClick={closeDropdowns}
-                    className="block px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/10 transition-colors border-l-2 border-transparent hover:border-[#D96B33]"
-                  >
-                    {item.name}
-                  </Link>
-                ))}
+                ].map((item, idx) => {
+                  const isActive = location.pathname === item.path;
+                  return (
+                    <Link
+                      key={idx}
+                      to={item.path}
+                      onClick={closeDropdowns}
+                      className={`block px-4 py-2.5 text-sm transition-colors border-l-2 ${
+                        isActive
+                          ? 'text-white bg-white/10 border-[#D96B33] font-medium'
+                          : 'text-white/80 hover:text-white hover:bg-white/10 border-transparent hover:border-[#D96B33]'
+                      }`}
+                    >
+                      {item.name}
+                    </Link>
+                  );
+                })}
               </div>
             )}
           </div>
@@ -151,10 +167,14 @@ export const Navbar: React.FC = () => {
             <button
               type="button"
               onClick={() => setActiveDropdown('sectors')}
-              className="flex items-center gap-1.5 text-sm font-medium tracking-wide text-white/90 hover:text-[#D96B33] transition-colors py-1"
+              className={`flex items-center gap-1.5 text-sm font-medium tracking-wide transition-colors py-1 ${
+                location.pathname.startsWith('/sectors') ? 'text-[#D96B33]' : 'text-white/90 hover:text-[#D96B33]'
+              }`}
             >
               SECTORS
-              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === 'sectors' ? 'rotate-180 text-[#D96B33]' : ''}`} />
+              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${
+                activeDropdown === 'sectors' ? 'rotate-180 text-[#D96B33]' : location.pathname.startsWith('/sectors') ? 'text-[#D96B33]' : ''
+              }`} />
             </button>
 
             {activeDropdown === 'sectors' && (
@@ -162,22 +182,33 @@ export const Navbar: React.FC = () => {
                 <div className="col-span-2 pb-2 border-b border-white/10">
                   <span className="text-xs font-mono tracking-widest text-[#D96B33]">SPECIALIZED INFRASTRUCTURE DOMAINS ({String(SECTORS.length).padStart(3, '0')})</span>
                 </div>
-                {SECTORS.map((sector) => (
-                  <Link
-                    key={sector.id}
-                    to={`/sectors/${sector.slug}`}
-                    onClick={closeDropdowns}
-                    className="p-2.5 rounded hover:bg-white/5 transition-colors group flex items-start gap-3"
-                  >
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#A49050] mt-2 group-hover:bg-[#D96B33] transition-colors"></div>
-                    <div>
-                      <h4 className="text-[14px] font-sans font-medium leading-[20px] text-white group-hover:text-[#D96B33] transition-colors">
-                        {sector.title}
-                      </h4>
-                      <p className="text-xs text-white/60 line-clamp-1 mt-0.5">{sector.shortDesc}</p>
-                    </div>
-                  </Link>
-                ))}
+                {SECTORS.map((sector) => {
+                  const isActive = location.pathname === `/sectors/${sector.slug}`;
+                  return (
+                    <Link
+                      key={sector.id}
+                      to={`/sectors/${sector.slug}`}
+                      onClick={closeDropdowns}
+                      className={`p-2.5 rounded transition-colors group flex items-start gap-3 border-l-2 ${
+                        isActive
+                          ? 'bg-white/10 border-[#D96B33]'
+                          : 'border-transparent hover:bg-white/5 hover:border-[#D96B33]'
+                      }`}
+                    >
+                      <div className={`w-1.5 h-1.5 rounded-full mt-2 transition-colors ${
+                        isActive ? 'bg-[#D96B33]' : 'bg-[#A49050] group-hover:bg-[#D96B33]'
+                      }`}></div>
+                      <div>
+                        <h4 className={`text-[14px] font-sans font-medium leading-[20px] transition-colors ${
+                          isActive ? 'text-[#D96B33]' : 'text-white group-hover:text-[#D96B33]'
+                        }`}>
+                          {sector.title}
+                        </h4>
+                        <p className="text-xs text-white/60 line-clamp-1 mt-0.5">{sector.shortDesc}</p>
+                      </div>
+                    </Link>
+                  );
+                })}
               </div>
             )}
           </div>
@@ -191,10 +222,14 @@ export const Navbar: React.FC = () => {
             <button
               type="button"
               onClick={() => setActiveDropdown('services')}
-              className="flex items-center gap-1.5 text-sm font-medium tracking-wide text-white/90 hover:text-[#D96B33] transition-colors py-1"
+              className={`flex items-center gap-1.5 text-sm font-medium tracking-wide transition-colors py-1 ${
+                location.pathname.startsWith('/services') ? 'text-[#D96B33]' : 'text-white/90 hover:text-[#D96B33]'
+              }`}
             >
               SERVICES
-              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === 'services' ? 'rotate-180 text-[#D96B33]' : ''}`} />
+              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${
+                activeDropdown === 'services' ? 'rotate-180 text-[#D96B33]' : location.pathname.startsWith('/services') ? 'text-[#D96B33]' : ''
+              }`} />
             </button>
 
             {activeDropdown === 'services' && (
@@ -205,72 +240,51 @@ export const Navbar: React.FC = () => {
                     View All Services <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>
-                {SERVICES.map((srv) => (
-                  <Link
-                    key={srv.id}
-                    to={`/services?service=${srv.slug}`}
-                    onClick={closeDropdowns}
-                    className="p-2 rounded hover:bg-white/5 transition-colors group flex items-start gap-3"
-                  >
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#A49050] mt-2 group-hover:bg-[#D96B33] transition-colors"></div>
-                    <div>
-                      <h4 className="text-[14px] font-sans font-medium leading-[20px] text-white group-hover:text-[#D96B33] transition-colors">
-                        {srv.title}
-                      </h4>
-                    </div>
-                  </Link>
-                ))}
+                {SERVICES.map((srv) => {
+                  const isActive = location.pathname.startsWith('/services') && location.search.includes(srv.slug);
+                  return (
+                    <Link
+                      key={srv.id}
+                      to={`/services?service=${srv.slug}`}
+                      onClick={closeDropdowns}
+                      className={`p-2 rounded transition-colors group flex items-start gap-3 border-l-2 ${
+                        isActive
+                          ? 'bg-white/10 border-[#D96B33]'
+                          : 'border-transparent hover:bg-white/5 hover:border-[#D96B33]'
+                      }`}
+                    >
+                      <div className={`w-1.5 h-1.5 rounded-full mt-2 transition-colors ${
+                        isActive ? 'bg-[#D96B33]' : 'bg-[#A49050] group-hover:bg-[#D96B33]'
+                      }`}></div>
+                      <div>
+                        <h4 className={`text-[14px] font-sans font-medium leading-[20px] transition-colors ${
+                          isActive ? 'text-[#D96B33]' : 'text-white group-hover:text-[#D96B33]'
+                        }`}>
+                          {srv.title}
+                        </h4>
+                      </div>
+                    </Link>
+                  );
+                })}
               </div>
             )}
           </div>
-
-          {/* DIGITALIZATION Dropdown (Commented Out) */}
-          {/*
-          <div
-            className="relative"
-            onMouseEnter={() => setActiveDropdown('digitalization')}
-            onMouseLeave={closeDropdowns}
-          >
-            <button
-              type="button"
-              onClick={() => setActiveDropdown('digitalization')}
-              className="flex items-center gap-1.5 text-sm font-medium tracking-wide text-white/90 hover:text-[#D96B33] transition-colors py-1 group"
-            >
-              DIGITALIZATION
-              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === 'digitalization' ? 'rotate-180 text-[#D96B33]' : ''}`} />
-            </button>
-
-            {activeDropdown === 'digitalization' && (
-              <div className="absolute top-full left-0 w-80 bg-[#2B4A6D] border border-[#A49050]/30 shadow-2xl py-3 px-1 z-50 animate-fade-in">
-                {[
-                  { name: "Geospatial Web Portal", path: "/digitalization/geospatial-web-portal" },
-                  { name: "AI-Powered Project Finance Tool", path: "/digitalization/ai-project-finance-tool" },
-                ].map((item, idx) => (
-                  <Link
-                    key={idx}
-                    to={item.path}
-                    onClick={closeDropdowns}
-                    className="block px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/10 transition-colors border-l-2 border-transparent hover:border-[#D96B33]"
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-          */}
 
           <Link
             to="/projects"
             onClick={closeDropdowns}
-            className="text-sm font-medium tracking-wide text-white/90 hover:text-[#D96B33] transition-colors py-1 relative group"
+            className={`text-sm font-medium tracking-wide transition-colors py-1 relative group ${
+              location.pathname.startsWith('/projects') ? 'text-[#D96B33]' : 'text-white/90 hover:text-[#D96B33]'
+            }`}
           >
             PROJECTS
-            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#D96B33] transition-all duration-300 group-hover:w-full"></span>
+            <span className={`absolute bottom-0 left-0 h-0.5 bg-[#D96B33] transition-all duration-300 ${
+              location.pathname.startsWith('/projects') ? 'w-full' : 'w-0 group-hover:w-full'
+            }`}></span>
           </Link>
 
           {/* CORPORATE GOVERNANCE Dropdown */}
-          <div
+          <div 
             className="relative"
             onMouseEnter={() => setActiveDropdown('governance')}
             onMouseLeave={closeDropdowns}
@@ -278,24 +292,36 @@ export const Navbar: React.FC = () => {
             <button
               type="button"
               onClick={() => setActiveDropdown('governance')}
-              className="flex items-center gap-1.5 text-sm font-medium tracking-wide text-white/90 hover:text-[#D96B33] transition-colors py-1 group"
+              className={`flex items-center gap-1.5 text-sm font-medium tracking-wide transition-colors py-1 group ${
+                location.pathname.startsWith('/corporate-governance') ? 'text-[#D96B33]' : 'text-white/90 hover:text-[#D96B33]'
+              }`}
             >
               CORPORATE GOVERNANCE
-              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === 'governance' ? 'rotate-180 text-[#D96B33]' : ''}`} />
+              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${
+                activeDropdown === 'governance' ? 'rotate-180 text-[#D96B33]' : location.pathname.startsWith('/corporate-governance') ? 'text-[#D96B33]' : ''
+              }`} />
             </button>
 
             {activeDropdown === 'governance' && (
               <div className="absolute top-full right-0 w-72 bg-[#2B4A6D] border border-[#A49050]/30 shadow-2xl py-3 px-1 z-50 animate-fade-in">
-                {CORPORATE_GOVERNANCE.map((item) => (
-                  <Link
-                    key={item.slug}
-                    to={`/corporate-governance/${item.slug}`}
-                    onClick={closeDropdowns}
-                    className="block px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/10 transition-colors border-l-2 border-transparent hover:border-[#D96B33]"
-                  >
-                    {item.navLabel}
-                  </Link>
-                ))}
+                {CORPORATE_GOVERNANCE.map((item) => {
+                  const itemPath = `/corporate-governance/${item.slug}`;
+                  const isActive = location.pathname === itemPath;
+                  return (
+                    <Link
+                      key={item.slug}
+                      to={itemPath}
+                      onClick={closeDropdowns}
+                      className={`block px-4 py-2.5 text-sm transition-colors border-l-2 ${
+                        isActive
+                          ? 'text-white bg-white/10 border-[#D96B33] font-medium'
+                          : 'text-white/80 hover:text-white hover:bg-white/10 border-transparent hover:border-[#D96B33]'
+                      }`}
+                    >
+                      {item.navLabel}
+                    </Link>
+                  );
+                })}
               </div>
             )}
           </div>
@@ -338,7 +364,9 @@ export const Navbar: React.FC = () => {
             <Link 
               to="/" 
               onClick={() => setMobileMenuOpen(false)}
-              className="text-base font-medium text-white hover:text-[#D96B33] py-2 border-b border-white/10"
+              className={`text-base font-medium py-2 border-b border-white/10 ${
+                location.pathname === '/' ? 'text-[#D96B33]' : 'text-white hover:text-[#D96B33]'
+              }`}
             >
               Home
             </Link>
@@ -347,19 +375,34 @@ export const Navbar: React.FC = () => {
             <div>
               <button 
                 onClick={() => setMobileSubmenu(mobileSubmenu === 'about' ? null : 'about')}
-                className="flex items-center justify-between w-full text-base font-medium text-white hover:text-[#D96B33] py-2 border-b border-white/10"
+                className={`flex items-center justify-between w-full text-base font-medium py-2 border-b border-white/10 ${
+                  location.pathname.startsWith('/about') ? 'text-[#D96B33]' : 'text-white hover:text-[#D96B33]'
+                }`}
               >
                 <span>About</span>
                 <ChevronDown className={`w-4 h-4 transition-transform ${mobileSubmenu === 'about' ? 'rotate-180' : ''}`} />
               </button>
               {mobileSubmenu === 'about' && (
                 <div className="pl-4 py-2 flex flex-col gap-2 bg-[#101A29] mt-1">
-                  <Link to="/about" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80 py-1.5">Overview</Link>
-                  <Link to="/about/mission-vision" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80 py-1.5">Mission & Vision</Link>
-                  <Link to="/about/leadership" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80 py-1.5">Leadership & Directors</Link>
-                  <Link to="/about/management-team" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80 py-1.5">Management Team Members</Link>
-                  <Link to="/about/certifications" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80 py-1.5">Certifications & Empanelments</Link>
-                  <Link to="/about/careers" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80 py-1.5">Careers</Link>
+                  {[
+                    { name: "Overview", path: "/about" },
+                    { name: "Mission & Vision", path: "/about/mission-vision" },
+                    { name: "Leadership & Directors", path: "/about/leadership" },
+                    { name: "Management Team Members", path: "/about/management-team" },
+                    { name: "Certifications & Empanelments", path: "/about/certifications" },
+                    { name: "Careers", path: "/about/careers" },
+                  ].map((item, idx) => (
+                    <Link
+                      key={idx}
+                      to={item.path}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`text-sm py-1.5 ${
+                        location.pathname === item.path ? 'text-[#D96B33] font-semibold pl-2 border-l-2 border-[#D96B33]' : 'text-white/80'
+                      }`}
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
                 </div>
               )}
             </div>
@@ -368,7 +411,9 @@ export const Navbar: React.FC = () => {
             <div>
               <button 
                 onClick={() => setMobileSubmenu(mobileSubmenu === 'sectors' ? null : 'sectors')}
-                className="flex items-center justify-between w-full text-base font-medium text-white hover:text-[#D96B33] py-2 border-b border-white/10"
+                className={`flex items-center justify-between w-full text-base font-medium py-2 border-b border-white/10 ${
+                  location.pathname.startsWith('/sectors') ? 'text-[#D96B33]' : 'text-white hover:text-[#D96B33]'
+                }`}
               >
                 <span>Sectors</span>
                 <ChevronDown className={`w-4 h-4 transition-transform ${mobileSubmenu === 'sectors' ? 'rotate-180' : ''}`} />
@@ -377,7 +422,14 @@ export const Navbar: React.FC = () => {
                 <div className="pl-4 py-2 flex flex-col gap-2 bg-[#101A29] mt-1 max-h-60 overflow-y-auto">
                   <Link to="/sectors" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium text-[#D96B33] py-1">View All Sectors</Link>
                   {SECTORS.map((sec) => (
-                    <Link key={sec.id} to={`/sectors/${sec.slug}`} onClick={() => setMobileMenuOpen(false)} className="text-[14px] font-sans font-medium leading-[20px] text-white/80 hover:text-[#D96B33] py-1 transition-colors">
+                    <Link 
+                      key={sec.id} 
+                      to={`/sectors/${sec.slug}`} 
+                      onClick={() => setMobileMenuOpen(false)} 
+                      className={`text-[14px] font-sans font-medium leading-[20px] py-1 transition-colors ${
+                        location.pathname === `/sectors/${sec.slug}` ? 'text-[#D96B33] font-semibold' : 'text-white/80 hover:text-[#D96B33]'
+                      }`}
+                    >
                       {sec.title}
                     </Link>
                   ))}
@@ -389,7 +441,9 @@ export const Navbar: React.FC = () => {
             <div>
               <button 
                 onClick={() => setMobileSubmenu(mobileSubmenu === 'services' ? null : 'services')}
-                className="flex items-center justify-between w-full text-base font-medium text-white hover:text-[#D96B33] py-2 border-b border-white/10"
+                className={`flex items-center justify-between w-full text-base font-medium py-2 border-b border-white/10 ${
+                  location.pathname.startsWith('/services') ? 'text-[#D96B33]' : 'text-white hover:text-[#D96B33]'
+                }`}
               >
                 <span>Services</span>
                 <ChevronDown className={`w-4 h-4 transition-transform ${mobileSubmenu === 'services' ? 'rotate-180' : ''}`} />
@@ -398,7 +452,16 @@ export const Navbar: React.FC = () => {
                 <div className="pl-4 py-2 flex flex-col gap-2 bg-[#101A29] mt-1 max-h-60 overflow-y-auto">
                   <Link to="/services" onClick={() => setMobileMenuOpen(false)} className="text-sm font-sans font-medium text-[#D96B33] py-1">View All Services</Link>
                   {SERVICES.map((srv) => (
-                    <Link key={srv.id} to={`/services?service=${srv.slug}`} onClick={() => setMobileMenuOpen(false)} className="text-[14px] font-sans font-medium leading-[20px] text-white/80 hover:text-[#D96B33] py-1 transition-colors">
+                    <Link 
+                      key={srv.id} 
+                      to={`/services?service=${srv.slug}`} 
+                      onClick={() => setMobileMenuOpen(false)} 
+                      className={`text-[14px] font-sans font-medium leading-[20px] py-1 transition-colors ${
+                        location.pathname.startsWith('/services') && location.search.includes(srv.slug)
+                          ? 'text-[#D96B33] font-semibold'
+                          : 'text-white/80 hover:text-[#D96B33]'
+                      }`}
+                    >
                       {srv.title}
                     </Link>
                   ))}
@@ -406,54 +469,44 @@ export const Navbar: React.FC = () => {
               )}
             </div>
 
-            {/* Digitalization Mobile (Commented Out) */}
-            {/*
-            <div>
-              <button
-                onClick={() => setMobileSubmenu(mobileSubmenu === 'digitalization' ? null : 'digitalization')}
-                className="flex items-center justify-between w-full text-base font-medium text-white hover:text-[#D96B33] py-2 border-b border-white/10"
-              >
-                <span>Digitalization</span>
-                <ChevronDown className={`w-4 h-4 transition-transform ${mobileSubmenu === 'digitalization' ? 'rotate-180' : ''}`} />
-              </button>
-              {mobileSubmenu === 'digitalization' && (
-                <div className="pl-4 py-2 flex flex-col gap-2 bg-[#101A29] mt-1">
-                  <Link to="/digitalization/geospatial-web-portal" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80 py-1.5">Geospatial Web Portal</Link>
-                  <Link to="/digitalization/ai-project-finance-tool" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80 py-1.5">AI-Powered Project Finance Tool</Link>
-                </div>
-              )}
-            </div>
-            */}
-
             <Link
               to="/projects"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-base font-medium text-white hover:text-[#D96B33] py-2 border-b border-white/10"
+              className={`text-base font-medium py-2 border-b border-white/10 ${
+                location.pathname.startsWith('/projects') ? 'text-[#D96B33]' : 'text-white hover:text-[#D96B33]'
+              }`}
             >
               Projects
             </Link>
 
             {/* Corporate Governance Mobile */}
             <div>
-              <button
+              <button 
                 onClick={() => setMobileSubmenu(mobileSubmenu === 'governance' ? null : 'governance')}
-                className="flex items-center justify-between w-full text-base font-medium text-white hover:text-[#D96B33] py-2 border-b border-white/10"
+                className={`flex items-center justify-between w-full text-base font-medium py-2 border-b border-white/10 ${
+                  location.pathname.startsWith('/corporate-governance') ? 'text-[#D96B33]' : 'text-white hover:text-[#D96B33]'
+                }`}
               >
                 <span>Corporate Governance</span>
                 <ChevronDown className={`w-4 h-4 transition-transform ${mobileSubmenu === 'governance' ? 'rotate-180' : ''}`} />
               </button>
               {mobileSubmenu === 'governance' && (
                 <div className="pl-4 py-2 flex flex-col gap-2 bg-[#101A29] mt-1">
-                  {CORPORATE_GOVERNANCE.map((item) => (
-                    <Link
-                      key={item.slug}
-                      to={`/corporate-governance/${item.slug}`}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="text-sm text-white/80 py-1.5"
-                    >
-                      {item.navLabel}
-                    </Link>
-                  ))}
+                  {CORPORATE_GOVERNANCE.map((item) => {
+                    const isActive = location.pathname === `/corporate-governance/${item.slug}`;
+                    return (
+                      <Link
+                        key={item.slug}
+                        to={`/corporate-governance/${item.slug}`}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className={`text-sm py-1.5 ${
+                          isActive ? 'text-[#D96B33] font-semibold pl-2 border-l-2 border-[#D96B33]' : 'text-white/80'
+                        }`}
+                      >
+                        {item.navLabel}
+                      </Link>
+                    );
+                  })}
                 </div>
               )}
             </div>

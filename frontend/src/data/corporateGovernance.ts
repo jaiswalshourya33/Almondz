@@ -53,19 +53,13 @@ export interface GeneralMeetingCategory {
 export interface CommitteeMember {
   /** Full name, exactly as published */
   name: string;
-  /** Role within the committee, e.g. "Chairman", "Member", "Presiding Officer" */
+  /** Role within the committee, exactly as published */
   role: string;
-  /** Category / Designation, e.g. "Non-Executive & Independent Director", "Whole Time Director", "Senior Management" */
-  category?: string;
 }
 
 export interface Committee {
   /** Committee name */
   name: string;
-  /** Committee classification, e.g. "Statutory Board Committee" | "Internal Statutory Committee" */
-  type?: string;
-  /** Statutory legal mandate or executive scope */
-  mandate?: string;
   /** Members and their roles */
   members: CommitteeMember[];
 }
@@ -131,109 +125,41 @@ export const CORPORATE_GOVERNANCE: CorporateGovernanceItem[] = [
     heroLine: 'COMPOSITION OF COMMITTEES.',
     eyebrow: 'Board & Management Committees',
     intro:
-      'Constitution of the statutory and management committees of Almondz Global Infra-Consultant Limited, detailing committee mandates, member designations, and governance roles.',
+      'Constitution of the statutory and management committees of Almondz Global Infra-Consultant Limited, with their current members and respective roles.',
     sourcePage: 'composition-of-committees.php',
     committees: [
       {
         name: 'Audit Committee',
-        type: 'Statutory Board Committee',
-        mandate:
-          'Constituted in compliance with Section 177 of the Companies Act, 2013 to oversee financial reporting processes, internal financial controls, risk management systems, and statutory audit integrity.',
         members: [
-          {
-            name: 'Mr. Satish Chandra Sinha',
-            role: 'Chairman',
-            category: 'Non-Executive & Independent Director',
-          },
-          {
-            name: 'Mr. Vijai Prakash Agrawal',
-            role: 'Member',
-            category: 'Non-Executive & Independent Director',
-          },
-          {
-            name: 'Mr. Sankha Dasgupta',
-            role: 'Member',
-            category: 'Whole Time Director',
-          },
+          { name: 'Mr. Satish Chandra Sinha', role: 'Chairman/Member' },
+          { name: 'Mr. Vijai Prakash Agrawal', role: 'Member' },
+          { name: 'Mr. Sankha Dasgupta', role: 'Member' },
         ],
       },
       {
         name: 'Nomination and Remuneration Committee',
-        type: 'Statutory Board Committee',
-        mandate:
-          'Constituted in accordance with Section 178 of the Companies Act, 2013 to formulate criteria for director appointments, evaluate board performance, and determine executive remuneration frameworks.',
         members: [
-          {
-            name: 'Mr. Satish Chandra Sinha',
-            role: 'Chairman',
-            category: 'Non-Executive & Independent Director',
-          },
-          {
-            name: 'Mr. Vijai Prakash Agrawal',
-            role: 'Member',
-            category: 'Non-Executive & Independent Director',
-          },
-          {
-            name: 'Mr. Sankha Dasgupta',
-            role: 'Member',
-            category: 'Whole Time Director',
-          },
+          { name: 'Mr. Satish Chandra Sinha', role: 'Chairman/Member' },
+          { name: 'Mr. Vijai Prakash Agrawal', role: 'Member' },
+          { name: 'Mr. Sankha Dasgupta', role: 'Member' },
         ],
       },
       {
         name: 'Management Committee',
-        type: 'Executive Management Committee',
-        mandate:
-          'Formulated by the Board of Directors to oversee operational project execution, technical advisory mandates, client contract administration, and organizational strategy implementation.',
         members: [
-          {
-            name: 'Mr. Sudhakar Singh',
-            role: 'Member',
-            category: 'Whole Time Director',
-          },
-          {
-            name: 'Mr. Sankha Dasgupta',
-            role: 'Member',
-            category: 'Whole Time Director',
-          },
-          {
-            name: 'Mr. Sanjeet Kumar Ahlawat',
-            role: 'Member',
-            category: 'Whole Time Director',
-          },
+          { name: 'Mr. Sudhakar Singh', role: 'Member of the Committee' },
+          { name: 'Mr. Sankha Dasgupta', role: 'Member of the Committee' },
+          { name: 'Mr. Sanjeet Kumar Ahlawat', role: 'Member of the Committee' },
         ],
       },
       {
         name: 'Internal Complaints Committee',
-        type: 'Internal Statutory Committee',
-        mandate:
-          'Constituted pursuant to the provisions of the Sexual Harassment of Women at Workplace (Prevention, Prohibition and Redressal) Act, 2013 (POSH Act) to foster a secure, equitable workplace.',
         members: [
-          {
-            name: 'Mrs. Anita Nayar',
-            role: 'Presiding Officer',
-            category: 'Senior Management',
-          },
-          {
-            name: 'Mr. Harpal Singh',
-            role: 'Member',
-            category: 'Senior Management',
-          },
-          {
-            name: 'Mr. Sunny Mahajan',
-            role: 'Member',
-            category: 'Corporate Management',
-          },
-          {
-            name: 'Mr. Ajay Pratap',
-            role: 'Member',
-            category: 'Corporate Management',
-          },
-          {
-            name: 'Mrs. Neelu Jain',
-            role: 'External Member',
-            category: 'NGO / External Representative',
-          },
+          { name: 'Mrs. Anita Nayar', role: 'Presiding Officer' },
+          { name: 'Mr. Harpal Singh', role: 'Member' },
+          { name: 'Mr. Sunny Mahajan', role: 'Member' },
+          { name: 'Mr. Ajay Pratap', role: 'Member' },
+          { name: 'Mrs. Neelu Jain', role: 'Member (from NGO)' },
         ],
       },
     ],

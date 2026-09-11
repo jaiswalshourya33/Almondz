@@ -21,57 +21,27 @@ export const CorporateGovernancePage: React.FC = () => {
 
   const sectionRef = useRef<HTMLElement | null>(null);
   const headerRef = useRef<HTMLDivElement | null>(null);
-  const cardsRef = useRef<HTMLDivElement | null>(null);
-  const returnsRef = useRef<HTMLDivElement | null>(null);
-  const stackRef = useRef<HTMLDivElement | null>(null);
+  const contentRef = useRef<HTMLDivElement | null>(null);
 
-  const [activeReturn, setActiveReturn] = useState<AnnualReturnFiling | null>(null);
+  const [activePdf, setActivePdf] = useState<{
+    file: string;
+    title: string;
+    subtitle?: string;
+    kicker?: string;
+  } | null>(null);
 
   // Reset transient state when navigating between governance pages.
   useEffect(() => {
-    setActiveReturn(null);
+    setActivePdf(null);
   }, [slug]);
 
-  // Scroll-triggered reveal. Keyed off the heading block's own position so it
-  // fades/rises in as it reaches the viewport — the content below (committee
-  // stack, annual-return list, policy cards) sits directly beneath it and
-  // follows via its own animation delays. The content refs are passed as a
-  // fallback for deep-link scrolls that skip past the heading.
+  // Scroll-triggered reveal
   useEffect(() => {
     return revealSectionOnScroll(
       sectionRef.current,
-      [headerRef.current, stackRef.current, returnsRef.current, cardsRef.current],
-      { threshold: 0.4, onReveal: () => stackRef.current?.classList.add('is-visible') },
+      [headerRef.current, contentRef.current],
+      { threshold: 0.2 },
     );
-  }, [slug]);
-
-  // Governance timelines (director resignations, general-meeting notices):
-  // reveal each year block on its own as it scrolls into view, so the list
-  // builds up one-by-one rather than all at once with the section. Rows
-  // within a year then stagger via their --j index (CSS). No-op under
-  // prefers-reduced-motion: the hidden state only exists inside that media
-  // query, so blocks are already visible.
-  useEffect(() => {
-    const root = sectionRef.current;
-    if (!root || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    const blocks = root.querySelectorAll<HTMLElement>('.gov-timeline-year');
-    if (blocks.length === 0) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-revealed');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.2, rootMargin: '0px 0px -12% 0px' },
-    );
-
-    blocks.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
   }, [slug]);
 
   if (!item) {
@@ -104,236 +74,97 @@ export const CorporateGovernancePage: React.FC = () => {
         backgroundImage={corporateGovernanceHero}
       />
 
-      <section ref={sectionRef} className="about-subnav-section py-20 bg-[#F1F3F5]">
+      <section ref={sectionRef} className="about-subnav-section py-10 sm:py-16 lg:py-20 bg-[#F1F3F5]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div ref={headerRef} className="about-subnav-header text-center mb-14">
+          <div ref={headerRef} className="about-subnav-header text-center mb-8 sm:mb-12 lg:mb-14">
             <span className="text-xs font-mono tracking-widest text-[#A49050] uppercase">{item.eyebrow}</span>
-            <h2 className="text-3xl font-serif font-bold text-[#2B4A6D] mt-1">{item.navLabel}</h2>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-[#2B4A6D] mt-1">{item.navLabel}</h2>
             {item.intro && (
-              <p className="text-sm text-[#2B4A6D]/70 leading-relaxed max-w-3xl mx-auto mt-4">{item.intro}</p>
+              <p className="text-xs sm:text-sm text-[#2B4A6D]/70 leading-relaxed max-w-3xl mx-auto mt-3 sm:mt-4">{item.intro}</p>
             )}
           </div>
 
-          {/* --- Composition of Committees — master / detail --- */}
-          {committees.length > 0 && (
-            <div ref={stackRef} className="committee-board border-0">
+          <div ref={contentRef} className="w-full">
+            {/* --- Composition of Committees --- */}
+            {committees.length > 0 && (
               <CommitteeComposition committees={committees} />
-            </div>
-          )}
-
-          {/* --- Annual Return filings (paginated, view-only) --- */}
-          {annualReturns.length > 0 && (
-            <div ref={returnsRef} className="annual-return-list">
-              <AnnualReturnSection annualReturns={annualReturns} onSelectFiling={setActiveReturn} />
-            </div>
-          )}
-
-          {/* --- Resignation of Director — editorial timeline --- */}
-          {directorResignations.length > 0 && (
-            <div ref={cardsRef} className="director-resignations">
-              <div className="flex items-center gap-4 mb-12">
-                <span className="shrink-0 w-11 h-11 rounded-xl bg-[#2B4A6D] flex items-center justify-center text-[#D6C489]">
-                  <UserMinus className="w-5 h-5" />
-                </span>
-                <div>
-                  <h3 className="text-xl sm:text-2xl font-serif font-bold text-[#2B4A6D] leading-tight">
-                    Resignation of Director
-                  </h3>
-                  <p className="text-[11px] font-mono uppercase tracking-[0.22em] text-[#2B4A6D]/45 mt-1">
-                    {directorResignations.length} Financial{' '}
-                    {directorResignations.length === 1 ? 'Year' : 'Years'} on Record
-                  </p>
-                </div>
-              </div>
-
-              <div className="relative">
-                {/* vertical rail */}
-                <span
-                  aria-hidden="true"
-                  className="absolute left-[9px] top-2 bottom-2 w-px bg-gradient-to-b from-[#A49050]/60 via-[#A49050]/25 to-transparent"
-                />
-
-                <div className="flex flex-col gap-12">
-                  {directorResignations.map((year) => (
-                    <div key={year.period} className="gov-timeline-year relative pl-10 sm:pl-14">
-                      {/* timeline node */}
-                      <span
-                        aria-hidden="true"
-                        className="absolute left-[3px] top-1 w-3.5 h-3.5 rounded-full bg-[#2B4A6D] ring-4 ring-[#F1F3F5] shadow-[0_0_0_1px_rgba(164,144,80,0.5)]"
-                      />
-
-                      {/* year heading */}
-                      <div className="flex items-baseline justify-between gap-4 border-b border-[#A49050]/25 pb-3 mb-3">
-                        <h4 className="text-2xl sm:text-[30px] font-serif font-bold text-[#2B4A6D] leading-none">
-                          {year.period}
-                        </h4>
-                        <span className="shrink-0 text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.22em] text-[#A49050]">
-                          {year.directors.length}{' '}
-                          {year.directors.length === 1 ? 'Director' : 'Directors'}
-                        </span>
-                      </div>
-
-                      {/* directors */}
-                      <ul className="flex flex-col">
-                        {year.directors.map((name, j) => (
-                          <li
-                            key={name}
-                            style={{ ['--j' as string]: j }}
-                            className="gov-timeline-row group/row flex items-center justify-between gap-4 sm:gap-6 py-3.5 border-b border-[#A49050]/15 last:border-b-0"
-                          >
-                            <div className="flex items-center gap-4 min-w-0">
-                              <span className="shrink-0 w-6 text-[11px] font-mono font-bold tracking-wider text-[#A49050]/70 tabular-nums">
-                                {String(j + 1).padStart(2, '0')}
-                              </span>
-                              <span className="min-w-0 text-[15px] sm:text-base font-serif font-medium text-[#2B4A6D]">
-                                {name}
-                              </span>
-                            </div>
-                            <span className="shrink-0 inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-[0.18em] text-[#2B4A6D]/50 bg-white border border-[#A49050]/20 px-2.5 py-1 rounded-md">
-                              <LogOut className="w-3 h-3 text-[#A49050]" aria-hidden="true" />
-                              Resigned
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* --- General Meeting Notices — editorial timeline, by category --- */}
-          {generalMeetings.length > 0 && (
-            <div ref={cardsRef} className="general-meetings flex flex-col gap-20">
-              {generalMeetings.map((group) => (
-                <div key={group.category} className="gm-category">
-                  <div className="flex items-center gap-4 mb-12">
-                    <span className="shrink-0 w-11 h-11 rounded-xl bg-[#2B4A6D] flex items-center justify-center text-[11px] font-mono font-bold tracking-[0.15em] text-[#D6C489]">
-                      {group.abbr}
-                    </span>
-                    <div>
-                      <h3 className="text-xl sm:text-2xl font-serif font-bold text-[#2B4A6D] leading-tight">
-                        {group.category}
-                      </h3>
-                      <p className="text-[11px] font-mono uppercase tracking-[0.22em] text-[#2B4A6D]/45 mt-1">
-                        {group.years.length} Financial{' '}
-                        {group.years.length === 1 ? 'Year' : 'Years'} on Record
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="relative">
-                    {/* vertical rail */}
-                    <span
-                      aria-hidden="true"
-                      className="absolute left-[9px] top-2 bottom-2 w-px bg-gradient-to-b from-[#A49050]/60 via-[#A49050]/25 to-transparent"
-                    />
-
-                    <div className="flex flex-col gap-12">
-                      {group.years.map((year) => (
-                        <div key={year.period} className="gov-timeline-year relative pl-10 sm:pl-14">
-                          {/* timeline node */}
-                          <span
-                            aria-hidden="true"
-                            className="absolute left-[3px] top-1 w-3.5 h-3.5 rounded-full bg-[#2B4A6D] ring-4 ring-[#F1F3F5] shadow-[0_0_0_1px_rgba(164,144,80,0.5)]"
-                          />
-
-                          {/* year heading */}
-                          <div className="flex items-baseline justify-between gap-4 border-b border-[#A49050]/25 pb-3 mb-3">
-                            <h4 className="text-2xl sm:text-[30px] font-serif font-bold text-[#2B4A6D] leading-none">
-                              {year.period}
-                            </h4>
-                            <span className="shrink-0 text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.22em] text-[#A49050]">
-                              {year.notices.length} {year.notices.length === 1 ? 'Notice' : 'Notices'}
-                            </span>
-                          </div>
-
-                          {/* notices */}
-                          <ul className="flex flex-col">
-                            {year.notices.map((notice, j) => (
-                              <li
-                                key={notice.label}
-                                style={{ ['--j' as string]: j }}
-                                className="gov-timeline-row group/row flex items-center gap-4 sm:gap-6 py-3.5 border-b border-[#A49050]/15 last:border-b-0"
-                              >
-                                <span className="shrink-0 w-6 text-[11px] font-mono font-bold tracking-wider text-[#A49050]/70 tabular-nums">
-                                  {String(j + 1).padStart(2, '0')}
-                                </span>
-                                <span
-                                  className="shrink-0 w-9 h-9 rounded-full border border-[#A49050]/30 bg-white flex items-center justify-center text-[#2B4A6D] group-hover/row:border-[#D96B33]/45 group-hover/row:text-[#D96B33] transition-colors"
-                                  aria-hidden="true"
-                                >
-                                  <FileText className="w-4 h-4" />
-                                </span>
-                                <span className="min-w-0 flex-1 text-[15px] sm:text-base font-serif text-[#2B4A6D]">
-                                  {notice.label}
-                                </span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* --- Policy documents --- */}
-          {documents.length > 0 && (
-            <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {documents.map((doc) => (
-                <div
-                  key={doc.file}
-                  className="about-subnav-card bg-white rounded-2xl border border-[#A49050]/20 shadow-sm hover:shadow-xl hover:border-[#D96B33]/50 hover:-translate-y-2 hover:scale-[1.03] transition-all duration-300 p-8 flex flex-col justify-between group"
-                >
-                  <div className="flex flex-col gap-4">
-                    <div className="w-14 h-14 rounded-full bg-[#F1F3F5] border border-[#A49050]/20 flex items-center justify-center text-[#2B4A6D] group-hover:text-[#D96B33] group-hover:border-[#D96B33]/40 transition-colors">
-                      <FileText className="w-6 h-6" />
-                    </div>
-                    <div className="border-t border-[#A49050]/15" />
-                    <h3 className="text-xl font-serif font-bold text-[#2B4A6D]">{doc.title}</h3>
-                    <p className="text-xs text-[#2B4A6D]/70 leading-relaxed">{doc.summary}</p>
-                  </div>
-
-                  <div className="pt-6 mt-6 border-t border-gray-100">
-                    <a
-                      href={doc.file}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full bg-[#2B4A6D] hover:bg-[#D96B33] text-white py-3.5 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 rounded-md"
-                    >
-                      <span>View Policy</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </a>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* --- Not yet populated --- */}
-          {documents.length === 0 &&
-            committees.length === 0 &&
-            annualReturns.length === 0 &&
-            directorResignations.length === 0 &&
-            generalMeetings.length === 0 && (
-              <p className="text-center text-sm text-[#2B4A6D]/70 leading-relaxed">
-                Content for this page is being added.
-              </p>
             )}
+
+            {/* --- Annual Return filings --- */}
+            {annualReturns.length > 0 && (
+              <AnnualReturnSection
+                annualReturns={annualReturns}
+                onSelectFiling={(filing) =>
+                  setActivePdf({
+                    file: filing.file,
+                    title: filing.period,
+                    subtitle: `Form ${filing.form}`,
+                    kicker: 'Annual Return',
+                  })
+                }
+              />
+            )}
+
+            {/* --- Resignation of Director --- */}
+            {directorResignations.length > 0 && (
+              <DirectorResignationsSection directorResignations={directorResignations} />
+            )}
+
+            {/* --- General Meeting Notices --- */}
+            {generalMeetings.length > 0 && (
+              <GeneralMeetingNoticesSection
+                generalMeetings={generalMeetings}
+                onSelectNotice={(file, title, category) =>
+                  setActivePdf({
+                    file,
+                    title,
+                    subtitle: category,
+                    kicker: 'Meeting Notice',
+                  })
+                }
+              />
+            )}
+
+            {/* --- Policy Documents --- */}
+            {documents.length > 0 && (
+              <PolicyDocumentsSection
+                documents={documents}
+                onSelectPolicy={(file, title) =>
+                  setActivePdf({
+                    file,
+                    title,
+                    subtitle: 'Board Policy Document',
+                    kicker: 'Policy',
+                  })
+                }
+              />
+            )}
+
+            {/* --- Empty State --- */}
+            {documents.length === 0 &&
+              committees.length === 0 &&
+              annualReturns.length === 0 &&
+              directorResignations.length === 0 &&
+              generalMeetings.length === 0 && (
+                <p className="text-center text-sm text-[#2B4A6D]/70 leading-relaxed">
+                  Content for this page is being added.
+                </p>
+              )}
+          </div>
         </div>
       </section>
 
-      <PdfViewerModal
-        isOpen={activeReturn !== null}
-        onClose={() => setActiveReturn(null)}
-        file={activeReturn?.file ?? ''}
-        title={activeReturn?.period ?? ''}
-        subtitle={activeReturn ? `Form ${activeReturn.form}` : undefined}
-      />
+      {/* Universal Document Reader Modal */}
+      {activePdf && (
+        <PdfViewerModal
+          isOpen={true}
+          onClose={() => setActivePdf(null)}
+          file={activePdf.file}
+          title={activePdf.title}
+          subtitle={activePdf.subtitle}
+          kicker={activePdf.kicker}
+        />
+      )}
     </div>
   );
 };

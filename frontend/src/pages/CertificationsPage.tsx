@@ -273,23 +273,23 @@ export const CertificationsPage: React.FC = () => {
         </div>
 
         {/* Ultra-Smooth Single-Row Continuous Running Marquee (Pure Authentic Logos Only) with Edge Blurs */}
-        <div className="client-logo-marquee relative w-full overflow-hidden py-3">
+        <div className="client-logo-marquee relative w-full overflow-hidden py-4 sm:py-6">
           {/* Subtle Edge Blur & Gradient Fade Overlays on both ends (constrained to marquee only) */}
           <div className="absolute inset-y-0 left-0 w-16 sm:w-28 bg-gradient-to-r from-[#F1F3F5] via-[#F1F3F5]/80 to-transparent z-10 pointer-events-none" />
           <div className="absolute inset-y-0 right-0 w-16 sm:w-28 bg-gradient-to-l from-[#F1F3F5] via-[#F1F3F5]/80 to-transparent z-10 pointer-events-none" />
 
           {/* Running Track (Single Continuous Infinite Scrolling Row) */}
-          <div className="client-logo-marquee__track flex flex-row flex-nowrap items-center">
+          <div className="client-logo-marquee__track flex flex-row flex-nowrap items-center gap-10 sm:gap-16">
             {marqueeLogos.map((client, idx) => (
               <div
                 key={`single-${client.id}-${idx}`}
-                className="h-14 sm:h-16 w-36 sm:w-44 shrink-0 bg-white border border-[#A49050]/20 hover:border-[#D96B33] rounded-xl px-4 py-2 shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:shadow-[0_6px_16px_rgba(43, 74, 109,0.1)] flex items-center justify-center transition-all duration-300 hover:scale-105 group cursor-default"
+                className="shrink-0 flex items-center justify-center px-2 transition-transform duration-300 hover:scale-110 cursor-default opacity-85 hover:opacity-100"
                 title={client.name}
               >
                 <img
                   src={client.logo}
                   alt={client.name}
-                  className="max-h-7 sm:max-h-8 max-w-[75%] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                  className="h-10 sm:h-12 md:h-14 max-w-[160px] sm:max-w-[200px] w-auto object-contain mix-blend-multiply filter contrast-105"
                   loading="lazy"
                 />
               </div>

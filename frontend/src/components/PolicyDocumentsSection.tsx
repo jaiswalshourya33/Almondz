@@ -1,14 +1,17 @@
 import React, { useEffect, useRef } from 'react';
-import { motion } from 'motion/react';
 import gsap from 'gsap';
-import { FileText, ArrowRight, ShieldCheck } from 'lucide-react';
+import { FileText, ArrowRight, ShieldCheck, Eye } from 'lucide-react';
 import type { GovernanceDocument } from '../data/corporateGovernance';
 
 interface PolicyDocumentsSectionProps {
   documents: GovernanceDocument[];
+  onSelectPolicy?: (file: string, title: string) => void;
 }
 
-export const PolicyDocumentsSection: React.FC<PolicyDocumentsSectionProps> = ({ documents }) => {
+export const PolicyDocumentsSection: React.FC<PolicyDocumentsSectionProps> = ({
+  documents,
+  onSelectPolicy,
+}) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -16,14 +19,13 @@ export const PolicyDocumentsSection: React.FC<PolicyDocumentsSectionProps> = ({ 
     const ctx = gsap.context(() => {
       gsap.fromTo(
         '.gsap-policy-card',
-        { opacity: 0, y: 24, scale: 0.98 },
+        { opacity: 0, y: 16 },
         {
           opacity: 1,
           y: 0,
-          scale: 1,
-          duration: 0.5,
-          stagger: 0.12,
-          ease: 'power3.out',
+          duration: 0.4,
+          stagger: 0.1,
+          ease: 'power2.out',
         }
       );
     }, containerRef);
@@ -34,69 +36,76 @@ export const PolicyDocumentsSection: React.FC<PolicyDocumentsSectionProps> = ({ 
   if (!documents.length) return null;
 
   return (
-    <div ref={containerRef} className="w-full my-12">
-      {/* Section Header */}
-      <div className="flex items-center gap-4 mb-8 pb-4 border-b border-[#A49050]/20">
-        <div className="shrink-0 w-12 h-12 rounded-2xl bg-gradient-to-br from-[#FAF6EE] to-[#F3ECD8] border border-[#A49050]/35 flex items-center justify-center text-[#A49050] shadow-sm">
-          <ShieldCheck className="w-6 h-6 text-[#A49050]" />
-        </div>
-        <div>
-          <div className="flex items-center gap-2">
-            <h3 className="text-2xl sm:text-3xl font-serif font-bold text-[#2B4A6D] leading-tight">
-              Board-Approved Policies
-            </h3>
-            <span className="hidden sm:inline-flex items-center gap-1.5 text-[10px] font-mono font-bold tracking-[0.18em] uppercase text-[#8A7942] bg-[#FAF6EE] border border-[#D6C489]/70 rounded-full px-3 py-1 shadow-2xs">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#A49050]" />
-              Compliance
+    <div ref={containerRef} className="w-full my-3 sm:my-6">
+      {/* Container Card */}
+      <div className="bg-white rounded-2xl border border-[#2B4A6D]/15 p-4 sm:p-6 lg:p-8 shadow-[0_8px_30px_-8px_rgba(43,74,109,0.06)] w-full">
+        {/* Header Bar */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 sm:pb-5 border-b border-[#2B4A6D]/10">
+          <div>
+            <span className="text-[10px] sm:text-[11px] font-mono font-semibold uppercase tracking-wider text-[#A49050] block mb-1">
+              Compliance & Governance
             </span>
+            <h3 className="text-lg sm:text-2xl lg:text-3xl font-serif font-bold text-[#2B4A6D] tracking-tight">
+              Board-Approved Policy Documents
+            </h3>
           </div>
-          <p className="text-[11px] font-mono uppercase tracking-[0.22em] text-[#2B4A6D]/50 mt-1">
-            {documents.length} Published Policy Documents
-          </p>
+
+          <span className="self-start sm:self-auto inline-flex items-center text-[10px] sm:text-[11px] font-mono text-[#2B4A6D]/60 bg-[#F1F3F5] px-2.5 py-1 rounded-md uppercase tracking-wider">
+            {documents.length} Published Policies
+          </span>
         </div>
-      </div>
 
-      {/* Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-        {documents.map((doc) => (
-          <motion.div
-            key={doc.file}
-            whileHover={{ scale: 1.02, y: -6 }}
-            transition={{ type: 'spring', stiffness: 350, damping: 25 }}
-            className="gsap-policy-card group relative bg-gradient-to-b from-white via-[#FCFAF5] to-[#FAF5EB] rounded-3xl border border-[#A49050]/25 p-7 sm:p-8 flex flex-col justify-between shadow-[0_4px_20px_-4px_rgba(164,144,80,0.12)] hover:shadow-[0_20px_40px_-10px_rgba(164,144,80,0.25)] hover:border-[#A49050]/50 transition-all duration-300 overflow-hidden"
-          >
-            {/* Ambient Corner Glow */}
-            <div className="absolute top-0 right-0 w-36 h-36 bg-gradient-to-bl from-[#A49050]/15 via-transparent to-transparent rounded-full blur-2xl pointer-events-none group-hover:scale-125 transition-transform duration-500" />
+        {/* Policy Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 mt-6">
+          {documents.map((doc, idx) => (
+            <div
+              key={doc.file}
+              className="gsap-policy-card rounded-xl border border-[#2B4A6D]/15 bg-[#FCFAF7]/40 p-5 sm:p-6 flex flex-col justify-between hover:border-[#D96B33]/50 hover:bg-white hover:shadow-md transition-all duration-300 group"
+            >
+              <div className="flex flex-col gap-3">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="w-10 h-10 rounded-lg bg-[#F1F3F5] border border-[#2B4A6D]/15 flex items-center justify-center text-[#2B4A6D] group-hover:text-[#D96B33] group-hover:border-[#D96B33]/30 transition-colors">
+                    <FileText className="w-5 h-5" />
+                  </div>
+                  <span className="text-[10px] font-mono font-semibold text-[#A49050] uppercase tracking-wider">
+                    Policy #{String(idx + 1).padStart(2, '0')}
+                  </span>
+                </div>
 
-            <div className="relative flex flex-col gap-4">
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#FAF6EE] to-[#F3ECD8] border border-[#A49050]/35 flex items-center justify-center text-[#A49050] shadow-sm group-hover:scale-105 group-hover:border-[#A49050]/60 transition-transform duration-300">
-                <FileText className="w-7 h-7 text-[#A49050]" />
+                <h4 className="text-base sm:text-lg font-serif font-bold text-[#2B4A6D] group-hover:text-[#D96B33] transition-colors leading-snug">
+                  {doc.title}
+                </h4>
+
+                <p className="text-xs text-[#2B4A6D]/70 leading-relaxed font-sans">
+                  {doc.summary}
+                </p>
               </div>
 
-              <div className="h-[2px] w-12 bg-gradient-to-r from-[#A49050] to-[#C5A85A] rounded-full" />
-
-              <h4 className="text-xl font-serif font-bold text-[#2B4A6D] group-hover:text-[#A49050] transition-colors leading-snug">
-                {doc.title}
-              </h4>
-
-              <p className="text-xs text-[#2B4A6D]/70 leading-relaxed font-sans">
-                {doc.summary}
-              </p>
+              <div className="pt-4 mt-4 border-t border-[#2B4A6D]/10">
+                {onSelectPolicy ? (
+                  <button
+                    type="button"
+                    onClick={() => onSelectPolicy(doc.file, doc.title)}
+                    className="w-full bg-[#2B4A6D] hover:bg-[#D96B33] text-white py-2.5 px-4 text-xs font-mono font-bold tracking-wider uppercase transition-colors shadow-2xs flex items-center justify-center gap-2 rounded-lg cursor-pointer"
+                  >
+                    <Eye className="w-3.5 h-3.5" />
+                    <span>View Policy</span>
+                  </button>
+                ) : (
+                  <a
+                    href={doc.file}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full bg-[#2B4A6D] hover:bg-[#D96B33] text-white py-2.5 px-4 text-xs font-mono font-bold tracking-wider uppercase transition-colors shadow-2xs flex items-center justify-center gap-2 rounded-lg cursor-pointer"
+                  >
+                    <span>View Policy</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </a>
+                )}
+              </div>
             </div>
-
-            <div className="relative pt-6 mt-6 border-t border-[#A49050]/15">
-              <a
-                href={doc.file}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full bg-gradient-to-r from-[#2B4A6D] to-[#2C3E50] hover:from-[#A49050] hover:to-[#8C7A3E] text-white py-3.5 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 rounded-xl"
-              >
-                <span>View Policy PDF</span>
-                <ArrowRight className="w-4 h-4 text-[#C5A85A] group-hover:text-white transition-colors" />
-              </a>
-            </div>
-          </motion.div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -49,26 +49,26 @@ export const PdfViewerModal: React.FC<PdfViewerModalProps> = ({
   const src = `${file}#toolbar=0&navpanes=0&statusbar=0&view=FitH`;
 
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center p-3 sm:p-6">
+    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 sm:p-6 md:p-8">
       <div
         className="pdf-viewer-modal__backdrop absolute inset-0 bg-[#0B1220]/85 backdrop-blur-md"
         onClick={onClose}
         aria-label="Close viewer background"
       />
 
-      <div className="pdf-viewer-modal__panel relative z-10 flex h-[92vh] w-full max-w-6xl flex-col overflow-hidden rounded-xl border border-[#A49050]/30 bg-[#2B4A6D] shadow-2xl">
+      <div className="pdf-viewer-modal__panel relative z-10 flex h-[78vh] sm:h-[84vh] md:h-[88vh] w-full max-w-[92vw] sm:max-w-2xl md:max-w-4xl lg:max-w-5xl flex-col overflow-hidden rounded-2xl border border-[#A49050]/35 bg-[#2B4A6D] shadow-2xl transition-all">
         {/* Header */}
-        <div className="flex items-center justify-between gap-4 border-b border-white/10 bg-[#101A29] px-5 py-4 sm:px-7">
-          <div className="flex min-w-0 items-center gap-3.5">
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[#D6C489]/25 bg-white/5 text-[#D6C489]">
-              <FileText className="h-[18px] w-[18px]" />
+        <div className="flex items-center justify-between gap-3 border-b border-white/10 bg-[#101A29] px-4 py-3 sm:px-6 sm:py-4">
+          <div className="flex min-w-0 items-center gap-2.5 sm:gap-3.5">
+            <span className="flex h-7 w-7 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-lg border border-[#D6C489]/25 bg-white/5 text-[#D6C489]">
+              <FileText className="h-4 w-4 sm:h-[18px] sm:w-[18px]" />
             </span>
             <div className="min-w-0">
-              <h3 className="truncate font-serif text-base font-bold leading-tight tracking-wide text-white sm:text-lg">
+              <h3 className="truncate font-serif text-sm font-bold leading-tight tracking-wide text-white sm:text-base md:text-lg">
                 {kicker} — {title}
               </h3>
               {subtitle && (
-                <p className="mt-0.5 text-[10px] font-mono uppercase tracking-[0.22em] text-white/45">
+                <p className="mt-0.5 text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.2em] text-white/50">
                   {subtitle} · View only
                 </p>
               )}
@@ -76,10 +76,10 @@ export const PdfViewerModal: React.FC<PdfViewerModalProps> = ({
           </div>
           <button
             onClick={onClose}
-            className="shrink-0 rounded-md border border-white/10 bg-white/5 p-2 text-white/70 shadow transition-all duration-300 hover:border-[#D96B33] hover:bg-[#D96B33] hover:text-white hover:shadow-lg"
+            className="shrink-0 rounded-lg border border-white/10 bg-white/5 p-1.5 sm:p-2 text-white/70 shadow transition-all duration-300 hover:border-[#D96B33] hover:bg-[#D96B33] hover:text-white hover:shadow-lg cursor-pointer"
             aria-label="Close viewer"
           >
-            <X className="h-5 w-5" />
+            <X className="h-4 w-4 sm:h-5 sm:w-5" />
           </button>
         </div>
 
@@ -96,9 +96,9 @@ export const PdfViewerModal: React.FC<PdfViewerModalProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between border-t border-white/10 bg-[#101A29] px-5 py-3 text-[10px] font-mono uppercase tracking-[0.18em] text-white/55 sm:px-7 sm:text-xs">
-          <span>Almondz Global Infra-Consultant Limited</span>
-          <span className="text-[#D6C489]">{footerNote}</span>
+        <div className="flex items-center justify-between border-t border-white/10 bg-[#101A29] px-4 py-2.5 sm:px-6 sm:py-3 text-[9px] sm:text-xs font-mono uppercase tracking-[0.16em] text-white/55">
+          <span className="truncate max-w-[55%]">Almondz Global Infra</span>
+          <span className="text-[#D6C489] truncate max-w-[45%] text-right">{footerNote}</span>
         </div>
       </div>
     </div>
