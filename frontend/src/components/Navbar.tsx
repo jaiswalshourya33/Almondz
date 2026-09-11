@@ -171,7 +171,7 @@ export const Navbar: React.FC = () => {
                   >
                     <div className="w-1.5 h-1.5 rounded-full bg-[#A49050] mt-2 group-hover:bg-[#D96B33] transition-colors"></div>
                     <div>
-                      <h4 className="text-sm font-serif font-medium text-white group-hover:text-[#D96B33] transition-colors">
+                      <h4 className="text-[14px] font-sans font-medium leading-[20px] text-white group-hover:text-[#D96B33] transition-colors">
                         {sector.title}
                       </h4>
                       <p className="text-xs text-white/60 line-clamp-1 mt-0.5">{sector.shortDesc}</p>
@@ -214,7 +214,7 @@ export const Navbar: React.FC = () => {
                   >
                     <div className="w-1.5 h-1.5 rounded-full bg-[#A49050] mt-2 group-hover:bg-[#D96B33] transition-colors"></div>
                     <div>
-                      <h4 className="text-xs font-medium text-white group-hover:text-[#D96B33] transition-colors">
+                      <h4 className="text-[14px] font-sans font-medium leading-[20px] text-white group-hover:text-[#D96B33] transition-colors">
                         {srv.title}
                       </h4>
                     </div>
@@ -377,7 +377,7 @@ export const Navbar: React.FC = () => {
                 <div className="pl-4 py-2 flex flex-col gap-2 bg-[#101A29] mt-1 max-h-60 overflow-y-auto">
                   <Link to="/sectors" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium text-[#D96B33] py-1">View All Sectors</Link>
                   {SECTORS.map((sec) => (
-                    <Link key={sec.id} to={`/sectors/${sec.slug}`} onClick={() => setMobileMenuOpen(false)} className="text-xs text-white/80 py-1">
+                    <Link key={sec.id} to={`/sectors/${sec.slug}`} onClick={() => setMobileMenuOpen(false)} className="text-[14px] font-sans font-medium leading-[20px] text-white/80 hover:text-[#D96B33] py-1 transition-colors">
                       {sec.title}
                     </Link>
                   ))}
@@ -396,9 +396,9 @@ export const Navbar: React.FC = () => {
               </button>
               {mobileSubmenu === 'services' && (
                 <div className="pl-4 py-2 flex flex-col gap-2 bg-[#101A29] mt-1 max-h-60 overflow-y-auto">
-                  <Link to="/services" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium text-[#D96B33] py-1">View All Services</Link>
+                  <Link to="/services" onClick={() => setMobileMenuOpen(false)} className="text-sm font-sans font-medium text-[#D96B33] py-1">View All Services</Link>
                   {SERVICES.map((srv) => (
-                    <Link key={srv.id} to={`/services?service=${srv.slug}`} onClick={() => setMobileMenuOpen(false)} className="text-xs text-white/80 py-1">
+                    <Link key={srv.id} to={`/services?service=${srv.slug}`} onClick={() => setMobileMenuOpen(false)} className="text-[14px] font-sans font-medium leading-[20px] text-white/80 hover:text-[#D96B33] py-1 transition-colors">
                       {srv.title}
                     </Link>
                   ))}

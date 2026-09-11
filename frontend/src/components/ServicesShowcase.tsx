@@ -108,10 +108,10 @@ export const ServicesShowcase: React.FC = () => {
                     }`}
                   >
                     <span
-                      className={`flex-1 font-serif leading-snug truncate transition-colors ${
+                      className={`flex-1 font-sans leading-[20px] truncate transition-colors ${
                         isActive
-                          ? 'text-sm sm:text-base font-bold text-[#2B4A6D]'
-                          : 'text-sm sm:text-base font-medium text-[#2B4A6D]/70 group-hover:text-[#2B4A6D]'
+                          ? 'text-[14px] sm:text-base font-bold text-[#2B4A6D]'
+                          : 'text-[14px] sm:text-base font-medium text-[#2B4A6D]/70 group-hover:text-[#2B4A6D]'
                       }`}
                     >
                       {service.title}
