@@ -500,10 +500,10 @@ export const Home: React.FC = () => {
                 From concept to commissioning, Almondz Global Infra-Consultant Limited delivers world-class engineering design, techno-economic feasibility, independent engineering, and project management across highways, metros, smart cities, and energy grids.
               </p>
 
-              <div className="brand-statement__line flex flex-wrap items-center gap-4 pt-2">
+              <div className="brand-statement__line flex flex-col sm:flex-row sm:items-center gap-4 pt-2">
                 <Link
                   to="/projects"
-                  className="bg-[#D6C489] hover:bg-white text-[#2B4A6D] px-7 py-3.5 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-xl hover:shadow-[#D6C489]/40 hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-3 rounded-lg border border-[#D6C489]"
+                  className="bg-[#D6C489] hover:bg-white text-[#2B4A6D] w-full sm:w-[220px] h-12 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 shadow-xl hover:shadow-[#D6C489]/40 hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-3 rounded-lg border border-[#D6C489]"
                 >
                   <span>EXPLORE PROJECTS</span>
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -511,9 +511,9 @@ export const Home: React.FC = () => {
 
                 <Link
                   to="/services"
-                  className="bg-white/10 hover:bg-white/20 text-white border border-white/30 px-7 py-3.5 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 backdrop-blur-md rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0"
+                  className="bg-white/10 hover:bg-white/20 text-white border border-white/30 w-full sm:w-[220px] h-12 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-300 backdrop-blur-md rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center"
                 >
-                  OUR SERVICES
+                  <span>OUR SERVICES</span>
                 </Link>
               </div>
             </div>
@@ -567,7 +567,7 @@ export const Home: React.FC = () => {
       </section>
 
       {/* ACCREDITATIONS & CERTIFICATIONS LOGO BAR */}
-      <section className="bg-[#101A29] py-8 text-white overflow-hidden relative">
+      <section className="bg-[#101A29] pt-8 pb-12 text-white overflow-hidden relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4 sm:gap-6 items-center">
             {ACCREDITATION_LOGOS.map((logo, idx) => {
@@ -595,6 +595,9 @@ export const Home: React.FC = () => {
             })}
           </div>
         </div>
+
+        {/* Subtle, refined soft edge fade merging cleanly into the white section below */}
+        <div className="absolute inset-x-0 bottom-0 h-6 sm:h-8 bg-gradient-to-b from-transparent to-white pointer-events-none z-20" aria-hidden="true" />
       </section>
 
       {/* ECOSYSTEM PARTNERS / ACCREDITATIONS */}
@@ -718,8 +721,8 @@ export const Home: React.FC = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-[#0B1523]/80 via-[#1B3553]/65 to-[#0B1523]/90 backdrop-brightness-[0.9]"></div>
         </div>
 
-        {/* Top Smooth Fade Mask from light section above */}
-        <div className="absolute inset-x-0 top-0 h-20 sm:h-28 bg-gradient-to-b from-[#F1F3F5] via-[#F1F3F5]/30 to-transparent pointer-events-none z-[5]" aria-hidden="true" />
+        {/* Very subtle, slim top edge dissolve */}
+        <div className="absolute inset-x-0 top-0 h-5 sm:h-6 bg-gradient-to-b from-[#F1F3F5] to-transparent pointer-events-none z-[5]" aria-hidden="true" />
 
         {/* Floating Text Directly Over Image */}
         <div className="relative z-10 w-full max-w-5xl mx-auto text-center flex flex-col items-center">
@@ -742,8 +745,8 @@ export const Home: React.FC = () => {
           </div>
         </div>
 
-        {/* Bottom Smooth Fade Mask into Services Spotlight below */}
-        <div className="absolute inset-x-0 bottom-0 h-24 sm:h-36 bg-gradient-to-b from-transparent via-[#F1F3F5]/60 to-[#F1F3F5] pointer-events-none z-[5]" aria-hidden="true" />
+        {/* Very subtle, slim bottom edge dissolve */}
+        <div className="absolute inset-x-0 bottom-0 h-5 sm:h-6 bg-gradient-to-b from-transparent to-[#F1F3F5] pointer-events-none z-[5]" aria-hidden="true" />
       </section>
 
       {/* SERVICES SPOTLIGHT SECTION */}

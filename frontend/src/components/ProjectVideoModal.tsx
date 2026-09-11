@@ -48,7 +48,9 @@ export const ProjectVideoModal: React.FC<ProjectVideoModalProps> = ({
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-[#101A29]">
           <div className="flex items-center gap-3">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#D96B33] animate-pulse"></span>
+            <span className="text-[10px] font-mono tracking-widest text-[#D6C489] uppercase font-bold px-2 py-0.5 border border-[#A49050]/40 rounded-xs bg-white/5">
+              VIDEO
+            </span>
             <h3 className="text-white font-serif text-lg tracking-wide">{title} — Project Showcase</h3>
           </div>
           <button

@@ -156,7 +156,7 @@ export const SectorScopeShowcase: React.FC<Props> = ({ sector }) => {
         </div>
 
         {/* ROW 2 — Panoramic Banner with Embedded Consultation Content */}
-        <div ref={row2Ref} className="gov-banner relative rounded-3xl shadow-2xl overflow-hidden min-h-[420px] flex items-center">
+        <div ref={row2Ref} className="gov-banner relative rounded-lg shadow-xl overflow-hidden min-h-[420px] flex items-center">
           {/* Full-width background image — dynamically matched per sector */}
           <img
             key={sector.slug}

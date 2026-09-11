@@ -78,9 +78,9 @@ export const PageHeroBanner: React.FC<PageHeroBannerProps> = ({
         </div>
       </div>
 
-      {/* Ultra-Smooth Fading Gradient Overlay Merging Hero into Page */}
+      {/* Very subtle, slim bottom edge dissolve */}
       <div 
-        className="absolute inset-x-0 bottom-0 h-28 sm:h-40 bg-gradient-to-b from-transparent via-[#F1F3F5]/60 to-[#F1F3F5] pointer-events-none z-[5]" 
+        className="absolute inset-x-0 bottom-0 h-6 sm:h-8 bg-gradient-to-b from-transparent to-[#F1F3F5] pointer-events-none z-[5]" 
         aria-hidden="true"
       />
     </section>

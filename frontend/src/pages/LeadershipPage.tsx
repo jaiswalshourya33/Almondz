@@ -150,13 +150,13 @@ export const LeadershipPage: React.FC = () => {
           <div className="min-h-full flex items-center justify-center">
             <div
               key={selectedLeader.name}
-              className="leader-modal-panel relative w-full max-w-5xl bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row"
+              className="leader-modal-panel relative w-full max-w-5xl bg-white rounded-lg shadow-2xl overflow-hidden flex flex-col md:flex-row"
               onClick={(event) => event.stopPropagation()}
             >
               <button
                 type="button"
                 onClick={() => setSelectedLeader(null)}
-                className="absolute top-4 right-4 z-20 p-2.5 bg-white/90 hover:bg-white text-[#2B4A6D] rounded-full shadow-md transition-colors"
+                className="absolute top-4 right-4 z-20 p-2 bg-[#1E3654]/90 hover:bg-[#D96B33] text-white rounded-md shadow-md transition-colors"
                 aria-label="Close profile"
               >
                 <X className="w-5 h-5" />

@@ -1,15 +1,13 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { useSearchParams, Link } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { SERVICES, Service } from '../data/services';
-import { CheckCircle2, Eye, X, Download, ChevronLeft, ChevronRight, Info, Workflow, MessageSquare } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { PageHeroBanner } from '../components/PageHeroBanner';
-import { downloadServiceBriefPdf } from '../lib/serviceBriefPdf';
 
 const SERVICES_PER_PAGE = 6;
 
 export const ServicesPage: React.FC = () => {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
-  const [downloadNotice, setDownloadNotice] = useState<{ title: string; ok: boolean } | null>(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const [currentPage, setCurrentPage] = useState<number>(1);
   const heroHeadingRef = useRef<HTMLHeadingElement | null>(null);
@@ -45,21 +43,6 @@ export const ServicesPage: React.FC = () => {
     divisionsSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  const handleDownloadBrochure = async (service: Service) => {
-    let ok = true;
-    try {
-      await downloadServiceBriefPdf(service);
-    } catch (err) {
-      ok = false;
-      // eslint-disable-next-line no-console
-      console.error('Service brief PDF generation failed', err);
-    }
-    setDownloadNotice({ title: service.title, ok });
-    setTimeout(() => {
-      setDownloadNotice(null);
-    }, 3500);
-  };
-
   // Navbar dropdown / homepage cards link here with ?service=<slug> instead of
   // a separate per-service page — scroll to that card and open its dialog.
   useEffect(() => {
@@ -87,8 +70,15 @@ export const ServicesPage: React.FC = () => {
     if (!selectedService) return;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSelectedService(null);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+
     return () => {
       document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
     };
   }, [selectedService]);
 
@@ -101,27 +91,6 @@ export const ServicesPage: React.FC = () => {
         description="From techno-economic feasibility and independent lender engineering to detailed design and real-time execution oversight across national infrastructure."
       />
 
-      {/* Download Toast Notification */}
-      {downloadNotice && (
-        <div className={`fixed bottom-8 right-8 z-50 text-white px-6 py-4 border shadow-2xl flex items-center gap-3 animate-fade-in rounded-md ${downloadNotice.ok ? 'bg-[#2B4A6D] border-[#3E4C60]' : 'bg-[#7A2E22] border-[#A5442F]'}`}>
-          {downloadNotice.ok ? (
-            <CheckCircle2 className="w-5 h-5 text-[#D6C489] shrink-0" />
-          ) : (
-            <X className="w-5 h-5 text-white shrink-0" />
-          )}
-          <div>
-            <p className="text-xs font-mono font-bold">
-              {downloadNotice.ok ? 'SERVICE BRIEF DOWNLOADED' : 'DOWNLOAD FAILED'}
-            </p>
-            <p className="text-xs text-white/80">
-              {downloadNotice.ok
-                ? `${downloadNotice.title} — PDF saved to your device.`
-                : `Could not generate the ${downloadNotice.title} PDF. Please try again.`}
-            </p>
-          </div>
-        </div>
-      )}
-
       {/* SERVICES SHOWCASE SECTION */}
       <section ref={divisionsSectionRef} className="dropdown-scroll-content py-20 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -131,63 +100,52 @@ export const ServicesPage: React.FC = () => {
             <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#2B4A6D] mt-1">Our Professional Divisions</h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {paginatedServices.map((service, index) => {
               const divisionNum = startIndex + index + 1;
               return (
                 <div
                   key={service.id}
                   id={`service-card-${service.slug}`}
-                  className="group relative bg-white border border-[#A49050]/20 rounded-2xl p-6 sm:p-7 shadow-[0_8px_28px_rgba(15,32,52,0.06)] hover:shadow-[0_22px_48px_rgba(15,32,52,0.14)] hover:border-[#A49050]/45 hover:-translate-y-1.5 transition-all duration-500 flex flex-col gap-5 scroll-mt-28"
+                  onClick={() => setSelectedService(service)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setSelectedService(service);
+                    }
+                  }}
+                  className="bg-white border border-[#A49050]/30 rounded-lg overflow-hidden shadow-sm hover:shadow-xl hover:border-[#D96B33]/60 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1 scroll-mt-28 cursor-pointer select-none"
                 >
-                  {/* Badge row — numbered division + category tag, premium fintech-card style */}
-                  <div className="flex items-center gap-2.5">
-                    <span className="shrink-0 w-9 h-9 rounded-lg bg-[#D6C489]/20 border border-[#D6C489]/60 text-[#2B4A6D] text-xs font-mono font-bold flex items-center justify-center">
-                      {divisionNum < 10 ? `0${divisionNum}` : divisionNum}
-                    </span>
-                    <span className="text-[10px] font-mono font-bold tracking-widest uppercase text-[#A49050] bg-[#A49050]/10 border border-[#A49050]/25 px-2.5 py-1 rounded-full">
-                      {service.tag}
-                    </span>
-                  </div>
-
-                  {/* Headline + description */}
-                  <div>
-                    <h3 className="text-xl sm:text-[1.35rem] font-serif font-bold text-[#2B4A6D] leading-snug group-hover:text-[#1E354F] transition-colors">
-                      {service.title}
-                    </h3>
-                    <p className="mt-2 text-xs sm:text-sm text-gray-600 leading-relaxed">
-                      {service.shortDesc}
-                    </p>
-                  </div>
-
-                  {/* Supporting visual panel */}
-                  <div className="relative h-40 sm:h-44 rounded-xl overflow-hidden ring-1 ring-black/5">
-                    <img
-                      src={service.image}
+                  {/* Image & Overlay Banner */}
+                  <div className="relative h-56 overflow-hidden bg-[#2B4A6D]">
+                    <img 
+                      src={service.image} 
                       alt={service.title}
-                      className="w-full h-full object-cover scale-100 group-hover:scale-110 transition-transform duration-700 ease-out"
+                      className="w-full h-full object-cover transform scale-100 group-hover:scale-105 transition-transform duration-500 ease-out opacity-90 group-hover:opacity-100"
                       referrerPolicy="no-referrer"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#2B4A6D]/55 via-transparent to-transparent"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#101F31]/90 via-[#2B4A6D]/35 to-transparent opacity-85 group-hover:opacity-65 transition-opacity"></div>
+                    
+                    <div className="absolute top-4 left-4 z-10">
+                      <span className="text-[10px] font-mono bg-[#1E3654]/90 backdrop-blur-md text-[#D6C489] border border-[#A49050]/40 px-2.5 py-1 rounded-sm font-bold uppercase tracking-widest">
+                        Division #{divisionNum < 10 ? `0${divisionNum}` : divisionNum}
+                      </span>
+                    </div>
+
+                    <div className="absolute bottom-4 left-4 right-4 z-10">
+                      <h3 className="text-xl font-serif font-bold text-white group-hover:text-[#D96B33] transition-colors leading-snug">
+                        {service.title}
+                      </h3>
+                    </div>
                   </div>
 
-                  {/* Actions */}
-                  <div className="pt-1 flex items-center gap-3">
-                    <button
-                      onClick={() => setSelectedService(service)}
-                      className="flex-1 bg-[#2B4A6D] hover:bg-[#1E354F] text-white py-2.5 px-4 text-xs font-mono font-bold tracking-wider uppercase transition-all duration-300 flex items-center justify-center gap-2 rounded-lg shadow hover:shadow-md"
-                    >
-                      <Eye className="w-3.5 h-3.5 text-[#D6C489]" />
-                      <span>View Details</span>
-                    </button>
-                    <button
-                      onClick={() => handleDownloadBrochure(service)}
-                      className="p-2.5 bg-[#F1F3F5] hover:bg-[#A49050]/20 text-[#2B4A6D] border border-[#A49050]/30 transition-all duration-300 rounded-lg hover:border-[#2B4A6D] cursor-pointer"
-                      title="Download PDF Brief"
-                      aria-label={`Download ${service.title} PDF brief`}
-                    >
-                      <Download className="w-4 h-4" />
-                    </button>
+                  {/* Body Content */}
+                  <div className="p-6 flex flex-col flex-1 justify-between gap-4">
+                    <p className="text-xs sm:text-sm text-gray-700 leading-relaxed font-normal">
+                      {service.shortDesc}
+                    </p>
                   </div>
                 </div>
               );
@@ -204,7 +162,7 @@ export const ServicesPage: React.FC = () => {
                     type="button"
                     onClick={() => goToPage(safePage - 1)}
                     disabled={safePage === 1}
-                    className={`flex-1 py-2.5 px-3 text-xs font-semibold rounded-full flex items-center justify-center gap-1.5 border transition-all ${
+                    className={`flex-1 py-2.5 px-3 text-xs font-semibold rounded-md flex items-center justify-center gap-1.5 border transition-all ${
                       safePage === 1
                         ? 'bg-gray-100 text-gray-300 border-gray-200 cursor-not-allowed'
                         : 'bg-white text-gray-800 border-gray-300 active:bg-gray-100 shadow-2xs cursor-pointer'
@@ -221,7 +179,7 @@ export const ServicesPage: React.FC = () => {
                         key={page}
                         type="button"
                         onClick={() => goToPage(page)}
-                        className={`w-8 h-8 text-xs font-semibold rounded-full flex items-center justify-center transition-all cursor-pointer ${
+                        className={`w-8 h-8 text-xs font-semibold rounded-md flex items-center justify-center transition-all cursor-pointer ${
                           page === safePage
                             ? 'bg-gray-900 text-white shadow-xs'
                             : 'text-gray-700 bg-white border border-gray-200 active:bg-gray-100'
@@ -236,7 +194,7 @@ export const ServicesPage: React.FC = () => {
                     type="button"
                     onClick={() => goToPage(safePage + 1)}
                     disabled={safePage === totalPages}
-                    className={`flex-1 py-2.5 px-3 text-xs font-semibold rounded-full flex items-center justify-center gap-1.5 border transition-all ${
+                    className={`flex-1 py-2.5 px-3 text-xs font-semibold rounded-md flex items-center justify-center gap-1.5 border transition-all ${
                       safePage === totalPages
                         ? 'bg-gray-100 text-gray-300 border-gray-200 cursor-not-allowed'
                         : 'bg-white text-gray-800 border-gray-300 active:bg-gray-100 shadow-2xs cursor-pointer'
@@ -259,12 +217,12 @@ export const ServicesPage: React.FC = () => {
                   Showing <strong className="text-gray-900">{startIndex + 1}–{endIndex}</strong> of <strong className="text-gray-900">{SERVICES.length}</strong> divisions • Page <strong className="text-gray-900">{safePage}</strong> of <strong className="text-gray-900">{totalPages}</strong>
                 </span>
 
-                <div className="inline-flex items-center gap-1.5 p-1 bg-white border border-gray-300 rounded-full shadow-2xs">
+                <div className="inline-flex items-center gap-1.5 p-1 bg-white border border-gray-300 rounded-lg shadow-2xs">
                   <button
                     type="button"
                     onClick={() => goToPage(safePage - 1)}
                     disabled={safePage === 1}
-                    className={`px-3 py-1.5 text-xs font-semibold rounded-full flex items-center gap-1 transition-all ${
+                    className={`px-3 py-1.5 text-xs font-semibold rounded-md flex items-center gap-1 transition-all ${
                       safePage === 1
                         ? 'text-gray-300 cursor-not-allowed'
                         : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100 cursor-pointer'
@@ -282,10 +240,10 @@ export const ServicesPage: React.FC = () => {
                         type="button"
                         onClick={() => goToPage(page)}
                         aria-current={page === safePage ? 'page' : undefined}
-                        className={`w-7 h-7 text-xs font-semibold rounded-full flex items-center justify-center transition-all cursor-pointer ${
+                        className={`w-7 h-7 text-xs font-semibold rounded-md flex items-center justify-center transition-all cursor-pointer ${
                           page === safePage
                             ? 'bg-gray-900 text-white shadow-xs'
-                            : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                            : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100'
                         }`}
                       >
                         {page}
@@ -297,7 +255,7 @@ export const ServicesPage: React.FC = () => {
                     type="button"
                     onClick={() => goToPage(safePage + 1)}
                     disabled={safePage === totalPages}
-                    className={`px-3 py-1.5 text-xs font-semibold rounded-full flex items-center gap-1 transition-all ${
+                    className={`px-3 py-1.5 text-xs font-semibold rounded-md flex items-center gap-1 transition-all ${
                       safePage === totalPages
                         ? 'text-gray-300 cursor-not-allowed'
                         : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100 cursor-pointer'
@@ -322,51 +280,49 @@ export const ServicesPage: React.FC = () => {
           onClick={(e) => {
             if (e.target === e.currentTarget) setSelectedService(null);
           }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 md:p-6 bg-[#2B4A6D]/75 backdrop-blur-sm animate-fade-in"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 md:p-6 bg-[#101F31]/80 backdrop-blur-md animate-fade-in"
         >
-          <div className="bg-white w-full max-w-4xl max-h-[70vh] sm:max-h-[74vh] md:max-h-[78vh] md:h-[72vh] rounded-2xl sm:rounded-3xl shadow-2xl relative flex flex-col md:flex-row overflow-hidden border border-[#A49050]/20">
+          <div className="bg-white w-full max-w-4xl max-h-[82vh] md:max-h-[80vh] md:h-[72vh] rounded-lg shadow-2xl relative flex flex-col md:flex-row overflow-hidden border border-[#A49050]/30">
+            {/* Top-Right Close Cross Button */}
             <button
               onClick={() => setSelectedService(null)}
-              className="absolute top-2.5 right-2.5 sm:top-3.5 sm:right-3.5 z-20 p-1.5 sm:p-2 bg-black/45 hover:bg-black/70 text-white backdrop-blur-md rounded-full shadow-md transition-all cursor-pointer"
+              className="absolute top-3 right-3 sm:top-4 sm:right-4 z-30 p-2 bg-[#1E3654]/90 hover:bg-[#D96B33] text-white backdrop-blur-md rounded-md shadow-lg transition-all duration-200 cursor-pointer hover:scale-105 active:scale-95"
               aria-label="Close modal"
             >
-              <X className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
+              <X className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
 
             {/* Left: compact thumbnail banner on mobile, side panel on desktop */}
-            <div className="service-modal-image-panel relative w-full h-24 sm:h-32 md:h-full md:w-[36%] shrink-0 overflow-hidden bg-[#2B4A6D]">
+            <div className="service-modal-image-panel relative w-full h-32 sm:h-40 md:h-full md:w-[38%] shrink-0 overflow-hidden bg-[#1E3654]">
               <img
                 src={selectedService.image}
                 alt={selectedService.title}
                 className="w-full h-full object-cover object-center"
                 referrerPolicy="no-referrer"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#2B4A6D]/80 via-black/20 to-transparent md:bg-gradient-to-r md:from-transparent md:to-[#2B4A6D]/20"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#101F31]/85 via-black/20 to-transparent md:bg-gradient-to-r md:from-transparent md:to-[#101F31]/30"></div>
             </div>
 
             {/* Right: details content panel */}
             <div className="service-modal-content-panel flex-1 flex flex-col justify-between overflow-hidden min-h-0">
               {/* Header */}
-              <div className="px-4 pt-3 pb-2 sm:px-6 sm:pt-4 sm:pb-2.5 border-b border-gray-100 shrink-0 bg-white">
-                <div className="flex flex-wrap items-center gap-1.5 mb-1 sm:mb-1.5">
-                  <span className="inline-flex w-fit items-center text-[9px] sm:text-[11px] font-mono font-bold text-[#A49050] bg-[#A49050]/10 border border-[#A49050]/30 px-2 py-0.5 rounded-full uppercase tracking-wider">
-                    AGICL Practice Division
-                  </span>
-                  <span className="inline-flex w-fit items-center text-[9px] sm:text-[11px] font-mono font-bold text-[#2B4A6D] bg-[#D6C489]/20 border border-[#D6C489]/50 px-2 py-0.5 rounded-full uppercase tracking-wider">
-                    {selectedService.tag}
-                  </span>
-                </div>
-                <h3 className="text-base sm:text-xl md:text-2xl font-serif font-bold text-[#2B4A6D] leading-tight line-clamp-2 sm:line-clamp-none">
+              <div className="px-5 pt-4 pb-3 sm:px-7 sm:pt-6 sm:pb-3.5 border-b border-gray-100 shrink-0 bg-white pr-14">
+                <span className="inline-flex w-fit items-center text-[10px] sm:text-[11px] font-mono font-bold text-[#D96B33] bg-[#D96B33]/10 border border-[#D96B33]/30 px-2.5 py-0.5 rounded-sm mb-1.5 uppercase tracking-wider">
+                  AGICL Practice Division
+                </span>
+                <h3 className="text-lg sm:text-2xl md:text-3xl font-serif font-bold text-[#2B4A6D] leading-tight">
                   {selectedService.title}
                 </h3>
               </div>
 
-              {/* Scrollable Content */}
-              <div className="px-4 py-2.5 sm:px-6 sm:py-3.5 overflow-y-auto space-y-3 sm:space-y-4 flex-1 min-h-0">
+              {/* Scrollable Content (Scrollbar completely hidden, smooth scroll preserved) */}
+              <div 
+                className="px-5 py-4 sm:px-7 sm:py-5 overflow-y-auto space-y-4 flex-1 min-h-0 no-scrollbar scrollbar-none"
+                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+              >
                 {/* Section 1: Overview */}
                 <div className="space-y-1.5">
-                  <h4 className="flex items-center gap-1.5 text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider text-[#2B4A6D]/80 border-b border-gray-100 pb-1">
-                    <Info className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#A49050]" />
+                  <h4 className="text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider text-[#2B4A6D]/80 border-b border-gray-100 pb-1">
                     Overview
                   </h4>
                   <p className="text-xs sm:text-sm text-gray-800 leading-relaxed font-normal">
@@ -374,19 +330,15 @@ export const ServicesPage: React.FC = () => {
                   </p>
                 </div>
 
-                {/* Section 2: Key Deliverables — scannable checklist grid, not a plain bullet list */}
-                <div className="space-y-1.5 pt-0.5">
-                  <h4 className="flex items-center justify-between gap-1.5 text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider text-[#2B4A6D]/80 border-b border-gray-100 pb-1">
-                    <span className="flex items-center gap-1.5">
-                      <CheckCircle2 className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#A49050]" />
-                      Key Deliverables
-                    </span>
-                    <span className="text-[#A49050] normal-case font-semibold tracking-normal">{selectedService.deliverables.length} items</span>
+                {/* Section 2: Key Deliverables */}
+                <div className="space-y-1.5 pt-1">
+                  <h4 className="text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider text-[#2B4A6D]/80 border-b border-gray-100 pb-1">
+                    Key Deliverables
                   </h4>
-                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1.5 text-xs sm:text-sm">
+                  <ul className="space-y-2 text-xs sm:text-sm">
                     {selectedService.deliverables.map((del, dIdx) => (
-                      <li key={dIdx} className="flex items-start gap-2 bg-[#F8FAFC] border border-gray-100 rounded-lg px-2.5 py-1.5">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-[#A49050] shrink-0 mt-0.5" />
+                      <li key={dIdx} className="flex items-start gap-2.5">
+                        <span className="w-1.5 h-1.5 bg-[#D96B33] mt-2 shrink-0 rounded-xs" />
                         <span className="font-normal text-gray-800 leading-relaxed">{del}</span>
                       </li>
                     ))}
@@ -394,40 +346,14 @@ export const ServicesPage: React.FC = () => {
                 </div>
 
                 {/* Section 3: How We Deliver It */}
-                <div className="space-y-1.5 pt-0.5">
-                  <h4 className="flex items-center gap-1.5 text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider text-[#2B4A6D]/80 border-b border-gray-100 pb-1">
-                    <Workflow className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#A49050]" />
+                <div className="space-y-1.5 pt-1">
+                  <h4 className="text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider text-[#2B4A6D]/80 border-b border-gray-100 pb-1">
                     How We Deliver It
                   </h4>
-                  <p className="text-xs sm:text-sm text-gray-800 leading-relaxed bg-[#F8FAFC] p-2.5 sm:p-3 rounded-lg border border-gray-100 font-normal">
+                  <p className="text-xs sm:text-sm text-gray-800 leading-relaxed bg-[#F8FAFC] p-3 sm:p-4 rounded-lg border border-gray-100 font-normal">
                     {selectedService.methodology}
                   </p>
                 </div>
-              </div>
-
-              {/* Footer Buttons */}
-              <div className="flex flex-wrap items-center justify-end gap-2 px-4 py-2 sm:px-6 sm:py-3 border-t border-gray-100 bg-[#F8FAFC] shrink-0">
-                <button
-                  onClick={() => setSelectedService(null)}
-                  className="px-3 py-1.5 text-xs font-medium text-[#2B4A6D] hover:bg-gray-200/60 rounded-full transition-colors cursor-pointer"
-                >
-                  Close
-                </button>
-                <Link
-                  to="/contact"
-                  onClick={() => setSelectedService(null)}
-                  className="px-3.5 sm:px-4 py-1.5 sm:py-2 bg-white hover:bg-[#F1F3F5] text-[#2B4A6D] border border-[#A49050]/40 text-xs font-medium rounded-full shadow-sm hover:shadow transition-all flex items-center gap-1.5 cursor-pointer"
-                >
-                  <MessageSquare className="w-3.5 h-3.5 text-[#A49050]" />
-                  <span>Talk to an Expert</span>
-                </Link>
-                <button
-                  onClick={() => handleDownloadBrochure(selectedService)}
-                  className="px-3.5 sm:px-4 py-1.5 sm:py-2 bg-[#2B4A6D] hover:bg-[#1E354F] text-white text-xs font-medium rounded-full shadow-sm hover:shadow transition-all flex items-center gap-1.5 cursor-pointer"
-                >
-                  <Download className="w-3.5 h-3.5 text-[#D6C489]" />
-                  <span>Download PDF Brief</span>
-                </button>
               </div>
             </div>
           </div>

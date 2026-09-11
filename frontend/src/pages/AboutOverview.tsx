@@ -22,7 +22,6 @@ const STRENGTH_PILLARS = [
 ];
 
 export const AboutOverview: React.FC = () => {
-  const imageCardRef = useRef<HTMLDivElement>(null);
   const heritageSectionRef = useRef<HTMLElement | null>(null);
   const strengthsSectionRef = useRef<HTMLElement | null>(null);
   const subNavSectionRef = useRef<HTMLElement | null>(null);
@@ -91,27 +90,6 @@ export const AboutOverview: React.FC = () => {
     );
   }, []);
 
-  const handleImagePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
-    if (event.pointerType === 'touch' || !imageCardRef.current) return;
-
-    const bounds = event.currentTarget.getBoundingClientRect();
-    const pointerX = (event.clientX - bounds.left) / bounds.width - 0.5;
-    const pointerY = (event.clientY - bounds.top) / bounds.height - 0.5;
-
-    imageCardRef.current.style.setProperty('--about-tilt-x', `${pointerY * -7}deg`);
-    imageCardRef.current.style.setProperty('--about-tilt-y', `${pointerX * 7}deg`);
-    imageCardRef.current.style.setProperty('--about-shift-x', `${pointerX * 10}px`);
-    imageCardRef.current.style.setProperty('--about-shift-y', `${pointerY * 10}px`);
-  };
-
-  const resetImageCard = () => {
-    if (!imageCardRef.current) return;
-    imageCardRef.current.style.setProperty('--about-tilt-x', '0deg');
-    imageCardRef.current.style.setProperty('--about-tilt-y', '0deg');
-    imageCardRef.current.style.setProperty('--about-shift-x', '0px');
-    imageCardRef.current.style.setProperty('--about-shift-y', '0px');
-  };
-
   return (
     <div className="about-overview-page flex flex-col min-h-screen bg-[#F1F3F5] pt-24">
       {/* Header Banner */}
@@ -122,70 +100,114 @@ export const AboutOverview: React.FC = () => {
         backgroundImage={aboutOverviewHero}
       />
 
-      {/* Main Content */}
-      <section ref={heritageSectionRef} className="about-heritage-section py-20">
+      {/* Main Content — Legacy Institutional Architectural Monograph */}
+      <section ref={heritageSectionRef} className="about-heritage-section py-10 sm:py-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          {/* Unified Monolithic Institutional Plate */}
+          <div className="bg-white border border-[#1E3654]/15 rounded-lg shadow-sm overflow-hidden flex flex-col">
             
-            <div className="about-heritage-copy lg:col-span-6 flex flex-col gap-6">
-              <span className="text-xs font-mono tracking-widest text-[#D96B33] uppercase">OUR HERITAGE</span>
-              <h2 className="text-3xl font-serif font-bold text-[#2B4A6D]">A Legacy of Precision, Integrity, and Nation-Building</h2>
-              <p className="text-sm text-[#2B4A6D]/80 leading-relaxed text-justify">
-                Founded in 2013, Almondz Global Infra Consultant Limited has over a decade of experience in infrastructure consultancy, backed by the larger Almondz Group's legacy since 1994. AGICL has successfully delivered over 50+ major infrastructure projects and maintains more than 100+ active engagements across India and abroad.
-              </p>
-              <p className="text-sm text-[#2B4A6D]/80 leading-relaxed text-justify">
-                Our multidisciplinary teams comprise seasoned civil engineers, geotechnical experts, urban planners, financial analysts, and environmental scientists who work in synergy to deliver turnkey consultancy from concept to commissioning.
-              </p>
-
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-6 relative border-t border-[#A49050]/20">
-                <div>
-                  <div className="text-xl font-serif font-bold text-[#2B4A6D]">₹500Cr+</div>
-                  <div className="text-xs font-mono text-[#2B4A6D]/60 mt-1">Active Order Book</div>
-                </div>
-                <div>
-                  <div className="text-xl font-serif font-bold text-[#D96B33]">500+</div>
-                  <div className="text-xs font-mono text-[#2B4A6D]/60 mt-1">Employees</div>
-                </div>
-                <div>
-                  <div className="text-xl font-serif font-bold text-[#2B4A6D]">8+</div>
-                  <div className="text-xs font-mono text-[#2B4A6D]/60 mt-1">Sectors</div>
-                </div>
-                <div>
-                  <div className="text-xl font-serif font-bold text-[#2B4A6D]">100+</div>
-                  <div className="text-xs font-mono text-[#2B4A6D]/60 mt-1">Completed Projects</div>
-                </div>
-                <div>
-                  <div className="text-xl font-serif font-bold text-[#2B4A6D]">200+</div>
-                  <div className="text-xs font-mono text-[#2B4A6D]/60 mt-1">Ongoing Engagements</div>
-                </div>
-                <div>
-                  <div className="text-xl font-serif font-bold text-[#D96B33]">80+</div>
-                  <div className="text-xs font-mono text-[#2B4A6D]/60 mt-1">Empanelments</div>
-                </div>
+            {/* Top Architectural Masthead Bar */}
+            <div className="bg-[#1E3654] px-5 sm:px-7 py-2.5 border-b border-white/10 flex flex-wrap items-center justify-between gap-2.5 text-white shrink-0">
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] sm:text-[11px] font-mono tracking-widest text-[#D6C489] uppercase font-bold">
+                  ALMONDZ GLOBAL INFRA CONSULTANT LIMITED
+                </span>
+              </div>
+              <div className="text-[10px] sm:text-[11px] font-mono tracking-wider text-white/70 uppercase">
+                HISTORIC FOUNDATION 1994 / AGICL EST. 2013
               </div>
             </div>
 
-            <div className="about-image-entry lg:col-span-6 w-full">
-              <div
-                ref={imageCardRef}
-                className="about-image-card relative w-full rounded-2xl overflow-hidden shadow-2xl group"
-                onPointerMove={handleImagePointerMove}
-                onPointerLeave={resetImageCard}
-              >
-                <img
-                  src={heritageImage}
-                  alt="Metro infrastructure project"
-                  className="w-full h-[340px] sm:h-[440px] lg:h-[500px] object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                />
+            {/* Split Layout: Narrative & Ledger (Left) vs Architectural Viewport (Right) */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch">
+              
+              {/* Left Column: Formal Narrative & Ledger (Pure Light Corporate Canvas) */}
+              <div className="lg:col-span-7 p-6 sm:p-8 lg:p-9 flex flex-col justify-between bg-white">
+                <div>
+                  <span className="text-[11px] font-mono tracking-widest text-[#D96B33] uppercase font-bold block mb-2">
+                    OVERVIEW & HERITAGE
+                  </span>
+                  
+                  <h2 className="text-xl sm:text-2xl lg:text-[26px] font-serif font-bold text-[#1E3654] leading-[1.25] tracking-tight">
+                    A Legacy of Precision, Integrity, and Nation-Building
+                  </h2>
+                  
+                  <div className="space-y-3.5 text-xs sm:text-[13px] text-[#1E3654]/85 leading-relaxed text-justify mt-4 font-normal">
+                    <p>
+                      Founded in 2013, Almondz Global Infra Consultant Limited (AGICL) brings over a decade of specialized infrastructure consulting experience, anchored in the larger Almondz Group’s institutional legacy dating back to 1994. AGICL has successfully steered 50+ major national infrastructure projects and currently manages over 100+ active engagements across India and abroad.
+                    </p>
+                    <p>
+                      Our multidisciplinary practice unites senior civil engineers, structural analysts, geotechnical specialists, urban transit planners, financial modelers, and environmental scientists, providing comprehensive lifecycle consultancy from project concept and detailed engineering through independent authority supervision.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Structured Institutional Ledger Matrix */}
+                <div className="mt-7 pt-6 border-t border-[#1E3654]/15">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-5">
+                    <div className="border-l-2 border-[#1E3654] pl-3">
+                      <div className="text-lg sm:text-xl font-serif font-bold text-[#1E3654]">₹500Cr+</div>
+                      <div className="text-[10px] font-mono tracking-wider text-[#1E3654]/60 uppercase mt-0.5">Active Order Book</div>
+                    </div>
+                    <div className="border-l-2 border-[#D96B33] pl-3">
+                      <div className="text-lg sm:text-xl font-serif font-bold text-[#D96B33]">500+</div>
+                      <div className="text-[10px] font-mono tracking-wider text-[#1E3654]/60 uppercase mt-0.5">Workforce</div>
+                    </div>
+                    <div className="border-l-2 border-[#1E3654] pl-3">
+                      <div className="text-lg sm:text-xl font-serif font-bold text-[#1E3654]">8+</div>
+                      <div className="text-[10px] font-mono tracking-wider text-[#1E3654]/60 uppercase mt-0.5">Core Sectors</div>
+                    </div>
+                    <div className="border-l-2 border-[#1E3654] pl-3">
+                      <div className="text-lg sm:text-xl font-serif font-bold text-[#1E3654]">100+</div>
+                      <div className="text-[10px] font-mono tracking-wider text-[#1E3654]/60 uppercase mt-0.5">Completed Projects</div>
+                    </div>
+                    <div className="border-l-2 border-[#1E3654] pl-3">
+                      <div className="text-lg sm:text-xl font-serif font-bold text-[#1E3654]">200+</div>
+                      <div className="text-[10px] font-mono tracking-wider text-[#1E3654]/60 uppercase mt-0.5">Active Engagements</div>
+                    </div>
+                    <div className="border-l-2 border-[#D96B33] pl-3">
+                      <div className="text-lg sm:text-xl font-serif font-bold text-[#D96B33]">80+</div>
+                      <div className="text-[10px] font-mono tracking-wider text-[#1E3654]/60 uppercase mt-0.5">Empanelments</div>
+                    </div>
+                  </div>
+                </div>
               </div>
+
+              {/* Right Column: Sleek Proportional Architectural Media Viewport (+50px height) */}
+              <div className="lg:col-span-5 border-t lg:border-t-0 lg:border-l border-[#1E3654]/15 bg-[#1E3654] flex flex-col justify-between">
+                <div className="relative flex-1 min-h-[250px] sm:min-h-[290px] max-h-[390px] overflow-hidden bg-[#101F31]">
+                  <img
+                    src={heritageImage}
+                    alt="Mass Rapid Transit & Elevated Viaducts infrastructure project"
+                    className="w-full h-full object-cover object-center"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#1E3654]/80 via-transparent to-transparent pointer-events-none" />
+                </div>
+
+                {/* Solid Formal Architectural Caption Footer */}
+                <div className="p-4 sm:p-5 bg-[#1E3654] text-white border-t border-white/10 shrink-0">
+                  <span className="text-[9px] font-mono tracking-widest text-[#D6C489] uppercase font-bold block mb-1">
+                    INFRASTRUCTURE SHOWCASE
+                  </span>
+                  <h4 className="text-sm sm:text-base font-serif font-bold text-white leading-snug">
+                    Mass Rapid Transit & Elevated Viaducts
+                  </h4>
+                  <p className="text-[11px] sm:text-xs text-white/75 mt-1 leading-relaxed font-normal">
+                    Turnkey project management, detailed engineering design & independent authority supervision across key urban corridors.
+                  </p>
+                </div>
+              </div>
+
             </div>
 
           </div>
+
         </div>
       </section>
 
       {/* WHY ALMONDZ — STRENGTHS SHOWCASE */}
-      <section ref={strengthsSectionRef} className="strengths-showcase py-20 bg-[#F1F3F5]">
+      <section ref={strengthsSectionRef} className="strengths-showcase py-16 bg-[#F1F3F5]">
         <div className="strengths-showcase__inner max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="strengths-showcase__media" aria-hidden="true">
             <img
@@ -196,8 +218,8 @@ export const AboutOverview: React.FC = () => {
           </div>
 
           <div className="strengths-showcase__content">
-            <span className="strengths-showcase__eyebrow block text-xs font-mono tracking-widest text-[#A49050] uppercase">Why Almondz</span>
-            <h2 className="strengths-showcase__title text-3xl font-serif font-bold text-[#2B4A6D] mt-1">Our Core Strengths</h2>
+            <span className="strengths-showcase__eyebrow block text-xs font-mono tracking-widest text-[#A49050] uppercase font-bold">Why Almondz</span>
+            <h2 className="strengths-showcase__title text-2xl sm:text-3xl font-serif font-bold text-[#2B4A6D] mt-1">Our Core Strengths</h2>
 
             <div className="strengths-grid">
               {STRENGTH_PILLARS.map((pillar) => (
@@ -214,39 +236,64 @@ export const AboutOverview: React.FC = () => {
       {/* GROUP COMPANIES — ANIMATED GRAPHIC */}
       <GroupCompaniesGraphic />
 
-      {/* SUB-NAVIGATION CARDS */}
-      <section ref={subNavSectionRef} className="about-subnav-section pt-6 pb-16 bg-white">
+      {/* SUB-NAVIGATION — CONSOLIDATED GOVERNANCE DIRECTORY PLATE */}
+      <section ref={subNavSectionRef} className="about-subnav-section pt-4 pb-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div ref={subNavHeaderRef} className="about-subnav-header text-center mb-12">
-            <span className="text-sm font-mono tracking-widest text-[#A49050] uppercase">EXPLORE FURTHER</span>
-            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#2B4A6D] mt-2">Corporate Governance & Leadership</h2>
+          <div ref={subNavHeaderRef} className="about-subnav-header text-center mb-8">
+            <span className="text-xs font-mono tracking-widest text-[#A49050] uppercase font-bold">INSTITUTIONAL DIRECTORY</span>
+            <h2 className="text-xl sm:text-2xl font-serif font-bold text-[#1E3654] mt-1.5">Corporate Governance & Leadership</h2>
           </div>
 
-          <div ref={subNavCardsRef} className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Link to="/about/mission-vision" className="about-subnav-card p-8 bg-white rounded-2xl border border-[#A49050]/20 shadow-sm hover:shadow-xl hover:border-[#D96B33]/50 hover:-translate-y-2 hover:scale-[1.03] transition-all duration-300 group">
-              <h3 className="text-xl font-serif font-bold text-[#2B4A6D] group-hover:text-[#D96B33] transition-colors">Mission & Vision</h3>
-              <p className="text-xs text-[#2B4A6D]/70 mt-2 leading-relaxed">Our core pillars of sustainable engineering, innovation, and ethical infrastructure stewardship.</p>
-              <div className="mt-6 flex items-center gap-2 text-xs font-mono font-bold text-[#D96B33]">
-                <span>Read More</span>
-                <ArrowRight className="w-4 h-4" />
+          {/* Single Consolidated 3-Column Governance Directory Plate */}
+          <div ref={subNavCardsRef} className="bg-white border border-[#1E3654]/20 rounded-lg shadow-sm overflow-hidden grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#1E3654]/15">
+            <Link 
+              to="/about/mission-vision" 
+              className="p-6 sm:p-7 flex flex-col justify-between hover:bg-[#F8FAFC] transition-colors duration-200 group"
+            >
+              <div>
+                <span className="text-[9px] font-mono uppercase tracking-widest text-[#A49050] font-bold block mb-1.5">SECTION 01</span>
+                <h3 className="text-base sm:text-lg font-serif font-bold text-[#1E3654] group-hover:text-[#D96B33] transition-colors">Mission & Vision</h3>
+                <p className="text-xs text-[#1E3654]/75 mt-2 leading-relaxed font-normal">
+                  Our strategic pillars of sustainable engineering, technological innovation, and ethical infrastructure stewardship.
+                </p>
+              </div>
+              <div className="mt-6 flex items-center gap-2 text-xs font-mono font-bold text-[#D96B33] group-hover:translate-x-1 transition-transform">
+                <span>Read Mission</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </div>
             </Link>
 
-            <Link to="/about/leadership" className="about-subnav-card p-8 bg-white rounded-2xl border border-[#A49050]/20 shadow-sm hover:shadow-xl hover:border-[#D96B33]/50 hover:-translate-y-2 hover:scale-[1.03] transition-all duration-300 group">
-              <h3 className="text-xl font-serif font-bold text-[#2B4A6D] group-hover:text-[#D96B33] transition-colors">Leadership & Board</h3>
-              <p className="text-xs text-[#2B4A6D]/70 mt-2 leading-relaxed">Meet our Board of Directors, managing directors, and technical practice leaders.</p>
-              <div className="mt-6 flex items-center gap-2 text-xs font-mono font-bold text-[#D96B33]">
-                <span>Meet the Team</span>
-                <ArrowRight className="w-4 h-4" />
+            <Link 
+              to="/about/leadership" 
+              className="p-6 sm:p-7 flex flex-col justify-between hover:bg-[#F8FAFC] transition-colors duration-200 group"
+            >
+              <div>
+                <span className="text-[9px] font-mono uppercase tracking-widest text-[#A49050] font-bold block mb-1.5">SECTION 02</span>
+                <h3 className="text-base sm:text-lg font-serif font-bold text-[#1E3654] group-hover:text-[#D96B33] transition-colors">Leadership & Board</h3>
+                <p className="text-xs text-[#1E3654]/75 mt-2 leading-relaxed font-normal">
+                  Executive profiles of our Board of Directors, managing directors, and senior technical practice leaders.
+                </p>
+              </div>
+              <div className="mt-6 flex items-center gap-2 text-xs font-mono font-bold text-[#D96B33] group-hover:translate-x-1 transition-transform">
+                <span>Meet the Board</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </div>
             </Link>
 
-            <Link to="/about/certifications" className="about-subnav-card p-8 bg-white rounded-2xl border border-[#A49050]/20 shadow-sm hover:shadow-xl hover:border-[#D96B33]/50 hover:-translate-y-2 hover:scale-[1.03] transition-all duration-300 group">
-              <h3 className="text-xl font-serif font-bold text-[#2B4A6D] group-hover:text-[#D96B33] transition-colors">Certifications & Empanelments</h3>
-              <p className="text-xs text-[#2B4A6D]/70 mt-2 leading-relaxed">View our ISO accreditations and official empanelments with NHAI, MoRTH, and World Bank.</p>
-              <div className="mt-6 flex items-center gap-2 text-xs font-mono font-bold text-[#D96B33]">
+            <Link 
+              to="/about/certifications" 
+              className="p-6 sm:p-7 flex flex-col justify-between hover:bg-[#F8FAFC] transition-colors duration-200 group"
+            >
+              <div>
+                <span className="text-[9px] font-mono uppercase tracking-widest text-[#A49050] font-bold block mb-1.5">SECTION 03</span>
+                <h3 className="text-base sm:text-lg font-serif font-bold text-[#1E3654] group-hover:text-[#D96B33] transition-colors">Certifications & Empanelments</h3>
+                <p className="text-xs text-[#1E3654]/75 mt-2 leading-relaxed font-normal">
+                  National accreditation records, ISO certifications, and official empanelments with NHAI, MoRTH, and World Bank.
+                </p>
+              </div>
+              <div className="mt-6 flex items-center gap-2 text-xs font-mono font-bold text-[#D96B33] group-hover:translate-x-1 transition-transform">
                 <span>View Credentials</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-3.5 h-3.5" />
               </div>
             </Link>
           </div>
