@@ -72,7 +72,7 @@ export const AboutOverview: React.FC = () => {
           observer.unobserve(strengthsSection);
         }
       },
-      { threshold: 0.3 },
+      { threshold: 0.2 },
     );
 
     observer.observe(strengthsSection);
@@ -207,27 +207,29 @@ export const AboutOverview: React.FC = () => {
       </section>
 
       {/* WHY ALMONDZ — STRENGTHS SHOWCASE */}
-      <section ref={strengthsSectionRef} className="strengths-showcase py-16 bg-[#F1F3F5]">
-        <div className="strengths-showcase__inner max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="strengths-showcase__media" aria-hidden="true">
-            <img
-              src={strengthsImage}
-              alt="Renewable energy infrastructure — wind, hydro and solar"
-              referrerPolicy="no-referrer"
-            />
-          </div>
+      <section ref={strengthsSectionRef} className="strengths-showcase py-10 sm:py-14 bg-[#F1F3F5]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="strengths-showcase__inner">
+            <div className="strengths-showcase__media" aria-hidden="true">
+              <img
+                src={strengthsImage}
+                alt="Renewable energy infrastructure — wind, hydro and solar"
+                referrerPolicy="no-referrer"
+              />
+            </div>
 
-          <div className="strengths-showcase__content">
-            <span className="strengths-showcase__eyebrow block text-xs font-mono tracking-widest text-[#A49050] uppercase font-bold">Why Almondz</span>
-            <h2 className="strengths-showcase__title text-2xl sm:text-3xl font-serif font-bold text-[#2B4A6D] mt-1">Our Core Strengths</h2>
+            <div className="strengths-showcase__content">
+              <span className="strengths-showcase__eyebrow block text-xs font-mono tracking-widest text-[#A49050] uppercase font-bold">Why Almondz</span>
+              <h2 className="strengths-showcase__title text-2xl sm:text-3xl font-serif font-bold text-[#1E3654] mt-1">Our Core Strengths</h2>
 
-            <div className="strengths-grid">
-              {STRENGTH_PILLARS.map((pillar) => (
-                <div key={pillar.title} className="strength-item">
-                  <h3 className="strength-item__title">{pillar.title}</h3>
-                  <p className="strength-item__desc">{pillar.desc}</p>
-                </div>
-              ))}
+              <div className="strengths-grid">
+                {STRENGTH_PILLARS.map((pillar) => (
+                  <div key={pillar.title} className="strength-item">
+                    <h3 className="strength-item__title">{pillar.title}</h3>
+                    <p className="strength-item__desc">{pillar.desc}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
