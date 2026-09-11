@@ -5,7 +5,7 @@ import { LIFECYCLE_STAGES } from '../data/company';
 import { ProjectVideoModal } from '../components/ProjectVideoModal';
 import { ServicesShowcase } from '../components/ServicesShowcase';
 import { CountUpValue } from '../components/CountUpValue';
-import { ArrowRight, ShieldCheck, Award, Building2, Compass, CheckCircle2, Play, ChevronRight, FileText, PenTool, TrendingUp } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Play, ChevronRight } from 'lucide-react';
 import heroExpressway from '../images/hero/hero-expressway.png';
 import heroMetroStation from '../images/hero/hero-metro-station.png';
 import heroWindFarm from '../images/hero/hero-wind-farm.png';
@@ -15,6 +15,15 @@ import highwayBridgeHero from '../images/hero/highway-bridge-banner.jpg';
 import transitCtaHero from '../images/hero/transit-cta-banner.jpg';
 import lifecycleInfraBackdrop from '../images/hero/lifecycle-infra-backdrop.jpg';
 import { Iso9001Logo, Iso45001Logo, Iso14001Logo, Iso27001Logo, OssCertLogo, CeaiLogo, UkCertLogo } from '../components/CertificationBadges';
+
+import { 
+  PlanningSvg, 
+  FeasibilitySvg, 
+  EngineeringSvg, 
+  FinanceSvg, 
+  ManagementSvg, 
+  CommissioningSvg 
+} from '../components/LifecycleSvgIcons';
 
 // Headline figures for the "Track Record by Sector" marquee, sourced from
 // AGICL_Corporate_Profile.md (Section 4, "Notable Projects by Sector" and 4.7,
@@ -30,8 +39,8 @@ const SECTOR_FIGURES = [
   { sector: "Smart Cities / Urban Infrastructure", value: "₹5,200 Cr+", label: "Completed Urban Assignments" }
 ];
 
-// One icon per lifecycle stage, matched by index to LIFECYCLE_STAGES.
-const LIFECYCLE_ICONS = [Compass, FileText, PenTool, TrendingUp, Building2, CheckCircle2];
+// One custom bespoke SVG icon per lifecycle stage, matched by index to LIFECYCLE_STAGES.
+const LIFECYCLE_ICONS = [PlanningSvg, FeasibilitySvg, EngineeringSvg, FinanceSvg, ManagementSvg, CommissioningSvg];
 
 // Terse labels for the "Sectors We Serve" filter row, kept short (the row scrolls
 // horizontally when needed); index-matched to SECTORS (same order as the site
@@ -449,6 +458,9 @@ export const Home: React.FC = () => {
           ))}
           <div className="absolute inset-0 bg-gradient-to-r from-[#101A29]/85 via-[#2B4A6D]/70 to-[#101A29]/50 backdrop-brightness-[0.9] z-20"></div>
 
+          {/* Ultra-Smooth Bottom Fade Merging Hero into Accreditations */}
+          <div className="absolute inset-x-0 bottom-0 h-24 sm:h-36 bg-gradient-to-b from-transparent via-[#101A29]/60 to-[#101A29] pointer-events-none z-20" aria-hidden="true" />
+
           {/* Slideshow indicators / caption badge */}
           <div className="absolute bottom-6 right-6 z-30 hidden sm:flex items-center gap-2 bg-[#101A29]/80 backdrop-blur-md px-4 py-2 border border-[#A49050]/40 rounded-lg shadow-xl">
             <span className="text-[10px] font-mono text-[#D6C489] tracking-widest uppercase font-bold">FEATURING:</span>
@@ -555,18 +567,21 @@ export const Home: React.FC = () => {
       </section>
 
       {/* ACCREDITATIONS & CERTIFICATIONS LOGO BAR */}
-      <section className="bg-[#101A29] border-b border-[#A49050]/30 py-3.5 text-white overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="bg-[#101A29] py-8 text-white overflow-hidden relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4 sm:gap-6 items-center">
             {ACCREDITATION_LOGOS.map((logo, idx) => {
               const LogoComp = logo.component;
+              const isLast = idx === ACCREDITATION_LOGOS.length - 1;
               return (
                 <Link
                   key={logo.id}
                   to="/about/certifications"
-                  className={`group flex flex-col items-center justify-center px-4 py-1 ${
-                    idx === ACCREDITATION_LOGOS.length - 1 ? '' : 'md:border-r md:border-white/10'
-                  } hover:-translate-y-0.5 transition-all duration-300`}
+                  className={`group flex flex-col items-center justify-center px-4 py-1 hover:-translate-y-0.5 transition-all duration-300 ${
+                    idx === ACCREDITATION_LOGOS.length - 1 ? '' : 'lg:border-r lg:border-white/10'
+                  } ${
+                    isLast ? 'col-span-2 sm:col-span-3 md:col-span-4 lg:col-span-1 justify-self-center w-full max-w-[200px] lg:max-w-none' : ''
+                  }`}
                   title={`${logo.label} - ${logo.sub}`}
                 >
                   <div className="w-full max-w-[145px] sm:max-w-[160px] h-10 sm:h-12 bg-white rounded-lg shadow-sm px-3 py-1 flex items-center justify-center border border-white/20 group-hover:border-[#D6C489] group-hover:shadow-md transition-all duration-300">
@@ -583,7 +598,7 @@ export const Home: React.FC = () => {
       </section>
 
       {/* ECOSYSTEM PARTNERS / ACCREDITATIONS */}
-      <section className="py-12 bg-white border-b border-gray-200 overflow-hidden">
+      <section className="py-14 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <span className="text-xs font-mono tracking-widest text-[#A49050] uppercase">TRACK RECORD BY SECTOR</span>
@@ -700,13 +715,16 @@ export const Home: React.FC = () => {
             alt="National highway and bridge infrastructure"
             className="w-full h-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#101A29]/75 via-[#2B4A6D]/55 to-[#101A29]/80 backdrop-brightness-[0.9]"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0B1523]/80 via-[#1B3553]/65 to-[#0B1523]/90 backdrop-brightness-[0.9]"></div>
         </div>
+
+        {/* Top Smooth Fade Mask from light section above */}
+        <div className="absolute inset-x-0 top-0 h-20 sm:h-28 bg-gradient-to-b from-[#F1F3F5] via-[#F1F3F5]/30 to-transparent pointer-events-none z-[5]" aria-hidden="true" />
 
         {/* Floating Text Directly Over Image */}
         <div className="relative z-10 w-full max-w-5xl mx-auto text-center flex flex-col items-center">
           {/* Top decorative accent rule */}
-          <span className="brand-statement__rule block h-[2.5px] w-28 sm:w-36 bg-[#D6C489] mb-6 sm:mb-8 rounded-full shadow-sm" aria-hidden="true" />
+          <span className="brand-statement__rule block h-[2.5px] w-24 sm:w-32 bg-[#D6C489] mb-5 sm:mb-7 rounded-full shadow-sm" aria-hidden="true" />
 
           {/* Main Typography with Image 4 Staggered Animation */}
           <div className="space-y-3 sm:space-y-4">
@@ -722,10 +740,10 @@ export const Home: React.FC = () => {
               </span>
             </h2>
           </div>
-
-          {/* Bottom decorative accent rule */}
-          <span className="brand-statement__rule block h-[2.5px] w-28 sm:w-36 bg-[#D6C489] mt-6 sm:mt-8 rounded-full shadow-sm" aria-hidden="true" />
         </div>
+
+        {/* Bottom Smooth Fade Mask into Services Spotlight below */}
+        <div className="absolute inset-x-0 bottom-0 h-24 sm:h-36 bg-gradient-to-b from-transparent via-[#F1F3F5]/60 to-[#F1F3F5] pointer-events-none z-[5]" aria-hidden="true" />
       </section>
 
       {/* SERVICES SPOTLIGHT SECTION */}
@@ -833,7 +851,7 @@ export const Home: React.FC = () => {
             {LIFECYCLE_STAGES.map((stage, idx) => {
               const isVisible = visibleCards[idx];
               const isNodeActive = isVisible || (idx > 0 && (segmentProgress[idx - 1] || 0) > 0.1);
-              const StageIcon = LIFECYCLE_ICONS[idx] || Compass;
+              const StageIcon = LIFECYCLE_ICONS[idx] || PlanningSvg;
 
               return (
                 <div
@@ -854,8 +872,8 @@ export const Home: React.FC = () => {
                     {stage.step}
                   </div>
                   <div className="rounded-xl bg-[#F8F9FA] p-4 sm:p-5 pt-6 flex flex-col gap-2">
-                    <div className="w-8 h-8 rounded-full bg-white shadow-sm border border-black/5 flex items-center justify-center text-[#2B4A6D]">
-                      <StageIcon className="w-4 h-4" />
+                    <div className="w-11 h-11 rounded-xl bg-white shadow-sm border border-[#2B4A6D]/10 flex items-center justify-center group-hover:scale-105 group-hover:shadow-md group-hover:border-[#D96B33]/30 transition-all duration-300">
+                      <StageIcon className="w-6 h-6 shrink-0 transition-transform duration-300 group-hover:scale-110" />
                     </div>
                     <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#A49050]">{stage.category}</span>
                     <h3 className="text-base sm:text-lg font-serif font-bold text-[#2B4A6D] leading-snug">{stage.title}</h3>

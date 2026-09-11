@@ -1,7 +1,28 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { FileText, ArrowRight, ShieldCheck, Eye } from 'lucide-react';
+import { ArrowRight, Eye } from 'lucide-react';
 import type { GovernanceDocument } from '../data/corporateGovernance';
+import {
+  NominationPolicySvg,
+  PoshPolicySvg,
+  CsrPolicySvg,
+  GenericPolicySvg,
+} from './GovernancePolicySvgIcons';
+
+const getPolicyIcon = (title: string, index: number) => {
+  const lower = title.toLowerCase();
+  if (lower.includes('nomination') || lower.includes('remuneration')) {
+    return NominationPolicySvg;
+  }
+  if (lower.includes('posh') || lower.includes('harassment') || lower.includes('safety')) {
+    return PoshPolicySvg;
+  }
+  if (lower.includes('social responsibility') || lower.includes('csr') || lower.includes('sustainability')) {
+    return CsrPolicySvg;
+  }
+  const fallbackIcons = [NominationPolicySvg, PoshPolicySvg, CsrPolicySvg];
+  return fallbackIcons[index % fallbackIcons.length] || GenericPolicySvg;
+};
 
 interface PolicyDocumentsSectionProps {
   documents: GovernanceDocument[];
@@ -57,54 +78,57 @@ export const PolicyDocumentsSection: React.FC<PolicyDocumentsSectionProps> = ({
 
         {/* Policy Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 mt-6">
-          {documents.map((doc, idx) => (
-            <div
-              key={doc.file}
-              className="gsap-policy-card rounded-xl border border-[#2B4A6D]/15 bg-[#FCFAF7]/40 p-5 sm:p-6 flex flex-col justify-between hover:border-[#D96B33]/50 hover:bg-white hover:shadow-md transition-all duration-300 group"
-            >
-              <div className="flex flex-col gap-3">
-                <div className="flex items-center justify-between gap-2">
-                  <div className="w-10 h-10 rounded-lg bg-[#F1F3F5] border border-[#2B4A6D]/15 flex items-center justify-center text-[#2B4A6D] group-hover:text-[#D96B33] group-hover:border-[#D96B33]/30 transition-colors">
-                    <FileText className="w-5 h-5" />
+          {documents.map((doc, idx) => {
+            const PolicyIcon = getPolicyIcon(doc.title, idx);
+            return (
+              <div
+                key={doc.file}
+                className="gsap-policy-card rounded-xl border border-[#2B4A6D]/15 bg-[#FCFAF7]/40 p-5 sm:p-6 flex flex-col justify-between hover:border-[#D96B33]/50 hover:bg-white hover:shadow-md transition-all duration-300 group"
+              >
+                <div className="flex flex-col gap-3">
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="w-11 h-11 rounded-xl bg-white shadow-sm border border-[#2B4A6D]/15 flex items-center justify-center group-hover:scale-105 group-hover:shadow-md group-hover:border-[#D96B33]/30 transition-all duration-300">
+                      <PolicyIcon className="w-6 h-6 shrink-0 transition-transform duration-300 group-hover:scale-110" />
+                    </div>
+                    <span className="text-[10px] font-mono font-semibold text-[#A49050] uppercase tracking-wider">
+                      Policy #{String(idx + 1).padStart(2, '0')}
+                    </span>
                   </div>
-                  <span className="text-[10px] font-mono font-semibold text-[#A49050] uppercase tracking-wider">
-                    Policy #{String(idx + 1).padStart(2, '0')}
-                  </span>
+
+                  <h4 className="text-base sm:text-lg font-serif font-bold text-[#2B4A6D] group-hover:text-[#D96B33] transition-colors leading-snug">
+                    {doc.title}
+                  </h4>
+
+                  <p className="text-xs text-[#2B4A6D]/70 leading-relaxed font-sans">
+                    {doc.summary}
+                  </p>
                 </div>
 
-                <h4 className="text-base sm:text-lg font-serif font-bold text-[#2B4A6D] group-hover:text-[#D96B33] transition-colors leading-snug">
-                  {doc.title}
-                </h4>
-
-                <p className="text-xs text-[#2B4A6D]/70 leading-relaxed font-sans">
-                  {doc.summary}
-                </p>
+                <div className="pt-4 mt-4 border-t border-[#2B4A6D]/10">
+                  {onSelectPolicy ? (
+                    <button
+                      type="button"
+                      onClick={() => onSelectPolicy(doc.file, doc.title)}
+                      className="w-full bg-[#2B4A6D] hover:bg-[#D96B33] text-white py-2.5 px-4 text-xs font-mono font-bold tracking-wider uppercase transition-colors shadow-2xs flex items-center justify-center gap-2 rounded-lg cursor-pointer"
+                    >
+                      <Eye className="w-3.5 h-3.5" />
+                      <span>View Policy</span>
+                    </button>
+                  ) : (
+                    <a
+                      href={doc.file}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full bg-[#2B4A6D] hover:bg-[#D96B33] text-white py-2.5 px-4 text-xs font-mono font-bold tracking-wider uppercase transition-colors shadow-2xs flex items-center justify-center gap-2 rounded-lg cursor-pointer"
+                    >
+                      <span>View Policy</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </a>
+                  )}
+                </div>
               </div>
-
-              <div className="pt-4 mt-4 border-t border-[#2B4A6D]/10">
-                {onSelectPolicy ? (
-                  <button
-                    type="button"
-                    onClick={() => onSelectPolicy(doc.file, doc.title)}
-                    className="w-full bg-[#2B4A6D] hover:bg-[#D96B33] text-white py-2.5 px-4 text-xs font-mono font-bold tracking-wider uppercase transition-colors shadow-2xs flex items-center justify-center gap-2 rounded-lg cursor-pointer"
-                  >
-                    <Eye className="w-3.5 h-3.5" />
-                    <span>View Policy</span>
-                  </button>
-                ) : (
-                  <a
-                    href={doc.file}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full bg-[#2B4A6D] hover:bg-[#D96B33] text-white py-2.5 px-4 text-xs font-mono font-bold tracking-wider uppercase transition-colors shadow-2xs flex items-center justify-center gap-2 rounded-lg cursor-pointer"
-                  >
-                    <span>View Policy</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </a>
-                )}
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>

@@ -130,14 +130,14 @@ export const AboutOverview: React.FC = () => {
             <div className="about-heritage-copy lg:col-span-6 flex flex-col gap-6">
               <span className="text-xs font-mono tracking-widest text-[#D96B33] uppercase">OUR HERITAGE</span>
               <h2 className="text-3xl font-serif font-bold text-[#2B4A6D]">A Legacy of Precision, Integrity, and Nation-Building</h2>
-              <p className="text-sm text-[#2B4A6D]/80 leading-relaxed">
+              <p className="text-sm text-[#2B4A6D]/80 leading-relaxed text-justify">
                 Founded in 2013, Almondz Global Infra Consultant Limited has over a decade of experience in infrastructure consultancy, backed by the larger Almondz Group's legacy since 1994. AGICL has successfully delivered over 50+ major infrastructure projects and maintains more than 100+ active engagements across India and abroad.
               </p>
-              <p className="text-sm text-[#2B4A6D]/80 leading-relaxed">
+              <p className="text-sm text-[#2B4A6D]/80 leading-relaxed text-justify">
                 Our multidisciplinary teams comprise seasoned civil engineers, geotechnical experts, urban planners, financial analysts, and environmental scientists who work in synergy to deliver turnkey consultancy from concept to commissioning.
               </p>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4 border-t border-[#A49050]/30">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-6 relative border-t border-[#A49050]/20">
                 <div>
                   <div className="text-xl font-serif font-bold text-[#2B4A6D]">₹500Cr+</div>
                   <div className="text-xs font-mono text-[#2B4A6D]/60 mt-1">Active Order Book</div>
@@ -165,17 +165,17 @@ export const AboutOverview: React.FC = () => {
               </div>
             </div>
 
-            <div className="about-image-entry lg:col-span-6">
+            <div className="about-image-entry lg:col-span-6 w-full">
               <div
                 ref={imageCardRef}
-                className="about-image-card relative"
+                className="about-image-card relative w-full rounded-2xl overflow-hidden shadow-2xl group"
                 onPointerMove={handleImagePointerMove}
                 onPointerLeave={resetImageCard}
               >
                 <img
                   src={heritageImage}
                   alt="Metro infrastructure project"
-                  className="w-full h-[450px] object-cover shadow-2xl"
+                  className="w-full h-[340px] sm:h-[440px] lg:h-[500px] object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
               </div>
             </div>

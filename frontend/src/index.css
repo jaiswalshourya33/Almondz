@@ -1974,3 +1974,24 @@
   -ms-overflow-style: none !important;
   scrollbar-width: none !important;
 }
+
+/* Custom sleek scrollbar for dropdown menus & accordions */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(217, 107, 51, 0.5);
+  border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(217, 107, 51, 0.9);
+}
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(217, 107, 51, 0.5) rgba(255, 255, 255, 0.05);
+}

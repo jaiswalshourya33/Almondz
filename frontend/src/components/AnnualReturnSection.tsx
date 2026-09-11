@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import gsap from 'gsap';
-import { Eye, ChevronLeft, ChevronRight, FileText } from 'lucide-react';
+import { Eye, ChevronLeft, ChevronRight } from 'lucide-react';
 import type { AnnualReturnFiling } from '../data/corporateGovernance';
 
 interface AnnualReturnSectionProps {

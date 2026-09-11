@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import gsap from 'gsap';
-import { Eye, FileText } from 'lucide-react';
+import { Eye } from 'lucide-react';
 import type { GeneralMeetingCategory } from '../data/corporateGovernance';
 
 interface GeneralMeetingNoticesSectionProps {
