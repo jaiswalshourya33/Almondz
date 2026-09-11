@@ -1,118 +1,63 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Project } from '../data/projects';
-import { ArrowRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 
 interface ProjectCardProps {
   project: Project;
-  onOpenDetails?: (project: Project) => void;
 }
 
-export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenDetails }) => {
-  const isLongTitle = project.title.length > 85;
+const STATUS_DOT: Record<Project['status'], string> = {
+  'Recently Awarded': 'bg-[#D96B33]',
+  Ongoing: 'bg-[#2B4A6D]',
+  Completed: 'bg-emerald-700',
+};
 
-  const statusBadgeStyles: Record<Project["status"], { bg: string; dot: string; text: string }> = {
-    "Recently Awarded": {
-      bg: "bg-amber-50 border-amber-200/80 text-[#8A7942]",
-      dot: "bg-[#D6C489]",
-      text: "Recently Awarded"
-    },
-    "Ongoing": {
-      bg: "bg-blue-50 border-blue-200/80 text-[#2B4A6D]",
-      dot: "bg-blue-600",
-      text: "Ongoing"
-    },
-    "Completed": {
-      bg: "bg-emerald-50 border-emerald-200/80 text-emerald-800",
-      dot: "bg-emerald-600",
-      text: "Completed"
-    }
-  };
+// Photo-led project card: the site photograph fills the card and the project
+// details sit on a navy fade that is solid only along the bottom edge (which
+// also covers the GPS/map stamps some site photos carry there).
+export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => (
+  <Link
+    to={`/project/${project.id}`}
+    className="group project-card relative block overflow-hidden bg-[#0B1523] aspect-[4/5] shadow-[0_1px_3px_rgba(2,6,23,0.08)] hover:shadow-[0_20px_44px_rgba(2,6,23,0.24)] transition-shadow duration-500"
+  >
+    <img
+      src={project.image}
+      alt={project.title}
+      className="absolute inset-0 h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.06]"
+      style={project.imagePosition ? { objectPosition: project.imagePosition } : undefined}
+      referrerPolicy="no-referrer"
+      loading="lazy"
+    />
+    <div
+      className="absolute inset-0 bg-gradient-to-t from-[#07101C] from-22% via-[#07101C]/60 via-50% to-[#07101C]/0 to-80%"
+      aria-hidden="true"
+    />
 
-  const statusConfig = statusBadgeStyles[project.status] || statusBadgeStyles["Completed"];
+    <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 bg-white/95 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#020617]">
+      <span className={`h-1.5 w-1.5 ${STATUS_DOT[project.status] ?? STATUS_DOT.Completed}`} aria-hidden="true" />
+      {project.status}
+    </span>
 
-  const handleOpenDetails = () => {
-    if (onOpenDetails) {
-      onOpenDetails(project);
-    }
-  };
-
-  return (
-    <div className="group project-card bg-white border border-gray-200/80 rounded-xl overflow-hidden flex flex-col justify-between shadow-[0_2px_10px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_20px_rgba(62,76,96,0.14)] hover:border-[#3E4C60] transition-all duration-300 hover:-translate-y-0.5">
-      {/* Prominent Top Image Banner - Large Photo Size */}
-      <div 
-        onClick={handleOpenDetails}
-        className="relative h-52 sm:h-56 overflow-hidden bg-slate-100 cursor-pointer"
-      >
-        <img
-          src={project.image}
-          alt={project.title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
-          style={project.imagePosition ? { objectPosition: project.imagePosition } : undefined}
-          referrerPolicy="no-referrer"
-          loading="lazy"
-        />
-
-        {/* Floating Status Pill */}
-        <div className="absolute top-2.5 right-2.5 z-10">
-          <span className={`inline-flex items-center gap-1 text-[8.5px] font-semibold px-2 py-0.5 rounded-full border shadow-xs backdrop-blur-md ${statusConfig.bg}`}>
-            <span className={`w-1.5 h-1.5 rounded-full ${statusConfig.dot} animate-pulse`} />
-            <span>{statusConfig.text}</span>
-          </span>
-        </div>
-      </div>
-
-      {/* Card Content */}
-      <div className="p-4 sm:p-5 flex flex-col justify-between flex-1 gap-3 min-h-[140px]">
-        {/* Category Pill Tag & Capped Title */}
-        <div>
-          <span className="inline-flex items-center text-[8.5px] font-mono font-bold tracking-wider uppercase px-2 py-0.5 rounded-full bg-[#3E4C60] text-[#D6C489] border border-[#A49050]/55 shadow-2xs">
-            {project.sector}
-          </span>
-
-          <h3
-            className="mt-2.5 text-xs sm:text-[13px] font-serif font-medium text-[#2B4A6D] group-hover:text-[#3E4C60] transition-colors leading-snug line-clamp-3"
-            title={project.title}
-          >
-            {project.title}
-          </h3>
-
-          {isLongTitle && (
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                handleOpenDetails();
-              }}
-              className="mt-1.5 text-[11px] font-semibold text-[#D96B33] hover:text-[#B85420] hover:underline cursor-pointer inline-flex items-center"
-            >
-              Show more
-            </button>
-          )}
-        </div>
-
-        {/* Compact View Details Action Button */}
-        <div className="pt-3 mt-auto">
-          {onOpenDetails ? (
-            <button
-              type="button"
-              onClick={handleOpenDetails}
-              className="w-full py-2 px-3 bg-[#2B4A6D] hover:bg-[#3E4C60] hover:text-[#D6C489] text-white text-[10.5px] font-bold tracking-wider uppercase rounded-md transition-all duration-200 flex items-center justify-center gap-1 shadow-xs hover:shadow-sm cursor-pointer active:scale-[0.99]"
-            >
-              <span>View Details</span>
-              <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
-            </button>
-          ) : (
-            <Link
-              to="/projects"
-              className="w-full py-2 px-3 bg-[#2B4A6D] hover:bg-[#3E4C60] hover:text-[#D6C489] text-white text-[10.5px] font-bold tracking-wider uppercase rounded-md transition-all duration-200 flex items-center justify-center gap-1 shadow-xs hover:shadow-sm active:scale-[0.99]"
-            >
-              <span>View Details</span>
-              <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
-            </Link>
-          )}
-        </div>
+    <div className="absolute inset-x-0 bottom-0 p-5">
+      <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#D6C489]">{project.sector}</p>
+      <h3 className="mt-2 text-[14px] leading-[20px] font-semibold text-white line-clamp-3" title={project.title}>
+        {project.title}
+      </h3>
+      <div className="mt-3.5 flex items-center justify-between gap-4 border-t border-white/20 pt-3.5">
+        <p className="min-w-0 text-[12px] leading-[18px]">
+          <span className="block truncate text-white/85">{project.client}</span>
+          <span className="block truncate text-white/55">{project.location}</span>
+        </p>
+        <span
+          className="flex h-9 w-9 shrink-0 items-center justify-center border border-white/30 text-white transition-colors duration-300 group-hover:border-[#D96B33] group-hover:bg-[#D96B33]"
+          aria-hidden="true"
+        >
+          <ArrowUpRight className="h-3.5 w-3.5" />
+        </span>
       </div>
     </div>
-  );
-};
+
+    <span className="absolute bottom-0 left-0 h-[3px] w-0 bg-[#D96B33] transition-all duration-500 group-hover:w-full" aria-hidden="true" />
+  </Link>
+);

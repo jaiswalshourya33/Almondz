@@ -156,7 +156,7 @@ export const MissionVision: React.FC = () => {
                     willChange: 'opacity, transform',
                   }}
                 >
-                  <div className="mission-vision-card relative overflow-hidden rounded-3xl p-8 lg:p-10 flex flex-col gap-4 bg-white/[0.08] backdrop-blur-2xl border border-white/30 shadow-[inset_0_1px_1px_rgba(255,255,255,0.45),0_25px_60px_rgba(0,0,0,0.4)] transition-all duration-300">
+                  <div className="mission-vision-card relative overflow-hidden rounded-lg p-8 lg:p-10 flex flex-col gap-4 bg-white/[0.08] backdrop-blur-2xl border border-white/30 shadow-[inset_0_1px_1px_rgba(255,255,255,0.45),0_25px_60px_rgba(0,0,0,0.4)] transition-all duration-300">
                     <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-[#0B1526]/45 via-[#0B1526]/30 to-[#0B1526]/50" />
 
                     <div style={scrollStagger(progress, 0.05, 0.06)}>
@@ -198,7 +198,7 @@ export const MissionVision: React.FC = () => {
                     willChange: 'opacity, transform',
                   }}
                 >
-                  <div className="mission-vision-card relative overflow-hidden rounded-3xl p-8 lg:p-10 flex flex-col gap-4 bg-white/[0.08] backdrop-blur-2xl border border-white/30 shadow-[inset_0_1px_1px_rgba(255,255,255,0.45),0_25px_60px_rgba(0,0,0,0.4)] transition-all duration-300">
+                  <div className="mission-vision-card relative overflow-hidden rounded-lg p-8 lg:p-10 flex flex-col gap-4 bg-white/[0.08] backdrop-blur-2xl border border-white/30 shadow-[inset_0_1px_1px_rgba(255,255,255,0.45),0_25px_60px_rgba(0,0,0,0.4)] transition-all duration-300">
                     <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-[#0B1526]/45 via-[#0B1526]/30 to-[#0B1526]/50" />
 
                     <div style={scrollStagger(progress, 0.46, 0.06)}>
@@ -248,7 +248,7 @@ export const MissionVision: React.FC = () => {
           {/* Cards Stack */}
           <div className="relative z-10 w-full max-w-2xl mx-auto flex flex-col gap-8">
             {/* OUR MISSION CARD */}
-            <div className="mission-vision-card relative overflow-hidden rounded-3xl p-6 sm:p-8 flex flex-col gap-4 bg-white/[0.08] backdrop-blur-2xl border border-white/30 shadow-[inset_0_1px_1px_rgba(255,255,255,0.45),0_20px_50px_rgba(0,0,0,0.4)]">
+            <div className="mission-vision-card relative overflow-hidden rounded-lg p-6 sm:p-8 flex flex-col gap-4 bg-white/[0.08] backdrop-blur-2xl border border-white/30 shadow-[inset_0_1px_1px_rgba(255,255,255,0.45),0_20px_50px_rgba(0,0,0,0.4)]">
               <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-[#0B1526]/50 via-[#0B1526]/35 to-[#0B1526]/55" />
 
               <div>
@@ -278,7 +278,7 @@ export const MissionVision: React.FC = () => {
             </div>
 
             {/* OUR VISION CARD */}
-            <div className="mission-vision-card relative overflow-hidden rounded-3xl p-6 sm:p-8 flex flex-col gap-4 bg-white/[0.08] backdrop-blur-2xl border border-white/30 shadow-[inset_0_1px_1px_rgba(255,255,255,0.45),0_20px_50px_rgba(0,0,0,0.4)]">
+            <div className="mission-vision-card relative overflow-hidden rounded-lg p-6 sm:p-8 flex flex-col gap-4 bg-white/[0.08] backdrop-blur-2xl border border-white/30 shadow-[inset_0_1px_1px_rgba(255,255,255,0.45),0_20px_50px_rgba(0,0,0,0.4)]">
               <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-[#0B1526]/45 via-[#0B1526]/30 to-[#0B1526]/50" />
 
               <div>

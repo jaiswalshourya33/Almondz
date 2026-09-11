@@ -6,6 +6,8 @@ import { SECTORS } from '../data/sectors';
 import { SERVICES } from '../data/services';
 import { CORPORATE_GOVERNANCE } from '../data/corporateGovernance';
 import { Menu, X, ChevronDown, ArrowRight, Phone } from 'lucide-react';
+import { getSectorIcon } from './SectorSvgIcons';
+import { getServiceIcon } from './ServiceSvgIcons';
 
 const ABOUT_ITEMS = [
   { name: 'Overview', path: '/about' },
@@ -192,10 +194,10 @@ export const Navbar: React.FC = () => {
                           <Link
                             to={item.path}
                             onClick={closeDropdowns}
-                            className={`block px-3.5 py-2 text-sm transition-all border-l-2 rounded-r-lg ${
+                            className={`block px-3.5 py-2 text-sm transition-colors rounded-lg ${
                               isActive
-                                ? 'text-white bg-white/10 border-[#D96B33] font-medium'
-                                : 'text-white/80 hover:text-white hover:bg-white/10 border-transparent hover:border-[#D96B33]'
+                                ? 'text-[#D96B33] bg-white/10 font-medium'
+                                : 'text-white/80 hover:text-[#D96B33] hover:bg-white/5'
                             }`}
                           >
                             {item.name}
@@ -248,7 +250,7 @@ export const Navbar: React.FC = () => {
                       SPECIALIZED INFRASTRUCTURE DOMAINS ({String(SECTORS.length).padStart(2, '0')})
                     </span>
                     <Link 
-                      to="/sectors" 
+                       to="/sectors" 
                       onClick={closeDropdowns} 
                       className="text-xs font-mono text-white/70 hover:text-[#D96B33] flex items-center gap-1 transition-colors"
                     >
@@ -262,22 +264,25 @@ export const Navbar: React.FC = () => {
                         key={sector.id}
                         to={`/sectors/${sector.slug}`}
                         onClick={closeDropdowns}
-                        className={`p-2.5 rounded-xl transition-all group flex items-start gap-3 border-l-2 ${
+                        className={`p-2 rounded-xl transition-colors group flex items-center gap-3.5 ${
                           isActive
-                            ? 'bg-white/10 border-[#D96B33]'
-                            : 'border-transparent hover:bg-white/5 hover:border-[#D96B33]'
+                            ? 'bg-white/10'
+                            : 'hover:bg-white/5'
                         }`}
                       >
-                        <div className={`w-1.5 h-1.5 rounded-full mt-2 transition-colors ${
-                          isActive ? 'bg-[#D96B33]' : 'bg-[#A49050] group-hover:bg-[#D96B33]'
-                        }`}></div>
-                        <div>
+                        <div className={`w-9 h-9 shrink-0 flex items-center justify-center rounded-lg ring-1 ring-inset transition-colors ${
+                          isActive
+                            ? 'bg-[#D96B33]/15 ring-[#D96B33]/60'
+                            : 'bg-white/[0.07] ring-white/15 group-hover:bg-[#D96B33]/10 group-hover:ring-[#D96B33]/50'
+                        }`}>
+                          {getSectorIcon(sector.slug, "w-[22px] h-[22px]")}
+                        </div>
+                        <div className="min-w-0">
                           <h4 className={`text-[14px] font-sans font-medium leading-[20px] transition-colors ${
                             isActive ? 'text-[#D96B33]' : 'text-white group-hover:text-[#D96B33]'
                           }`}>
                             {sector.title}
                           </h4>
-                          <p className="text-xs text-white/60 line-clamp-1 mt-0.5">{sector.shortDesc}</p>
                         </div>
                       </Link>
                     );
@@ -334,17 +339,21 @@ export const Navbar: React.FC = () => {
                         key={srv.id}
                         to={`/services?service=${srv.slug}`}
                         onClick={closeDropdowns}
-                        className={`p-2 rounded-xl transition-all group flex items-start gap-3 border-l-2 ${
+                        className={`p-2 rounded-xl transition-colors group flex items-center gap-3.5 ${
                           isActive
-                            ? 'bg-white/10 border-[#D96B33]'
-                            : 'border-transparent hover:bg-white/5 hover:border-[#D96B33]'
+                            ? 'bg-white/10'
+                            : 'hover:bg-white/5'
                         }`}
                       >
-                        <div className={`w-1.5 h-1.5 rounded-full mt-2 transition-colors ${
-                          isActive ? 'bg-[#D96B33]' : 'bg-[#A49050] group-hover:bg-[#D96B33]'
-                        }`}></div>
-                        <div>
-                          <h4 className={`text-[14px] font-sans font-medium leading-[20px] transition-colors ${
+                        <div className={`w-9 h-9 shrink-0 flex items-center justify-center rounded-lg ring-1 ring-inset transition-colors ${
+                          isActive
+                            ? 'bg-[#D96B33]/15 ring-[#D96B33]/60'
+                            : 'bg-white/[0.07] ring-white/15 group-hover:bg-[#D96B33]/10 group-hover:ring-[#D96B33]/50'
+                        }`}>
+                          {getServiceIcon(srv.slug, "w-[22px] h-[22px]")}
+                        </div>
+                        <div className="min-w-0">
+                          <h4 className={`text-[13.5px] font-sans font-medium leading-[18px] transition-colors ${
                             isActive ? 'text-[#D96B33]' : 'text-white group-hover:text-[#D96B33]'
                           }`}>
                             {srv.title}
@@ -426,10 +435,10 @@ export const Navbar: React.FC = () => {
                           <Link
                             to={itemPath}
                             onClick={closeDropdowns}
-                            className={`block px-3.5 py-2 text-sm transition-all border-l-2 rounded-r-lg ${
+                            className={`block px-3.5 py-2 text-sm transition-colors rounded-lg ${
                               isActive
-                                ? 'text-white bg-white/10 border-[#D96B33] font-medium'
-                                : 'text-white/80 hover:text-white hover:bg-white/10 border-transparent hover:border-[#D96B33]'
+                                ? 'text-[#D96B33] bg-white/10 font-medium'
+                                : 'text-white/80 hover:text-[#D96B33] hover:bg-white/5'
                             }`}
                           >
                             {item.navLabel}
@@ -487,7 +496,7 @@ export const Navbar: React.FC = () => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -10, scale: 0.98 }}
               transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="lg:hidden absolute top-full left-0 right-0 bg-[#1D3552]/98 backdrop-blur-2xl border-b border-[#A49050]/30 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.6)] px-5 sm:px-6 py-6 max-h-[85vh] overflow-y-auto custom-scrollbar z-50"
+              className="lg:hidden absolute top-full left-0 right-0 bg-[#1D3552]/98 backdrop-blur-2xl border-b border-[#A49050]/30 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.6)] px-5 sm:px-6 py-6 max-h-[85vh] overflow-y-auto no-scrollbar scrollbar-none z-50"
             >
               <div className="flex flex-col gap-2.5">
                 {/* HOME */}
@@ -573,10 +582,10 @@ export const Navbar: React.FC = () => {
                                 <Link
                                   to={item.path}
                                   onClick={() => setMobileMenuOpen(false)}
-                                  className={`block text-[13.5px] py-2 px-3 rounded-lg transition-all border-l-2 ${
+                                  className={`block text-[13.5px] py-2 px-3 rounded-lg transition-colors ${
                                     isActive
-                                      ? 'text-[#D96B33] font-semibold bg-white/10 border-[#D96B33]'
-                                      : 'text-white/85 hover:text-white hover:bg-white/5 border-transparent hover:border-[#D96B33]/60'
+                                      ? 'text-[#D96B33] font-semibold bg-white/10'
+                                      : 'text-white/85 hover:text-[#D96B33] hover:bg-white/5'
                                   }`}
                                 >
                                   {item.name}
@@ -647,7 +656,7 @@ export const Navbar: React.FC = () => {
                               transition: { staggerChildren: 0.015, staggerDirection: -1 }
                             }
                           }}
-                          className="mt-1.5 mb-2 py-2 px-2 flex flex-col gap-1 bg-[#101F31]/90 backdrop-blur-md rounded-xl border border-white/10 shadow-inner max-h-64 overflow-y-auto custom-scrollbar"
+                          className="mt-1.5 mb-2 py-2 px-2 flex flex-col gap-1 bg-[#101F31]/90 backdrop-blur-md rounded-xl border border-white/10 shadow-inner max-h-64 overflow-y-auto no-scrollbar scrollbar-none"
                         >
                           <motion.div
                             variants={{
@@ -678,13 +687,20 @@ export const Navbar: React.FC = () => {
                                 <Link 
                                   to={`/sectors/${sec.slug}`} 
                                   onClick={() => setMobileMenuOpen(false)} 
-                                  className={`block text-[13.5px] font-sans font-medium py-1.5 px-3 rounded-lg transition-all border-l-2 ${
+                                  className={`group flex items-center gap-3 text-[13.5px] font-sans font-medium py-1.5 px-2 rounded-lg transition-colors ${
                                     isActive
-                                      ? 'text-[#D96B33] font-semibold bg-white/10 border-[#D96B33]'
-                                      : 'text-white/85 hover:text-white hover:bg-white/5 border-transparent hover:border-[#D96B33]/60'
+                                      ? 'text-[#D96B33] font-semibold bg-white/10'
+                                      : 'text-white/85 hover:text-[#D96B33] hover:bg-white/5'
                                   }`}
                                 >
-                                  {sec.title}
+                                  <div className={`w-8 h-8 flex items-center justify-center shrink-0 rounded-lg ring-1 ring-inset transition-colors ${
+                                    isActive
+                                      ? 'bg-[#D96B33]/15 ring-[#D96B33]/60'
+                                      : 'bg-white/[0.07] ring-white/15 group-hover:ring-[#D96B33]/50'
+                                  }`}>
+                                    {getSectorIcon(sec.slug, "w-5 h-5")}
+                                  </div>
+                                  <span className="truncate">{sec.title}</span>
                                 </Link>
                               </motion.div>
                             );
@@ -752,7 +768,7 @@ export const Navbar: React.FC = () => {
                               transition: { staggerChildren: 0.015, staggerDirection: -1 }
                             }
                           }}
-                          className="mt-1.5 mb-2 py-2 px-2 flex flex-col gap-1 bg-[#101F31]/90 backdrop-blur-md rounded-xl border border-white/10 shadow-inner max-h-64 overflow-y-auto custom-scrollbar"
+                          className="mt-1.5 mb-2 py-2 px-2 flex flex-col gap-1 bg-[#101F31]/90 backdrop-blur-md rounded-xl border border-white/10 shadow-inner max-h-64 overflow-y-auto no-scrollbar scrollbar-none"
                         >
                           <motion.div
                             variants={{
@@ -781,16 +797,22 @@ export const Navbar: React.FC = () => {
                                 }}
                               >
                                 <Link 
-                                  key={srv.id} 
                                   to={`/services?service=${srv.slug}`} 
                                   onClick={() => setMobileMenuOpen(false)} 
-                                  className={`block text-[13.5px] font-sans font-medium py-1.5 px-3 rounded-lg transition-all border-l-2 ${
+                                  className={`group flex items-center gap-3 text-[13.5px] font-sans font-medium py-1.5 px-2 rounded-lg transition-colors ${
                                     isActive
-                                      ? 'text-[#D96B33] font-semibold bg-white/10 border-[#D96B33]'
-                                      : 'text-white/85 hover:text-white hover:bg-white/5 border-transparent hover:border-[#D96B33]/60'
+                                      ? 'text-[#D96B33] font-semibold bg-white/10'
+                                      : 'text-white/85 hover:text-[#D96B33] hover:bg-white/5'
                                   }`}
                                 >
-                                  {srv.title}
+                                  <div className={`w-8 h-8 flex items-center justify-center shrink-0 rounded-lg ring-1 ring-inset transition-colors ${
+                                    isActive
+                                      ? 'bg-[#D96B33]/15 ring-[#D96B33]/60'
+                                      : 'bg-white/[0.07] ring-white/15 group-hover:ring-[#D96B33]/50'
+                                  }`}>
+                                    {getServiceIcon(srv.slug, "w-5 h-5")}
+                                  </div>
+                                  <span className="truncate">{srv.title}</span>
                                 </Link>
                               </motion.div>
                             );
@@ -885,10 +907,10 @@ export const Navbar: React.FC = () => {
                                 <Link
                                   to={itemPath}
                                   onClick={() => setMobileMenuOpen(false)}
-                                  className={`block text-[13.5px] py-2 px-3 rounded-lg transition-all border-l-2 ${
+                                  className={`block text-[13.5px] py-2 px-3 rounded-lg transition-colors ${
                                     isActive
-                                      ? 'text-[#D96B33] font-semibold bg-white/10 border-[#D96B33]'
-                                      : 'text-white/85 hover:text-white hover:bg-white/5 border-transparent hover:border-[#D96B33]/60'
+                                      ? 'text-[#D96B33] font-semibold bg-white/10'
+                                      : 'text-white/85 hover:text-[#D96B33] hover:bg-white/5'
                                   }`}
                                 >
                                   {item.navLabel}

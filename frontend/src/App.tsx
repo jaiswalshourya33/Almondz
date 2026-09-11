@@ -19,6 +19,7 @@ import { SectorsPage } from './pages/SectorsPage';
 import { SectorDetail } from './pages/SectorDetail';
 import { ServicesPage } from './pages/ServicesPage';
 import { ProjectsPage } from './pages/ProjectsPage';
+import { ProjectDetailPage } from './pages/ProjectDetailPage';
 import { ContactPage } from './pages/ContactPage';
 import { CorporateGovernancePage } from './pages/CorporateGovernancePage';
 import { NotFoundPage } from './pages/NotFoundPage';
@@ -47,6 +48,7 @@ function AppRoutes() {
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/projects/:filter" element={<ProjectsPage />} />
+        <Route path="/project/:id" element={<ProjectDetailPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/corporate-governance/:slug" element={<CorporateGovernancePage />} />
         <Route path="*" element={<NotFoundPage />} />

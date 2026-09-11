@@ -4,8 +4,6 @@ import { Project } from '../data/projects';
 import { ALL_ARCHED_PROJECTS } from '../data/archedVaultProjects';
 import { SECTORS } from '../data/sectors';
 import { ProjectCard } from '../components/ProjectCard';
-import { ProjectVideoModal } from '../components/ProjectVideoModal';
-import { ProjectDetailsModal } from '../components/ProjectDetailsModal';
 import { Search, Filter, ChevronLeft, ChevronRight } from 'lucide-react';
 import cleanEnergyHero from '../images/hero/projects.jpg';
 
@@ -24,8 +22,6 @@ export const ProjectsPage: React.FC = () => {
   );
   const [selectedSector, setSelectedSector] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [activeVideo, setActiveVideo] = useState<{ url: string; title: string } | null>(null);
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const gridSectionRef = useRef<HTMLElement | null>(null);
   const heroStatementRef = useRef<HTMLElement | null>(null);
@@ -117,9 +113,9 @@ export const ProjectsPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Ultra-Smooth Fading Gradient Overlay Merging Hero into Page */}
+        {/* Very subtle, slim bottom edge dissolve */}
         <div 
-          className="absolute inset-x-0 bottom-0 h-28 sm:h-40 bg-gradient-to-b from-transparent via-[#F1F3F5]/60 to-[#F1F3F5] pointer-events-none z-[5]" 
+          className="absolute inset-x-0 bottom-0 h-6 sm:h-8 bg-gradient-to-b from-transparent to-[#F1F3F5] pointer-events-none z-[5]" 
           aria-hidden="true"
         />
       </section>
@@ -178,11 +174,7 @@ export const ProjectsPage: React.FC = () => {
             <>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
                 {paginatedProjects.map((proj) => (
-                  <ProjectCard
-                    key={proj.id}
-                    project={proj}
-                    onOpenDetails={(project) => setSelectedProject(project)}
-                  />
+                  <ProjectCard key={proj.id} project={proj} />
                 ))}
               </div>
 
@@ -307,22 +299,6 @@ export const ProjectsPage: React.FC = () => {
           )}
         </div>
       </section>
-
-      {/* Video Modal */}
-      <ProjectVideoModal
-        isOpen={!!activeVideo}
-        onClose={() => setActiveVideo(null)}
-        videoUrl={activeVideo?.url}
-        title={activeVideo?.title || ""}
-      />
-
-      {/* Project Details Modal */}
-      <ProjectDetailsModal
-        isOpen={!!selectedProject}
-        onClose={() => setSelectedProject(null)}
-        project={selectedProject}
-        onOpenVideo={(url, title) => setActiveVideo({ url, title })}
-      />
     </div>
   );
 };

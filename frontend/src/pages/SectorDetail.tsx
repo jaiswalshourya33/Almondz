@@ -2,18 +2,13 @@ import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { SECTORS } from '../data/sectors';
-import { Project } from '../data/projects';
 import { ALL_ARCHED_PROJECTS } from '../data/archedVaultProjects';
-import { ProjectVideoModal } from '../components/ProjectVideoModal';
-import { ProjectDetailsModal } from '../components/ProjectDetailsModal';
 import { SectorScopeShowcase } from '../components/SectorScopeShowcase';
 import { PageHeroBanner } from '../components/PageHeroBanner';
 
 export const SectorDetail: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const sector = SECTORS.find((s) => s.slug === slug);
-  const [activeVideo, setActiveVideo] = useState<{ url: string; title: string } | null>(null);
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [selectedStatus, setSelectedStatus] = useState<string>('All');
   const heroHeadingRef = useRef<HTMLHeadingElement | null>(null);
   const [heroLineWidth, setHeroLineWidth] = useState<number | null>(null);
@@ -222,10 +217,9 @@ export const SectorDetail: React.FC = () => {
                 style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
               >
                 {filteredProjects.map((proj) => (
-                  <button
+                  <Link
                     key={proj.id}
-                    type="button"
-                    onClick={() => setSelectedProject(proj)}
+                    to={`/project/${proj.id}`}
                     className="group shrink-0 snap-start w-[168px] sm:w-[176px] flex flex-col bg-white border border-[#A49050]/15 rounded-lg overflow-hidden shadow-[0_2px_10px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_20px_rgba(62,76,96,0.16)] hover:border-[#3E4C60] hover:-translate-y-0.5 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A49050]"
                     aria-label={`View details for ${proj.title}`}
                   >
@@ -247,29 +241,13 @@ export const SectorDetail: React.FC = () => {
                         {proj.title}
                       </h3>
                     </div>
-                  </button>
+                  </Link>
                 ))}
               </div>
             )}
           </div>
         </section>
       )}
-
-      {/* Video Modal */}
-      <ProjectVideoModal
-        isOpen={!!activeVideo}
-        onClose={() => setActiveVideo(null)}
-        videoUrl={activeVideo?.url}
-        title={activeVideo?.title || ""}
-      />
-
-      {/* Project Details Modal */}
-      <ProjectDetailsModal
-        isOpen={!!selectedProject}
-        onClose={() => setSelectedProject(null)}
-        project={selectedProject}
-        onOpenVideo={(url, title) => setActiveVideo({ url, title })}
-      />
     </div>
   );
 };

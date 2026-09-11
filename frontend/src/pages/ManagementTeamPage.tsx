@@ -415,7 +415,7 @@ export const ManagementTeamPage: React.FC = () => {
       {/* Governance Philosophy Section */}
       <section className="pt-8 pb-20 bg-[#F1F3F5]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div ref={governanceBannerRef} className="gov-banner relative rounded-3xl shadow-2xl overflow-hidden">
+          <div ref={governanceBannerRef} className="gov-banner relative rounded-lg shadow-xl overflow-hidden">
             {/* Full-width background image — its height now follows the
                 card's own natural height (the card drives layout height as
                 an in-flow element; the image fills it via absolute+h-full),
@@ -496,19 +496,19 @@ export const ManagementTeamPage: React.FC = () => {
           <div className="min-h-full flex items-center justify-center">
           <div
             key={activeModalMember.id}
-            className="leader-modal-panel w-full max-w-5xl bg-white rounded-3xl shadow-2xl relative flex flex-col sm:flex-row"
+            className="leader-modal-panel w-full max-w-5xl bg-white rounded-lg shadow-2xl relative flex flex-col sm:flex-row overflow-hidden"
             onClick={(event) => event.stopPropagation()}
           >
             <button
               onClick={() => setActiveModalMember(null)}
-              className="absolute top-5 right-5 z-20 p-2.5 bg-white/95 hover:bg-white text-[#2B4A6D] rounded-full shadow-lg transition-colors"
+              className="absolute top-4 right-4 z-20 p-2 bg-[#1E3654]/90 hover:bg-[#D96B33] text-white rounded-md shadow-md transition-colors"
               aria-label="Close profile"
             >
               <X className="w-5 h-5" />
             </button>
 
             {/* Left: the member's own photo, filling the full card height */}
-            <div className="relative w-full sm:w-[30%] h-48 sm:h-auto shrink-0 overflow-hidden bg-[#F1F3F5] rounded-t-3xl sm:rounded-t-none sm:rounded-l-3xl">
+            <div className="relative w-full sm:w-[30%] h-48 sm:h-auto shrink-0 overflow-hidden bg-[#F1F3F5]">
               <img
                 src={activeModalMember.image}
                 alt={activeModalMember.name}
