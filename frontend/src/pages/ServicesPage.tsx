@@ -316,91 +316,97 @@ export const ServicesPage: React.FC = () => {
 
       {/* DETAILED SERVICE MODAL */}
       {selectedService && (
-        <div key={selectedService.id} className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-[#2B4A6D]/70 backdrop-blur-sm animate-fade-in">
-          <div className="bg-white w-full max-w-6xl md:h-[85vh] max-h-[92vh] rounded-3xl shadow-2xl relative flex flex-col md:flex-row overflow-hidden">
+        <div 
+          key={selectedService.id} 
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setSelectedService(null);
+          }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 md:p-6 bg-[#2B4A6D]/75 backdrop-blur-sm animate-fade-in"
+        >
+          <div className="bg-white w-full max-w-4xl max-h-[70vh] sm:max-h-[74vh] md:max-h-[78vh] md:h-[72vh] rounded-2xl sm:rounded-3xl shadow-2xl relative flex flex-col md:flex-row overflow-hidden border border-[#A49050]/20">
             <button
               onClick={() => setSelectedService(null)}
-              className="absolute top-5 right-5 z-20 p-2.5 bg-white/95 hover:bg-white text-[#2B4A6D] rounded-full shadow-lg transition-colors"
+              className="absolute top-2.5 right-2.5 sm:top-3.5 sm:right-3.5 z-20 p-1.5 sm:p-2 bg-black/45 hover:bg-black/70 text-white backdrop-blur-md rounded-full shadow-md transition-all cursor-pointer"
               aria-label="Close modal"
             >
-              <X className="w-5 h-5" />
+              <X className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
             </button>
 
-            {/* Left: thumbnail image, slides in from the left on open */}
-            <div className="service-modal-image-panel relative w-full h-56 md:h-full md:w-[42%] shrink-0 overflow-hidden">
+            {/* Left: compact thumbnail banner on mobile, side panel on desktop */}
+            <div className="service-modal-image-panel relative w-full h-24 sm:h-32 md:h-full md:w-[36%] shrink-0 overflow-hidden bg-[#2B4A6D]">
               <img
                 src={selectedService.image}
                 alt={selectedService.title}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-center"
                 referrerPolicy="no-referrer"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#2B4A6D]/60 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-[#2B4A6D]/15"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#2B4A6D]/80 via-black/20 to-transparent md:bg-gradient-to-r md:from-transparent md:to-[#2B4A6D]/20"></div>
             </div>
 
-            {/* Right: details content, slides in from the right on open */}
-            <div className="service-modal-content-panel flex-1 flex flex-col justify-between overflow-hidden">
+            {/* Right: details content panel */}
+            <div className="service-modal-content-panel flex-1 flex flex-col justify-between overflow-hidden min-h-0">
               {/* Header */}
-              <div className="px-6 pt-6 pb-3 sm:px-8 sm:pt-8 sm:pb-3.5 border-b border-gray-100 shrink-0">
-                <span className="inline-flex w-fit items-center text-xs font-medium text-[#A49050] bg-[#A49050]/10 border border-[#A49050]/30 px-3 py-1 rounded-full mb-2">
+              <div className="px-4 pt-3 pb-2 sm:px-6 sm:pt-4 sm:pb-2.5 border-b border-gray-100 shrink-0 bg-white">
+                <span className="inline-flex w-fit items-center text-[9px] sm:text-[11px] font-mono font-bold text-[#A49050] bg-[#A49050]/10 border border-[#A49050]/30 px-2 py-0.5 rounded-full mb-1 sm:mb-1.5 uppercase tracking-wider">
                   AGICL Practice Division
                 </span>
-                <h3 className="text-2xl sm:text-3xl font-serif font-bold text-[#2B4A6D]">
+                <h3 className="text-base sm:text-xl md:text-2xl font-serif font-bold text-[#2B4A6D] leading-tight line-clamp-2 sm:line-clamp-none">
                   {selectedService.title}
                 </h3>
               </div>
 
               {/* Scrollable Content */}
-              <div className="px-6 py-4 sm:px-8 sm:py-5 overflow-y-auto space-y-5 flex-1">
+              <div className="px-4 py-2.5 sm:px-6 sm:py-3.5 overflow-y-auto space-y-2.5 sm:space-y-3.5 flex-1 min-h-0">
                 {/* Section 1: Overview */}
-                <div className="space-y-2">
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-[#2B4A6D] border-b border-gray-200 pb-1.5">
+                <div className="space-y-1">
+                  <h4 className="text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider text-[#2B4A6D]/80 border-b border-gray-100 pb-0.5">
                     Overview
                   </h4>
-                  <p className="text-sm text-black leading-relaxed">
+                  <p className="text-xs sm:text-sm text-gray-800 leading-relaxed font-normal">
                     {selectedService.description}
                   </p>
                 </div>
 
                 {/* Section 2: Key Deliverables */}
-                <div className="space-y-2 pt-1">
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-[#2B4A6D] border-b border-gray-200 pb-1.5">
+                <div className="space-y-1 pt-0.5">
+                  <h4 className="text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider text-[#2B4A6D]/80 border-b border-gray-100 pb-0.5">
                     Key Deliverables
                   </h4>
-                  <ul className="space-y-1.5 text-xs">
+                  <ul className="space-y-1 text-xs sm:text-sm">
                     {selectedService.deliverables.map((del, dIdx) => (
                       <li key={dIdx} className="flex items-start gap-2">
                         <span className="text-[#A49050] font-bold text-sm leading-none mt-0.5">•</span>
-                        <span className="font-medium text-black leading-relaxed">{del}</span>
+                        <span className="font-normal text-gray-800 leading-relaxed">{del}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
                 {/* Section 3: How We Deliver It */}
-                <div className="space-y-2 pt-1">
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-[#2B4A6D] border-b border-gray-200 pb-1.5">
+                <div className="space-y-1 pt-0.5">
+                  <h4 className="text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider text-[#2B4A6D]/80 border-b border-gray-100 pb-0.5">
                     How We Deliver It
                   </h4>
-                  <p className="text-sm text-black leading-relaxed bg-[#F1F3F5] p-3.5 rounded-sm">
+                  <p className="text-xs sm:text-sm text-gray-800 leading-relaxed bg-[#F8FAFC] p-2.5 sm:p-3 rounded-lg border border-gray-100 font-normal">
                     {selectedService.methodology}
                   </p>
                 </div>
               </div>
 
               {/* Footer Buttons */}
-              <div className="flex items-center justify-end gap-3 px-6 sm:px-10 py-5 border-t border-gray-100 bg-[#F1F3F5]/50 shrink-0">
+              <div className="flex items-center justify-end gap-2 px-4 py-2 sm:px-6 sm:py-3 border-t border-gray-100 bg-[#F8FAFC] shrink-0">
                 <button
                   onClick={() => setSelectedService(null)}
-                  className="px-5 py-2.5 text-sm font-medium text-[#2B4A6D] hover:bg-gray-100 rounded-full transition-colors cursor-pointer"
+                  className="px-3 py-1.5 text-xs font-medium text-[#2B4A6D] hover:bg-gray-200/60 rounded-full transition-colors cursor-pointer"
                 >
                   Close
                 </button>
                 <button
                   onClick={() => handleDownloadBrochure(selectedService)}
-                  className="px-6 py-2.5 bg-[#3E4C60] hover:bg-[#2B4A6D] text-white hover:text-[#D6C489] text-sm font-medium rounded-full shadow-md hover:shadow-lg transition-all flex items-center gap-2 border border-[#A49050]/30 cursor-pointer"
+                  className="px-3.5 sm:px-4 py-1.5 sm:py-2 bg-[#2B4A6D] hover:bg-[#1E354F] text-white text-xs font-medium rounded-full shadow-sm hover:shadow transition-all flex items-center gap-1.5 cursor-pointer"
                 >
-                  <Download className="w-4 h-4 text-[#D6C489]" />
-                  <span>Download Service Brief (PDF)</span>
+                  <Download className="w-3.5 h-3.5 text-[#D6C489]" />
+                  <span>Download PDF Brief</span>
                 </button>
               </div>
             </div>

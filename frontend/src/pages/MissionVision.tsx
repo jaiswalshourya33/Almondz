@@ -4,28 +4,23 @@ import missionVisionHero from '../images/hero/mumbai-skyline.jpg';
 import missionVisionBanner from '../images/hero/mission-vision.jpg';
 import { PageHeroBanner } from '../components/PageHeroBanner';
 
-const mapRange = (value: number, inMin: number, inMax: number, outMin: number, outMax: number) => {
-  if (inMax === inMin) return outMax;
-  const t = Math.min(Math.max((value - inMin) / (inMax - inMin), 0), 1);
-  return outMin + t * (outMax - outMin);
+const clamp = (val: number, min = 0, max = 1) => Math.min(Math.max(val, min), max);
+
+const lerp = (progress: number, start: number, end: number) => {
+  if (end <= start) return progress >= start ? 1 : 0;
+  return clamp((progress - start) / (end - start));
 };
 
-// Reveal style for one inner card element: fades in and lifts up slightly,
-// over the scroll-progress window [start, start + span]. Because this reads
-// live scroll progress on every render, it plays forwards on scroll down and
-// backwards on scroll up automatically — no separate "reverse" logic needed.
-const revealStyle = (progress: number, start: number, span: number) => {
-  const t = mapRange(progress, start, start + span, 0, 1);
-  return { opacity: t, transform: `translateY(${(1 - t) * 14}px)` };
+// Smooth reveal style driven directly by scroll progress
+const scrollStagger = (progress: number, start: number, span: number, distanceY = 16) => {
+  const t = lerp(progress, start, start + span);
+  const eased = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+  return {
+    opacity: t,
+    transform: `translate3d(0, ${(1 - eased) * distanceY}px, 0)`,
+    willChange: 'opacity, transform',
+  };
 };
-
-const MISSION_START = 0.3;
-// Mission's own reveal (box + title + paragraph + 4 bullets) finishes at
-// MISSION_START + 0.28 = 0.58. Vision doesn't start until VISION_START,
-// leaving a scrolled-but-nothing-happens gap in between — so Vision only
-// begins once Mission has fully completed, and scrolling back up through
-// that same gap reverses Vision first, then Mission, in mirror order.
-const VISION_START = 0.7;
 
 const MISSION_BULLETS = [
   'Technically excellent & innovative solutions',
@@ -41,69 +36,27 @@ const VISION_BULLETS = [
   'Earn fair returns on value created',
 ];
 
-/**
- * Frosted backing for a Mission/Vision card: a real blurred copy of the hero
- * image, clipped to the card by the card's own `overflow-hidden`, under a dark
- * tint for text contrast. A genuine blurred image layer (not `backdrop-filter`,
- * which in a sticky/transformed context repaints late on scroll) — so only the
- * area behind the card is blurred, and it reads as blurred the instant the card
- * appears. `objectPosition` matches the sharp section image so the blurred crop
- * lines up closely with the surroundings at the card edge.
- */
-const CardFrost: React.FC<{ objectPosition: string }> = ({ objectPosition }) => (
-  <>
-    <img
-      src={missionVisionHero}
-      alt=""
-      aria-hidden
-      className="pointer-events-none absolute inset-0 -z-10 h-full w-full scale-125 object-cover blur-xl select-none"
-      style={{ objectPosition }}
-    />
-    <span aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-[#0B1220]/35" />
-  </>
-);
-
 export const MissionVision: React.FC = () => {
   const zoomSectionRef = useRef<HTMLElement | null>(null);
-  const missionCardRef = useRef<HTMLDivElement | null>(null);
-  const visionCardRef = useRef<HTMLDivElement | null>(null);
   const [progress, setProgress] = useState(0);
-  const [cardHeight, setCardHeight] = useState<number | null>(null);
-  const heroHeadingRef = useRef<HTMLHeadingElement | null>(null);
-  const [heroLineWidth, setHeroLineWidth] = useState<number | null>(null);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  const targetProgressRef = useRef(0);
+  const currentProgressRef = useRef(0);
+  const rafIdRef = useRef<number | null>(null);
 
   useLayoutEffect(() => {
-    const measure = () => {
-      const heading = heroHeadingRef.current;
-      if (!heading) return;
-      const rects = heading.getClientRects();
-      const lastRect = rects[rects.length - 1];
-      if (lastRect) setHeroLineWidth(lastRect.width);
+    const checkDesktop = () => {
+      setIsDesktop(window.innerWidth >= 1024);
     };
-    measure();
-    window.addEventListener('resize', measure);
-    return () => window.removeEventListener('resize', measure);
-  }, []);
-
-  // Both cards must match in height and neither may clip or scroll its own
-  // content. Measure each card's real (unclipped) content height and size both
-  // to the taller of the two — no viewport cap, so the text always fits and no
-  // scrollbar ever appears. (On a very short viewport the centred block can
-  // exceed the screen; that's an acceptable trade for this scroll-driven
-  // desktop showcase.)
-  useLayoutEffect(() => {
-    const measure = () => {
-      const mission = missionCardRef.current;
-      const vision = visionCardRef.current;
-      if (!mission || !vision) return;
-      setCardHeight(Math.max(mission.scrollHeight, vision.scrollHeight));
-    };
-    measure();
-    window.addEventListener('resize', measure);
-    return () => window.removeEventListener('resize', measure);
+    checkDesktop();
+    window.addEventListener('resize', checkDesktop, { passive: true });
+    return () => window.removeEventListener('resize', checkDesktop);
   }, []);
 
   useEffect(() => {
+    if (!isDesktop) return;
+
     const zoomSection = zoomSectionRef.current;
     if (!zoomSection) return;
 
@@ -112,49 +65,57 @@ export const MissionVision: React.FC = () => {
       return;
     }
 
-    let frameId: number | null = null;
-
-    const updateProgress = () => {
-      frameId = null;
+    const updateTarget = () => {
       const rect = zoomSection.getBoundingClientRect();
-      const scrollableDistance = rect.height - window.innerHeight;
-      if (scrollableDistance <= 0) {
-        setProgress(1);
-        return;
+      const windowH = window.innerHeight;
+      const scrolled = windowH - rect.top;
+      const totalDistance = rect.height;
+
+      if (scrolled <= 0) {
+        targetProgressRef.current = 0;
+      } else {
+        targetProgressRef.current = clamp(scrolled / totalDistance, 0, 1);
       }
-      const scrolled = -rect.top;
-      setProgress(Math.min(Math.max(scrolled / scrollableDistance, 0), 1));
     };
 
-    const onScroll = () => {
-      if (frameId === null) frameId = requestAnimationFrame(updateProgress);
+    // Inertial lerp loop for liquid-smooth 60-120fps motion on desktop
+    const smoothLoop = () => {
+      const diff = targetProgressRef.current - currentProgressRef.current;
+      if (Math.abs(diff) > 0.0003) {
+        currentProgressRef.current += diff * 0.12;
+        setProgress(currentProgressRef.current);
+      } else if (currentProgressRef.current !== targetProgressRef.current) {
+        currentProgressRef.current = targetProgressRef.current;
+        setProgress(currentProgressRef.current);
+      }
+      rafIdRef.current = requestAnimationFrame(smoothLoop);
     };
 
-    updateProgress();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
+    updateTarget();
+    currentProgressRef.current = targetProgressRef.current;
+    setProgress(targetProgressRef.current);
+
+    rafIdRef.current = requestAnimationFrame(smoothLoop);
+
+    window.addEventListener('scroll', updateTarget, { passive: true });
+    window.addEventListener('resize', updateTarget, { passive: true });
+
     return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-      if (frameId !== null) cancelAnimationFrame(frameId);
+      window.removeEventListener('scroll', updateTarget);
+      window.removeEventListener('resize', updateTarget);
+      if (rafIdRef.current !== null) {
+        cancelAnimationFrame(rafIdRef.current);
+      }
     };
-  }, []);
+  }, [isDesktop]);
 
-  // Phase 1 (0 → 0.30): image zooms in, cards stay hidden.
-  // Phase 2 (0.30 → 0.58): Mission card box slides in, then its content
-  //   (title, paragraph, bullets) reveals one piece at a time.
-  // Phase 3 (0.70 → 0.98): once Mission has fully finished and the reader has
-  //   kept scrolling past the gap, the Vision card plays the same sequence.
-  // Scrolling back up runs this whole thing in reverse, since every value
-  // below is a direct, live function of `progress`.
-  // Kept very small so the sharp section image and each card's fixed-attachment
-  // blurred copy stay aligned (a big zoom would only apply to the sharp layer).
-  const imageScale = 1 + mapRange(progress, 0, 1, 0, 0.04);
+  // Desktop Animation Timings
+  const imageScale = 1 + lerp(progress, 0, 1) * 0.04;
+  const desktopMissionOpacity = lerp(progress, 0.03, 0.13);
+  const desktopMissionTranslateX = (1 - lerp(progress, 0.03, 0.13)) * -45;
 
-  const missionOpacity = mapRange(progress, MISSION_START, MISSION_START + 0.08, 0, 1);
-  const missionTranslate = mapRange(progress, MISSION_START, MISSION_START + 0.08, -70, 0);
-  const visionOpacity = mapRange(progress, VISION_START, VISION_START + 0.08, 0, 1);
-  const visionTranslate = mapRange(progress, VISION_START, VISION_START + 0.08, 70, 0);
+  const desktopVisionOpacity = lerp(progress, 0.44, 0.54);
+  const desktopVisionTranslateX = (1 - lerp(progress, 0.44, 0.54)) * 45;
 
   return (
     <div className="about-dropdown-page flex flex-col min-h-screen bg-[#F1F3F5] pt-24">
@@ -166,83 +127,188 @@ export const MissionVision: React.FC = () => {
         backgroundImage={missionVisionBanner}
       />
 
-      {/* Scroll-driven image zoom, then Mission (left) and Vision (right) cards
-          slide in over the image one after the other, each card's own content
-          (title → paragraph → bullets) revealing piece by piece. The section
-          is 260vh tall so there's real scroll distance to drive the effect;
-          the inner layer stays pinned (position: sticky) while that happens.
-          Everything is a pure function of scroll progress, so scrolling up
-          reverses the whole sequence — Vision hides first, then Mission. */}
-      <section ref={zoomSectionRef} className="mission-vision-zoom-section relative" style={{ height: '260vh' }}>
-        <div className="sticky top-0 h-screen w-full overflow-hidden">
-          <img
-            src={missionVisionHero}
-            alt="Smart city infrastructure aerial view"
-            className="absolute inset-0 w-full h-full object-cover object-[center_65%]"
-            style={{ transform: `scale(${imageScale})`, transition: 'transform 60ms linear' }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#2B4A6D]/45 via-[#2B4A6D]/15 to-[#2B4A6D]/55" />
+      {isDesktop ? (
+        /* DESKTOP VIEW: Side-by-side with Sticky Scroll Stagger & Crystal Glassmorphism */
+        <section ref={zoomSectionRef} className="mission-vision-zoom-section relative" style={{ height: '200vh' }}>
+          <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
+            {/* Full Panoramic City Background Image */}
+            <img
+              src={missionVisionHero}
+              alt="Smart city infrastructure aerial view"
+              className="absolute inset-0 w-full h-full object-cover object-[center_65%] pointer-events-none select-none"
+              style={{
+                transform: `scale(${imageScale}) translate3d(0, 0, 0)`,
+                willChange: 'transform',
+              }}
+            />
+            {/* Crystal Ambient Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-b from-[#101F33]/55 via-[#101F33]/25 to-[#101F33]/60 pointer-events-none" />
 
-          {/* Centered responsive container holding Mission and Vision with guaranteed central spacing */}
-          <div className="absolute inset-0 top-24 bottom-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between pointer-events-none gap-6 sm:gap-8 lg:gap-12">
-            {/* Mission — Left Card */}
-            <div
-              className="w-full md:w-[calc(50%-16px)] lg:w-[calc(50%-24px)] pointer-events-auto"
-              style={{ opacity: missionOpacity, transform: `translateX(${missionTranslate}px)` }}
-            >
-              <div
-                ref={missionCardRef}
-                className="mission-vision-card relative isolate overflow-hidden rounded-2xl p-5 sm:p-8 lg:p-9 flex flex-col gap-3 border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.28)]"
-                style={{ height: cardHeight ? `${cardHeight}px` : 'auto' }}
-              >
-                <CardFrost objectPosition="20% 60%" />
-                <h2 style={revealStyle(progress, MISSION_START + 0.1, 0.05)} className="text-2xl sm:text-3xl font-serif font-bold text-white [text-shadow:0_2px_10px_rgba(0,0,0,0.55)]">Our Mission</h2>
-                <p style={revealStyle(progress, MISSION_START + 0.13, 0.06)} className="text-xs sm:text-sm text-white/90 leading-relaxed [text-shadow:0_1px_6px_rgba(0,0,0,0.5)]">
-                  To deliver excellence in infrastructure consultancy, engineering and technology through innovation, domain expertise and client-centric execution. Almondz creates long-term value with efficient, transparent and sustainable solutions across transportation, water, urban infrastructure, disaster resilience and digital transformation — building strong partnerships with governments, institutions and private enterprises, always to the highest standards of integrity, quality and operational excellence.
-                </p>
-                <ul className="flex flex-col gap-2 pt-3 mt-auto border-t border-white/20">
-                  {MISSION_BULLETS.map((bullet, idx) => (
-                    <li key={bullet} style={revealStyle(progress, MISSION_START + 0.17 + idx * 0.02, 0.05)} className="flex items-center gap-3 text-xs sm:text-sm text-white/90 [text-shadow:0_1px_6px_rgba(0,0,0,0.5)]">
-                      <span className="w-5 h-5 rounded-full bg-[#D96B33] flex items-center justify-center shrink-0">
-                        <Check className="w-3 h-3 text-white" strokeWidth={3} />
-                      </span>
-                      <span>{bullet}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+            {/* Cards Container */}
+            <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8 pointer-events-none">
+              <div className="grid grid-cols-2 gap-8 lg:gap-12 items-stretch">
+                {/* OUR MISSION CARD */}
+                <div
+                  className="pointer-events-auto transition-transform"
+                  style={{
+                    opacity: desktopMissionOpacity,
+                    transform: `translate3d(${desktopMissionTranslateX}px, 0, 0)`,
+                    willChange: 'opacity, transform',
+                  }}
+                >
+                  <div className="mission-vision-card relative overflow-hidden rounded-3xl p-8 lg:p-10 flex flex-col gap-4 bg-white/[0.08] backdrop-blur-2xl border border-white/30 shadow-[inset_0_1px_1px_rgba(255,255,255,0.45),0_25px_60px_rgba(0,0,0,0.4)] transition-all duration-300">
+                    <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-[#0B1526]/45 via-[#0B1526]/30 to-[#0B1526]/50" />
 
-            {/* Vision — Right Card */}
-            <div
-              className="w-full md:w-[calc(50%-16px)] lg:w-[calc(50%-24px)] pointer-events-auto"
-              style={{ opacity: visionOpacity, transform: `translateX(${visionTranslate}px)` }}
-            >
-              <div
-                ref={visionCardRef}
-                className="mission-vision-card relative isolate overflow-hidden rounded-2xl p-5 sm:p-8 lg:p-9 flex flex-col gap-3 border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.28)]"
-                style={{ height: cardHeight ? `${cardHeight}px` : 'auto' }}
-              >
-                <CardFrost objectPosition="80% 60%" />
-                <h2 style={revealStyle(progress, VISION_START + 0.1, 0.05)} className="text-2xl sm:text-3xl font-serif font-bold text-white [text-shadow:0_2px_10px_rgba(0,0,0,0.55)]">Our Vision</h2>
-                <p style={revealStyle(progress, VISION_START + 0.13, 0.06)} className="text-xs sm:text-sm text-white/90 leading-relaxed [text-shadow:0_1px_6px_rgba(0,0,0,0.5)]">
-                  To emerge as a globally respected, technology-driven infrastructure consultancy — enabling sustainable growth through innovative engineering, digital transformation and integrated advisory. Almondz envisions building resilient, future-ready infrastructure ecosystems that advance economic development, urban modernisation, environmental sustainability and quality of life across communities in India and beyond.
-                </p>
-                <ul className="flex flex-col gap-2 pt-3 mt-auto border-t border-white/20">
-                  {VISION_BULLETS.map((bullet, idx) => (
-                    <li key={bullet} style={revealStyle(progress, VISION_START + 0.17 + idx * 0.02, 0.05)} className="flex items-center gap-3 text-xs sm:text-sm text-white/90 [text-shadow:0_1px_6px_rgba(0,0,0,0.5)]">
-                      <span className="w-5 h-5 rounded-full bg-[#D96B33] flex items-center justify-center shrink-0">
-                        <Check className="w-3 h-3 text-white" strokeWidth={3} />
+                    <div style={scrollStagger(progress, 0.05, 0.06)}>
+                      <span className="text-xs font-mono tracking-widest text-[#FFA066] uppercase font-bold block mb-1">
+                        OUR MISSION
                       </span>
-                      <span>{bullet}</span>
-                    </li>
-                  ))}
-                </ul>
+                      <h2 className="text-2xl lg:text-3xl font-serif font-bold text-white tracking-tight">
+                        Engineering Excellence with Integrity
+                      </h2>
+                    </div>
+
+                    <div style={scrollStagger(progress, 0.10, 0.06)}>
+                      <p className="text-xs lg:text-sm text-white/95 leading-relaxed font-normal">
+                        To deliver excellence in infrastructure consultancy, engineering and technology through innovation, domain expertise and client-centric execution. Almondz creates long-term value with efficient, transparent and sustainable solutions across transportation, water, urban infrastructure, disaster resilience and digital transformation — building strong partnerships with governments, institutions and private enterprises, always to the highest standards of integrity, quality and operational excellence.
+                      </p>
+                    </div>
+
+                    <ul className="flex flex-col gap-3 pt-4 mt-auto border-t border-white/20">
+                      {MISSION_BULLETS.map((bullet, idx) => (
+                        <li
+                          key={bullet}
+                          style={scrollStagger(progress, 0.14 + idx * 0.05, 0.05)}
+                          className="flex items-start gap-2.5 text-xs lg:text-sm text-white/95 leading-relaxed"
+                        >
+                          <Check className="w-4 h-4 text-[#FFA066] shrink-0 mt-0.5" strokeWidth={2.5} />
+                          <span className="font-normal">{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                {/* OUR VISION CARD */}
+                <div
+                  className="pointer-events-auto transition-transform"
+                  style={{
+                    opacity: desktopVisionOpacity,
+                    transform: `translate3d(${desktopVisionTranslateX}px, 0, 0)`,
+                    willChange: 'opacity, transform',
+                  }}
+                >
+                  <div className="mission-vision-card relative overflow-hidden rounded-3xl p-8 lg:p-10 flex flex-col gap-4 bg-white/[0.08] backdrop-blur-2xl border border-white/30 shadow-[inset_0_1px_1px_rgba(255,255,255,0.45),0_25px_60px_rgba(0,0,0,0.4)] transition-all duration-300">
+                    <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-[#0B1526]/45 via-[#0B1526]/30 to-[#0B1526]/50" />
+
+                    <div style={scrollStagger(progress, 0.46, 0.06)}>
+                      <span className="text-xs font-mono tracking-widest text-[#FFDF80] uppercase font-bold block mb-1">
+                        OUR VISION
+                      </span>
+                      <h2 className="text-2xl lg:text-3xl font-serif font-bold text-white tracking-tight">
+                        Global Benchmark in Nation-Building
+                      </h2>
+                    </div>
+
+                    <div style={scrollStagger(progress, 0.50, 0.06)}>
+                      <p className="text-xs lg:text-sm text-white/95 leading-relaxed font-normal">
+                        To emerge as a globally respected, technology-driven infrastructure consultancy — enabling sustainable growth through innovative engineering, digital transformation and integrated advisory. Almondz envisions building resilient, future-ready infrastructure ecosystems that advance economic development, urban modernisation, environmental sustainability and quality of life across communities in India and beyond.
+                      </p>
+                    </div>
+
+                    <ul className="flex flex-col gap-3 pt-4 mt-auto border-t border-white/20">
+                      {VISION_BULLETS.map((bullet, idx) => (
+                        <li
+                          key={bullet}
+                          style={scrollStagger(progress, 0.54 + idx * 0.05, 0.05)}
+                          className="flex items-start gap-2.5 text-xs lg:text-sm text-white/95 leading-relaxed"
+                        >
+                          <Check className="w-4 h-4 text-[#FFDF80] shrink-0 mt-0.5" strokeWidth={2.5} />
+                          <span className="font-normal">{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      ) : (
+        /* MOBILE & TABLET VIEW: Natural Continuous Flow */
+        <section className="relative py-12 sm:py-16 px-4 sm:px-6 overflow-hidden">
+          {/* Panoramic City Background Image */}
+          <img
+            src={missionVisionHero}
+            alt="Smart city infrastructure aerial view"
+            className="absolute inset-0 w-full h-full object-cover object-[center_65%] pointer-events-none select-none"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#101F33]/55 via-[#101F33]/30 to-[#101F33]/60 pointer-events-none" />
+
+          {/* Cards Stack */}
+          <div className="relative z-10 w-full max-w-2xl mx-auto flex flex-col gap-8">
+            {/* OUR MISSION CARD */}
+            <div className="mission-vision-card relative overflow-hidden rounded-3xl p-6 sm:p-8 flex flex-col gap-4 bg-white/[0.08] backdrop-blur-2xl border border-white/30 shadow-[inset_0_1px_1px_rgba(255,255,255,0.45),0_20px_50px_rgba(0,0,0,0.4)]">
+              <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-[#0B1526]/50 via-[#0B1526]/35 to-[#0B1526]/55" />
+
+              <div>
+                <span className="text-xs font-mono tracking-widest text-[#FFA066] uppercase font-bold block mb-1">
+                  OUR MISSION
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight">
+                  Engineering Excellence with Integrity
+                </h2>
+              </div>
+
+              <p className="text-xs sm:text-sm text-white/95 leading-relaxed font-normal">
+                To deliver excellence in infrastructure consultancy, engineering and technology through innovation, domain expertise and client-centric execution. Almondz creates long-term value with efficient, transparent and sustainable solutions across transportation, water, urban infrastructure, disaster resilience and digital transformation — building strong partnerships with governments, institutions and private enterprises, always to the highest standards of integrity, quality and operational excellence.
+              </p>
+
+              <ul className="flex flex-col gap-3 pt-4 mt-auto border-t border-white/20">
+                {MISSION_BULLETS.map((bullet) => (
+                  <li
+                    key={bullet}
+                    className="flex items-start gap-2.5 text-xs sm:text-sm text-white/95 leading-relaxed"
+                  >
+                    <Check className="w-4 h-4 text-[#FFA066] shrink-0 mt-0.5" strokeWidth={2.5} />
+                    <span className="font-normal">{bullet}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* OUR VISION CARD */}
+            <div className="mission-vision-card relative overflow-hidden rounded-3xl p-6 sm:p-8 flex flex-col gap-4 bg-white/[0.08] backdrop-blur-2xl border border-white/30 shadow-[inset_0_1px_1px_rgba(255,255,255,0.45),0_20px_50px_rgba(0,0,0,0.4)]">
+              <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-[#0B1526]/45 via-[#0B1526]/30 to-[#0B1526]/50" />
+
+              <div>
+                <span className="text-xs font-mono tracking-widest text-[#FFDF80] uppercase font-bold block mb-1">
+                  OUR VISION
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight">
+                  Global Benchmark in Nation-Building
+                </h2>
+              </div>
+
+              <p className="text-xs sm:text-sm text-white/95 leading-relaxed font-normal">
+                To emerge as a globally respected, technology-driven infrastructure consultancy — enabling sustainable growth through innovative engineering, digital transformation and integrated advisory. Almondz envisions building resilient, future-ready infrastructure ecosystems that advance economic development, urban modernisation, environmental sustainability and quality of life across communities in India and beyond.
+              </p>
+
+              <ul className="flex flex-col gap-3 pt-4 mt-auto border-t border-white/20">
+                {VISION_BULLETS.map((bullet) => (
+                  <li
+                    key={bullet}
+                    className="flex items-start gap-2.5 text-xs sm:text-sm text-white/95 leading-relaxed"
+                  >
+                    <Check className="w-4 h-4 text-[#FFDF80] shrink-0 mt-0.5" strokeWidth={2.5} />
+                    <span className="font-normal">{bullet}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
+      )}
     </div>
   );
 };

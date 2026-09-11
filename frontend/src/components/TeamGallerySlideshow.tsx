@@ -1,46 +1,36 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import slide01 from '../images/gallery/team-offsite-01.png';
-import slide02 from '../images/gallery/team-offsite-02.png';
-import slide03 from '../images/gallery/team-offsite-03.png';
-import slide04 from '../images/gallery/team-offsite-04.png';
+import photo01 from '../images/gallery/conclave-2025-01.jpg';
+import photo02 from '../images/gallery/conclave-2025-02.jpg';
+import photo03 from '../images/gallery/conclave-2025-03.jpg';
+import photo04 from '../images/gallery/conclave-2025-04.jpg';
 
-interface GallerySlide {
+interface GalleryPhoto {
   src: string;
-  caption: string;
-  sub: string;
+  alt: string;
+  // Vertical crop positions (CSS object-position). The frame trims part of each
+  // 3:2 photo; these decide how that trim splits between the space above the
+  // Almondz logo and the floor below people's feet. `focus` is for the 5:3
+  // phone/tablet frame (~10% trimmed), `focusLg` for the 2:1 desktop frame
+  // (~25% trimmed), where the logo is kept just inside the top edge.
+  focus: string;
+  focusLg: string;
 }
 
-const SLIDES: GallerySlide[] = [
-  {
-    src: slide01,
-    caption: 'One Firm, One Team',
-    sub: 'The Almondz Global Infra collective at the annual offsite',
-  },
-  {
-    src: slide02,
-    caption: 'Building the Next Milestone',
-    sub: 'Engineering and advisory leadership, together',
-  },
-  {
-    src: slide04,
-    caption: 'Celebrating the Journey',
-    sub: 'Marking a hundred crore to a thousand — and beyond',
-  },
-  {
-    src: slide03,
-    caption: 'Rooted in People',
-    sub: 'The specialists behind every independent engineering mandate',
-  },
+const PHOTOS: GalleryPhoto[] = [
+  { src: photo01, alt: 'Almondz colleagues felicitated on stage at Almondz Conclave 2025', focus: '50% 50%', focusLg: '50% 40%' },
+  { src: photo02, alt: 'Almondz colleagues at the Conclave 2025 photo wall', focus: '50% 30%', focusLg: '50% 14%' },
+  { src: photo03, alt: 'Almondz colleagues standing together at the Conclave 2025 backdrop', focus: '50% 85%', focusLg: '50% 22%' },
+  { src: photo04, alt: 'Almondz colleagues at the Conclave 2025 backdrop', focus: '50% 20%', focusLg: '50% 15%' },
 ];
 
-const INTERVAL_MS = 5500;
+const INTERVAL_MS = 3000;
+const SWIPE_THRESHOLD_PX = 40;
 
 export const TeamGallerySlideshow: React.FC = () => {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
-  const regionRef = useRef<HTMLDivElement | null>(null);
+  const touchStartX = useRef<number | null>(null);
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -51,20 +41,18 @@ export const TeamGallerySlideshow: React.FC = () => {
   }, []);
 
   const goTo = useCallback((next: number) => {
-    setIndex((prev) => (next + SLIDES.length) % SLIDES.length);
+    setIndex((next + PHOTOS.length) % PHOTOS.length);
   }, []);
 
   const next = useCallback(() => goTo(index + 1), [goTo, index]);
   const prev = useCallback(() => goTo(index - 1), [goTo, index]);
 
-  // Auto-advance. Restarts whenever the slide changes or the pause state flips,
+  // Auto-advance. Restarts whenever the photo changes or the pause state flips,
   // so a manual nav gives the viewer a fresh full interval on the new photo.
   useEffect(() => {
     if (paused || reducedMotion) return;
-    const id = window.setInterval(() => {
-      setIndex((prev) => (prev + 1) % SLIDES.length);
-    }, INTERVAL_MS);
-    return () => window.clearInterval(id);
+    const id = window.setTimeout(() => setIndex((i) => (i + 1) % PHOTOS.length), INTERVAL_MS);
+    return () => window.clearTimeout(id);
   }, [index, paused, reducedMotion]);
 
   const onKeyDown = (e: React.KeyboardEvent) => {
@@ -72,151 +60,82 @@ export const TeamGallerySlideshow: React.FC = () => {
     if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
   };
 
-  return (
-    <section
-      aria-label="Life at Almondz Global Infra"
-      className="relative w-full bg-[#0E1826] overflow-hidden select-none"
-    >
-      <style>{`
-        @keyframes tg-kenburns {
-          0%   { transform: scale(1.04) translate3d(0, 0, 0); }
-          100% { transform: scale(1.13) translate3d(-1.5%, -1.5%, 0); }
-        }
-        @keyframes tg-progress {
-          from { transform: scaleX(0); }
-          to   { transform: scaleX(1); }
-        }
-        @keyframes tg-caption-in {
-          from { opacity: 0; transform: translateY(14px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
 
-      {/* Section heading */}
-      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20 pb-8 text-center">
-        <span className="text-[10px] sm:text-[11px] font-mono font-bold tracking-[0.3em] uppercase text-[#A49050]">
-          Life At The Firm
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX.current;
+    touchStartX.current = null;
+    if (dx <= -SWIPE_THRESHOLD_PX) next();
+    if (dx >= SWIPE_THRESHOLD_PX) prev();
+  };
+
+  return (
+    // Footer-coloured band: heading above the photos, a short strip below so
+    // they don't sit directly on the footer content.
+    <div className="bg-[#2B4A6D] pb-4 sm:pb-6">
+      <div className="px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 lg:pt-14 pb-6 sm:pb-8 text-center max-w-4xl mx-auto">
+        <span className="text-[10px] sm:text-xs font-mono font-bold tracking-widest text-[#D6C489] uppercase block mb-1.5">
+          ANNUAL CONCLAVE
         </span>
-        <h2 className="mt-3 text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-white">
+        <h2 className="text-lg sm:text-2xl lg:text-3xl font-serif font-semibold tracking-tight text-white leading-snug">
           The People Behind Almondz Global Infra
         </h2>
-        <p className="mt-3 text-xs sm:text-sm text-white/60 font-light max-w-2xl mx-auto leading-relaxed">
-          A single, closely-knit team of engineers and advisors — captured at our
-          annual gathering.
-        </p>
+        <span aria-hidden="true" className="block w-10 h-[2px] bg-[#A49050] mx-auto mt-3 sm:mt-4" />
       </div>
 
-      {/* Full-bleed slideshow stage */}
-      <div
-        ref={regionRef}
-        tabIndex={0}
-        role="group"
+      <section
+        aria-label="Photographs from Almondz Conclave 2025"
         aria-roledescription="carousel"
+        tabIndex={0}
         onKeyDown={onKeyDown}
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
         onFocus={() => setPaused(true)}
         onBlur={() => setPaused(false)}
-        className="group relative w-full h-[58vh] min-h-[380px] max-h-[760px] sm:h-[70vh] outline-none"
+        // 5:3 on phones and tablets keeps the logo and full figures in view;
+        // desktop drops to 2:1 so the band doesn't run far past the screen.
+        // A gold rule closes the band at the bottom.
+        className="relative w-full aspect-[5/3] lg:aspect-[2/1] overflow-hidden bg-[#0E1826] border-b-[3px] border-[#A49050] select-none outline-none"
       >
-        {/* Slides */}
-        {SLIDES.map((slide, i) => {
-          const active = i === index;
-          return (
-            <div
-              key={slide.src}
-              aria-hidden={!active}
-              className="absolute inset-0 transition-opacity duration-[1100ms] ease-in-out will-change-[opacity]"
-              style={{ opacity: active ? 1 : 0 }}
-            >
-              <img
-                src={slide.src}
-                alt={`${slide.caption} — ${slide.sub}`}
-                className="w-full h-full object-cover"
-                style={
-                  active && !reducedMotion
-                    ? { animation: `tg-kenburns ${INTERVAL_MS + 1600}ms linear both` }
-                    : { transform: 'scale(1.04)' }
-                }
-                loading={i === 0 ? 'eager' : 'lazy'}
-                draggable={false}
-              />
-            </div>
-          );
-        })}
-
-        {/* Cinematic gradient wash for legibility */}
-        <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-[#0E1826] via-[#0E1826]/25 to-transparent" />
-        <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-[#0E1826]/55 via-transparent to-[#0E1826]/25" />
-
-        {/* Top progress bar */}
-        <div className="absolute top-0 left-0 right-0 h-[3px] bg-white/10 z-20">
-          <div
-            key={`${index}-${paused}-${reducedMotion}`}
-            className="h-full bg-[#A49050] origin-left"
-            style={{
-              transform: reducedMotion ? 'scaleX(1)' : undefined,
-              animation: reducedMotion
-                ? undefined
-                : `tg-progress ${INTERVAL_MS}ms linear both`,
-              animationPlayState: paused ? 'paused' : 'running',
-            }}
+        {PHOTOS.map((photo, i) => (
+          <img
+            key={photo.src}
+            src={photo.src}
+            alt={photo.alt}
+            aria-hidden={i !== index}
+            loading={i === 0 ? 'eager' : 'lazy'}
+            decoding="async"
+            draggable={false}
+            style={{ '--focus': photo.focus, '--focus-lg': photo.focusLg } as React.CSSProperties}
+            className={`absolute inset-0 w-full h-full object-cover [object-position:var(--focus)] lg:[object-position:var(--focus-lg)] transition-opacity duration-700 ease-out ${
+              i === index ? 'opacity-100' : 'opacity-0'
+            }`}
           />
-        </div>
+        ))}
 
-        {/* Caption */}
-        <div className="absolute left-0 bottom-0 z-20 w-full px-6 sm:px-10 lg:px-16 pb-16 sm:pb-20">
-          <div className="max-w-7xl mx-auto">
-            <div key={index} style={{ animation: 'tg-caption-in 700ms cubic-bezier(0.22, 1, 0.36, 1) both' }}>
-              <span className="inline-block text-[10px] font-mono font-bold tracking-[0.28em] uppercase text-[#A49050] mb-2">
-                {String(index + 1).padStart(2, '0')} / {String(SLIDES.length).padStart(2, '0')}
-              </span>
-              <h3 className="text-2xl sm:text-4xl lg:text-5xl font-serif font-bold text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.55)]">
-                {SLIDES[index].caption}
-              </h3>
-              <p className="mt-2 text-xs sm:text-sm text-white/75 font-light max-w-xl">
-                {SLIDES[index].sub}
-              </p>
-            </div>
-          </div>
-        </div>
+        {/* Soft shade at the foot so the indicators stay legible on bright floors */}
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/35 to-transparent pointer-events-none" />
 
-        {/* Prev / Next controls */}
-        <button
-          type="button"
-          onClick={prev}
-          aria-label="Previous photo"
-          className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center rounded-full bg-white/10 hover:bg-[#A49050] text-white border border-white/20 backdrop-blur-sm transition-all duration-300 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 hover:scale-105"
-        >
-          <ChevronLeft className="w-5 h-5" />
-        </button>
-        <button
-          type="button"
-          onClick={next}
-          aria-label="Next photo"
-          className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center rounded-full bg-white/10 hover:bg-[#A49050] text-white border border-white/20 backdrop-blur-sm transition-all duration-300 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 hover:scale-105"
-        >
-          <ChevronRight className="w-5 h-5" />
-        </button>
-
-        {/* Dot indicators */}
-        <div className="absolute right-6 sm:right-10 lg:right-16 bottom-16 sm:bottom-20 z-30 flex items-center gap-2.5">
-          {SLIDES.map((slide, i) => (
+        <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2">
+          {PHOTOS.map((photo, i) => (
             <button
-              key={slide.src}
+              key={photo.src}
               type="button"
               onClick={() => goTo(i)}
-              aria-label={`Go to photo ${i + 1}`}
+              aria-label={`Show photograph ${i + 1}`}
               aria-current={i === index}
               className={`h-1.5 rounded-full transition-all duration-500 ${
-                i === index ? 'w-8 bg-[#A49050]' : 'w-1.5 bg-white/40 hover:bg-white/70'
+                i === index ? 'w-8 bg-[#A49050]' : 'w-1.5 bg-white/60 hover:bg-white'
               }`}
             />
           ))}
         </div>
-      </div>
-
-      <div className="h-16 sm:h-20" />
-    </section>
+      </section>
+    </div>
   );
 };

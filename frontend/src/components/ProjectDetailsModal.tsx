@@ -19,9 +19,11 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
   // whenever a different project is opened.
   const SERVICES_PREVIEW_COUNT = 6;
   const [showAllServices, setShowAllServices] = useState(false);
+  const [showFullTitle, setShowFullTitle] = useState(false);
 
   useEffect(() => {
     setShowAllServices(false);
+    setShowFullTitle(false);
   }, [project, isOpen]);
 
   useEffect(() => {
@@ -44,6 +46,7 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
   const visibleServices = showAllServices
     ? project.servicesProvided
     : project.servicesProvided.slice(0, SERVICES_PREVIEW_COUNT);
+  const isTitleLong = (project.title?.length ?? 0) > 95;
 
   const statusColors = {
     "Recently Awarded": "bg-[#AB4E23] text-white",
@@ -109,9 +112,19 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
               </span>
             </div>
 
-            <h2 className="text-[11.5px] sm:text-xs md:text-[13px] font-serif font-bold text-[#2B4A6D] leading-snug">
+            <h2 className={`text-[11.5px] sm:text-xs md:text-[13px] font-serif font-bold text-[#2B4A6D] leading-snug ${!showFullTitle ? 'line-clamp-2 sm:line-clamp-3' : ''}`}>
               {project.title}
             </h2>
+
+            {isTitleLong && (
+              <button
+                type="button"
+                onClick={() => setShowFullTitle((prev) => !prev)}
+                className="mt-1 text-[11px] font-semibold text-[#D96B33] hover:text-[#B85420] hover:underline cursor-pointer inline-flex items-center gap-1 focus:outline-none"
+              >
+                {showFullTitle ? 'Show less' : 'View more'}
+              </button>
+            )}
 
             <div className="flex flex-wrap items-center gap-y-1 gap-x-3 text-[10.5px] sm:text-[11.5px] text-gray-600 mt-2 pt-2 border-t border-[#A49050]/15 font-medium">
               <span className="flex items-center gap-1.5">
