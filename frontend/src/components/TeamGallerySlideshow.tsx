@@ -75,15 +75,15 @@ export const TeamGallerySlideshow: React.FC = () => {
   return (
     // Footer-coloured band: heading above the photos, a short strip below so
     // they don't sit directly on the footer content.
-    <div className="bg-[#2B4A6D] pb-4 sm:pb-6">
-      <div className="px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 lg:pt-14 pb-6 sm:pb-8 text-center max-w-4xl mx-auto">
-        <span className="text-[10px] sm:text-xs font-mono font-bold tracking-widest text-[#D6C489] uppercase block mb-1.5">
-          ANNUAL CONCLAVE
+    <div className="bg-[#2B4A6D] pb-4 sm:pb-5 mb-5 sm:mb-8 border-b border-[#A49050]/40 shadow-xs">
+      <div className="px-4 sm:px-6 lg:px-8 pt-7 sm:pt-10 pb-5 sm:pb-6 text-center max-w-4xl mx-auto">
+        <span className="text-[10px] sm:text-xs font-mono font-bold tracking-widest text-[#D6C489] uppercase block mb-1">
+          ORGANISATIONAL HIGHLIGHTS
         </span>
         <h2 className="text-lg sm:text-2xl lg:text-3xl font-serif font-semibold tracking-tight text-white leading-snug">
-          The People Behind Almondz Global Infra
+          Annual Conclave
         </h2>
-        <span aria-hidden="true" className="block w-10 h-[2px] bg-[#A49050] mx-auto mt-3 sm:mt-4" />
+        <span aria-hidden="true" className="block w-10 h-[2px] bg-[#A49050] mx-auto mt-2.5 sm:mt-3" />
       </div>
 
       <section

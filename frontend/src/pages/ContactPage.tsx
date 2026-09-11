@@ -211,7 +211,7 @@ export const ContactPage: React.FC = () => {
       />
 
       {/* Main Content */}
-      <section className="py-20">
+      <section className="pt-12 sm:pt-16 pb-8 sm:pb-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
@@ -842,8 +842,10 @@ export const ContactPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Full-bleed team gallery slideshow */}
-      <TeamGallerySlideshow />
+      {/* Full-bleed team gallery slideshow with clean separation from footer */}
+      <div className="pb-6 sm:pb-8 bg-[#F1F3F5]">
+        <TeamGallerySlideshow />
+      </div>
     </div>
   );
 };
