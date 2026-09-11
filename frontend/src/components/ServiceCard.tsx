@@ -24,7 +24,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
           {service.title}
         </h3>
 
-        <p className="service-card__copy text-sm text-[#2B4A6D] leading-relaxed">
+        <p className="service-card__copy text-sm text-black leading-relaxed font-normal">
           {service.shortDesc}
         </p>
 
@@ -32,7 +32,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
           <span className="text-[10px] font-mono font-bold tracking-widest text-[#2B4A6D] uppercase">Key deliverables</span>
           <ul className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
             {service.deliverables.map((item, idx) => (
-              <li key={idx} className="flex items-start gap-2 text-xs text-[#2B4A6D]">
+              <li key={idx} className="flex items-start gap-2 text-xs text-black">
                 <CheckCircle2 className="mt-0.5 w-3.5 h-3.5 text-[#A49050] shrink-0" />
                 <span>{item}</span>
               </li>
@@ -42,7 +42,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
 
         <div className="service-card__methodology bg-[#F1F3F5] px-3 py-2.5 rounded-sm">
           <span className="block text-[10px] font-mono font-bold tracking-widest text-[#2B4A6D] uppercase">Delivery approach</span>
-          <p className="mt-1 text-xs leading-relaxed text-[#2B4A6D]">{service.methodology}</p>
+          <p className="mt-1 text-xs leading-relaxed text-black">{service.methodology}</p>
         </div>
       </div>
 

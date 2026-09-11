@@ -165,7 +165,7 @@ export const ServicesPage: React.FC = () => {
 
                   {/* Body Content */}
                   <div className="p-6 flex flex-col flex-1 justify-between gap-6">
-                    <p className="text-xs sm:text-sm text-[#2B4A6D]/75 leading-relaxed font-light">
+                    <p className="text-xs sm:text-sm text-black leading-relaxed font-normal">
                       {service.shortDesc}
                     </p>
 
@@ -356,7 +356,7 @@ export const ServicesPage: React.FC = () => {
                   <h4 className="text-xs font-bold uppercase tracking-wider text-[#2B4A6D] border-b border-gray-200 pb-1.5">
                     Overview
                   </h4>
-                  <p className="text-sm text-[#2B4A6D]/75 leading-relaxed">
+                  <p className="text-sm text-black leading-relaxed">
                     {selectedService.description}
                   </p>
                 </div>
@@ -370,7 +370,7 @@ export const ServicesPage: React.FC = () => {
                     {selectedService.deliverables.map((del, dIdx) => (
                       <li key={dIdx} className="flex items-start gap-2">
                         <span className="text-[#A49050] font-bold text-sm leading-none mt-0.5">•</span>
-                        <span className="font-medium text-[#2B4A6D]/90 leading-relaxed">{del}</span>
+                        <span className="font-medium text-black leading-relaxed">{del}</span>
                       </li>
                     ))}
                   </ul>
@@ -381,7 +381,7 @@ export const ServicesPage: React.FC = () => {
                   <h4 className="text-xs font-bold uppercase tracking-wider text-[#2B4A6D] border-b border-gray-200 pb-1.5">
                     How We Deliver It
                   </h4>
-                  <p className="text-sm text-[#2B4A6D]/75 leading-relaxed bg-[#F1F3F5] p-3.5 rounded-sm">
+                  <p className="text-sm text-black leading-relaxed bg-[#F1F3F5] p-3.5 rounded-sm">
                     {selectedService.methodology}
                   </p>
                 </div>
