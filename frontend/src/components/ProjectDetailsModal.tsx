@@ -66,13 +66,13 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
     .slice(0, 3);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/70 animate-fade-in">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/70 animate-fade-in">
       <div className="absolute inset-0" onClick={onClose} aria-label="Close background overlay" />
 
-      <div className="relative w-full max-w-4xl max-h-[92vh] bg-white border border-gray-300 shadow-2xl overflow-hidden z-10 rounded-sm flex flex-col">
+      <div className="relative w-[92vw] sm:w-[90vw] md:w-full max-w-4xl max-h-[72vh] sm:max-h-[80vh] md:max-h-[92vh] bg-white border border-gray-300 shadow-2xl overflow-hidden z-10 rounded-lg sm:rounded-md md:rounded-sm flex flex-col">
         
         {/* Window Titlebar */}
-        <div className="sticky top-0 z-20 bg-[#2B4A6D] text-white px-5 py-3 flex items-center justify-between border-b border-gray-700 select-none">
+        <div className="sticky top-0 z-20 bg-[#2B4A6D] text-white px-4 py-2.5 sm:px-5 sm:py-3 flex items-center justify-between border-b border-gray-700 select-none shrink-0">
           <div className="flex items-center gap-2.5">
             <span className="w-2 h-2 bg-[#D96B33] inline-block"></span>
             <span className="text-xs font-bold tracking-wider uppercase text-white">
@@ -90,7 +90,7 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
             </span>
             <button
               onClick={onClose}
-              className="p-1 text-white/80 hover:text-white hover:bg-white/10 transition-colors rounded-sm"
+              className="p-1 text-white/80 hover:text-white hover:bg-white/10 transition-colors rounded-sm cursor-pointer"
               aria-label="Close dialog"
             >
               <X className="w-4 h-4" />
@@ -100,7 +100,7 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
 
         {/* Modal Scrollable Body with Hidden Scrollbar (Scroll Effect Preserved) */}
         <div 
-          className="p-6 sm:p-8 space-y-6 overflow-y-auto modal-scroll bg-white flex-1"
+          className="p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-6 overflow-y-auto no-scrollbar scrollbar-none bg-white flex-1 min-h-0"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           
@@ -140,11 +140,11 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
           </div>
 
           {/* Upper Section: Photo + Specifications Table (equal height) */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 pt-2 items-stretch">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-6 pt-1 md:pt-2 items-stretch">
 
             {/* Left: Photograph — fills the left card completely with no empty space */}
             <div className="md:col-span-5 flex flex-col h-full">
-              <div className="group relative flex-1 min-h-[240px] w-full overflow-hidden rounded-sm border border-gray-300 hover:border-[#2B4A6D]/40 bg-gray-100 shadow-sm transition-colors duration-300">
+              <div className="group relative flex-1 min-h-[170px] sm:min-h-[210px] md:min-h-[240px] w-full overflow-hidden rounded-sm border border-gray-300 hover:border-[#2B4A6D]/40 bg-gray-100 shadow-sm transition-colors duration-300">
                 <img
                   src={project.detailImage ?? project.image}
                   alt={project.title}
@@ -157,7 +157,7 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
               {project.youtubeUrl && (
                 <button
                   onClick={() => onOpenVideo(project.youtubeUrl || "", project.title)}
-                  className="mt-2.5 shrink-0 w-full flex items-center justify-center gap-2 bg-[#2B4A6D] hover:bg-[#D96B33] text-white text-xs font-medium py-2.5 px-4 rounded-sm transition-colors shadow-sm"
+                  className="mt-2.5 shrink-0 w-full flex items-center justify-center gap-2 bg-[#2B4A6D] hover:bg-[#D96B33] text-white text-xs font-medium py-2 sm:py-2.5 px-4 rounded-sm transition-colors shadow-sm cursor-pointer"
                 >
                   <Play className="w-3.5 h-3.5 fill-current text-[#D96B33]" />
                   <span>Watch Project Video</span>
@@ -373,15 +373,15 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
         </div>
 
         {/* Modal Footer */}
-        <div className="px-6 py-3.5 bg-gray-100 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <span className="text-[11px] text-gray-600 font-medium">
+        <div className="px-4 py-2.5 sm:px-6 sm:py-3.5 bg-gray-100 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-2.5 sm:gap-3 shrink-0">
+          <span className="text-[10px] sm:text-[11px] text-gray-600 font-medium text-center sm:text-left">
             Almondz Global Infra-Consultant Limited (AGICL) • Corporate Project Record
           </span>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
             {project.youtubeUrl && (
               <button
                 onClick={() => onOpenVideo(project.youtubeUrl || "", project.title)}
-                className="px-3.5 py-1.5 border border-gray-300 hover:border-gray-400 bg-white text-gray-800 text-xs font-medium rounded-sm transition-colors flex items-center gap-1.5 shadow-sm"
+                className="px-3.5 py-1.5 border border-gray-300 hover:border-gray-400 bg-white text-gray-800 text-xs font-medium rounded-sm transition-colors flex items-center gap-1.5 shadow-xs cursor-pointer"
               >
                 <Play className="w-3 h-3 fill-current text-[#D96B33]" />
                 <span>Video</span>
@@ -389,7 +389,7 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
             )}
             <button
               onClick={onClose}
-              className="px-5 py-1.5 bg-[#2B4A6D] hover:bg-[#101A29] text-white text-xs font-semibold tracking-wider uppercase transition-colors rounded-sm shadow-sm"
+              className="px-5 py-1.5 bg-[#2B4A6D] hover:bg-[#101A29] text-white text-xs font-semibold tracking-wider uppercase transition-colors rounded-sm shadow-xs cursor-pointer"
             >
               Close
             </button>
