@@ -91,6 +91,44 @@ export interface CorporateGovernanceItem {
 
 export const CORPORATE_GOVERNANCE: CorporateGovernanceItem[] = [
   {
+    slug: 'annual-report',
+    navLabel: 'Annual Report',
+    heroLine: 'ANNUAL REPORT.',
+    eyebrow: 'Statutory Disclosures',
+    intro:
+      'Annual Reports of Almondz Global Infra-Consultant Limited, including the Board Report, audited financial statements and CSR disclosures presented to shareholders at the Annual General Meeting.',
+    // Not present on almondzglobalinfra.com (which now serves this same site) —
+    // added directly from the client-supplied 13th Annual Report PDF.
+    sourcePage: 'N/A — new section, not on the legacy site',
+    documents: [
+      {
+        title: '13th Annual Report — FY 2025-26',
+        summary:
+          "Company overview, Chairman's message, Board Report, audited financial statements and CSR Annual Report for the financial year ended March 31, 2026.",
+        file: '/annual-reports/agicl-annual-report-fy-2025-26.pdf',
+      },
+    ],
+  },
+  {
+    slug: 'terms-of-appointment-independent-directors',
+    navLabel: 'Terms of Appointment of Independent Directors',
+    heroLine: 'TERMS OF APPOINTMENT OF INDEPENDENT DIRECTORS.',
+    eyebrow: 'Board Governance',
+    intro:
+      'Terms and conditions of appointment applicable to the Independent Directors of Almondz Global Infra-Consultant Limited, published in accordance with Schedule IV (Code for Independent Directors) of the Companies Act, 2013.',
+    // Not present on almondzglobalinfra.com (which now serves this same site) —
+    // added directly from the client-supplied terms-of-appointment PDF.
+    sourcePage: 'N/A — new section, not on the legacy site',
+    documents: [
+      {
+        title: 'Terms and Conditions of Appointment of Independent Directors',
+        summary:
+          'Term of appointment, role and duties, remuneration, conflict of interest and code of conduct applicable to Independent Directors of the Company.',
+        file: '/governance/terms-of-appointment-independent-directors.pdf',
+      },
+    ],
+  },
+  {
     slug: 'policy',
     navLabel: 'Policy',
     heroLine: 'POLICY.',

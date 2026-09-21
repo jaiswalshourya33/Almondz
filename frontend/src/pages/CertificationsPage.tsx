@@ -115,12 +115,19 @@ export const CertificationsPage: React.FC = () => {
               >
                 <div className="flex flex-col gap-4">
                   <div className="w-full aspect-[4/3] bg-[#F1F3F5] border border-[#A49050]/20 rounded-md overflow-hidden flex items-center justify-center">
-                    <img
-                      src={cert.image}
-                      alt={cert.title}
-                      referrerPolicy="no-referrer"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
+                    {cert.image ? (
+                      <img
+                        src={cert.image}
+                        alt={cert.title}
+                        referrerPolicy="no-referrer"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    ) : (
+                      <div className="flex flex-col items-center gap-2 text-[#2B4A6D]/40">
+                        <Award className="w-9 h-9" />
+                        <span className="text-[10px] font-mono uppercase tracking-wider">Scan Pending</span>
+                      </div>
+                    )}
                   </div>
                   <h3 className="text-lg font-serif font-bold text-[#2B4A6D] group-hover:text-[#D96B33] transition-colors leading-snug">{cert.title}</h3>
                 </div>
@@ -322,12 +329,19 @@ export const CertificationsPage: React.FC = () => {
 
             {/* Original Certificate Image Preview Box */}
             <div className="bg-[#F1F3F5] border border-[#A49050]/30 rounded-md overflow-hidden flex items-center justify-center shrink-0 h-[65vh]">
-              <img
-                src={selectedCert.image}
-                alt={selectedCert.title}
-                referrerPolicy="no-referrer"
-                className="w-full h-full object-contain"
-              />
+              {selectedCert.image ? (
+                <img
+                  src={selectedCert.image}
+                  alt={selectedCert.title}
+                  referrerPolicy="no-referrer"
+                  className="w-full h-full object-contain"
+                />
+              ) : (
+                <div className="flex flex-col items-center gap-3 text-[#2B4A6D]/40">
+                  <Award className="w-14 h-14" />
+                  <span className="text-xs font-mono uppercase tracking-wider">Certificate scan not yet uploaded</span>
+                </div>
+              )}
             </div>
 
             <div className="flex items-center justify-end pt-4 border-t border-gray-100">

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { X, Play } from 'lucide-react';
+import { X } from 'lucide-react';
 
 interface ProjectVideoModalProps {
   isOpen: boolean;
@@ -7,6 +7,28 @@ interface ProjectVideoModalProps {
   videoUrl?: string;
   title: string;
 }
+
+// Pulls the 11-character YouTube video ID out of any link shape editors might
+// paste in (watch?v=, youtu.be/, embed/, shorts/, with or without extra query
+// params like &t= / &list= / ?si=), then rebuilds a clean embed URL. Building
+// the embed src by naive string-replace (e.g. "watch?v=" -> "embed/") leaves
+// the original "&t=…"/"&list=…" params glued on with an "&" instead of a "?",
+// and youtu.be links aren't matched at all — both silently fail to load or
+// autoplay for the viewer, which is the "every project video is broken" bug.
+const getYouTubeEmbedUrl = (url?: string): string | null => {
+  if (!url) return null;
+
+  const idMatch = url.match(
+    /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/,
+  );
+  if (idMatch) {
+    return `https://www.youtube.com/embed/${idMatch[1]}`;
+  }
+
+  // Already a bare embed URL (or an unrecognised host) — use as-is rather
+  // than silently swapping in an unrelated placeholder video.
+  return url;
+};
 
 export const ProjectVideoModal: React.FC<ProjectVideoModalProps> = ({
   isOpen,
@@ -30,11 +52,8 @@ export const ProjectVideoModal: React.FC<ProjectVideoModalProps> = ({
 
   if (!isOpen) return null;
 
-  // Convert watch URL to embed URL if necessary
-  let embedUrl = videoUrl || "https://www.youtube.com/embed/dQw4w9WgXcQ";
-  if (embedUrl.includes("watch?v=")) {
-    embedUrl = embedUrl.replace("watch?v=", "embed/");
-  }
+  const embedUrl = getYouTubeEmbedUrl(videoUrl);
+  const separator = embedUrl?.includes('?') ? '&' : '?';
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-fade-in">
@@ -64,13 +83,19 @@ export const ProjectVideoModal: React.FC<ProjectVideoModalProps> = ({
 
         {/* Video Frame */}
         <div className="relative aspect-video w-full bg-black">
-          <iframe
-            src={`${embedUrl}?autoplay=1`}
-            title={title}
-            className="w-full h-full border-0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
+          {embedUrl ? (
+            <iframe
+              src={`${embedUrl}${separator}autoplay=1`}
+              title={title}
+              className="w-full h-full border-0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center text-white/60 text-sm font-mono">
+              Video unavailable for this project.
+            </div>
+          )}
         </div>
 
         {/* Footer info */}
