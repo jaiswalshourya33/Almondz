@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Mail, MapPin, Phone, Send, CheckCircle2, Building2, ArrowRight, X } from 'lucide-react';
+import { Mail, MapPin, Phone, Send, CheckCircle2, Building2, ArrowRight, X, FileText } from 'lucide-react';
 import { PageHeroBanner } from '../components/PageHeroBanner';
 import { TeamGallerySlideshow } from '../components/TeamGallerySlideshow';
 import { SECTORS } from '../data/sectors';
@@ -142,7 +142,7 @@ export const ContactPage: React.FC = () => {
   ];
 
   const corporateOffices = [
-    { city: "Mumbai", address: "Level 5, Grande Palladium, 175, CST Road, Off BKC, Kalina, Santacruz (East), Mumbai - 400 098, Maharashtra, INDIA", phone: "+91-22-66437600, +91-22-67526699" },
+    { city: "New Delhi", address: "F-33/3, Okhla Industrial Area, Phase-II, South Delhi, New Delhi, Delhi – 110020, India", phone: "+91-11-43500700, +91-11-43500734" },
   ];
 
   const submissionLabel =
@@ -256,8 +256,8 @@ export const ContactPage: React.FC = () => {
                         <Building2 className="w-5 h-5" />
                       </div>
                       <div>
-                        <span className="text-[10px] font-mono text-[#A49050] uppercase tracking-widest font-bold">CORPORATE HQ</span>
-                        <h3 className="text-xl font-serif font-bold text-white">New Delhi, India</h3>
+                        <span className="text-[10px] font-mono text-[#A49050] uppercase tracking-widest font-bold">REGISTERED OFFICE</span>
+                        <h3 className="text-xl font-serif font-bold text-white">Mumbai, India</h3>
                       </div>
                     </div>
                     <span className="text-[10px] font-mono bg-white/10 text-white/80 px-2.5 py-1 rounded">ISO 9001:2015</span>
@@ -265,24 +265,24 @@ export const ContactPage: React.FC = () => {
 
                   <div className="space-y-4">
                     <div
-                      onClick={() => handleCopy("F-33/3 Okhla Industrial Area, Phase-II, New Delhi-110020, INDIA", "HQ Address")}
+                      onClick={() => handleCopy("Level-5, Grande Palladium, 175, CST Road, Off BKC Kalina, Santacruz (East), Vidyanagari, Mumbai, Maharashtra – 400098, India", "Registered Office Address")}
                       className="flex items-start gap-3.5 p-3.5 bg-white/5 hover:bg-white/10 rounded-md border border-white/10 cursor-pointer transition-colors group/item"
                     >
                       <MapPin className="w-5 h-5 text-[#A49050] shrink-0 mt-0.5 group-hover/item:scale-110 transition-transform" />
                       <div className="flex-1 text-xs font-mono">
-                        <span className="text-white/60 block text-[10px] uppercase">Registered Address</span>
-                        <span className="text-white">F-33/3 Okhla Industrial Area, Phase-II, New Delhi-110020, INDIA</span>
+                        <span className="text-white/60 block text-[10px] uppercase">Registered Office</span>
+                        <span className="text-white">Level-5, Grande Palladium, 175, CST Road, Off BKC Kalina, Santacruz (East), Vidyanagari, Mumbai, Maharashtra – 400098, India</span>
                       </div>
                     </div>
 
                     <div
-                      onClick={() => handleCopy("+91-11-43500700, +91-11-43500734", "Phone Number")}
+                      onClick={() => handleCopy("+91-22-66437600, +91-22-67526699", "Phone Number")}
                       className="flex items-center gap-3.5 p-3.5 bg-white/5 hover:bg-white/10 rounded-md border border-white/10 cursor-pointer transition-colors group/item"
                     >
                       <Phone className="w-5 h-5 text-[#A49050] shrink-0 group-hover/item:scale-110 transition-transform" />
                       <div className="flex-1 text-xs font-mono">
                         <span className="text-white/60 block text-[10px] uppercase">Corporate Exchange</span>
-                        <span className="text-white">+91-11-43500700, +91-11-43500734</span>
+                        <span className="text-white">+91-22-66437600, +91-22-67526699</span>
                       </div>
                     </div>
 
@@ -294,6 +294,17 @@ export const ContactPage: React.FC = () => {
                       <div className="flex-1 text-xs font-mono">
                         <span className="text-white/60 block text-[10px] uppercase">Official Email</span>
                         <span className="text-white">delhi@almondz.com</span>
+                      </div>
+                    </div>
+
+                    <div
+                      onClick={() => handleCopy("U70200MH2013PLC475998", "CIN")}
+                      className="flex items-center gap-3.5 p-3.5 bg-white/5 hover:bg-white/10 rounded-md border border-white/10 cursor-pointer transition-colors group/item"
+                    >
+                      <FileText className="w-5 h-5 text-[#A49050] shrink-0 group-hover/item:scale-110 transition-transform" />
+                      <div className="flex-1 text-xs font-mono">
+                        <span className="text-white/60 block text-[10px] uppercase">Corporate Identification Number (CIN)</span>
+                        <span className="text-white">U70200MH2013PLC475998</span>
                       </div>
                     </div>
                   </div>
@@ -353,7 +364,7 @@ export const ContactPage: React.FC = () => {
                         >
                           <MapPin className="w-5 h-5 text-[#A49050] shrink-0 mt-0.5 group-hover/item:scale-110 transition-transform" />
                           <div className="flex-1 text-xs font-mono">
-                            <span className="text-white/60 block text-[10px] uppercase">Registered Address</span>
+                            <span className="text-white/60 block text-[10px] uppercase">Corporate Office Address</span>
                             <span className="text-white">{office.address}</span>
                           </div>
                         </div>
@@ -370,6 +381,17 @@ export const ContactPage: React.FC = () => {
                             </div>
                           </div>
                         )}
+
+                        <div
+                          onClick={() => handleCopy("U70200MH2013PLC475998", "CIN")}
+                          className="flex items-center gap-3.5 p-3.5 bg-white/5 hover:bg-white/10 rounded-md border border-white/10 cursor-pointer transition-colors group/item"
+                        >
+                          <FileText className="w-5 h-5 text-[#A49050] shrink-0 group-hover/item:scale-110 transition-transform" />
+                          <div className="flex-1 text-xs font-mono">
+                            <span className="text-white/60 block text-[10px] uppercase">Corporate Identification Number (CIN)</span>
+                            <span className="text-white">U70200MH2013PLC475998</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   ))}

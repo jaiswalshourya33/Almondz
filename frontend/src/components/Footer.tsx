@@ -14,12 +14,22 @@ export const Footer: React.FC = () => {
             <Link to="/" className="inline-block self-start -ml-0.5" aria-label="Almondz Home">
               <Logo light={true} className="h-11 sm:h-12" />
             </Link>
-            <div className="flex flex-col gap-1.5 text-xs font-mono text-white/60">
-              <div className="flex items-start gap-2">
+            <div className="flex flex-col gap-2.5 max-w-md text-xs font-mono text-white/60 leading-snug">
+              <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-[#A49050] shrink-0 mt-0.5" />
-                <span>Registered & Corporate Office: F-33/3, Okhla Industrial Area, Phase-II, New Delhi-110020, INDIA</span>
+                <div className="flex flex-col">
+                  <span className="text-[10px] uppercase tracking-widest text-[#A49050]">Registered Office</span>
+                  <span>Level-5, Grande Palladium, 175, CST Road, Off BKC Kalina, Santacruz (East), Vidyanagari, Mumbai, Maharashtra – 400098, India</span>
+                </div>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-start gap-2.5">
+                <MapPin className="w-4 h-4 text-[#A49050] shrink-0 mt-0.5" />
+                <div className="flex flex-col">
+                  <span className="text-[10px] uppercase tracking-widest text-[#A49050]">Corporate Office</span>
+                  <span>F-33/3, Okhla Industrial Area, Phase-II, South Delhi, New Delhi, Delhi – 110020, India</span>
+                </div>
+              </div>
+              <div className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-[#A49050] shrink-0" />
                 <a href="mailto:delhi@almondz.com" className="hover:text-white transition-colors">delhi@almondz.com</a>
               </div>
