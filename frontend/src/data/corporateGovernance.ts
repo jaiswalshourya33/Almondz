@@ -105,7 +105,7 @@ export const CORPORATE_GOVERNANCE: CorporateGovernanceItem[] = [
         title: '13th Annual Report — FY 2025-26',
         summary:
           "Company overview, Chairman's message, Board Report, audited financial statements and CSR Annual Report for the financial year ended March 31, 2026.",
-        file: '/annual-reports/agicl-annual-report-fy-2025-26.pdf',
+        file: '/annual-reports/annual-report-fy-2025-26.pdf',
       },
     ],
   },
