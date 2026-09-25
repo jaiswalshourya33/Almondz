@@ -49,26 +49,26 @@ export const PdfViewerModal: React.FC<PdfViewerModalProps> = ({
   const src = `${file}#toolbar=0&navpanes=0&statusbar=0&view=FitH`;
 
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 sm:p-6 md:p-8">
+    <div className="fixed inset-0 z-[60] flex items-center justify-center p-2 sm:p-4">
       <div
         className="pdf-viewer-modal__backdrop absolute inset-0 bg-[#0B1220]/85 backdrop-blur-md"
         onClick={onClose}
         aria-label="Close viewer background"
       />
 
-      <div className="pdf-viewer-modal__panel relative z-10 flex h-[78vh] sm:h-[84vh] md:h-[88vh] w-full max-w-[92vw] sm:max-w-2xl md:max-w-4xl lg:max-w-5xl flex-col overflow-hidden rounded-2xl border border-[#A49050]/35 bg-[#2B4A6D] shadow-2xl transition-all">
+      <div className="pdf-viewer-modal__panel relative z-10 flex h-[calc(100dvh-1rem)] sm:h-[calc(100dvh-2rem)] w-full max-w-[860px] flex-col overflow-hidden rounded-2xl border border-[#2B4A6D]/20 bg-white shadow-2xl transition-all">
         {/* Header */}
-        <div className="flex items-center justify-between gap-3 border-b border-white/10 bg-[#101A29] px-4 py-3 sm:px-6 sm:py-4">
+        <div className="flex items-center justify-between gap-3 border-b border-[#2B4A6D]/20 bg-[#D3DEEA] px-4 py-2.5 sm:px-5 sm:py-3">
           <div className="flex min-w-0 items-center gap-2.5 sm:gap-3.5">
-            <span className="flex h-7 w-7 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-lg border border-[#D6C489]/25 bg-white/5 text-[#D6C489]">
+            <span className="flex h-7 w-7 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-lg border border-[#2B4A6D]/20 bg-white text-[#2B4A6D]">
               <FileText className="h-4 w-4 sm:h-[18px] sm:w-[18px]" />
             </span>
             <div className="min-w-0">
-              <h3 className="truncate font-serif text-sm font-bold leading-tight tracking-wide text-white sm:text-base md:text-lg">
+              <h3 className="truncate font-serif text-sm font-bold leading-tight tracking-wide text-[#2B4A6D] sm:text-base md:text-lg">
                 {kicker} — {title}
               </h3>
               {subtitle && (
-                <p className="mt-0.5 text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.2em] text-white/50">
+                <p className="mt-0.5 text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.2em] text-[#2B4A6D]/55">
                   {subtitle} · View only
                 </p>
               )}
@@ -76,7 +76,7 @@ export const PdfViewerModal: React.FC<PdfViewerModalProps> = ({
           </div>
           <button
             onClick={onClose}
-            className="shrink-0 rounded-lg border border-white/10 bg-white/5 p-1.5 sm:p-2 text-white/70 shadow transition-all duration-300 hover:border-[#D96B33] hover:bg-[#D96B33] hover:text-white hover:shadow-lg cursor-pointer"
+            className="shrink-0 rounded-lg border border-[#2B4A6D]/15 bg-white p-1.5 sm:p-2 text-[#2B4A6D]/70 shadow-sm transition-all duration-300 hover:border-[#D96B33] hover:bg-[#D96B33] hover:text-white hover:shadow-lg cursor-pointer"
             aria-label="Close viewer"
           >
             <X className="h-4 w-4 sm:h-5 sm:w-5" />
@@ -85,20 +85,23 @@ export const PdfViewerModal: React.FC<PdfViewerModalProps> = ({
 
         {/* Document */}
         <div
-          className="relative flex-1 bg-[#5B6470]"
+          className="relative min-h-0 flex-1 overflow-hidden bg-[#C9D5E3]"
           onContextMenu={(e) => e.preventDefault()}
         >
+          {/* The native PDF viewer's scrollbar lives inside the iframe and can't be
+              styled, so the frame is widened past the panel and the overflow clipped
+              to push the scrollbar out of view. Wheel/touch scrolling still works. */}
           <iframe
             src={src}
             title={`${kicker} ${title}${subtitle ? ` (${subtitle})` : ''}`}
-            className="h-full w-full border-0"
+            className="absolute inset-y-0 left-0 h-full w-[calc(100%+20px)] max-w-none border-0"
           />
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between border-t border-white/10 bg-[#101A29] px-4 py-2.5 sm:px-6 sm:py-3 text-[9px] sm:text-xs font-mono uppercase tracking-[0.16em] text-white/55">
+        <div className="flex items-center justify-between border-t border-[#2B4A6D]/20 bg-[#D3DEEA] px-4 py-2 sm:px-5 sm:py-2.5 text-[9px] sm:text-[11px] font-mono uppercase tracking-[0.16em] text-[#2B4A6D]/60">
           <span className="truncate max-w-[55%]">Almondz Global Infra</span>
-          <span className="text-[#D6C489] truncate max-w-[45%] text-right">{footerNote}</span>
+          <span className="text-[#2B4A6D] font-semibold truncate max-w-[45%] text-right">{footerNote}</span>
         </div>
       </div>
     </div>
