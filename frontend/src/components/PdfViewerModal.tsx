@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { X, FileText } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { X, FileText, FileWarning } from 'lucide-react';
 
 interface PdfViewerModalProps {
   isOpen: boolean;
@@ -20,6 +20,10 @@ interface PdfViewerModalProps {
  * View-only PDF reader. The document is embedded with the native PDF toolbar
  * suppressed (`#toolbar=0`), so there is no in-frame download or print control,
  * and the modal itself offers no download link — the filing can be read, not saved.
+ *
+ * Before embedding, the file is probed: the host's SPA rewrite answers a missing
+ * PDF with the app's HTML (and its 404 page), so anything that isn't served as a
+ * PDF shows an "unavailable" notice instead of the site rendering inside the frame.
  */
 export const PdfViewerModal: React.FC<PdfViewerModalProps> = ({
   isOpen,
@@ -30,6 +34,23 @@ export const PdfViewerModal: React.FC<PdfViewerModalProps> = ({
   kicker = 'Annual Return',
   footerNote = 'Registrar of Companies Filing',
 }) => {
+  const [status, setStatus] = useState<'checking' | 'ready' | 'missing'>('checking');
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const controller = new AbortController();
+    setStatus('checking');
+    fetch(file, { method: 'HEAD', signal: controller.signal })
+      .then((res) => {
+        const type = res.headers.get('content-type') ?? '';
+        setStatus(res.ok && type.includes('pdf') ? 'ready' : 'missing');
+      })
+      .catch((err) => {
+        if (err.name !== 'AbortError') setStatus('missing');
+      });
+    return () => controller.abort();
+  }, [isOpen, file]);
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
@@ -91,11 +112,27 @@ export const PdfViewerModal: React.FC<PdfViewerModalProps> = ({
           {/* The native PDF viewer's scrollbar lives inside the iframe and can't be
               styled, so the frame is widened past the panel and the overflow clipped
               to push the scrollbar out of view. Wheel/touch scrolling still works. */}
-          <iframe
-            src={src}
-            title={`${kicker} ${title}${subtitle ? ` (${subtitle})` : ''}`}
-            className="absolute inset-y-0 left-0 h-full w-[calc(100%+20px)] max-w-none border-0"
-          />
+          {status === 'ready' && (
+            <iframe
+              src={src}
+              title={`${kicker} ${title}${subtitle ? ` (${subtitle})` : ''}`}
+              className="absolute inset-y-0 left-0 h-full w-[calc(100%+20px)] max-w-none border-0"
+            />
+          )}
+          {status === 'checking' && (
+            <div className="flex h-full items-center justify-center">
+              <span className="h-8 w-8 animate-spin rounded-full border-2 border-[#2B4A6D]/20 border-t-[#2B4A6D]" />
+            </div>
+          )}
+          {status === 'missing' && (
+            <div className="flex h-full flex-col items-center justify-center gap-3 px-6 text-center">
+              <FileWarning className="h-10 w-10 text-[#D96B33]" />
+              <p className="font-serif text-lg font-bold text-[#2B4A6D] sm:text-xl">Document not available</p>
+              <p className="max-w-md text-sm text-[#2B4A6D]/70">
+                This document is currently being updated and will be available here shortly.
+              </p>
+            </div>
+          )}
         </div>
 
         {/* Footer */}

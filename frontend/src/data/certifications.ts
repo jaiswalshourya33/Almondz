@@ -1,30 +1,30 @@
 export interface Certification {
   title: string;
   /**
-   * Path to a locally hosted scan of the certificate, if one has been supplied.
-   * Left unset when no local file exists yet — the page shows a placeholder
-   * badge instead of a broken image rather than hot-linking a third-party URL.
+   * Locally hosted page scans of the certificate (served from /public), in
+   * document order. The first page is the card thumbnail; the viewer shows every
+   * page. Left unset when no scan has been supplied yet — the page shows a
+   * placeholder badge instead of a broken image.
    */
-  image?: string;
+  pages?: string[];
 }
 
-// The previous entries hot-linked image URLs on almondzglobalinfra.com
-// (e.g. "https://almondzglobalinfra.com/media/media/927632341_1.jpg"). That
-// domain now serves this same site, so those paths just 404 into the SPA's
-// index.html — every certificate rendered as a broken image. Titles are kept;
-// `image` is left unset until an actual certificate scan is supplied for that
-// entry (see CertificationsPage's placeholder fallback).
+const scans = (slug: string, count = 1) =>
+  Array.from({ length: count }, (_, i) => `/certifications/${slug}-${i + 1}.jpg`);
+
+// Scans are rendered from the client-supplied PDFs. Entries without `pages` are
+// still awaiting a scan (see CertificationsPage's placeholder fallback).
 export const CERTIFICATIONS: Certification[] = [
-  { title: "Certificate of Compliance" },
+  { title: "Certificate of Compliance", pages: scans('certificate-of-compliance-cmmi-l3') },
   { title: "Empanelment Letter" },
-  { title: "ISO 14001" },
+  { title: "ISO 14001", pages: scans('iso-14001') },
   { title: "LEI Certificate" },
-  { title: "Phd Chamber of Commerce" },
-  { title: "Udyam Registration Certificate With Annexure" },
-  { title: "E-Certificate 18AAMCA2593F1ZH" },
+  { title: "Phd Chamber of Commerce", pages: scans('phd-chamber-of-commerce') },
+  { title: "Udyam Registration Certificate With Annexure", pages: scans('udyam-registration', 3) },
+  { title: "E-Certificate 18AAMCA2593F1ZH", pages: scans('gst-e-certificate-18AAMCA2593F1ZH') },
   { title: "E-Certificate-27AAMCA2593F1ZI" },
-  { title: "Certificate TC-15549 NABL" },
-  { title: "Scope of Accrediation -NABL" },
+  { title: "Certificate TC-15549 NABL", pages: scans('nabl-certificate-tc-15549') },
+  { title: "Scope of Accrediation -NABL", pages: scans('nabl-scope-of-accreditation', 4) },
   { title: "Membership Certificate 1" },
   { title: "ISO 45001" },
   { title: "Appreciation Certificate" },

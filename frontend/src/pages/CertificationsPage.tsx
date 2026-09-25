@@ -115,12 +115,12 @@ export const CertificationsPage: React.FC = () => {
               >
                 <div className="flex flex-col gap-4">
                   <div className="w-full aspect-[4/3] bg-[#F1F3F5] border border-[#A49050]/20 rounded-md overflow-hidden flex items-center justify-center">
-                    {cert.image ? (
+                    {cert.pages?.length ? (
                       <img
-                        src={cert.image}
+                        src={cert.pages[0]}
                         alt={cert.title}
-                        referrerPolicy="no-referrer"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
+                        className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                       />
                     ) : (
                       <div className="flex flex-col items-center gap-2 text-[#2B4A6D]/40">
@@ -328,14 +328,22 @@ export const CertificationsPage: React.FC = () => {
             </div>
 
             {/* Original Certificate Image Preview Box */}
-            <div className="bg-[#F1F3F5] border border-[#A49050]/30 rounded-md overflow-hidden flex items-center justify-center shrink-0 h-[65vh]">
-              {selectedCert.image ? (
-                <img
-                  src={selectedCert.image}
-                  alt={selectedCert.title}
-                  referrerPolicy="no-referrer"
-                  className="w-full h-full object-contain"
-                />
+            <div
+              className={`bg-[#F1F3F5] border border-[#A49050]/30 rounded-md shrink-0 h-[65vh] ${
+                selectedCert.pages?.length ? 'overflow-y-auto p-3 sm:p-4' : 'overflow-hidden flex items-center justify-center'
+              }`}
+            >
+              {selectedCert.pages?.length ? (
+                <div className={`flex flex-col items-center gap-4 ${selectedCert.pages.length === 1 ? 'h-full justify-center' : ''}`}>
+                  {selectedCert.pages.map((page, i) => (
+                    <img
+                      key={page}
+                      src={page}
+                      alt={selectedCert.pages!.length > 1 ? `${selectedCert.title} — page ${i + 1}` : selectedCert.title}
+                      className={`w-auto max-w-full shadow-md ${selectedCert.pages!.length === 1 ? 'max-h-full object-contain' : ''}`}
+                    />
+                  ))}
+                </div>
               ) : (
                 <div className="flex flex-col items-center gap-3 text-[#2B4A6D]/40">
                   <Award className="w-14 h-14" />
