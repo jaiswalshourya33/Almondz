@@ -6,7 +6,7 @@ import type { GeneralMeetingCategory } from '../data/corporateGovernance';
 
 interface GeneralMeetingNoticesSectionProps {
   generalMeetings: GeneralMeetingCategory[];
-  onSelectNotice: (file: string, title: string, category?: string) => void;
+  onSelectNotice: (file: string, title: string, category?: string, period?: string) => void;
 }
 
 export const GeneralMeetingNoticesSection: React.FC<GeneralMeetingNoticesSectionProps> = ({
@@ -194,7 +194,7 @@ export const GeneralMeetingNoticesSection: React.FC<GeneralMeetingNoticesSection
                         <td className="py-4 px-4 text-right">
                           <button
                             type="button"
-                            onClick={() => onSelectNotice(notice.file, notice.label, currentCategory.category)}
+                            onClick={() => onSelectNotice(notice.file, notice.label, currentCategory.category, notice.period)}
                             className="inline-flex items-center gap-1.5 bg-[#2B4A6D] hover:bg-[#D96B33] text-white px-3.5 py-2 text-xs font-mono font-bold tracking-wider uppercase rounded-lg transition-colors shadow-2xs cursor-pointer"
                             aria-label={`View ${notice.label}`}
                           >
@@ -227,7 +227,7 @@ export const GeneralMeetingNoticesSection: React.FC<GeneralMeetingNoticesSection
 
                       <button
                         type="button"
-                        onClick={() => onSelectNotice(notice.file, notice.label, currentCategory.category)}
+                        onClick={() => onSelectNotice(notice.file, notice.label, currentCategory.category, notice.period)}
                         className="shrink-0 inline-flex items-center gap-1.5 bg-[#2B4A6D] active:bg-[#D96B33] text-white px-3.5 py-1.5 text-xs font-mono font-bold tracking-wider uppercase rounded-lg transition-colors shadow-2xs cursor-pointer"
                         aria-label={`View ${notice.label}`}
                       >

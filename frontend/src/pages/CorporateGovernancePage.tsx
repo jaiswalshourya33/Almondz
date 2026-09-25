@@ -28,6 +28,7 @@ export const CorporateGovernancePage: React.FC = () => {
     title: string;
     subtitle?: string;
     kicker?: string;
+    footerNote?: string;
   } | null>(null);
 
   // Reset transient state when navigating between governance pages.
@@ -114,12 +115,13 @@ export const CorporateGovernancePage: React.FC = () => {
             {generalMeetings.length > 0 && (
               <GeneralMeetingNoticesSection
                 generalMeetings={generalMeetings}
-                onSelectNotice={(file, title, category) =>
+                onSelectNotice={(file, title, category, period) =>
                   setActivePdf({
                     file,
-                    title,
+                    title: period ? `${title} · ${period}` : title,
                     subtitle: category,
                     kicker: 'Meeting Notice',
+                    footerNote: 'Notice to Members · Sec. 101',
                   })
                 }
               />
@@ -163,6 +165,7 @@ export const CorporateGovernancePage: React.FC = () => {
           title={activePdf.title}
           subtitle={activePdf.subtitle}
           kicker={activePdf.kicker}
+          footerNote={activePdf.footerNote}
         />
       )}
     </div>
